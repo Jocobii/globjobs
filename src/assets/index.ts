@@ -1,0 +1,13 @@
+export { default as pdfIcon } from './pdf.png';
+export { default as xlsIcon } from './xls.png';
+export { default as txtIcon } from './txt.png';
+export { default as csvIcon } from './csv.png';
+export { default as pngIcon } from './png.png';
+export { default as fileIcon } from './file.png';
+export { default as mexicanFlag } from './ic_flag_es.svg';
+export { default as usaFlag } from './ic_flag_en.svg';
+export { default as logistics } from './logistics.svg';
+export { default as logo_gglobal } from './LogoG-Global.svg';
+export { default as logoglobalization } from './logoglobalization.svg';
+export { default as globalizationrow } from './g-global-row.png';
+export { default as gArrow } from './g-arrow.svg';
