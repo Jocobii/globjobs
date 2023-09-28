@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
 import { Box, Theme } from '@mui/material';
-
+import { useTheme } from '@mui/material/styles';
 import { DataContext } from '../contexts/AppContext';
 
 import { HEADER, NAVBAR } from '../utils/config';
@@ -46,12 +46,13 @@ export default function DashboardLayout() {
   const { collapseClick, isCollapse } = useContext(DataContext);
 
   const [open, setOpen] = useState(false);
-
+  const theme = useTheme();
   return (
       <Box
         sx={{
           display: { lg: 'flex' },
           minHeight: { lg: 1 },
+          backgroundColor: theme.palette.background.paper,
         }}
       >
         <DashboardHeader isCollapse={isCollapse} onOpenSidebar={() => setOpen(true)} />

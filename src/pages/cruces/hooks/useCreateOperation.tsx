@@ -2,11 +2,13 @@ import { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FileDropZone } from '@/typings/files';
-import { CreateCrossingType, Crossing } from '../types'
+import {
+  CreateCrossingType, nodesSchema, NodesSchema,
+} from '../types'
 
 export function useCreateOperation(id: string) {
   const navigate = useNavigate();
-  const [crossing, setCrossing] = useState<Crossing>({} as Crossing)
+  const [nodes, setNodes] = useState<NodesSchema>({} as NodesSchema)
   const [crossingValues, setCrossingValues] = useState<CreateCrossingType>({} as CreateCrossingType);
   const [files, setFiles] = useState<FileDropZone[]>([]);
   console.log('files', files);
@@ -34,7 +36,7 @@ export function useCreateOperation(id: string) {
 
     const config = {
       method: 'post',
-      url: 'http://localhost:3340/api/crossing/createCrossing',
+      url: 'http://localhost:3340/api/crossing/createNodesCrossing',
       headers: { 
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTY3OTExZDg0YjI0NGY0OTQ2NzZhMyIsIm5hbWUiOiJBbGV4YW5kZXIgSm9jb2JpIiwiZW1haWwiOiJhbGV4YW5kZXIuam9jb2JpQGctZ2xvYmFsLmNvbSIsImlhdCI6MTY5MzU5MjY2MH0.ToSrAjk42sjcjggDYhgJSRzpuWE4FOjvFD7fJtnnOPA', 
       },
@@ -43,10 +45,8 @@ export function useCreateOperation(id: string) {
 
     axios.request(config)
     .then((response) => {
-      const { _id: id } = response.data;
-      console.log(response.data);
-      navigate(`../${id}`, { relative: 'path' })
-      setCrossing(response.data)
+      const data = nodesSchema.parse(response.data);
+      setNodes(data)
       setFiles([]);
     })
     .catch((error) => {
@@ -64,7 +64,7 @@ export function useCreateOperation(id: string) {
     setFiles,
     onSubmit,
     setCrossingValues,
-    crossing,
-    setCrossing,
+    nodes,
+    setNodes,
   }
 }
