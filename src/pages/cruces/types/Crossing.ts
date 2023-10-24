@@ -1,12 +1,14 @@
 import { z } from 'zod'
 import { userSchema, StatusSchema } from '@/typings'
-import { MyNodeModel } from '@/typings/schemas/Node'
+import { nodeSchema } from '@/typings/schemas/Node'
 
-export const nodes = z.object({
-  tree: z.array(MyNodeModel),
-  externalNode: z.array(MyNodeModel),
-  dispatchFileNode: z.array(MyNodeModel)
+export const nodesSchema = z.object({
+  tree: z.array(nodeSchema),
+  externalNode: z.array(nodeSchema),
+  dispatchFileNode: z.array(nodeSchema)
 })
+
+export type NodesSchema = z.infer<typeof nodesSchema>
 
 export const RequiredActions = z.array(z.object({
   fileNodeId: z.string(),
@@ -32,7 +34,7 @@ const MinimalUser = userSchema.pick({
   lastName: true,
 });
 
-export const Crossing = z.object({
+export const crossingSchema = z.object({
   id: z.string(),
   number: z.string(),
   client: z.string({
@@ -54,7 +56,7 @@ export const Crossing = z.object({
   }),
   status: StatusSchema,
   typeModulation: z.string().optional(),
-  nodes: nodes,
+  nodes: nodesSchema,
   sentDarwin: z.boolean(),
   history: History,
   createBy: z.object({
@@ -66,9 +68,9 @@ export const Crossing = z.object({
   requiredActions: RequiredActions
 });
 
-export type Crossing = z.infer<typeof Crossing>;
+export type CrossingSchema = z.infer<typeof crossingSchema>;
 
-export const CreateCrossing = Crossing.pick({
+export const CreateCrossing = crossingSchema.pick({
   type: true,
   client: true,
   clientNumber: true,

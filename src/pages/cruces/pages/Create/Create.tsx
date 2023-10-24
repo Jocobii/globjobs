@@ -9,9 +9,9 @@ import { useCreateOperation } from '../../hooks'
 function CreateNewOperationLayout() {
   const { id } = useParams();
   const {
-    files, setFiles, setCrossingValues, crossing,
+    files, setFiles, setCrossingValues, nodes,
   } = useCreateOperation(id ?? '');
-  console.log('crossing', crossing);
+  console.log('nodes', nodes);
   return (
     <Paper elevation={20}>
       {/* <ConfirmDialog
@@ -70,8 +70,7 @@ function CreateNewOperationLayout() {
             <Button
               variant="contained"
             >
-              {/* {t('cruces.onSend.requestOperation')} */}
-              Solicitar operacion
+              Enviar a anexo 22
             </Button>
             <Button
               variant="outlined"
@@ -79,13 +78,11 @@ function CreateNewOperationLayout() {
               // disabled={tree.length === 0 && externalNode.length === 0}
             >
               Guardar operacion
-              {/* {t('cruces.save_operation')} */}
             </Button>
             <Button
               variant="outlined"
               // onClick={() => navigate('../all')}
             >
-              {/* {t('cruces.cancel')} */}
               Cancelar operacion
             </Button>
           </Stack>

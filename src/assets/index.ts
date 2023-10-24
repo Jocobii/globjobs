@@ -11,3 +11,4 @@ export { default as logo_gglobal } from './LogoG-Global.svg';
 export { default as logoglobalization } from './logoglobalization.svg';
 export { default as globalizationrow } from './g-global-row.png';
 export { default as gArrow } from './g-arrow.svg';
+export { default as xmlIcon } from './xml.png';
