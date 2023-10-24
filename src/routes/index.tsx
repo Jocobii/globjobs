@@ -5,11 +5,27 @@ import LogoOnlyLayout from '@/layouts/LogoOnlyLayout';
 
 import LoadingScreen from '@/components/LoadingScreen';
 
-const CrucesHome = loadable(() => import('../pages/cruces/Home'), {
+const CrucesHome = loadable(() => import('@monorepo/cruces/app/page/Cruces'), {
   fallback: <LoadingScreen />,
 });
 
-const CreateCruce = loadable(() => import('../pages/cruces/pages/Create/Create'), {
+const CrucesDetail = loadable(() => import('@monorepo/cruces/app/page/CruceDetail'), {
+  fallback: <LoadingScreen />,
+});
+
+const RemoteTraffic = loadable(() => import('@monorepo/cruces/modules/traffic'), {
+  fallback: <LoadingScreen />,
+});
+
+const RemoteTrafficDetail = loadable(() => import('@monorepo/cruces/modules/traffic/pages/detail'), {
+  fallback: <LoadingScreen />,
+});
+
+const RemotePedimento = loadable(() => import('@monorepo/cruces/modules/pedimento'), {
+  fallback: <LoadingScreen />,
+});
+
+const RemotePedimentoDetail = loadable(() => import('@monorepo/cruces/modules/pedimento/pages/detail'), {
   fallback: <LoadingScreen />,
 });
 
@@ -115,17 +131,17 @@ export default function Router() {
       ],
     },
     {
-      path: 'cruces',
+      path: 'c',
       element: (<DashboardLayout />),
       children: [
-        { element: <Navigate to="/cruces/all" replace />, index: true },
+        { element: <Navigate to="/c/cruces" replace />, index: true },
         {
-          path: '/cruces/all',
+          path: 'cruces',
           element: <CrucesHome />,
         },
         {
-          path: '/cruces/create/:id',
-          element: <CreateCruce />,
+          path: 'cruces/detail/:id',
+          element: <CrucesDetail />,
         },
       ],
     },
@@ -197,6 +213,36 @@ export default function Router() {
         {
           path: 'adp',
           element: <AdpHome />,
+        },
+      ],
+    },
+    {
+      path: 't',
+      element: (<DashboardLayout/>),
+      children: [
+        { element: <Navigate to="/t/operation/readyDocuments" replace />, index: true },
+        {
+          path: 'operation/:status',
+          element: <RemoteTraffic />,
+        },
+        {
+          path: 'operation/detail/:id',
+          element: <RemoteTrafficDetail />,
+        },
+      ],
+    },
+    {
+      path: 'p',
+      element: (<DashboardLayout/>),
+      children: [
+        { element: <Navigate to="/p/pedimento" replace />, index: true },
+        {
+          path: 'pedimento',
+          element: <RemotePedimento />,
+        },
+        {
+          path: 'pedimento/:id',
+          element: <RemotePedimentoDetail />,
         },
       ],
     },

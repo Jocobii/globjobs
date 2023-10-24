@@ -44,6 +44,7 @@ specifiers:
   mongoose: ^7.6.3
   notistack: ^3.0.1
   prettier: ^3.0.2
+  print-js: ^1.6.0
   react: ^18.2.0
   react-dnd: ^16.0.1
   react-dnd-html5-backend: ^16.0.1
@@ -92,6 +93,7 @@ dependencies:
   lodash: 4.17.21
   mongoose: 7.6.3
   notistack: 3.0.1_react-dom@18.2.0+react@18.2.0
+  print-js: 1.6.0
   react: 18.2.0
   react-dnd: 16.0.1_4ec0726b4bb7802d5bd0ac1fc5260d86
   react-dnd-html5-backend: 16.0.1
@@ -3738,6 +3740,10 @@ packages:
       ansi-styles: 5.2.0
       react-is: 18.2.0
     dev: true
+
+  /print-js/1.6.0:
+    resolution: {integrity: sha512-BfnOIzSKbqGRtO4o0rnj/K3681BSd2QUrsIZy/+WdCIugjIswjmx3lDEZpXB2ruGf9d4b3YNINri81+J0FsBWg==}
+    dev: false
 
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}

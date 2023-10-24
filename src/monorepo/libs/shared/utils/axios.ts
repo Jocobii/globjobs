@@ -1,8 +1,9 @@
 import Axios, { AxiosRequestConfig } from 'axios';
 
+const { VITE_GATEWAY_API } = import.meta.env;
+
 const axios = Axios.create({
-  baseURL: '/api',
-  withCredentials: true,
+  baseURL: `${VITE_GATEWAY_API}/api`,
 });
 
 axios.interceptors.request.use((request: AxiosRequestConfig) => {
