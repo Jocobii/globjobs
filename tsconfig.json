@@ -22,6 +22,22 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"],
+      "@monorepo/*": [
+        "./monorepo/*"
+      ],
+      "@gsuite/contexts/*": [
+        "./monorepo/libs/shared/contexts/*"
+      ],
+      "@gsuite/hooks/*": [
+        "./monorepo/libs/shared/hooks/*"
+      ],
+      "@gsuite/typings/*": ["./monorepo/libs/typings/*"],
+      "@gsuite/shared/*": [
+        "./monorepo/libs/shared/*"
+      ],
+      "@gsuite/ui/*": [
+        "./monorepo/libs/ui/*"
+      ]
     }
   },
   "include": ["src"],
