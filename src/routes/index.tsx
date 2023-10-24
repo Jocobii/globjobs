@@ -5,10 +5,6 @@ import LogoOnlyLayout from '@/layouts/LogoOnlyLayout';
 
 import LoadingScreen from '@/components/LoadingScreen';
 
-const Broker = loadable(() => import('../pages/Broker'), {
-  fallback: <LoadingScreen />,
-});
-
 const CrucesHome = loadable(() => import('../pages/cruces/Home'), {
   fallback: <LoadingScreen />,
 });
@@ -22,6 +18,10 @@ const SuiteUiComponents = loadable(() => import('../pages/ui/Main'), {
 });
 
 const MenuModule = loadable(() => import('@monorepo/managments/modules/menu'), {
+  fallback: <LoadingScreen />,
+});
+
+const AdpHome = loadable(() => import('@monorepo/managments/modules/adp'), {
   fallback: <LoadingScreen />,
 });
 
@@ -69,6 +69,18 @@ const UsersHome = loadable(() => import('@monorepo/managments/modules/users'), {
   fallback: <LoadingScreen />,
 });
 
+const BrokerHome = loadable(() => import('@monorepo/broker/app/app'), {
+  fallback: <LoadingScreen />,
+});
+
+const BrokerDetail = loadable(() => import('@monorepo/broker/app/page/GOPSDetail'), {
+  fallback: <LoadingScreen />,
+});
+
+const RemoteBrokerReferences = loadable(() => import('@monorepo/broker/app/page/References'), {
+  fallback: <LoadingScreen />,
+});
+
 const NotFound = loadable(() => import('../pages/NotFound'), {
   fallback: <LoadingScreen />,
 });
@@ -81,16 +93,24 @@ export default function Router() {
     },
     {
       path: 'g',
-      element: (<DashboardLayout />),
+      element: (<DashboardLayout/>),
       children: [
         { element: <Navigate to="/g/ops" replace />, index: true },
         {
           path: 'ops',
-          element: <Broker />,
+          element: <BrokerHome />,
+        },
+        {
+          path: 'ops/references',
+          element: <RemoteBrokerReferences />,
         },
         {
           path: 'ops/status/:status',
-          element: <Broker />,
+          element: <BrokerHome />,
+        },
+        {
+          path: 'ops/detail/:id',
+          element: <BrokerDetail />,
         },
       ],
     },
@@ -174,10 +194,10 @@ export default function Router() {
       element: (<DashboardLayout />),
       children: [
         { element: <Navigate to="/f/adp" replace />, index: true },
-        // {
-        //   path: 'adp',
-        //   element: <AdpHome />,
-        // },
+        {
+          path: 'adp',
+          element: <AdpHome />,
+        },
       ],
     },
     {
