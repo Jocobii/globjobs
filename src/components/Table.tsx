@@ -159,9 +159,10 @@ export default function Table({
       ) => {
         const { row } = params;
         const { completed: value, isCanceled } = row;
-        if (isCanceled) return <Chip color="error" label="Canceled" />;
+        if (isCanceled) return <Chip color="error" label="Canceled" sx={{ color: '#fff', fontWeight: 600 }} />;
         return (
           <Chip
+            sx={{ fontWeight: 600 }}
             color={value ? "success" : "warning"}
             label={value ? "Completed" : "In Progress"}
           />

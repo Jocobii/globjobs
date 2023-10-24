@@ -16,7 +16,7 @@ function OperationButtons({ statusFilter, handleCreateOperation }: Props) {
   const navigate = useNavigate();
   const [openSelectOperation, setOpenSelectOperation] = useState<boolean>(false);
   return (
-    <Stack direction="row" spacing={2} sx={{ mt: 2 }} justifyContent="flex-start" alignItems="center">
+    <Stack direction="row" spacing={3} sx={{ my: 3 }} justifyContent="flex-start" alignItems="center">
       <Button
         sx={{ py: 1, my: 1, width: 200 }}
         onClick={() => setOpenSelectOperation(true)}

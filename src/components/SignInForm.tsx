@@ -1,18 +1,24 @@
 import { useState } from 'react';
+
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-
 import {
-  Stack, Alert, TextField, IconButton, InputAdornment,
+  Stack, 
+  Alert, 
+  TextField, 
+  IconButton, 
+  InputAdornment,
+  TextFieldProps,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
+import useAuthentication from '@/hooks/useAuthentication';
 import { SignInFormValues } from '../typings/auth';
-import useAuth from '../hooks/useAuth';
 import { hashPassword } from '../utils/hasher';
 
 const schema = yup.object({
@@ -20,9 +26,27 @@ const schema = yup.object({
   password: yup.string().min(5).trim().required(),
 });
 
+const StyledTextField = styled(TextField)<TextFieldProps>(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    color: '#000',
+    '& fieldset': {
+      border: '2px solid',
+      borderColor: theme.palette.action.disabled,
+    },
+    '&:hover fieldset': {
+      borderColor: theme.palette.primary.main,
+    },
+  },
+  '& .Mui-error': {
+    '&:hover fieldset': {
+      borderColor: theme.palette.error.main,
+    },
+  }
+}));
+
 export default function SignInForm() {
   const { t } = useTranslation();
-  const { login } = useAuth();
+  const { handleEmailLogin } = useAuthentication();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,12 +60,13 @@ export default function SignInForm() {
       email: '',
       password: '',
     },
+    mode: 'onChange',
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (formValues: SignInFormValues) => {
     try {
-      await login(formValues.email, hashPassword(formValues.password));
+      await handleEmailLogin(formValues.email, hashPassword(formValues.password));
     } catch (error) {
       let message: string = error as string;
       if (typeof error !== 'string') message = (error as Error).message;
@@ -71,7 +96,7 @@ export default function SignInForm() {
               onChange, onBlur, value, name,
             },
           }) => (
-            <TextField
+            <StyledTextField
               fullWidth
               name={name}
               onChange={onChange}
@@ -96,7 +121,7 @@ export default function SignInForm() {
               onChange, onBlur, value, name,
             },
           }) => (
-            <TextField
+            <StyledTextField
               fullWidth
               name={name}
               onChange={onChange}
@@ -129,6 +154,7 @@ export default function SignInForm() {
           variant="contained"
           loading={isSubmitting}
           data-cy="submit"
+          disableElevation
         >
           {t('signInButton')}
         </LoadingButton>

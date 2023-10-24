@@ -6,7 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import MenuPopover from './MenuPopover';
-import useAuth from '../hooks/useAuth';
+import useAuthentication from '@/hooks/useAuthentication';
 
 const MENU_OPTIONS = [
   {
@@ -20,14 +20,13 @@ const MENU_OPTIONS = [
 ];
 
 export default function AccountPopover() {
-  const { user, logout } = useAuth();
+  const { user, handleLogOut } = useAuthentication();
   const [open, setOpen] = useState<Element | null>(null);
 
   const handleOpen = (event: MouseEvent<HTMLButtonElement>) => setOpen(event.currentTarget);
   const handleClose = () => setOpen(null);
-  const handleLogout = () => logout();
 
-  const fullName = user ? user.fullName : 'loading...';
+  const fullName = `${user?.name} ${user?.lastName}` || 'loading...';
 
   return (
     <>
@@ -48,7 +47,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src="" alt="Antonio Orozco" />
+        <Avatar alt={`${user?.name} ${user?.lastName}`} src={user?.photoUrl} />
       </IconButton>
 
       <MenuPopover
@@ -86,7 +85,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem sx={{ m: 1 }} onClick={handleLogout}>
+        <MenuItem sx={{ m: 1 }} onClick={handleLogOut}>
           Logout
         </MenuItem>
       </MenuPopover>

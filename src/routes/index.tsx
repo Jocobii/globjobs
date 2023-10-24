@@ -2,6 +2,8 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import loadable from '@loadable/component';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import LogoOnlyLayout from '@/layouts/LogoOnlyLayout';
+import AuthGuard from '@/guards/AuthGuard';
+import PublicGuard from '@/guards/PublicGuard';
 
 import LoadingScreen from '@/components/LoadingScreen';
 
@@ -25,6 +27,10 @@ const NotFound = loadable(() => import('../pages/NotFound'), {
   fallback: <LoadingScreen />,
 });
 
+const SignIn = loadable(() => import('../pages/auth/pages/SignIn'), {
+  fallback: <LoadingScreen />,
+})
+
 export default function Router() {
   return useRoutes([
     {
@@ -32,8 +38,26 @@ export default function Router() {
       element: <Navigate to="/g" replace />,
     },
     {
+      path: 'auth',
+      children: [
+        { element: <Navigate to="/auth/login" replace />, index: true },
+        {
+          path: 'login',
+          element: (
+            <PublicGuard>
+              <SignIn />
+            </PublicGuard>
+          ),
+        }
+      ],
+    },
+    {
       path: 'g',
-      element: (<DashboardLayout />),
+      element: (
+        <AuthGuard>
+          <DashboardLayout />
+        </AuthGuard>
+      ),
       children: [
         { element: <Navigate to="/g/ops" replace />, index: true },
         {
@@ -48,7 +72,11 @@ export default function Router() {
     },
     {
       path: 'cruces',
-      element: (<DashboardLayout />),
+      element: (
+        <AuthGuard>
+          <DashboardLayout />
+        </AuthGuard>
+      ),
       children: [
         { element: <Navigate to="/cruces/all" replace />, index: true },
         {

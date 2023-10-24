@@ -1,11 +1,11 @@
-import { forwardRef, ReactNode } from 'react';
+import { forwardRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box } from '@mui/material';
 
 import Alert from './Alert';
 
 type Props = {
-  children: ReactNode;
+  children: JSX.Element | Array<JSX.Element>;
   title?: string;
   className?: string;
 };
