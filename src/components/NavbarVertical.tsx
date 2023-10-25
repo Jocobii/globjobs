@@ -10,10 +10,10 @@ import useResponsive from '../hooks/useResponsive';
 import Scrollbar from './Scrollbar';
 
 import { NAVBAR } from '../utils/config';
-
+import { useRestfulMenus } from '../hooks/useRestfulMenus';
 import cssStyles from '../utils/cssStyles';
 import NavSectionVertical from './NavSectionVertical';
-
+import { navigationBarConfigData } from '@/utils';
 import CollapseButton from './CollapseButton';
 
 type Props = {
@@ -31,7 +31,8 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 
 export default function NavbarVertical({ isOpenSidebar, onCloseSidebar}: Props) {
-
+  const { data: menus } = useRestfulMenus();
+  console.log('menus', menus);
   const theme = useTheme();
 
   const { pathname } = useLocation();
@@ -80,7 +81,13 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar}: Props) 
       </Stack>
 
       <NavSectionVertical
-        navConfig={[]}
+        navConfig={
+          navigationBarConfigData(
+            menus?.menusByEnvironment
+              .map((r) => ({ ...r, order: r['order'] || '0' }))
+              .sort(({ order: asort }, { order: bsort }) => (asort > bsort ? 1 : -1)) || [],
+          )
+        }
         isCollapse={isCollapse}
       />
 
