@@ -1,49 +1,45 @@
-import { request, gql } from "graphql-request";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, gql } from "@apollo/client";
 
-import type { Menu } from "@/typings/menu";
+import type { MenuElement } from "@/typings/menu";
 
 type RestfulMenusResponse = {
-  menusByEnvironment: Array<Partial<Menu>>;
+  menusByEnvironment: Array<Partial<MenuElement>>;
 };
 
 const restfulMenusDocument = gql`
-  query ($environment: String!) {
-    menusByEnvironment(environment: $environment) {
+query($environment: String!, $getOnlyUserModules: Boolean!) {
+  menusByEnvironment(environment: $environment, getOnlyUserModules: $getOnlyUserModules) {
       name
       modules {
-        id
-        name
-        route
-        component
-        icon
-        description
+          id
+          name
+          route
+          component
+          icon
+          description
       }
       active
       order
       icon
       environment {
-        id
-        name
+          id
+          name
       }
-    }
   }
+}
 `;
 
-export const restfulMenus = async (
-  variables: Record<string, unknown>
-): Promise<RestfulMenusResponse> =>
-  request("/gq/back-office", restfulMenusDocument, {
-    ...variables,
+export function useRestfulMenus() {
+  const { data, loading, error } = useQuery<RestfulMenusResponse>(restfulMenusDocument, {
+    variables: {
+      environment: '633207ea9bfe2b1d9c586671',
+      getOnlyUserModules: false,
+    },
   });
 
-type UseRestfulMenusOptions = {
-  variables?: Record<string, unknown>;
-};
-
-export function useRestfulMenus({ variables }: UseRestfulMenusOptions = {}) {
-  return useQuery({
-    queryKey: ["restful-environments"],
-    queryFn: () => restfulMenus(variables || {}),
-  });
+  return {
+    data,
+    loading,
+    error,
+  };
 }

@@ -2,6 +2,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import loadable from '@loadable/component';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import LogoOnlyLayout from '@/layouts/LogoOnlyLayout';
+import PublicGuard from '@/guards/PublicGuard';
 
 import LoadingScreen from '@/components/LoadingScreen';
 
@@ -101,11 +102,29 @@ const NotFound = loadable(() => import('../pages/NotFound'), {
   fallback: <LoadingScreen />,
 });
 
+const SignIn = loadable(() => import('../pages/auth/pages/SignIn'), {
+  fallback: <LoadingScreen />,
+})
+
 export default function Router() {
   return useRoutes([
     {
       path: '/',
       element: <Navigate to="/g" replace />,
+    },
+    {
+      path: 'auth',
+      children: [
+        { element: <Navigate to="/auth/login" replace />, index: true },
+        {
+          path: 'login',
+          element: (
+            <PublicGuard>
+              <SignIn />
+            </PublicGuard>
+          ),
+        }
+      ],
     },
     {
       path: 'g',

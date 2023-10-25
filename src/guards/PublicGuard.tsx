@@ -2,15 +2,16 @@ import { Navigate } from 'react-router-dom';
 
 import useAuthentication from '@/hooks/useAuthentication';
 
-type AuthGuardProps = {
+type PublicGuardProps = {
   children: JSX.Element | Array<JSX.Element>;
+  redirectTo?: string;
 };
 
-export default function AuthGuard({ children }: AuthGuardProps) {
+export default function PublicGuard({ children, redirectTo = '/g/ops' }: PublicGuardProps) {
   const { isAuthenticated, accessToken } = useAuthentication();
 
-  if (!isAuthenticated || !accessToken) {
-    return <Navigate to='/auth/login' />
+  if (isAuthenticated && accessToken) {
+    return <Navigate to={redirectTo} />
   }
 
   return (

@@ -43,7 +43,6 @@ export default function NavbarAccount({ isCollapse = false }: Props) {
         }}
       >
         <Avatar src="" alt={fullName} />
-
         <Box
           sx={{
             ml: 2,

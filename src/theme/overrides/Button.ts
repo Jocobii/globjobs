@@ -9,6 +9,10 @@ export default function Button(theme: CustomTheme) {
             boxShadow: 'none',
           },
           borderRadius: '40px',
+          '&.Mui-disabled': {
+            pointerEvents: 'auto',
+            cursor: 'not-allowed',
+          }
         },
         sizeLarge: {
           height: 48,
@@ -54,6 +58,7 @@ export default function Button(theme: CustomTheme) {
             backgroundColor: theme.palette.action.hover,
           },
         },
+        
       },
     },
   };

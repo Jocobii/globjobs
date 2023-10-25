@@ -17,3 +17,5 @@ export const graphqlGatewayClient = new GraphQLClient(GATEWAY_URI, {
     authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNjBiYTcyYmMwYzg1NzQwYThmOWMxYyIsIm5hbWUiOiJVemllbCBFc3RyYWRhIiwiZW1haWwiOiJ1emllbC5lc3RyYWRhQGctZ2xvYmFsLmNvbSIsImlhdCI6MTY5MjQ4NTAxOH0.MxvuCcRn8-JGxp5hTuYwo3OVhedpLNsD8OoHOl3b4B4,'
   },
 });
+
+export const publicGraphqlGatewayClient = new GraphQLClient(GATEWAY_URI);
