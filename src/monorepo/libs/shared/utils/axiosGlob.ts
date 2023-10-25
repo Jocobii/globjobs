@@ -1,4 +1,5 @@
 import Axios, { AxiosRequestConfig } from 'axios';
+import { getTokenFromLS } from '@/utils/auth';
 
 const { VITE_GLOBALIZATION_API_URI } = import.meta.env;
 const axios = Axios.create({
@@ -7,7 +8,7 @@ const axios = Axios.create({
 });
 
 axios.interceptors.request.use((request: AxiosRequestConfig) => {
-  const token = localStorage.getItem('accessToken') ?? '';
+  const token = getTokenFromLS();
 
   if (token && request.headers) {
     request.headers['Authorization'] = `Bearer ${token}`;

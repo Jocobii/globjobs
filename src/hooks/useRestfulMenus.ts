@@ -33,7 +33,7 @@ export function useRestfulMenus() {
   const { data, loading, error } = useQuery<RestfulMenusResponse>(restfulMenusDocument, {
     variables: {
       environment: '633207ea9bfe2b1d9c586671',
-      getOnlyUserModules: false,
+      getOnlyUserModules: true,
     },
   });
 

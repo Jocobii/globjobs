@@ -14,9 +14,9 @@ const {
 } = import.meta.env;
 
 const getToken = () => {
-  const token = localStorage.getItem('accessToken');
+  const { accessToken } = JSON.parse(localStorage.getItem('@@g-globalization-auth') ?? '{}');
 
-  return token ? `Bearer ${token}` : '';
+  return accessToken ? `Bearer ${accessToken}` : '';
 };
 
 const wsLink = new GraphQLWsLink(createClient({

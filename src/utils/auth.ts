@@ -19,3 +19,9 @@ export const getUserSession = async () => {
   });
   return res.json();
 };
+
+export const getTokenFromLS = () => {
+  const { accessToken } = JSON.parse(localStorage.getItem('@@g-globalization-auth') ?? '{}');
+
+  return accessToken ? `Bearer ${accessToken}` : '';
+};
