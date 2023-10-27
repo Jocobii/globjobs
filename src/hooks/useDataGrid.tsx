@@ -1,14 +1,15 @@
 import { useState, useCallback } from 'react';
 import { filterOption } from '../utils/datagrid';
+import { ModelOptions } from '@/components/datagrid/DataGrid';
 
 export const usePagination = () => {
   const [variables, setVariables] = useState({});
-  const [modelOptions, setModelOptions] = useState<any>({});
+  const [modelOptions, setModelOptions] = useState<ModelOptions>();
   const [pageSize, setPageSize] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
 
-  const eventManager = useCallback((options: any) => {
-    setModelOptions((prev: any) => {
+  const eventManager = useCallback((options: ModelOptions) => {
+    setModelOptions((prev?: ModelOptions) => {
       const currentTableState = filterOption(prev, options);
       if (currentTableState?.page) {
         setPage(currentTableState?.page);
@@ -25,7 +26,8 @@ export const usePagination = () => {
     setPage(newPage + 1);
   };
 
-  const handleDataGridEvents = (event: any) => {
+  const handleDataGridEvents = (event: ModelOptions) => {
+    console.log('event', event);
     if (Object.keys(event).length > 0) {
       setVariables(event);
     }
@@ -45,5 +47,3 @@ export const usePagination = () => {
     setModelOptions,
   }
 }
-
-export default usePagination

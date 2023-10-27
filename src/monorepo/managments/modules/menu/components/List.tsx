@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { Suspense } from 'react';
 import loadable from '@loadable/component';
 import {
   Container,
@@ -16,55 +16,23 @@ import _ from 'lodash';
 
 import { DataGrid } from '@gsuite/ui/DataGrid';
 import Conditional from '@gsuite/ui/Conditional';
+import { usePagination } from '@/hooks'
 
-import { useMenus } from './api/getMenus';
-import { useDeleteMenu } from './api/deleteMenu';
+import { useMenus } from '../api/getMenus';
+import { useDrawer } from '../hooks/useDrawer';
 
-const CreateForm = loadable(() => import('./components/create-form'), { fallback: <h3>Loading...</h3> });
-const UpdateForm = loadable(() => import('./components/update-form'), { fallback: <h3>Loading...</h3> });
+const UpdateForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loading...</h3> });
 
 export default function List() {
-  const [variables, setVariables] = useState({});
-  const query = useMenus({ variables });
   const { t } = useTranslation();
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [rowId, setRowId] = useState < string >('');
-  const { mutateAsync } = useDeleteMenu();
+  const { variables, handleDataGridEvents } = usePagination();
+  const { rowId, handleMenuClick, handleEditDrawerClose, handleDrawerOpen } = useDrawer();
+  const { data, refetch, loading } = useMenus({ variables });
 
-  const handleDrawerClose = () => setOpenDrawer(false);
-  const handleDrawerOpen = () => setOpenDrawer(true);
-
-  const handleEditDrawerClose = () => setRowId('');
-
-  const handleMenuClick = (type: string, id: string) => {
-    if (type === 'delete') {
-      mutateAsync({ menuId: id });
-
-      return;
-    }
-
-    setRowId(id);
-  };
-
-  const handleRefresh = () => query.refetch();
-
-  const handleDataGridEvents = (event: any) => {
-    if (Object.keys(event).length > 0) {
-      setVariables(event);
-    }
-  };
+  const handleRefresh = () => refetch();
 
   return (
     <Container maxWidth="xl">
-      <Conditional
-        loadable={openDrawer}
-        initialComponent={null}
-      >
-        <CreateForm
-          open={openDrawer}
-          onClose={handleDrawerClose}
-        />
-      </Conditional>
       <Conditional
         loadable={Boolean(rowId)}
         initialComponent={null}
@@ -88,7 +56,7 @@ export default function List() {
       </Button>
       <DataGrid
         pinnedColumns={{ right: ['actions'] }}
-        loading={query.loading}
+        loading={loading}
         columns={[
           {
             field: 'name',
@@ -140,15 +108,15 @@ export default function List() {
               </Stack>
             ),
           }]}
-        rows={query.data?.rows}
+        rows={data?.rows}
         actions={[
-          <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={query.loading}>
+          <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={loading}>
             <CachedIcon width={20} height={20} />
           </IconButton>,
         ]}
         mode="server"
         serverOptions={{
-          totalRowCount: query.data?.total ?? 0,
+          totalRowCount: data?.total ?? 0,
           handleChange: handleDataGridEvents,
         }}
       />

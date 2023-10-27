@@ -34,7 +34,7 @@ const menusDocument = gql`
 
 export const useMenus = (variables?: Record<string, unknown>) => {
   const { data, refetch, loading } = useQuery<PaginateMenusResponse>(menusDocument, { variables });
-  console.log('data', data);
+
   return {
     data: data?.menus,
     loading,

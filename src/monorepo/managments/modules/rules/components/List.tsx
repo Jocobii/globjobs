@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import loadable from '@loadable/component';
 import {
   Container,
@@ -13,7 +12,8 @@ import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import CachedIcon from '@mui/icons-material/Cached';
 import { t } from 'i18next';
 
-import { DataGrid, ModelOptions } from '@gsuite/ui/DataGrid';
+import { DataGrid } from '@gsuite/ui/DataGrid';
+import { usePagination } from '@/hooks'
 
 import { useRules } from '../api/getRules';
 import { useDrawer } from '../hooks/useDrawer';
@@ -21,17 +21,11 @@ import { useDrawer } from '../hooks/useDrawer';
 const DrawerForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loading...</h3> });
 
 export default function List() {
-  const [variables, setVariables] = useState({});
+  const { variables, handleDataGridEvents } = usePagination();
   const { data, refetch, isLoading, isFetching } = useRules({ variables });
   const { ruleId, handleDrawerOpen, handleDrawerClose, handleMenuClick } = useDrawer();;
 
   const handleRefresh = () => refetch();
-
-  const handleDataGridEvents = (event: ModelOptions) => {
-    if (Object.keys(event).length > 0) {
-      setVariables(event);
-    }
-  };
 
   return (
     <Container maxWidth="xl">
