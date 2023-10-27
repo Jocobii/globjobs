@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { AnyObjectSchema } from 'yup';
 import {
   Stack,
   Typography,
@@ -29,7 +28,7 @@ import { FormInput } from './typings';
 interface Props<TFormValues extends FieldValues> {
   formId?: string;
   title: string;
-  schema: AnyObjectSchema;
+  schema: any;
   extraContent?: React.ReactNode;
   onSubmit: SubmitHandler<TFormValues>;
   initialValues?: DeepPartial<TFormValues> | null,
