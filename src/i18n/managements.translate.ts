@@ -139,6 +139,8 @@ export const managementsEn = {
   },
   rules: {
     addNewRule: 'Add rule',
+    edit_rule: 'Edit rule for TXT',
+    create_rule: 'Create rule for TXT',
   },
   adp: {
     filesFetched: 'Files fetched successfully',
@@ -303,6 +305,8 @@ export const managementsEs = {
   },
   rules: {
     addNewRule: 'Agregar regla',
+    edit_rule: 'Editar regla para TXT',
+    create_rule: 'Crear regla para TXT',
   },
   adp: {
     filesFetched: 'Archivos obtenidos exitosamente',

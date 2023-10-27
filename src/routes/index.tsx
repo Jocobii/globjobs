@@ -70,7 +70,7 @@ const AreasHome = loadable(() => import('@monorepo/managments/modules/areas'), {
   fallback: <LoadingScreen />,
 });
 
-const Rules = loadable(() => import('@monorepo/managments/modules/rules/List'), {
+const Rules = loadable(() => import('@monorepo/managments/modules/rules'), {
   fallback: <LoadingScreen />,
 });
 

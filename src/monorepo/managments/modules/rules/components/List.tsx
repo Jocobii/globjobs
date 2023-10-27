@@ -11,38 +11,23 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import CachedIcon from '@mui/icons-material/Cached';
-import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
-import { DataGrid } from '@gsuite/ui/DataGrid';
+import { DataGrid, ModelOptions } from '@gsuite/ui/DataGrid';
 
-import { useRules } from './api/getRules';
-import { useDeleteRule } from './api/deleteRule';
+import { useRules } from '../api/getRules';
+import { useDrawer } from '../hooks/useDrawer';
 
 const DrawerForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loading...</h3> });
 
 export default function List() {
   const [variables, setVariables] = useState({});
-  const query = useRules({ variables });
-  const { t } = useTranslation();
-  const { mutateAsync } = useDeleteRule();
-  const [headquarterId, setHeadquarterId] = useState<string | null>(null);
+  const { data, refetch, isLoading, isFetching } = useRules({ variables });
+  const { ruleId, handleDrawerOpen, handleDrawerClose, handleMenuClick } = useDrawer();;
 
-  const handleDrawerOpen = () => setHeadquarterId('create');
-  const handleDrawerClose = () => setHeadquarterId(null);
+  const handleRefresh = () => refetch();
 
-  const handleMenuClick = (type: string, rowId: string) => {
-    if (type === 'delete') {
-      mutateAsync({ ruleId: rowId });
-
-      return;
-    }
-
-    setHeadquarterId(rowId);
-  };
-
-  const handleRefresh = () => query.refetch();
-
-  const handleDataGridEvents = (event: any) => {
+  const handleDataGridEvents = (event: ModelOptions) => {
     if (Object.keys(event).length > 0) {
       setVariables(event);
     }
@@ -51,9 +36,9 @@ export default function List() {
   return (
     <Container maxWidth="xl">
       <DrawerForm
-        open={Boolean(headquarterId)}
+        open={Boolean(ruleId)}
         onClose={handleDrawerClose}
-        ruleId={headquarterId}
+        ruleId={ruleId}
       />
       <Button
         variant="contained"
@@ -65,7 +50,7 @@ export default function List() {
         {t('managements.rules.addNewRule')}
       </Button>
       <DataGrid
-        loading={query.isLoading || query.isFetching}
+        loading={isLoading || isFetching}
         pinnedColumns={{ right: ['actions'] }}
         columns={[{
           field: 'section',
@@ -107,15 +92,15 @@ export default function List() {
             </Stack>
           ),
         }]}
-        rows={query.data?.rows}
+        rows={data?.rows}
         actions={[
-          <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={query.isFetching}>
+          <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={isFetching}>
             <CachedIcon width={20} height={20} />
           </IconButton>,
         ]}
         mode="server"
         serverOptions={{
-          totalRowCount: query.data?.total || 0,
+          totalRowCount: data?.total || 0,
           handleChange: handleDataGridEvents,
         }}
       />

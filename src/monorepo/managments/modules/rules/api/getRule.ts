@@ -25,7 +25,7 @@ const getRuleQuery = gql`
 `;
 
 export type GetRuleDTO = {
-  ruleId: string;
+  ruleId?: string;
 };
 
 export const getRule = async ({ ruleId }: GetRuleDTO) => request<Response>(`${VITE_GATEWAY_URI}/gq/back-office`, getRuleQuery, { ruleId }).then((res) => res.rule);
@@ -37,9 +37,11 @@ type UseRuleOptions = {
 } & GetRuleDTO;
 
 export function useRule({ ruleId, config }: UseRuleOptions) {
+  console.log('ruleId', ruleId);
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
     queryKey: ['rule', ruleId],
     queryFn: () => getRule({ ruleId }),
+    enabled: !!ruleId && ruleId !== 'create',
   });
 }

@@ -38,3 +38,9 @@ export type PaginateRules = {
   pageSize: number;
   totalPages: number;
 };
+
+export type Props = {
+  open: boolean;
+  ruleId?: string;
+  onClose: () => void;
+};
