@@ -58,7 +58,9 @@
     "Streamable",
     "sendgrid",
     "nrwl",
-    "sonarjs"
+    "sonarjs",
+    "childrens",
+    "datagrid"
   ],
   "ignorePaths": [
     "node_modules/**",

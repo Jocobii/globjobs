@@ -10,6 +10,7 @@ import { MuiLicense } from '@/utils/license';
 
 import '../i18n';
 import GraphQLProvider from './GraphQLProvider';
+import ErrorBoundary from '@gsuite/shared/ui/ErrorBoundary';
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -20,18 +21,20 @@ LicenseInfo.setLicenseKey(MuiLicense);
 export default function AppProvider({ children }: AppProviderProps) {
   return (
     <BrowserRouter>
-    <ReactQuery>
-      <GraphQLProvider>
-        <AuthProvider>
-          <DataProvider>
-            <ThemeProvider>
-              <NotiStackProvider>
-                {children}
-              </NotiStackProvider>
-            </ThemeProvider>
-          </DataProvider>
-        </AuthProvider>
-      </GraphQLProvider>
+      <ReactQuery>
+        <ErrorBoundary>
+          <GraphQLProvider>
+            <AuthProvider>
+              <DataProvider>
+                <ThemeProvider>
+                  <NotiStackProvider>
+                    {children}
+                  </NotiStackProvider>
+                </ThemeProvider>
+              </DataProvider>
+            </AuthProvider>
+          </GraphQLProvider>
+        </ErrorBoundary>
       </ReactQuery>
     </BrowserRouter>
   );

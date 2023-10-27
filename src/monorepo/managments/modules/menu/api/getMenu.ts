@@ -24,12 +24,12 @@ const getMenuDocument = gql`
   }
 `;
 
-export const getMenuQuery = async (id: string) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getMenuDocument, { id }).then((res) => res.menu);
+export const getMenuQuery = async (id?: string) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getMenuDocument, { id }).then((res) => res.menu);
 
 type QueryFnType = typeof getMenuQuery;
 type UseMenuOptions = {
   config?: QueryConfig<QueryFnType>;
-  id: string;
+  id?: string;
 };
 
 export function useGetMenu({ id, config }: UseMenuOptions) {
@@ -38,5 +38,6 @@ export function useGetMenu({ id, config }: UseMenuOptions) {
     queryKey: ['menu', id],
     queryFn: () => getMenuQuery(id),
     suspense: true,
+    enabled: !!id && id !== 'create',
   });
 }
