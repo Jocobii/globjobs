@@ -45,7 +45,7 @@ export default function Update({ open, onClose, rowId }: Props) {
     setValue,
     watch,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   watch((formValues: FieldValues) => {

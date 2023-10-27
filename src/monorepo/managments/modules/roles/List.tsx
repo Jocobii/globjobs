@@ -125,7 +125,7 @@ export default function List() {
         onClick={() => setOpen(true)}
         sx={{ height: 60, width: 200, marginBottom: '1%' }}
       >
-        {t<string>('managements.roles.addRole')}
+        {t('managements.roles.addRole')}
       </Button>
       {query.isLoading || query.isFetching ? (
         <h3>Loading...</h3>

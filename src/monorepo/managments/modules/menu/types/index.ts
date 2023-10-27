@@ -3,7 +3,7 @@ import {
   string,
   InferType,
 //   boolean,
-//   array,
+  array,
 } from 'yup';
 
 export type BaseEntity = {
@@ -13,6 +13,12 @@ export type BaseEntity = {
 
 export const menuSchema = object().shape({
   name: string().required(),
+  icon: string().required(),
+  order: string().required(),
+  modules: array().of(object().shape({
+    id: string().required(),
+  })).required(),
+  environment: string().required(),
 });
 
 type Environment = {

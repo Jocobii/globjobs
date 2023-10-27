@@ -13,6 +13,10 @@ export type UpdateUserDto = {
   userId: string;
 };
 
+type Response = {
+  updateUser: User;
+};
+
 export const updateUserMutationDocument = gql`
   mutation (
     $id: String!,
@@ -80,7 +84,7 @@ export const updateUserMutationDocument = gql`
   }
 `;
 
-export const updateUser = ({ data, userId }: any): Promise<User> => request(
+export const updateUser = ({ data, userId }: any): Promise<User> => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateUserMutationDocument,
   {
@@ -112,7 +116,7 @@ export const updateUser = ({ data, userId }: any): Promise<User> => request(
     overridedModules: data.overridedModules,
     environments: data.environments,
   },
-).then((res) => res.user);
+).then((res) => res.updateUser);
 
 type UseUpdateUserOptions = {
   config?: MutationConfig<typeof updateUser>;
@@ -136,7 +140,7 @@ export function UseUpdateUser({ config, userId }: UseUpdateUserOptions = {}) {
         queryClient.setQueryData(queryKey, context.previousUsers);
       }
       const { i18Key } = getCustomPropsFromError(error);
-      errorMessage(t<string>(i18Key));
+      errorMessage(t(i18Key));
     },
     onSuccess: () => {
       queryClient.refetchQueries(['user', userId]).catch(() => {});

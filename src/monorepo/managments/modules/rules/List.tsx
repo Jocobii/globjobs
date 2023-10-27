@@ -62,7 +62,7 @@ export default function List() {
         onClick={handleDrawerOpen}
         sx={{ height: 60, width: 200, marginBottom: '1%' }}
       >
-        {t<string>('managements.rules.addNewRule')}
+        {t('managements.rules.addNewRule')}
       </Button>
       <DataGrid
         loading={query.isLoading || query.isFetching}

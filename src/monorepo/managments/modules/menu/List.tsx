@@ -84,7 +84,7 @@ export default function List() {
         onClick={handleDrawerOpen}
         sx={{ height: 60, width: 200, marginBottom: '1%' }}
       >
-        {t<string>('managements.menu.new')}
+        {t('managements.menu.new')}
       </Button>
       <DataGrid
         pinnedColumns={{ right: ['actions'] }}
@@ -92,17 +92,17 @@ export default function List() {
         columns={[
           {
             field: 'name',
-            headerName: t<string>('managements.menu.name'),
+            headerName: t('managements.menu.name'),
             width: 200,
           },
           {
             field: 'icon',
-            headerName:  t<string>('managements.menu.icon'),
+            headerName:  t('managements.menu.icon'),
             width: 200,
           },
           {
             field: 'active',
-            headerName: t<string>('managements.menu.active'),
+            headerName: t('managements.menu.active'),
             width: 100,
             renderCell({ value }) {
               return <Chip variant="outlined" color={value ? 'success' : 'error'} label={value ? 'Active' : 'Banned'} size="small" />;
@@ -110,7 +110,7 @@ export default function List() {
           },
           {
             field: 'environment',
-            headerName: t <string>('managements.environments.name'),
+            headerName: t('managements.environments.name'),
             width: 200,
             valueGetter: (params) => {
               const { row } = params;
@@ -119,7 +119,7 @@ export default function List() {
           },
           {
             field: 'modules',
-            headerName: t <string>('managements.modules.childrens'),
+            headerName: t('managements.modules.childrens'),
             width: 200,
             renderCell: ({ value }) => t('managements.menu.modulesLength', { modules: value.length }),
           },
@@ -142,13 +142,13 @@ export default function List() {
           }]}
         rows={query.data?.rows}
         actions={[
-          <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={query.isFetching}>
+          <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={query.loading}>
             <CachedIcon width={20} height={20} />
           </IconButton>,
         ]}
         mode="server"
         serverOptions={{
-          totalRowCount: query.data?.total || 0,
+          totalRowCount: query.data?.total ?? 0,
           handleChange: handleDataGridEvents,
         }}
       />

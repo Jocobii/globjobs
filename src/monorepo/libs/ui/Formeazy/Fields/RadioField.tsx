@@ -40,6 +40,7 @@ function SelectField({
         >
           {options.map((option) => (
             <FormControlLabel
+              key={option.value}
               value={option.value}
               control={<Radio color={error ? 'error' : 'primary'} />}
               label={option.title}

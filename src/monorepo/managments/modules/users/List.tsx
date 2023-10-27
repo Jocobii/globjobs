@@ -128,7 +128,7 @@ export default function List() {
     roleId: '',
     companies: [],
   });
-  const [userId, setUserId] = useState<string>('');
+  const [userId, setUserId] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const handleDrawerClose = () => setOpenDrawer(false);
   const handleDrawerOpen = () => setOpenDrawer(true);
@@ -292,7 +292,7 @@ export default function List() {
       width: 200,
     },
     {
-      headerName: t<string>('managements.active'),
+      headerName: t('managements.active'),
       width: 200,
       field: 'active',
       sortable: false,
@@ -338,7 +338,7 @@ export default function List() {
         if (hoveredRowId === record.id) {
           return (
             <Stack direction="row">
-              <Tooltip title={record.row.active ? t<string>('managements.disabled') : t<string>('managements.enable')} placement="top">
+              <Tooltip title={record.row.active ? t('managements.disabled') : t('managements.enable')} placement="top">
                 <IconButton
                   onClick={() => {
                     setUserSelected({
@@ -365,16 +365,16 @@ export default function List() {
   ] : [
     {
       field: 'name',
-      headerName: t<string>('managements.name'),
+      headerName: t('managements.name'),
       width: 200,
     },
     {
       field: 'lastName',
-      headerName: t<string>('managements.lastName'),
+      headerName: t('managements.lastName'),
       width: 200,
     },
     {
-      headerName: t<string>('managements.active'),
+      headerName: t('managements.active'),
       width: 200,
       field: 'active',
       sortable: false,
@@ -401,77 +401,77 @@ export default function List() {
     },
     {
       field: 'emailAddress',
-      headerName: t<string>('managements.emailAddress'),
+      headerName: t('managements.emailAddress'),
       width: 200,
     },
     {
       field: 'employeeNumber',
-      headerName: t<string>('managements.employeeNumber'),
+      headerName: t('managements.employeeNumber'),
       width: 200,
     },
     {
       field: 'phoneNumber',
-      headerName: t<string>('managements.phoneNumber'),
+      headerName: t('managements.phoneNumber'),
       width: 200,
     },
     {
       field: 'headquarter.name',
-      headerName: t<string>('managements.site'),
+      headerName: t('managements.site'),
       width: 200,
       valueGetter: ({ row }: GridRenderCellParams) => get(row, 'headquarter.name', 'N/A'),
     },
     {
       field: 'department.name',
-      headerName: t<string>('managements.department'),
+      headerName: t('managements.department'),
       width: 200,
       valueGetter: ({ row }: GridRenderCellParams) => get(row, 'department.name', 'N/A'),
     },
     {
       field: 'area.name',
-      headerName: t<string>('managements.area'),
+      headerName: t('managements.area'),
       width: 200,
       valueGetter: ({ row }: GridRenderCellParams) => get(row, 'area.name', 'N/A'),
     },
     {
       field: 'coach',
-      headerName: t<string>('managements.coach'),
+      headerName: t('managements.coach'),
       width: 200,
     },
     {
       field: 'charge',
-      headerName: t<string>('managements.charge'),
+      headerName: t('managements.charge'),
       width: 200,
     },
     {
       field: 'employeeType',
-      headerName: t<string>('managements.employeeType'),
+      headerName: t('managements.employeeType'),
       width: 200,
     },
     {
       field: 'costCenter',
-      headerName: t<string>('managements.costsCenter'),
+      headerName: t('managements.costsCenter'),
       width: 200,
     },
     {
       field: 'birthDate',
-      headerName: t<string>('managements.birthDate'),
+      headerName: t('managements.birthDate'),
       width: 200,
       type: 'date',
       renderCell: ({ value }: GridRenderCellParams) => (value ? dayjs(value).format('YYYY-MM-DD') : 'N/A'),
     },
     {
       field: 'darwinUser',
-      headerName: t<string>('managements.darwinUser'),
+      headerName: t('managements.darwinUser'),
       width: 200,
     },
     {
       field: 'rbSystemsUser',
-      headerName: t<string>('managements.rbSystemsUser'),
+      headerName: t('managements.rbSystemsUser'),
       width: 200,
     },
     {
       field: 'lastLogin',
-      headerName: t<string>('managements.lastLogin'),
+      headerName: t('managements.lastLogin'),
       width: 200,
       type: 'date',
       renderCell: ({ value }: GridRenderCellParams) => (value ? dayjs(value).format('YYYY-MM-DD hh:mm:ss A') : 'N/A'),
@@ -487,7 +487,7 @@ export default function List() {
         if (hoveredRowId === record.id) {
           return (
             <Stack direction="row">
-              <Tooltip title={record.row.active ? t<string>('managements.disabled') : t<string>('managements.enable')} placement="top">
+              <Tooltip title={record.row.active ? t('managements.disabled') : t('managements.enable')} placement="top">
                 <IconButton
                   onClick={() => {
                     setUserSelected({
@@ -550,7 +550,7 @@ export default function List() {
               sx={{ p: 2 }}
             >
               <Typography variant="h4" gutterBottom>
-                {t<string>('managements.usersModule.edit_user')}
+                {t('managements.usersModule.edit_user')}
               </Typography>
               <CustomerUser
                 onClose={handleEditCustomerClose}
@@ -581,7 +581,7 @@ export default function List() {
         onClick={handleDrawerOpen}
         sx={{ height: 60, width: 200, marginBottom: '1%' }}
       >
-        {t<string>('managements.newUser')}
+        {t('managements.newUser')}
       </Button>
       <DataGrid
         onClearConfig={() => {

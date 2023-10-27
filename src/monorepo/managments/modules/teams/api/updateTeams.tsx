@@ -10,6 +10,9 @@ export type UpdateTeamDto = {
   data: Partial<Team>;
   teamId: string;
 };
+type Responses = {
+  updateTeam: Team;
+};
 
 export const updateTeamMutationDocument = gql`
   mutation UpdateTeam($updateTeamId: String!, $updateTeamInput: UpdateTeamInput!) {
@@ -24,7 +27,7 @@ export const updateTeamMutationDocument = gql`
   }
 `;
 
-export const updateTeam = ({ data, teamId }: UpdateTeamDto): Promise<Team> => request(`${VITE_GATEWAY_URI}/gq/back-office`, updateTeamMutationDocument, {
+export const updateTeam = ({ data, teamId }: UpdateTeamDto): Promise<Team> => request<Responses>(`${VITE_GATEWAY_URI}/gq/back-office`, updateTeamMutationDocument, {
   updateTeamId: teamId,
   updateTeamInput: {
     name: data.name,

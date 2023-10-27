@@ -6,6 +6,11 @@ import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { User } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
+
+type Response = {
+  toggleActiveUser: User;
+};
+
 export const toggleActiveUserMutationDocument = gql`
   mutation (
     $id: String!,
@@ -19,13 +24,13 @@ export const toggleActiveUserMutationDocument = gql`
   }
 `;
 
-export const toggleActiveUser = ({ id }: { id: string }): Promise<User> => request(
+export const toggleActiveUser = ({ id }: { id: string }): Promise<User> => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   toggleActiveUserMutationDocument,
   {
     id,
   },
-).then((res) => res.user);
+).then((res) => res.toggleActiveUser);
 
 type UseToggleActiveUserOptions = {
   config?: MutationConfig<typeof toggleActiveUser>;

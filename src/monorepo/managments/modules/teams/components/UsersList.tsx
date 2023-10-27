@@ -13,6 +13,7 @@ import { DataGrid, ModelOptions } from '@gsuite/ui/DataGrid';
 import { type Variables } from 'graphql-request';
 import { CLIENT_ROLE, COACH_SPECIALIST_ROLE } from '@gsuite/shared/utils/constants';
 import { useGetUsers } from '../../users/api/getUsers';
+import { TFunctionType } from '@gsuite/typings/common';
 
 const DEFAULT_FILTER = {
   filter: [
@@ -31,7 +32,7 @@ const DEFAULT_FILTER = {
 
 type Props = {
   actionsHeader?: Array<JSX.Element> | JSX.Element | null | string;
-  t: <T>(key: string | string[]) => T;
+  t: TFunctionType;
   onRowSelect: (users: string[]) => void;
   selectedTeam?: string;
 };
@@ -78,16 +79,16 @@ export default function List({
       columns={[
         {
           field: 'name',
-          headerName: t<string>('managements.name'),
+          headerName: t('managements.name'),
           width: 200,
         },
         {
           field: 'lastName',
-          headerName: t<string>('managements.lastName'),
+          headerName: t('managements.lastName'),
           width: 200,
         },
         {
-          headerName: t<string>('managements.active'),
+          headerName: t('managements.active'),
           width: 200,
           field: 'active',
           sortable: false,
@@ -132,12 +133,12 @@ export default function List({
         },
         {
           field: 'emailAddress',
-          headerName: t<string>('managements.emailAddress'),
+          headerName: t('managements.emailAddress'),
           width: 300,
         },
         {
           field: 'roles.name',
-          headerName: t<string>('managements.teams.roleInTeam'),
+          headerName: t('managements.teams.roleInTeam'),
           width: 200,
           sortable: false,
           renderCell: ({ row }) => {
@@ -150,20 +151,20 @@ export default function List({
                 />
               );
             }
-            return t<string>('managements.teams.specialists');
+            return t('managements.teams.specialists');
           },
         },
         {
           field: 'teams.name',
           sortable: false,
-          headerName: t<string>('managements.team'),
+          headerName: t('managements.team'),
           resizable: true,
           width: 200,
           pinnable: false,
           renderCell: ({ row }) => {
             const value = row?.teams;
             if (!value || value?.length < 1) {
-              return t<string>('managements.teams.unassigned');
+              return t('managements.teams.unassigned');
             }
             return (
               <Stack
@@ -197,13 +198,13 @@ export default function List({
         },
         {
           field: 'lastLogin',
-          headerName: t<string>('managements.lastLogin'),
+          headerName: t('managements.lastLogin'),
           width: 250,
           type: 'date',
           renderCell: ({ value }) => (value ? dayjs(value).format('YYYY-MM-DD hh:mm:ss A') : 'N/A'),
         },
       ]}
-      rows={query.data?.rows || []}
+      rows={query.data?.rows ?? []}
       mode="server"
       actions={[
         actionsHeader,
@@ -217,7 +218,7 @@ export default function List({
             .find((row) => row.id === userId));
           onRowSelect(selectedUsers);
         },
-        totalRowCount: query.data?.total || 0,
+        totalRowCount: query.data?.total ?? 0,
         handleChange: handleDataGridEvents,
       }}
     />

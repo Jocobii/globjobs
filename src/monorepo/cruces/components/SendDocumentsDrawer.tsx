@@ -111,11 +111,11 @@ export default function SendDocumentsDrawer({
           context: { clientName: 'globalization' },
         }))
         .then(async () => {
-          successMessage(t<string>('cruces.onSuccess.sendDocuments'));
+          successMessage(t('cruces.onSuccess.sendDocuments'));
           await refetch();
         });
     } catch (error) {
-      errorMessage(t<string>('cruces.an_error'));
+      errorMessage(t('cruces.an_error'));
     } finally {
       setIsLoading(false);
       onClose();

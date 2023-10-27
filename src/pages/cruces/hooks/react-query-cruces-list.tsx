@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Crossing } from '../types';
+import { CreateCrossingType } from '../types';
 import { PaginatedResponse } from '@/typings';
 import { gql } from 'graphql-request';
 import { graphqlGlobClient } from '@/clients';
@@ -64,7 +64,7 @@ type useCrucesListOptions = {
   variables?: Record<string, unknown>;
 };
 
-const emptyResponse: PaginatedResponse<Crossing> = {
+const emptyResponse: PaginatedResponse<CreateCrossingType> = {
   page: 1,
   pageSize: 1,
   rows: [],
@@ -73,7 +73,7 @@ const emptyResponse: PaginatedResponse<Crossing> = {
 };
 
 type CruceListResponse = {
-  crossingList: PaginatedResponse<Crossing>;
+  crossingList: PaginatedResponse<CreateCrossingType>;
 }
 export const getCrucesList = async (variables?: Record<string, unknown>) => graphqlGlobClient.request<CruceListResponse>(PAGINATE_CRUCES, variables)
   .then((res) => res.crossingList)

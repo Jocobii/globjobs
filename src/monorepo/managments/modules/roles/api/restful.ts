@@ -37,7 +37,7 @@ const restfulRolesDocument = gql`
 }
 `;
 
-export const restfulRoles = async () => request(`${VITE_GATEWAY_URI}/gq/back-office`, restfulRolesDocument);
+export const restfulRoles = async (): Promise<RestfulRolesResponse> => request<RestfulRolesResponse>(`${VITE_GATEWAY_URI}/gq/back-office`, restfulRolesDocument);
 
 type QueryFnType = () => Promise<RestfulRolesResponse>;
 

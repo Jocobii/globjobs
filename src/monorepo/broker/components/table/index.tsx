@@ -100,7 +100,7 @@ export default function Table({
 
   const columns: GridColumns<GridValueGetterParams<Rows>> = [
     {
-      headerName: t<string>('broker.table.aggregator'),
+      headerName: t('broker.table.aggregator'),
       width: 50,
       field: 'gopsReferences',
       renderCell: (
@@ -119,7 +119,7 @@ export default function Table({
       },
     },
     {
-      headerName: t<string>('broker.table.number'),
+      headerName: t('broker.table.number'),
       width: 200,
       field: 'number',
       valueGetter: (params: GridValueGetterParams<Rows>) => {
@@ -128,7 +128,7 @@ export default function Table({
       },
     },
     {
-      headerName: t<string>('broker.table.client'),
+      headerName: t('broker.table.client'),
       width: 200,
       field: 'client',
       valueGetter: (params: GridValueGetterParams<Rows>) => {
@@ -137,7 +137,7 @@ export default function Table({
       },
     },
     {
-      headerName: t<string>('broker.table.completed'),
+      headerName: t('broker.table.completed'),
       width: 200,
       field: 'completed',
       renderCell: (
@@ -156,7 +156,7 @@ export default function Table({
       },
     },
     {
-      headerName: t<string>('broker.table.createBy'),
+      headerName: t('broker.table.createBy'),
       width: 200,
       field: 'history1',
       renderCell: (
@@ -181,7 +181,7 @@ export default function Table({
       },
     },
     {
-      headerName: t<string>('broker.table.updateBy'),
+      headerName: t('broker.table.updateBy'),
       width: 200,
       field: 'history',
       renderCell: (
@@ -210,68 +210,68 @@ export default function Table({
       },
     },
     {
-      headerName: t<string>('broker.table.notificationDate'),
+      headerName: t('broker.table.notificationDate'),
       width: 200,
       field: 'notificationDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.expectedArrivalDate'),
+      headerName: t('broker.table.expectedArrivalDate'),
       minWidth: 200,
       maxWidth: 400,
       field: 'expectedArrivalDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.releaseUsaDate'),
+      headerName: t('broker.table.releaseUsaDate'),
       width: 200,
       field: 'releaseUsaDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.transportationDate'),
+      headerName: t('broker.table.transportationDate'),
       width: 200,
       field: 'transportationDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.receiptUsaDate'),
+      headerName: t('broker.table.receiptUsaDate'),
       width: 200,
       field: 'receiptUsaDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.importMxDate'),
+      headerName: t('broker.table.importMxDate'),
       width: 200,
       field: 'importMxDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.borderCrossingDate'),
+      headerName: t('broker.table.borderCrossingDate'),
       width: 200,
       field: 'borderCrossingDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.warehouseMexDate'),
+      headerName: t('broker.table.warehouseMexDate'),
       width: 200,
       field: 'warehouseMexDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.completedDate'),
+      headerName: t('broker.table.completedDate'),
       width: 200,
       field: 'completedDate',
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t<string>('broker.table.timeElapsedTotal'),
+      headerName: t('broker.table.timeElapsedTotal'),
       width: 200,
       field: 'timeElapsedTotal',
       valueGetter: ({ value }: GridValueGetterParams<string>) => value || 'N/A',
     },
     {
-      headerName: t<string>('broker.table.aggregator'),
+      headerName: t('broker.table.aggregator'),
       width: 500,
       field: 'gopsReferencesSplitted',
       renderCell: (

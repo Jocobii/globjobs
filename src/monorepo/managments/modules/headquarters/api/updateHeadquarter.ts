@@ -36,7 +36,7 @@ export const updateHeadquarterMutationDocument = gql`
 `;
 
 export const updateHeadquarter = ({ data, headquarterId }: UpdateHeadquarterDto):
-Promise<Headquarter> => request(
+Promise<Headquarter> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateHeadquarterMutationDocument,
   {

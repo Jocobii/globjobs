@@ -12,6 +12,19 @@ export type AddCoachToTeamDto = {
 
 const  { VITE_GATEWAY_URI } = import.meta.env;
 
+type Response = {
+  addCoachToTeam: {
+    newTeam: {
+      id: string;
+      name: string;
+    };
+    userUpdated: {
+      name: string;
+      lastName: string;
+    };
+  };
+};
+
 export const AddCoachToTeamDocument = gql`
   mutation AddCoachToTeam($coachId: String!, $teamId: String!) {
   addCoachToTeam(AddCoachToTeamInput: {
@@ -30,8 +43,7 @@ export const AddCoachToTeamDocument = gql`
   }
 `;
 
-export const addCoachToTeam = ({ coachId, teamId }: AddCoachToTeamDto):
-Promise<any> => request(
+export const addCoachToTeam = ({ coachId, teamId }: AddCoachToTeamDto) => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   AddCoachToTeamDocument,
   {
@@ -59,7 +71,7 @@ export function useAddCoachToTeam({ config }: UseAddCoachToTeamOptions = {}) {
       const { i18Key } = getCustomPropsFromError(error);
       errorMessage(
         i18Key
-          ? t<string>(`managements.teams.${i18Key}`)
+          ? t(`managements.teams.${i18Key}`)
           : 'Something went wrong while trying to change the coach from team',
       );
     },

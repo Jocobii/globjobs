@@ -1,4 +1,4 @@
-import Axios, { AxiosRequestConfig } from 'axios';
+import Axios from 'axios';
 
 const { VITE_GATEWAY_API } = import.meta.env;
 
@@ -6,7 +6,7 @@ const axios = Axios.create({
   baseURL: `${VITE_GATEWAY_API}/api`,
 });
 
-axios.interceptors.request.use((request: AxiosRequestConfig) => {
+axios.interceptors.request.use((request) => {
   const { token } = JSON.parse(localStorage.getItem('wms.config') ?? '{}');
 
   if (token && request.headers) {

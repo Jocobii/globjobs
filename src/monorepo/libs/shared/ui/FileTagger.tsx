@@ -95,7 +95,7 @@ function FileTagger({
       errors,
     },
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   useEffect(() => {
@@ -158,7 +158,7 @@ function FileTagger({
                       <ControlledAutocomplete
                         errors={errors}
                         name="etiqueta"
-                        label={t<string>('cruces.file_type')}
+                        label={t('cruces.file_type')}
                         control={control}
                         onSelect={(e) => handleChangeLabel(file.name, e)}
                         options={catalogTags?.getCatalogs || []}

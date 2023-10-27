@@ -76,7 +76,7 @@ export default function PanelBody({ history }: ContextProps) {
                     alignContent="center"
                     sx={{ fontSize: '12px', color: '#858585' }}
                   >
-                    {t<string>(`cruces.history.${i.action}`)}
+                    {t(`cruces.history.${i.action}`)}
                   </Typography>
                 </Grid>
                 <Grid item xs={1} md={1} lg={1} />
@@ -107,7 +107,7 @@ export default function PanelBody({ history }: ContextProps) {
                             color: '#528DE1',
                           }}
                         >
-                          {t<string>('cruces.history.aditionalComments')}
+                          {t('cruces.history.aditionalComments')}
                         </Typography>
                       </Grid>
                       <Grid item xs={1} md={1} lg={1} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NodeModels, Issues } from '@gsuite/typings/files';
 import {
   Dialog,
@@ -63,7 +63,7 @@ function ErrorFixerComponent({
 
   let issue = fileIssues[currentIssue];
 
-  const translateType = (type: string) => t<string>(`cruces.issue.type.${type}`);
+  const translateType = (type: string) => t(`cruces.issue.type.${type}`);
 
   const nextIssue = () => {
     if (currentIssue + 1 < fileIssues.length) {
@@ -318,7 +318,7 @@ function ErrorFixerComponent({
                             name="newValue"
                             autoFocus
                             value={userInputText}
-                            label={issue?.newValue || issue?.value}
+                            label={issue?.newValue ?? issue?.value}
                             onChange={({ target }) => setUserInputText(target.value)}
                             disabled={issue?.resolved}
                           />

@@ -59,7 +59,7 @@ export default function Create({ onClose }: Props) {
     watch,
     reset,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   watch((formValues: FieldValues) => {
@@ -105,7 +105,7 @@ export default function Create({ onClose }: Props) {
     };
 
     if (!selectedRole?.id) {
-      return errorMessage(t<string>('managements.usersModule.roleRequired'));
+      return errorMessage(t('managements.usersModule.roleRequired'));
     }
 
     await mutateAsync({ data: newUser });
@@ -150,17 +150,17 @@ export default function Create({ onClose }: Props) {
       <Tabs value={activeTab} indicatorColor="primary">
         <Tab
           sx={{ px: 1 }}
-          label={t<string>('managements.usersModule.generalInfo')}
+          label={t('managements.usersModule.generalInfo')}
           key={1}
         />
         <Tab
           sx={{ px: 1 }}
-          label={t<string>('managements.usersModule.modulesAndPermissions')}
+          label={t('managements.usersModule.modulesAndPermissions')}
           key={2}
         />
         <Tab
           sx={{ px: 1 }}
-          label={t<string>('managements.usersModule.notifications')}
+          label={t('managements.usersModule.notifications')}
           key={3}
         />
       </Tabs>
@@ -211,7 +211,7 @@ export default function Create({ onClose }: Props) {
             variant="outlined"
             onClick={() => setActiveTab((prev) => prev - 1)}
           >
-            {t<string>('prev')}
+            {t('prev')}
           </Button>
           )}
           {canRenderNextButton && (
@@ -220,7 +220,7 @@ export default function Create({ onClose }: Props) {
             variant="contained"
             onClick={() => setActiveTab((prev) => prev + 1)}
           >
-            {t<string>('next')}
+            {t('next')}
           </Button>
           )}
           {activeTab === 2 && (
@@ -230,7 +230,7 @@ export default function Create({ onClose }: Props) {
             type="submit"
             loading={isSubmitting}
           >
-            {t<string>('generic.save')}
+            {t('generic.save')}
           </Button>
           )}
         </Stack>

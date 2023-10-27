@@ -23,7 +23,7 @@ function OperationButtons({ statusFilter, handleCreateOperation }: Props) {
         variant="contained"
         startIcon={<AddIcon />}
       >
-        {t<string>('broker.requestOperation')}
+        {t('broker.requestOperation')}
       </Button>
       <Button
         variant="contained"
@@ -32,7 +32,7 @@ function OperationButtons({ statusFilter, handleCreateOperation }: Props) {
         startIcon={<FilterListOffIcon />}
         disabled={!statusFilter}
       >
-        {t<string>('broker.cleanStatusFilter')}
+        {t('broker.cleanStatusFilter')}
       </Button>
       <SelectOperation
         open={openSelectOperation}

@@ -47,7 +47,7 @@ export const createModuleMutationDocument = gql`
   }
 `;
 
-export const createModule = ({ data }: any): Promise<Module> => request(
+export const createModule = ({ data }: any): Promise<Module> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   createModuleMutationDocument,
   {

@@ -34,7 +34,7 @@ interface Props<TFormValues extends FieldValues> {
   onSubmit: SubmitHandler<TFormValues>;
   initialValues?: DeepPartial<TFormValues> | null,
   inputProps?: {
-    [field in keyof Partial<TFormValues>]: FormInput;
+    [field in keyof Partial<any>]: FormInput;
   };
   withHeader?: boolean;
   onClose?: () => void;
@@ -93,7 +93,7 @@ function Formeazy<TFormValues extends Record<string, unknown>>({
             </Typography>
             {extraContent}
             <RenderActiveComponent control={control} hasActiveField={hasActiveField} />
-            <Button variant="outlined" color="inherit" onClick={onClose}>{t<string>('cancel')}</Button>
+            <Button variant="outlined" color="inherit" onClick={onClose}>{t('cancel')}</Button>
             <LoadingButton
               type="submit"
               variant="contained"
@@ -208,7 +208,7 @@ function Formeazy<TFormValues extends Record<string, unknown>>({
         })}
         {!withHeader ? (
           <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'center' }} spacing={2}>
-            <Button variant="outlined" sx={{ borderRadius: 5 }} onClick={onClose}>{t<string>('cancel')}</Button>
+            <Button variant="outlined" sx={{ borderRadius: 5 }} onClick={onClose}>{t('cancel')}</Button>
             <LoadingButton type="submit" variant="contained" sx={{ borderRadius: 5 }} loading={isSubmitting}>{submitLabel}</LoadingButton>
           </Stack>
         ) : null}

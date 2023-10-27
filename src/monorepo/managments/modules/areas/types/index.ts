@@ -1,4 +1,4 @@
-import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form/dist/types';
+import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 import {
   object,
   string,

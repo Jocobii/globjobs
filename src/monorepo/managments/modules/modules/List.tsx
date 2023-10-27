@@ -29,7 +29,7 @@ export default function List() {
   const query = useModules({ variables });
   const { t } = useTranslation();
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [rowId, setRowId] = useState < string >('');
+  const [rowId, setRowId] = useState('');
   const { mutateAsync } = useDeleteModule();
 
   const handleDrawerClose = () => setOpenDrawer(false);
@@ -85,7 +85,7 @@ export default function List() {
         onClick={handleDrawerOpen}
         sx={{ height: 60, width: 200, marginBottom: '1%' }}
       >
-        {t<string>('managements.modules.new')}
+        {t('managements.modules.new')}
       </Button>
       <DataGrid
         pinnedColumns={{ right: ['actions'] }}
@@ -93,7 +93,7 @@ export default function List() {
         columns={[
           {
             field: 'environment',
-            headerName: t < string >('managements.environments.name'),
+            headerName: t('managements.environments.name'),
             width: 200,
             valueGetter({ value }) {
               return (value && value.name) || '';
@@ -101,22 +101,22 @@ export default function List() {
           },
           {
             field: 'name',
-            headerName: t < string >('managements.modules.name'),
+            headerName: t('managements.modules.name'),
             width: 200,
           },
           {
             field: 'description',
-            headerName: t < string >('managements.modules.description'),
+            headerName: t('managements.modules.description'),
             width: 200,
           },
           {
             field: 'component',
-            headerName: t < string >('managements.modules.component'),
+            headerName: t('managements.modules.component'),
             width: 200,
           },
           {
             field: 'active',
-            headerName: t < string >('managements.modules.active'),
+            headerName: t('managements.modules.active'),
             width: 100,
             renderCell({ value }) {
               return <Chip variant="outlined" color={value ? 'success' : 'error'} label={value ? 'Active' : 'Banned'} size="small" />;
@@ -124,22 +124,22 @@ export default function List() {
           },
           {
             field: 'route',
-            headerName: t < string >('managements.modules.route'),
+            headerName: t('managements.modules.route'),
             width: 200,
           },
           {
             field: 'endpoint',
-            headerName: t < string >('managements.modules.endpoint'),
+            headerName: t('managements.modules.endpoint'),
             width: 200,
           },
           {
             field: 'icon',
-            headerName: t < string >('managements.modules.icon'),
+            headerName: t('managements.modules.icon'),
             width: 200,
           },
           {
             field: 'toolbox',
-            headerName: t < string >('managements.modules.toolbox'),
+            headerName: t('managements.modules.toolbox'),
             width: 150,
             renderCell({ value }) {
               return value ? <CheckCircleRoundedIcon style={{ color: 'green' }} /> : <RemoveCircleRoundedIcon style={{ color: 'red' }} />;

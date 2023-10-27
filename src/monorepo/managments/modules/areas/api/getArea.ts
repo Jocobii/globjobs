@@ -17,7 +17,7 @@ const getAreaDocument = gql`
   }
 `;
 
-export const getAreaQuery = async (areaId: string) => request(`${VITE_GATEWAY_URI}/gq/back-office`, getAreaDocument, { areaId }).then((res) => res.area);
+export const getAreaQuery = async (areaId: string) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getAreaDocument, { areaId }).then((res) => res.area);
 
 type QueryFnType = typeof getAreaQuery;
 type UseAreaOptions = {

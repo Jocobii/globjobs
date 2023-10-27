@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 import React, { useState, useEffect } from 'react';
 import {
   Button,
@@ -38,7 +37,7 @@ import ErrorFixerComponent from './ErrorFixer';
 import { useCruceDetail } from '../services/cruce-detail';
 import ModalIntegrationNumber from './ModalIntegrationNumber';
 
-const onlyNumbers = /^[0-9]+$/;
+const onlyNumbers = /^\d+$/;
 
 const DISPATCH_FOLDER = 'dispatch-folder';
 
@@ -186,9 +185,9 @@ function DeleteFileModal({
 
   const originNode = folders[folderParent] || 'tree';
   const generalDispatchNodes: GlobalNodes = {
-    dispatchNodes: crossing?.nodes?.dispatchFileNode || [],
-    externalNode: crossing?.nodes?.externalNode || [],
-    tree: crossing?.nodes?.tree || [],
+    dispatchNodes: crossing?.nodes?.dispatchFileNode ?? [],
+    externalNode: crossing?.nodes?.externalNode ?? [],
+    tree: crossing?.nodes?.tree ?? [],
   };
   const originNodes = generalDispatchNodes[originNode] || [];
 
@@ -222,7 +221,7 @@ function DeleteFileModal({
           operation: {
             id: crossing?.id,
             action: 'deleted_file',
-            files: relatedFiles.map((file) => `${file.text}.${file.data?.ext}` || ''),
+            files: relatedFiles.map((file) => `${file.text}.${file.data?.ext}`),
           },
         },
         context: { clientName: 'globalization' },
@@ -249,15 +248,15 @@ function DeleteFileModal({
         if (n.text !== selectedNode.text) return n;
         return null;
       },
-    ) || []
-    : crossing?.nodes?.tree?.filter((n) => n.text !== selectedNode.text) || []);
+    ) ?? []
+    : crossing?.nodes?.tree?.filter((n) => n.text !== selectedNode.text) ?? []);
   const handleDelete = async () => {
     if ([DISPATCH_FOLDER, 'general-folder'].includes(folderParent)) {
       await deleteFromExternalOrDispatchNodes();
       return;
     }
     const pedimento = relatedFiles[0].parent;
-    const totalTxt = crossing?.nodes?.tree?.filter((e) => e.data?.ext === 'txt' && e.parent === pedimento).length || 0;
+    const totalTxt = crossing?.nodes?.tree?.filter((e) => e.data?.ext === 'txt' && e.parent === pedimento).length ?? 0;
     const quantityTXTToDelete = relatedFiles.filter((e: NodeModels) => e?.data?.ext === 'txt').length || 0;
     const allTXTWereDeleted = (totalTxt - quantityTXTToDelete) === 0;
 
@@ -270,7 +269,7 @@ function DeleteFileModal({
       nodes: {
         ...crossing?.nodes,
         tree: [...newTree],
-        ...(allTXTWereDeleted && { externalNode: [...crossing?.nodes?.externalNode || [], ...orphans.map((n) => ({ ...n, parent: '0' }))] }),
+        ...(allTXTWereDeleted && { externalNode: [...crossing?.nodes?.externalNode ?? [], ...orphans.map((n) => ({ ...n, parent: '0' }))] }),
       },
     };
 
@@ -293,7 +292,7 @@ function DeleteFileModal({
           operation: {
             id: crossing?.id,
             action: 'deleted_file',
-            files: relatedFiles.map((file) => `${file.text}.${file.data?.ext}` || ''),
+            files: relatedFiles.map((file) => `${file.text}.${file.data?.ext}`),
           },
         },
         context: { clientName: 'globalization' },
@@ -335,14 +334,14 @@ function DeleteFileModal({
     <DialogComponent
       open={isOpen}
       handleClose={() => setIsOpen(false)}
-      title={t<string>('cruces.confirm_delete_file')}
-      body={t<string>('cruces.confirm_delete_file_text')}
+      title={t('cruces.confirm_delete_file')}
+      body={t('cruces.confirm_delete_file_text')}
       doubleCheck
-      doubleCheckText={t<string>('cruces.confirm_want_to_delete')}
+      doubleCheckText={t('cruces.confirm_want_to_delete')}
       maxWidth="sm"
       handleConfirm={handleDelete}
-      okText={t<string>('cruces.delete_documents')}
-      cancelText={t<string>('cancel')}
+      okText={t('cruces.delete_documents')}
+      cancelText={t('cancel')}
     >
       <FilesToDelete filesToDelete={relatedFiles} />
     </DialogComponent>
@@ -473,12 +472,12 @@ export function ListDocuments({
   const [errorVisibility, setErrorVisibility] = useState(false);
   const [changeTag, setChangeTag] = useState(false);
   const [isDigitized, setDigitized] = useState(
-    node.data?.digitized || node?.data?.firstDigitized,
+    node.data?.digitized ?? node?.data?.firstDigitized,
   );
   const { crossing, setCrossing } = useCrossing();
 
   useEffect(() => {
-    setDigitized(node.data?.digitized || node?.data?.firstDigitized);
+    setDigitized(node.data?.digitized ?? node?.data?.firstDigitized);
   }, [node.data?.digitized, node?.data?.firstDigitized]);
 
   const handleToggle = (e: React.MouseEvent) => {
@@ -512,12 +511,12 @@ export function ListDocuments({
     if (node.data?.digitized) return;
     const nodes = {
       ...crossing?.nodes,
-      ...(node.parent === 'general-folder' && { externalNode: changeDigitized(crossing?.nodes?.externalNode || []) }),
+      ...(node.parent === 'general-folder' && { externalNode: changeDigitized(crossing?.nodes?.externalNode ?? []) }),
       ...(node.parent === DISPATCH_FOLDER && {
-        dispatchFileNode: changeDigitized(crossing?.nodes?.dispatchFileNode || []),
+        dispatchFileNode: changeDigitized(crossing?.nodes?.dispatchFileNode ?? []),
       }),
       ...(onlyNumbers.test(node.parent.toString()) && {
-        tree: changeDigitized(crossing?.nodes?.tree || []),
+        tree: changeDigitized(crossing?.nodes?.tree ?? []),
       }),
     };
     setDigitized(!isDigitized);
@@ -526,7 +525,7 @@ export function ListDocuments({
       nodes,
       isWithoutTxtFlow: nodes?.tree?.length || [].length > 0
         ? false
-        : isWithoutTxtFlow(nodes?.externalNode || []),
+        : isWithoutTxtFlow(nodes?.externalNode ?? []),
     });
   };
 
@@ -713,7 +712,7 @@ export function ListDocuments({
             <OptionsComponent
               node={node}
               handleOption={handleOptions}
-              typeFile={node.data?.ext || 'pdf'}
+              typeFile={node.data?.ext ?? 'pdf'}
             />
             <ChangeTag
               open={changeTag}

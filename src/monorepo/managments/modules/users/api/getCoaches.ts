@@ -23,7 +23,7 @@ const restfulTeamDocument = gql`
   }
 `;
 
-export const getAllCoaches = async () => request(`${VITE_GATEWAY_URI}/gq/back-office`, restfulTeamDocument);
+export const getAllCoaches = async () => request<CoachesResponse>(`${VITE_GATEWAY_URI}/gq/back-office`, restfulTeamDocument);
 
 type QueryFnType = () => Promise<CoachesResponse>;
 

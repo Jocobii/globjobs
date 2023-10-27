@@ -20,7 +20,7 @@ const restfulHeadquartersDocument = gql`
   }
 `;
 
-export const restfulHeadquarters = async () => request(`${VITE_GATEWAY_URI}/gq/back-office`, restfulHeadquartersDocument);
+export const restfulHeadquarters = async () => request<RestfulHeadquartersResponse>(`${VITE_GATEWAY_URI}/gq/back-office`, restfulHeadquartersDocument);
 
 type QueryFnType = () => Promise<RestfulHeadquartersResponse>;
 

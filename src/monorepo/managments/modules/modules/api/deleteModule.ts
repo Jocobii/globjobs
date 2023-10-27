@@ -24,7 +24,7 @@ export const deleteModuleMutationDocument = gql`
 `;
 
 export const deleteModule = ({ moduleId }: DeleteModuleDto):
-Promise<Module> => request(
+Promise<Module> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   deleteModuleMutationDocument,
   {

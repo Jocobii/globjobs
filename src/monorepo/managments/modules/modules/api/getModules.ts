@@ -31,7 +31,7 @@ const modulesDocument = gql`
   }
 `;
 
-export const getModulesQuery = async (variables?: Record<string, unknown>) => request(`${VITE_GATEWAY_URI}/gq/back-office`, modulesDocument, { pagination: variables })
+export const getModulesQuery = async (variables?: Record<string, unknown>) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, modulesDocument, { pagination: variables })
   .then((res) => res.modules)
   .catch((err) => ({ rows: [], error: true, msg: err }));
 

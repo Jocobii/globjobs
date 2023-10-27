@@ -61,29 +61,29 @@ export default function CreateCustomerUser({
   const [openConfirm, setOpenConfirm] = useState(false);
   const [tempNotifications, setTempNotifications] = useState<Notification[]>([]);
   const [activeTab, setActiveTab] = useState(0);
-  const errMessage = t<string>('generic.requiredField');
+  const errMessage = t('generic.requiredField');
   const schema = Yup.object({
     photoUrl: Yup.string().optional(),
     name: Yup.string()
-      .max(128, t<string>(CHARACTER_QUANTITY, { value: 128 }))
+      .max(128, t(CHARACTER_QUANTITY, { value: 128 }))
       .required(errMessage)
-      .matches(/^[a-zA-Z0-9\s]+$/, t<string>('managements.no_special_characters')),
+      .matches(/^[a-zA-Z0-9\s]+$/, t('managements.no_special_characters')),
     lastName: Yup.string()
-      .max(128, t<string>(CHARACTER_QUANTITY, { value: 128 }))
+      .max(128, t(CHARACTER_QUANTITY, { value: 128 }))
       .required(errMessage)
-      .matches(/^[a-zA-Z0-9\s]+$/, t<string>('managements.no_special_characters')),
+      .matches(/^[a-zA-Z0-9\s]+$/, t('managements.no_special_characters')),
     emailAddress: Yup.string()
       .required(errMessage)
       .typeError(errMessage)
-      .email(t<string>('managements.invalid_email')),
+      .email(t('managements.invalid_email')),
     phoneNumber: Yup.string()
       .typeError(errMessage)
       .required(errMessage)
-      .max(15, t<string>(CHARACTER_QUANTITY, { value: 15 })),
+      .max(15, t(CHARACTER_QUANTITY, { value: 15 })),
     birthDate: Yup.string().optional(),
-    companyRole: Yup.string().optional().max(64, t<string>(CHARACTER_QUANTITY, { value: 64 })),
-    companyDeparment: Yup.string().optional().max(64, t<string>(CHARACTER_QUANTITY, { value: 64 })),
-    companies: Yup.array().of(Yup.string()).min(1, t<string>('managements.select_option')).required(errMessage),
+    companyRole: Yup.string().optional().max(64, t(CHARACTER_QUANTITY, { value: 64 })),
+    companyDeparment: Yup.string().optional().max(64, t(CHARACTER_QUANTITY, { value: 64 })),
+    companies: Yup.array().of(Yup.string()).min(1, t('managements.select_option')).required(errMessage),
   });
 
   const {
@@ -96,7 +96,7 @@ export default function CreateCustomerUser({
     trigger,
     formState: { errors, isSubmitting },
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   useEffect(() => {
@@ -129,12 +129,12 @@ export default function CreateCustomerUser({
       );
       setTempModules(
         user.overridedModules
-        ?? customerRole.modules
+        ?? customerRole?.modules
         ?? [],
       );
       setTempNotifications(
         user.overridedNotifications
-        ?? customerRole.notifications.notifications
+        ?? customerRole?.notifications?.notifications
         ?? [],
       );
     }
@@ -142,8 +142,8 @@ export default function CreateCustomerUser({
 
   useEffect(() => {
     if (customerRole && mode === 'create') {
-      setTempModules(customerRole.modules);
-      setTempNotifications(customerRole.notifications);
+      setTempModules(customerRole?.modules ?? []);
+      setTempNotifications(customerRole?.notifications?.notifications ?? []);
     }
     if (companiesSelected.length > 0) {
       setValue('companies', companiesSelected.map(({ _id }) => _id));
@@ -215,9 +215,9 @@ export default function CreateCustomerUser({
       const [result] = await uploadFiles(image, true);
       const { url } = result;
       setValue('photoUrl', url);
-      successMessage(t<string>('managements.image_upload'));
+      successMessage(t('managements.image_upload'));
     } catch (error) {
-      errorMessage(t<string>('managements.image_upload_error'));
+      errorMessage(t('managements.image_upload_error'));
     }
   };
   const handleNotificationsChange = (
@@ -251,7 +251,7 @@ export default function CreateCustomerUser({
           multiple
           errors={errors}
           name="companies"
-          label={`${t<string>('managements.companies')} *`}
+          label={`${t('managements.companies')} *`}
           control={control}
           options={data?.companiesFind ?? []}
           key="modules-autocomplete"
@@ -286,19 +286,19 @@ export default function CreateCustomerUser({
         >
           <Tab
             sx={{ px: 1 }}
-            label={t<string>('managements.usersModule.generalInfo')}
+            label={t('managements.usersModule.generalInfo')}
             key={1}
             value={0}
           />
           <Tab
             sx={{ px: 1 }}
-            label={t<string>('managements.usersModule.modulesAndPermissions')}
+            label={t('managements.usersModule.modulesAndPermissions')}
             key={2}
             value={1}
           />
           <Tab
             sx={{ px: 1 }}
-            label={t<string>('managements.usersModule.notifications')}
+            label={t('managements.usersModule.notifications')}
             key={3}
             value={2}
           />
@@ -314,7 +314,7 @@ export default function CreateCustomerUser({
               errors={errors}
               fieldName="name"
               inputType="text"
-              label={`${t<string>('managements.name')}*`}
+              label={`${t('managements.name')}*`}
               register={register}
               key="name-field"
             />
@@ -322,7 +322,7 @@ export default function CreateCustomerUser({
               errors={errors}
               fieldName="lastName"
               inputType="text"
-              label={`${t<string>('managements.lastName')} *`}
+              label={`${t('managements.lastName')} *`}
               register={register}
               key="lastName-field"
             />
@@ -330,7 +330,7 @@ export default function CreateCustomerUser({
               errors={errors}
               fieldName="phoneNumber"
               inputType="number"
-              label={`${t<string>('managements.phoneNumber')}*`}
+              label={`${t('managements.phoneNumber')}*`}
               register={register}
               key="phoneNumber-field"
             />
@@ -338,12 +338,12 @@ export default function CreateCustomerUser({
               errors={errors}
               fieldName="emailAddress"
               inputType="text"
-              label={`${t<string>('managements.emailAddress')}*`}
+              label={`${t('managements.emailAddress')}*`}
               register={register}
               key="emailAddress-field"
             />
             <ControlledTextField
-              label={t<string>('managements.birthDate')}
+              label={t('managements.birthDate')}
               register={register}
               inputType="date"
               errors={errors}
@@ -354,7 +354,7 @@ export default function CreateCustomerUser({
               errors={errors}
               fieldName="companyDeparment"
               inputType="text"
-              label={t<string>('managements.department')}
+              label={t('managements.department')}
               register={register}
               key="companyDeparment-field"
             />
@@ -362,7 +362,7 @@ export default function CreateCustomerUser({
               errors={errors}
               fieldName="companyRole"
               inputType="text"
-              label={t<string>('managements.job')}
+              label={t('managements.job')}
               register={register}
               key="companyRole-field"
             />
@@ -370,7 +370,7 @@ export default function CreateCustomerUser({
         )}
         {activeTab === 1 && (
           <Modules
-            availableRoles={[customerRole]}
+            availableRoles={[customerRole ?? {}]}
             selectedRole={customerRole}
             onModulesHaveBeenOverridedChange={handleChangeModulesHaveBeenOverrided}
             userModules={tempModules}
@@ -382,7 +382,7 @@ export default function CreateCustomerUser({
         {activeTab === 2 && (
           <>
             <Notifications
-              availableRoles={[customerRole]}
+              availableRoles={[customerRole ?? {}]}
               selectedRole={customerRole}
               control={control}
               userNotifications={tempNotifications}
@@ -404,7 +404,7 @@ export default function CreateCustomerUser({
                 color="error"
                 type="button"
               >
-                {t<string>('generic.cancel')}
+                {t('generic.cancel')}
               </ButtonLoading>
               <ButtonLoading
                 sx={{ width: '100%' }}
@@ -414,7 +414,7 @@ export default function CreateCustomerUser({
                 color="primary"
                 loading={isSubmitting}
               >
-                {t<string>('generic.save')}
+                {t('generic.save')}
               </ButtonLoading>
             </Stack>
           </>

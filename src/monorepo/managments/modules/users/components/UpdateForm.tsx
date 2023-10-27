@@ -12,7 +12,7 @@ import {
   DialogActions,
 } from '@mui/material';
 import Button from '@mui/lab/LoadingButton';
-import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form/dist/types';
+import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -54,7 +54,7 @@ export default function UpdateForm({
   const { data: areasData } = useRestfulAreas();
   const { data: departmentsData } = useRestfulDepartments();
 
-  const label = data?.active ? t<string>('managements.deactivate') : t<string>('managements.activate');
+  const label = data?.active ? t('managements.deactivate') : t('managements.activate');
 
   const toggleOpenActivateUserDialog = () => setIsOpen((prev) => !prev);
 
@@ -71,13 +71,13 @@ export default function UpdateForm({
           <DialogContentText>
             {
               data?.active
-                ? t<string>('managements.deactivateMessage', { name: `${data?.name} ${data?.lastName}` })
-                : t<string>('managements.activateMessage', { name: `${data?.name} ${data?.lastName}` })
+                ? t('managements.deactivateMessage', { name: `${data?.name} ${data?.lastName}` })
+                : t('managements.activateMessage', { name: `${data?.name} ${data?.lastName}` })
             }
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleOpenActivateUserDialog}>{t<string>('cancel')}</Button>
+          <Button onClick={toggleOpenActivateUserDialog}>{t('cancel')}</Button>
           <Button variant="contained" onClick={handleSubmitToggleActiveUser}>{label}</Button>
         </DialogActions>
       </Dialog>
@@ -93,7 +93,7 @@ export default function UpdateForm({
                     alignItems="center"
                     spacing={2}
                   >
-                    <Typography variant="h4" gutterBottom>{t<string>('managements.updateUser')}</Typography>
+                    <Typography variant="h4" gutterBottom>{t('managements.updateUser')}</Typography>
                     <Button
                       variant="contained"
                       onClick={toggleOpenActivateUserDialog}
@@ -105,7 +105,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="name"
                     inputType="text"
-                    label={t<string>('managements.name')}
+                    label={t('managements.name')}
                     register={register}
                     key="name-field"
                   />
@@ -113,7 +113,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="lastName"
                     inputType="text"
-                    label={t<string>('managements.lastName')}
+                    label={t('managements.lastName')}
                     register={register}
                     key="lastName-field"
                   />
@@ -121,7 +121,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="employeeNumber"
                     inputType="text"
-                    label={t<string>('managements.employeeNumber')}
+                    label={t('managements.employeeNumber')}
                     register={register}
                     key="employeeNumber-field"
                   />
@@ -129,7 +129,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="emailAddress"
                     inputType="text"
-                    label={t<string>('managements.emailAddress')}
+                    label={t('managements.emailAddress')}
                     register={register}
                     key="emailAddress-field"
                     disabled
@@ -138,7 +138,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="phoneNumber"
                     inputType="text"
-                    label={t<string>('managements.phoneNumber')}
+                    label={t('managements.phoneNumber')}
                     register={register}
                     key="phoneNumber-field"
                   />
@@ -146,7 +146,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="birthDate"
                     inputType="date"
-                    label={t<string>('managements.birthDate')}
+                    label={t('managements.birthDate')}
                     register={register}
                     registerOptions={{ valueAsDate: false }}
                     key="birthDate-field"
@@ -155,12 +155,12 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="charge"
                     inputType="text"
-                    label={t<string>('managements.charge')}
+                    label={t('managements.charge')}
                     register={register}
                     key="charge-field"
                   />
                   <ControlledSelect
-                    label={t<string>('managements.employeeType')}
+                    label={t('managements.employeeType')}
                     control={control}
                     name="employeeType"
                     key="employeeType-select"
@@ -177,7 +177,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="coach"
                     inputType="text"
-                    label={t<string>('managements.coach')}
+                    label={t('managements.coach')}
                     register={register}
                     key="coach-field"
                   />
@@ -185,7 +185,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="costCenter"
                     inputType="text"
-                    label={t<string>('managements.costsCenter')}
+                    label={t('managements.costsCenter')}
                     register={register}
                     key="costCenter-field"
                   />
@@ -193,7 +193,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="darwinUser"
                     inputType="text"
-                    label={t<string>('managements.darwinUser')}
+                    label={t('managements.darwinUser')}
                     register={register}
                     key="darwinUser-field"
                   />
@@ -201,7 +201,7 @@ export default function UpdateForm({
                     errors={errors}
                     fieldName="rbSystemsUser"
                     inputType="text"
-                    label={t<string>('managements.rbSystemsUser')}
+                    label={t('managements.rbSystemsUser')}
                     register={register}
                     key="rbSystemsUser-field"
                   />
@@ -209,7 +209,7 @@ export default function UpdateForm({
                     defaultValue={data?.headquarter}
                     errors={errors}
                     name="headquarter"
-                    label={t<string>('managements.site')}
+                    label={t('managements.site')}
                     control={control}
                     options={headquartersData?.headquartersRestful || []}
                     key="headquarters-autocomplete"
@@ -234,7 +234,7 @@ export default function UpdateForm({
                     defaultValue={data?.area}
                     errors={errors}
                     name="area"
-                    label={t<string>('managements.area')}
+                    label={t('managements.area')}
                     control={control}
                     options={areasData?.areaRestful || []}
                     key="areas-autocomplete"
@@ -259,7 +259,7 @@ export default function UpdateForm({
                     defaultValue={data?.department}
                     errors={errors}
                     name="department"
-                    label={t<string>('managements.department')}
+                    label={t('managements.department')}
                     control={control}
                     options={departmentsData?.departmentsRestful || []}
                     key="departments-autocomplete"

@@ -29,7 +29,7 @@ export const createAreaMutationDocument = gql`
   }
 `;
 
-export const createArea = ({ data }: CreateUserDto): Promise<Area> => request(
+export const createArea = ({ data }: CreateUserDto): Promise<Area> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   createAreaMutationDocument,
   {

@@ -14,8 +14,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as Yup from 'yup';
-import { FieldValues } from 'react-hook-form';
-import type { Control } from 'react-hook-form/dist/types';
+import { FieldValues, type Control } from 'react-hook-form';
 
 import { ControlledCheckbox } from '@gsuite/shared/ui';
 
@@ -73,7 +72,7 @@ const notifications = [{
 
 export type Notification = {
   name: string;
-  checked: boolean;
+  checked?: boolean;
   permissions: { name: string, checked: boolean }[];
 };
 

@@ -1,6 +1,7 @@
 import { DeepPartial, SubmitHandler } from 'react-hook-form';
 
 import { Formeazy } from '@gsuite/ui/Formeazy';
+import { TFunctionType } from '@gsuite/typings/common';
 
 import { AssignTeam, assignToTeamSchema } from '../types';
 import { useFindCompany } from '../../../services/findCompany';
@@ -9,7 +10,7 @@ type AddClientToTeamFormProps = {
   onClose: () => void;
   onSubmit: SubmitHandler<AssignTeam>;
   initialValues?: DeepPartial<AssignTeam>;
-  t: <T>(key: string | string[]) => T;
+  t: TFunctionType;
 };
 
 export default function AddClientToTeamForm({
@@ -22,13 +23,13 @@ export default function AddClientToTeamForm({
   return (
     <Formeazy<AssignTeam>
       withHeader
-      title={t<string>('managements.teams.addClient')}
+      title={t('managements.teams.addClient')}
       schema={assignToTeamSchema({ t })}
       inputProps={{
         target: {
-          label: t<string>('managements.teams.companySearch'),
+          label: t('managements.teams.companySearch'),
           type: 'autocomplete',
-          customOnChange: (value) => debouncedCompany(value as string),
+          customOnChange: debouncedCompany,
           keywords: data?.companiesFind || [],
           valueSerializer: (dataValue: { name: string, number: string }) => {
             if (dataValue) {

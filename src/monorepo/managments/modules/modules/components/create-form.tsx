@@ -45,7 +45,7 @@ export default function Create({ open, onClose }: Props) {
     control,
 
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const onSubmit: SubmitHandler<any> = async (data) => {

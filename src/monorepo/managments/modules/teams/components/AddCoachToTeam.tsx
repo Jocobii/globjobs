@@ -41,7 +41,7 @@ export default function DeleteFromTeam({
     formState: { errors },
     control,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const handleSave = async ({ coachId }: FieldValues) => {
@@ -51,7 +51,7 @@ export default function DeleteFromTeam({
 
   return (
     <DialogComponent
-      title={t<string>('managements.teams.addCoach')}
+      title={t('managements.teams.addCoach')}
       aria-labelledby="customized-dialog-title"
       open={isModalOpen}
       cancelButtonVisibility={false}
@@ -89,7 +89,7 @@ export default function DeleteFromTeam({
             {t('cancel')}
           </Button>
           <Button variant="contained" type="submit">
-            {t<string>('managements.teams.addCoach')}
+            {t('managements.teams.addCoach')}
           </Button>
         </DialogActions>
       </form>

@@ -21,7 +21,7 @@ const restfulTeamDocument = gql`
   }
 `;
 
-export const restfulTeams = async () => request(`${VITE_GATEWAY_URI}/gq/back-office`, restfulTeamDocument);
+export const restfulTeams = async (): Promise<RestfulTeamsResponse> => request<RestfulTeamsResponse>(`${VITE_GATEWAY_URI}/gq/back-office`, restfulTeamDocument);
 
 type QueryFnType = () => Promise<RestfulTeamsResponse>;
 
@@ -36,3 +36,4 @@ export function useRestfulTeams({ config }: UseRestfulTeamOptions = {}) {
     queryFn: () => restfulTeams(),
   });
 }
+

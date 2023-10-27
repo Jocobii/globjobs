@@ -28,19 +28,19 @@ export default function SelectOperation({ open, handleClose, handleCreateOperati
   const operationOptions = [
     {
       id: Option.RPLBET,
-      text: t<string>('broker.RPLBET'),
+      text: t('broker.RPLBET'),
     },
     {
       id: Option.RAET,
-      text: t<string>('broker.RAET'),
+      text: t('broker.RAET'),
     },
     {
       id: Option.ACT,
-      text: t<string>('broker.ACT'),
+      text: t('broker.ACT'),
     },
     {
       id: Option.SDET,
-      text: t<string>('broker.SDET'),
+      text: t('broker.SDET'),
     },
   ];
 
@@ -81,7 +81,7 @@ export default function SelectOperation({ open, handleClose, handleCreateOperati
       body: (
         <Stack spacing={2} alignContent="center">
           <Typography variant="subtitle1" align="center">
-            {t<string>('broker.selectOperation')}
+            {t('broker.selectOperation')}
           </Typography>
           {operationOptions.map(({ id, text }) => (
             <Button

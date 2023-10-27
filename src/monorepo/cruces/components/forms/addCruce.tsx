@@ -82,16 +82,16 @@ export default function AddCruce({
   const { crossing, setCrossing, dialogData } = useCrossing();
   const crossingType = ['Importacion', 'Exportacion'];
   const schema = yup.object().shape({
-    type: yup.string().required(t<string>(GENERIC_MESSAGE)),
+    type: yup.string().required(t(GENERIC_MESSAGE)),
     customerUser: yup.object().shape({
-      _id: yup.string().required(t<string>(GENERIC_MESSAGE)),
-      name: yup.string().required(t<string>(GENERIC_MESSAGE)),
-      lastName: yup.string().required(t<string>(GENERIC_MESSAGE)),
-    }).required(t<string>(GENERIC_MESSAGE)),
-    client: yup.string().required(t<string>(GENERIC_MESSAGE)),
-    clientNumber: yup.string().required(t<string>(GENERIC_MESSAGE)),
-    patente: yup.string().required(t<string>(GENERIC_MESSAGE)).length(4, t<string>('cruces.onSave.patentLength')),
-    aduana: yup.string().required(t<string>(GENERIC_MESSAGE)).length(3, t<string>('cruces.onSave.aduanaLength')),
+      _id: yup.string().required(t(GENERIC_MESSAGE)),
+      name: yup.string().required(t(GENERIC_MESSAGE)),
+      lastName: yup.string().required(t(GENERIC_MESSAGE)),
+    }).required(t(GENERIC_MESSAGE)),
+    client: yup.string().required(t(GENERIC_MESSAGE)),
+    clientNumber: yup.string().required(t(GENERIC_MESSAGE)),
+    patente: yup.string().required(t(GENERIC_MESSAGE)).length(4, t('cruces.onSave.patentLength')),
+    aduana: yup.string().required(t(GENERIC_MESSAGE)).length(3, t('cruces.onSave.aduanaLength')),
     comments: yup.string(),
   });
 
@@ -105,7 +105,7 @@ export default function AddCruce({
     control,
   } = useForm<FieldValues>({
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
   const updateHistoryCreate = async (id: string, allFiles: string[], comments: string) => {
     await updateHistory({

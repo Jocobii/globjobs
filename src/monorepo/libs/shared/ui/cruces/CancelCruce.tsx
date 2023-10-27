@@ -48,7 +48,7 @@ export default function CancelCruceModal({
       },
     }).then(() => {
       showSnackMessage(
-        t<string>('cruces.cancellation.cancelled', { operation: title }),
+        t('cruces.cancellation.cancelled', { operation: title }),
         'error',
         {
           vertical: 'top',
@@ -74,15 +74,15 @@ export default function CancelCruceModal({
       <DialogTitle>{title}</DialogTitle>
       <DialogContent style={{ textAlign: 'center' }}>
         <Typography variant="h4" style={{ color: '#2F82E0' }}>
-          {t<string>('cruces.cancellation.alert')}
+          {t('cruces.cancellation.alert')}
         </Typography>
         <DialogContentText>
-          {t<string>('cruces.cancellation.disclaimer')}
+          {t('cruces.cancellation.disclaimer')}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" onClick={handleClose}>{t<string>('cruces.cancellation.deny')}</Button>
-        <Button variant="contained" onClick={handleCancel}>{t<string>('cruces.cancellation.accept')}</Button>
+        <Button variant="outlined" onClick={handleClose}>{t('cruces.cancellation.deny')}</Button>
+        <Button variant="contained" onClick={handleCancel}>{t('cruces.cancellation.accept')}</Button>
       </DialogActions>
     </Dialog>
   );

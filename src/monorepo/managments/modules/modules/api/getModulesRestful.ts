@@ -20,8 +20,9 @@ const restfulModulesDocument = gql`
 `;
 
 export const useRestfulModules = (environment?: string) => {
-  const { data } = useQuery<RestfulModulesResponse>(restfulModulesDocument, { variables: { environment } });
+  const { data, loading } = useQuery<RestfulModulesResponse>(restfulModulesDocument, { variables: { environment } });
   return {
     data,
+    isLoading: loading,
   };
 }

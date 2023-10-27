@@ -32,15 +32,15 @@ export default function StatusTimeLine({
 }) {
   const { t } = useTranslation();
   const steps = [
-    t<string>('cruces.REQUESTED_OPERATION'),
-    t<string>('cruces.DOCUMENTS_PROCESS'),
-    t<string>('cruces.PROFORMA_AUTHORIZATION'),
-    t<string>('cruces.PAID_DOCUMENTS'),
-    t<string>('cruces.READY_DOCUMENTS'),
-    t<string>('cruces.headers.delivered'),
-    t<string>('cruces.CUSTOMS_RECOGNITION'),
-    t<string>('cruces.FREE_DISADVANTAGE'),
-    t<string>('cruces.FINISHED_OPERATION'),
+    t('cruces.REQUESTED_OPERATION'),
+    t('cruces.DOCUMENTS_PROCESS'),
+    t('cruces.PROFORMA_AUTHORIZATION'),
+    t('cruces.PAID_DOCUMENTS'),
+    t('cruces.READY_DOCUMENTS'),
+    t('cruces.headers.delivered'),
+    t('cruces.CUSTOMS_RECOGNITION'),
+    t('cruces.FREE_DISADVANTAGE'),
+    t('cruces.FINISHED_OPERATION'),
   ];
   const transparentColor = 'rgba(255, 0, 0, 0)';
   const QontoConnector = styled(StepConnector)(() => ({

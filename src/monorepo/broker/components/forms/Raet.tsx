@@ -52,14 +52,14 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
   const { data: companiesData } = useCompanies();
 
   const schema = Yup.object({
-    client: Yup.string().required(t<string>('broker.clientSchema')),
+    client: Yup.string().required(t('broker.clientSchema')),
     clientNumber: Yup.string().required('required'),
-    airport: Yup.string().required(t<string>('broker.airportSchema')),
-    guideNumber: Yup.string().required(t<string>('broker.guideNumberSchema')),
-    date: Yup.string().required(t<string>('broker.dateEstimatedSchema')),
-    quantity: Yup.number().required(t<string>('broker.quantityOperationSchema')).typeError('You must specify a number'),
+    airport: Yup.string().required(t('broker.airportSchema')),
+    guideNumber: Yup.string().required(t('broker.guideNumberSchema')),
+    date: Yup.string().required(t('broker.dateEstimatedSchema')),
+    quantity: Yup.number().required(t('broker.quantityOperationSchema')).typeError('You must specify a number'),
     notes: Yup.string().nullable().optional(),
-    bodyType: Yup.string().required(t<string>('broker.packageTypeSchema')),
+    bodyType: Yup.string().required(t('broker.packageTypeSchema')),
     reference: Yup.string().nullable().optional(),
   });
 
@@ -71,7 +71,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
     control,
     reset,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const submitHandler = async ({
@@ -168,7 +168,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
                 <ControlledAutocomplete
                   errors={errors}
                   name="client"
-                  label={`${t<string>('broker.clientLabel')} *`}
+                  label={`${t('broker.clientLabel')} *`}
                   control={control}
                   options={companiesData?.findCompanies ?? []}
                   key="clients-autocomplete"
@@ -179,7 +179,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
                   }}
                 />
                 <ControlledSelect
-                  label={`${t<string>('broker.airportLabel')} *`}
+                  label={`${t('broker.airportLabel')} *`}
                   control={control}
                   name="airport"
                   key="airport-select"
@@ -193,7 +193,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
                   ))}
                 </ControlledSelect>
                 <ControlledTextField
-                  label={`${t<string>('broker.guideNumberLabel')} *`}
+                  label={`${t('broker.guideNumberLabel')} *`}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -201,7 +201,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
                   key="guideNumber-field"
                 />
                 <ControlledTextField
-                  label={`${t<string>('broker.dateEstimatedLabel')} *`}
+                  label={`${t('broker.dateEstimatedLabel')} *`}
                   register={register}
                   inputType="date"
                   errors={errors}
@@ -213,7 +213,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <Stack spacing={2} sx={{ pt: 1 }}>
                 <ControlledSelect
-                  label={`${t<string>('broker.packageTypeLabel')} *`}
+                  label={`${t('broker.packageTypeLabel')} *`}
                   control={control}
                   name="bodyType"
                   key="bodyType-select"
@@ -227,7 +227,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
                   ))}
                 </ControlledSelect>
                 <ControlledTextField
-                  label={`${t<string>('broker.quantityLabel')} *`}
+                  label={`${t('broker.quantityLabel')} *`}
                   register={register}
                   inputType="number"
                   errors={errors}
@@ -236,7 +236,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
                   registerOptions={{ valueAsNumber: true }}
                 />
                 <ControlledTextField
-                  label={t<string>('broker.notesLabel')}
+                  label={t('broker.notesLabel')}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -244,7 +244,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
                   key="notes-field"
                 />
                 <ControlledTextField
-                  label={t<string>('broker.referencesLabel')}
+                  label={t('broker.referencesLabel')}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -257,20 +257,20 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
           <Grid container spacing={2}>
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <Dropzone
-                label={`${t<string>('broker.packingListFiles')} *`}
+                label={`${t('broker.packingListFiles')} *`}
                 files={packingListFiles}
                 filesSetter={setPackingListFiles}
               />
             </Grid>
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Dropzone label={t<string>('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} />
+              <Dropzone label={t('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} />
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>{t<string>('cancel')}</Button>
+          <Button onClick={handleClose}>{t('cancel')}</Button>
           <LoadingButton variant="contained" type="submit" loading={loading}>
-            {t<string>('register')}
+            {t('register')}
           </LoadingButton>
         </DialogActions>
       </form>

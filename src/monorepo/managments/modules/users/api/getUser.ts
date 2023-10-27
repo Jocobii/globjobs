@@ -2,10 +2,12 @@ import { gql, request } from 'graphql-request';
 import { useQuery } from '@tanstack/react-query';
 
 import { QueryConfig } from '@gsuite/shared/lib/react-query';
+import { ExtractFnReturnType } from '@/lib/react-query';
 
 export type Module = {
   name: string;
-  checked: boolean;
+  key: string;
+  checked?: boolean;
   permissions: { name: string; checked: boolean }[];
 };
 const { VITE_GATEWAY_URI } = import.meta.env;
@@ -83,6 +85,10 @@ type UserDocument = {
   };
   overridedModules: Module[];
   overridedNotifications: Notification[];
+};
+
+type Response = {
+  user: UserDocument;
 };
 
 const getUserDocument = gql`
@@ -171,7 +177,7 @@ const getUserDocument = gql`
   }
 `;
 
-export const getUserQuery = async (id: string) => request(`${VITE_GATEWAY_URI}/gq/back-office`, getUserDocument, { id }).then((res) => res.user);
+export const getUserQuery = async (id?: string) => request<Response>(`${VITE_GATEWAY_URI}/gq/back-office`, getUserDocument, { id }).then((res) => res.user);
 
 type QueryFnType = typeof getUserQuery;
 type UseUserOptions = {
@@ -180,15 +186,11 @@ type UseUserOptions = {
 };
 
 export function useGetUser({ id, config }: UseUserOptions) {
-  return useQuery <UserDocument>({
-    ...config,
+  return useQuery<ExtractFnReturnType<QueryFnType>>({
     queryKey: ['user', id],
-    queryFn: async () => {
-      if (id) {
-        return getUserQuery(id);
-      }
-      return null;
-    },
+    queryFn: () => getUserQuery(id),
     suspense: true,
+    enabled: !id,
+    ...config,
   });
 }

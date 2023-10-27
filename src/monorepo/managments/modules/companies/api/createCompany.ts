@@ -61,7 +61,7 @@ mutation (
 }
 `;
 
-export const createCompany = ({ data }: CreateCompanyDto): Promise<CompanyDocument> => request(
+export const createCompany = ({ data }: CreateCompanyDto): Promise<CompanyDocument> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   createCompanyMutationDocument,
   {

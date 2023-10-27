@@ -71,7 +71,7 @@ function Table({
       onCompleted: () => {
         handleClose();
         showSnackMessage(
-          t<string>('cruces.assigned_operation'),
+          t('cruces.assigned_operation'),
           'success',
           {
             vertical: 'top',
@@ -109,7 +109,7 @@ function Table({
               color="primary"
               onClick={() => handleAttend(params.row.id)}
             >
-              {t<string>('cruces.table.attend')}
+              {t('cruces.table.attend')}
             </Button>
           </Stack>
         );

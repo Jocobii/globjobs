@@ -6,6 +6,11 @@ import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { Role } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
+
+type Response = {
+  updateRole: Role;
+};
+
 export const updateRoleMutationDocument = gql`
   mutation (
     $id: String!,
@@ -26,7 +31,7 @@ export const updateRoleMutationDocument = gql`
   }
 `;
 
-export const updateRole = ({ data }: any): Promise<Role> => request(
+export const updateRole = ({ data }: any): Promise<Role> => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateRoleMutationDocument,
   {
@@ -35,7 +40,7 @@ export const updateRole = ({ data }: any): Promise<Role> => request(
     modules: data.modules,
     notifications: data.notifications,
   },
-).then((res) => res.role);
+).then((res) => res.updateRole);
 
 type UseUpdateRoleOptions = {
   config?: MutationConfig<typeof updateRole>;

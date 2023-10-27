@@ -30,7 +30,7 @@ export default function AlternateTimeline({ logs = [] }: Props) {
           {' '}
         </Typography>
         <Typography variant="caption" key={value}>
-          {typeof objectValues[value] === 'object' ? t<string>('wasUpdated') : objectValues[value]}
+          {typeof objectValues[value] === 'object' ? t('wasUpdated') : objectValues[value]}
         </Typography>
       </>
     ));
@@ -64,7 +64,7 @@ export default function AlternateTimeline({ logs = [] }: Props) {
             </TimelineContent>
           </TimelineItem>
         ))
-          : <Typography variant="h6" component="span">{t<string>('broker.withoutLogs')}</Typography>
+          : <Typography variant="h6" component="span">{t('broker.withoutLogs')}</Typography>
       }
     </Timeline>
   );

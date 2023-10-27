@@ -172,7 +172,7 @@ export default function CreateRoleForm({
     formState: { errors },
     handleSubmit,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const onSubmit = async (formData: object) => {

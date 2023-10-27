@@ -7,7 +7,7 @@ import {
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@mui/lab/LoadingButton';
-import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form/dist/types';
+import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form';
 
 import Scrollbar from '@gsuite/ui/Scrollbar';
@@ -99,13 +99,13 @@ export default function Form({
                   alignItems="center"
                   spacing={2}
                 >
-                  <Typography variant="h4" gutterBottom>{t<string>(`managements.menu.${data ? 'edit' : 'create'}`)}</Typography>
+                  <Typography variant="h4" gutterBottom>{t(`managements.menu.${data ? 'edit' : 'create'}`)}</Typography>
                 </Stack>
                 <ControlledAutocomplete
                   defaultValue={data?.environment}
                   errors={errors}
                   name="environment"
-                  label={t<string>('managements.environments.name')}
+                  label={t('managements.environments.name')}
                   control={control}
                   options={environmentsData?.environmentsRestful || []}
                   key="environments-autocomplete"
@@ -132,7 +132,7 @@ export default function Form({
                   multiple
                   errors={errors}
                   name="modules"
-                  label={t<string>('managements.modules.list')}
+                  label={t('managements.modules.list')}
                   control={control}
                   options={modulesOptions.filter((m) => !m.toolbox)}
                   key="modules-autocomplete"
@@ -154,7 +154,7 @@ export default function Form({
                       errors={errors}
                       fieldName="name"
                       inputType="text"
-                      label={t<string>('managements.menu.name')}
+                      label={t('managements.menu.name')}
                       register={register}
                       key="name-field"
                     />
@@ -166,7 +166,7 @@ export default function Form({
                       errors={errors}
                       fieldName="order"
                       inputType="number"
-                      label={t<string>('managements.menu.order')}
+                      label={t('managements.menu.order')}
                       register={register}
                       key="order-field"
                     />
@@ -176,7 +176,7 @@ export default function Form({
                   errors={errors}
                   fieldName="icon"
                   inputType="text"
-                  label={t<string>('managements.menu.icon')}
+                  label={t('managements.menu.icon')}
                   register={register}
                   key="icon-field"
                 />

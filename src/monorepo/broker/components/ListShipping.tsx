@@ -24,7 +24,7 @@ export default function ListShipping({ shipping, showChildren = false }: Props) 
       {showChildren && (
         <List>
           {shipping.receiveOrders.map((receive) => (
-            <ListItemText primary={receive} />
+            <ListItemText primary={receive} key={receive} />
           ))}
         </List>
       )}

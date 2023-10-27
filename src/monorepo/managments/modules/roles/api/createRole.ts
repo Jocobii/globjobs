@@ -6,8 +6,9 @@ import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 import { ENVIRONMENTS_SUITE } from '@gsuite/shared/seeders';
 import { Role } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
-export type CreateRoleDto = {
-  data: Role;
+
+type CreateRoleDto = {
+  createRole: Role;
 };
 
 export const createRoleMutationDocument = gql`
@@ -30,7 +31,7 @@ export const createRoleMutationDocument = gql`
   }
 `;
 
-export const createRole = ({ data }: any): Promise<Role> => request(
+export const createRole = ({ data }: any): Promise<Role> => request<CreateRoleDto>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   createRoleMutationDocument,
   {
@@ -39,7 +40,7 @@ export const createRole = ({ data }: any): Promise<Role> => request(
     notifications: data.notifications,
     environment: ENVIRONMENTS_SUITE, // data.environment,
   },
-).then((res) => res.role);
+).then((res) => res.createRole);
 
 type UseCreateRoleOptions = {
   config?: MutationConfig<typeof createRole>;

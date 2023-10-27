@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -29,7 +27,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t<string>('add')}
+        {t('add')}
       </Button>
     );
   }
@@ -40,7 +38,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t<string>('edit')}
+        {t('edit')}
       </Button>
     );
   }
@@ -51,7 +49,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t<string>('view')}
+        {t('view')}
       </Button>
     );
   }

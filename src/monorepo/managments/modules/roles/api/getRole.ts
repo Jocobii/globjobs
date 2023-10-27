@@ -2,7 +2,13 @@ import { request, gql } from 'graphql-request';
 import { useQuery } from '@tanstack/react-query';
 
 import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
+import { Role } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
+
+type Response = {
+  role: Partial<Role>;
+};
+
 const roleDocument = gql`
 query GetRole(
   $id: String!,
@@ -35,7 +41,7 @@ query GetRole(
 }
 `;
 
-export const role = async (id: string) => request(`${VITE_GATEWAY_URI}/gq/back-office`, roleDocument, { id }).then((res) => res.role);
+export const role = async (id: string) => request<Response>(`${VITE_GATEWAY_URI}/gq/back-office`, roleDocument, { id }).then((res) => res.role);
 
 type QueryFnType = typeof role;
 

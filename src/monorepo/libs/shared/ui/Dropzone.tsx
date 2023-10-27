@@ -162,7 +162,7 @@ function MaterialDropZone({
             mb: 2,
           }}
         >
-          {t<string>('ui.uploadedFiles')}
+          {t('ui.uploadedFiles')}
         </DialogTitle>
         <DialogContent
           sx={{
@@ -176,7 +176,7 @@ function MaterialDropZone({
           {uploadedFiles.length > 0 ? (
             <List>{uploadedFiles}</List>
           ) : (
-            <DialogContentText>{t<string>('ui.noFilesAdded')}</DialogContentText>
+            <DialogContentText>{t('ui.noFilesAdded')}</DialogContentText>
           )}
           <DialogContentText sx={{ textAlign: 'center', mt: 3 }}>
             {uploadedFiles.length > 0 && t('ui.removeFile')}
@@ -266,7 +266,6 @@ function MaterialDropZone({
   );
 }
 
-// Obtenemos el contexto para utilizar el "theme"
 export default function DropZone({
   label,
   filesSetter = () => null,

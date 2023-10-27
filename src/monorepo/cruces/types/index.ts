@@ -8,7 +8,7 @@ import type {
   FieldErrors,
   UseFormRegister,
   Control,
-} from 'react-hook-form/dist/types';
+} from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
 import { FileDropZone as File } from '@gsuite/typings/files';
 

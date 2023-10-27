@@ -74,10 +74,10 @@ export default function DataGridActions({
           },
         }}
       >
-        <Tab label={t<string>('all')} sx={{ px: 1 }} />
-        <Tab label={t<string>('active')} sx={{ px: 1 }} />
-        <Tab label={t<string>('inactive')} sx={{ px: 1 }} />
-        <Tab label={t<string>('userCompanies')} sx={{ px: 1 }} />
+        <Tab label={t('all')} sx={{ px: 1 }} />
+        <Tab label={t('active')} sx={{ px: 1 }} />
+        <Tab label={t('inactive')} sx={{ px: 1 }} />
+        <Tab label={t('userCompanies')} sx={{ px: 1 }} />
       </Tabs>
     </Stack>
   );

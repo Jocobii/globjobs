@@ -23,7 +23,7 @@ export const deleteAreaMutationDocument = gql`
   }
 `;
 
-export const deleteArea = ({ areaId }: DeleteAreaDto): Promise<Area> => request(
+export const deleteArea = ({ areaId }: DeleteAreaDto): Promise<Area> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   deleteAreaMutationDocument,
   {

@@ -48,7 +48,7 @@ function Component() {
         context: { clientName: 'globalization' },
       });
     } catch (error) {
-      errorMessage(t<string>('managements.adp.filesError'));
+      errorMessage(t('managements.adp.filesError'));
     }
   };
 
@@ -58,7 +58,7 @@ function Component() {
 
       if (getADPFiles) {
         if (getADPFiles.statusCode === 200) {
-          successMessage(t<string>('managements.adp.filesFetched'));
+          successMessage(t('managements.adp.filesFetched'));
           const { data: fileData } = getADPFiles.body;
           setPedimentTree(fileData
             .map((p: Pediment) => ({
@@ -66,7 +66,7 @@ function Component() {
               visible: true,
             })));
         } else {
-          errorMessage(t<string>('managements.adp.filesError'));
+          errorMessage(t('managements.adp.filesError'));
         }
       }
     }
@@ -95,7 +95,7 @@ function Component() {
           />
         </Grid>
         {
-        ((pedimentTree && pedimentTree.length) && (
+        ((pedimentTree?.length) && (
           <Grid item xs={12}><Explorer data={pedimentTree} /></Grid>
         )) || null
       }

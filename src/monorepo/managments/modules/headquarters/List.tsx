@@ -62,7 +62,7 @@ export default function List() {
         onClick={handleDrawerOpen}
         sx={{ height: 60, width: 200, marginBottom: '1%' }}
       >
-        {t<string>('managements.headquarters.addNewHeadquarters')}
+        {t('managements.headquarters.addNewHeadquarters')}
       </Button>
       <DataGrid
         pinnedColumns={{ right: ['actions'] }}

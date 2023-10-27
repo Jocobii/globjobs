@@ -57,7 +57,7 @@ function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
           size="small"
           onClick={onReset}
         >
-          {t<string>('common.try_again')}
+          {t('common.try_again')}
         </Button>
       </Stack>
     </Box>

@@ -9,6 +9,10 @@ import { Team } from '../types';
 export type CreateTeamDto = {
   data: Team;
 };
+type Response = {
+  createTeam: Team;
+};
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export const createTeamMutationDocument = gql`
   mutation CreateTeam($createTeamInput: CreateTeamInput!) {
@@ -21,7 +25,7 @@ export const createTeamMutationDocument = gql`
   }
 `;
 
-export const createTeam = ({ data }: CreateTeamDto): Promise<Team> => request(`${VITE_GATEWAY_URI}/gq/back-office`, createTeamMutationDocument, {
+export const createTeam = ({ data }: CreateTeamDto): Promise<Team> => request<Response>(`${VITE_GATEWAY_URI}/gq/back-office`, createTeamMutationDocument, {
   createTeamInput: {
     name: data.name,
     groupEmail: data.groupEmail,

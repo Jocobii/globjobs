@@ -60,7 +60,7 @@ export default function List() {
         onClick={() => setIsOpen(true)}
         sx={{ height: 60, width: 200, marginBottom: '2%' }}
       >
-        {t<string>('managements.teams.newTeam')}
+        {t('managements.teams.newTeam')}
       </Button>
       <DrawerForm
         t={t}
@@ -153,7 +153,7 @@ export default function List() {
                     variant="outlined"
                     onClick={() => setModalOpen(true)}
                   >
-                    {t<string>('managements.teams.deleteToTeam')}
+                    {t('managements.teams.deleteToTeam')}
                   </Button>
                 ) : null
               }
@@ -161,13 +161,13 @@ export default function List() {
                 variant="outlined"
                 onClick={() => setChangeDrawerIsOpen(true)}
               >
-                {t<string>('managements.teams.assignToTeam')}
+                {t('managements.teams.assignToTeam')}
               </Button>
               <Button
                 variant="outlined"
                 onClick={handleOpenEditForm}
               >
-                {t<string>('managements.teams.editTeam')}
+                {t('managements.teams.editTeam')}
               </Button>
             </Stack>
           ) : null
@@ -179,13 +179,13 @@ export default function List() {
                 variant="outlined"
                 onClick={() => setCoachModalOpen(true)}
               >
-                {t<string>('managements.teams.addCoach')}
+                {t('managements.teams.addCoach')}
               </Button>
               <Button
                 variant="contained"
                 onClick={() => setDrawerAddIsOpen(true)}
               >
-                {isCustomer ? t<string>('managements.teams.addClient') : t<string>('managements.teams.addSpecialist')}
+                {isCustomer ? t('managements.teams.addClient') : t('managements.teams.addSpecialist')}
               </Button>
             </Stack>
           ) : null

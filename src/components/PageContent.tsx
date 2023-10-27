@@ -30,6 +30,8 @@ const PageContent = forwardRef<Ref, Props>(({
   </>
 ));
 
+PageContent.displayName = 'PageContent';
+
 PageContent.defaultProps = {
   title: 'G-Suite',
   className: '',

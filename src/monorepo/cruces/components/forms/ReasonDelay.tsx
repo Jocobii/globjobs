@@ -46,7 +46,7 @@ export default function CancelCruceModal({
     formState: { errors },
   } = useForm<FieldValues>({
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const handleConfirm = () => {

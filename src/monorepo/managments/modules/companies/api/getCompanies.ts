@@ -45,7 +45,7 @@ export const geCompaniesQuery = async (variables?: Record<string, unknown>) => {
   const pageSize = get(variables, 'pageSize', 10);
   const sort = get(variables, 'sort', '');
   const filter = get(variables, 'filter', {});
-  return request(
+  return request<any>(
     `${VITE_GATEWAY_URI}/gq/back-office`,
     allCompaniesDocument,
     {

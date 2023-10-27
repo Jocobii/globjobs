@@ -32,7 +32,7 @@ export const updateAreaMutationDocument = gql`
   }
 `;
 
-export const updateArea = ({ data, areaId }: UpdateAreaDto): Promise<Area> => request(
+export const updateArea = ({ data, areaId }: UpdateAreaDto): Promise<Area> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateAreaMutationDocument,
   {

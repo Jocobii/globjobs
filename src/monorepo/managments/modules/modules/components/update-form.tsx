@@ -50,7 +50,7 @@ export default function Update({ open, onClose, rowId }: Props) {
     reset,
   } = useForm<FieldValues>({
     mode: 'onBlur',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   useEffect(() => {

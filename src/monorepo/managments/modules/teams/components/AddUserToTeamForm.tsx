@@ -1,5 +1,6 @@
 import { DeepPartial, SubmitHandler } from 'react-hook-form';
 
+import { TFunctionType } from '@gsuite/typings/common';
 import { Formeazy } from '@gsuite/ui/Formeazy';
 
 import { AssignTeam, assignToTeamSchema } from '../types';
@@ -9,7 +10,7 @@ type AddUserToTeamFormProps = {
   onClose: () => void;
   onSubmit: SubmitHandler<AssignTeam>;
   initialValues?: DeepPartial<AssignTeam>;
-  t: <T>(key: string | string[]) => T;
+  t: TFunctionType;
 };
 
 export default function AddUserToTeamForm({
@@ -22,13 +23,13 @@ export default function AddUserToTeamForm({
   return (
     <Formeazy<AssignTeam>
       withHeader
-      title={t<string>('managements.teams.addSpecialist')}
+      title={t('managements.teams.addSpecialist')}
       schema={assignToTeamSchema({ t })}
       inputProps={{
         target: {
-          label: t<string>('managements.nameSingular'),
+          label: t('managements.nameSingular'),
           type: 'autocomplete',
-          customOnChange: (value) => debouncedUser(value as string),
+          customOnChange: debouncedUser,
           keywords: data?.userFind || [],
           valueSerializer: (dataValue: { id: string, name: string }) => {
             if (dataValue) {

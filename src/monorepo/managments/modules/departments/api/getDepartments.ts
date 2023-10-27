@@ -24,7 +24,7 @@ const allDepartmentsDocument = gql`
   }
 `;
 
-export const getDepartmentsQuery = async (variables?: Record<string, unknown>) => request(`${VITE_GATEWAY_URI}/gq/back-office`, allDepartmentsDocument, { pagination: variables }).then((res) => res.departments);
+export const getDepartmentsQuery = async (variables?: Record<string, unknown>) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, allDepartmentsDocument, { pagination: variables }).then((res) => res.departments);
 
 type QueryFnType = (params?: Record<string, unknown> | undefined) =>
 Promise<PaginatedResponse<Partial<Department>>>;

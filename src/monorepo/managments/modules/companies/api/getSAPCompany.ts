@@ -23,7 +23,7 @@ export const getSAPCompanyDocument = gql`
   }
 `;
 
-export const getSAPCompanyQuery = async (number: string): Promise<Company> => request(`${VITE_GLOBALIZATION_GRAPHQL_URI}/globalization`, getSAPCompanyDocument, {
+export const getSAPCompanyQuery = async (number: string): Promise<Company> => request<any>(`${VITE_GLOBALIZATION_GRAPHQL_URI}/globalization`, getSAPCompanyDocument, {
   number,
   context: 'globalization',
 })

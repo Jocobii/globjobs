@@ -350,14 +350,14 @@ function DeleteFileModal({
     <DialogComponent
       open={isOpen}
       handleClose={() => setIsOpen(false)}
-      title={t<string>('cruces.confirm_delete_file')}
-      body={idStatus === DRAFT_OPERATION_STATUS ? t<string>('cruces.confirm_delete_file_text_draft') : t<string>('cruces.confirm_delete_file_text')}
+      title={t('cruces.confirm_delete_file')}
+      body={idStatus === DRAFT_OPERATION_STATUS ? t('cruces.confirm_delete_file_text_draft') : t('cruces.confirm_delete_file_text')}
       doubleCheck
-      doubleCheckText={t<string>('cruces.confirm_want_to_delete')}
+      doubleCheckText={t('cruces.confirm_want_to_delete')}
       maxWidth="sm"
       handleConfirm={handleDelete}
-      okText={t<string>('cruces.delete_documents')}
-      cancelText={t<string>('cancel')}
+      okText={t('cruces.delete_documents')}
+      cancelText={t('cancel')}
     >
       <FilesToDelete key={key || 'no-name'} filesToDelete={relatedFiles} />
     </DialogComponent>
@@ -685,10 +685,10 @@ export function ListDocuments({
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      return successMessage(t<string>('cruces.download_file'));
+      return successMessage(t('cruces.download_file'));
     }
 
-    return errorMessage(t<string>('cruces.download_error'));
+    return errorMessage(t('cruces.download_error'));
   };
 
   if (node.data?.ext === 'txt') return <TXTFile node={node} setErrorVisibility={setErrorVisibility} errorVisibility={errorVisibility} crossingId={crossingId} depth={depth} />;

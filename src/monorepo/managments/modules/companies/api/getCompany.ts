@@ -71,7 +71,7 @@ export const getCompanyDocument = gql`
   }
 `;
 
-export const getCompanyQuery = async (number: string): Promise<CompanyFull> => request(`${VITE_GATEWAY_URI}/gq/back-office`, getCompanyDocument, { number }).then((res) => res.companyGetOneByNumber);
+export const getCompanyQuery = async (number: string): Promise<CompanyFull> => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getCompanyDocument, { number }).then((res) => res.companyGetOneByNumber);
 
 type QueryFnType = typeof getCompanyQuery;
 type UseCompanyOptions = {

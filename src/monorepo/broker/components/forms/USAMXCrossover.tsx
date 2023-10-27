@@ -56,10 +56,10 @@ export default function USAMXCrossover({
   const [additionalDocs, setAdditionalDocs] = useState<FileDropZone[]>([]);
 
   const schema = Yup.object({
-    economicNumber: Yup.string().typeError(t<string>('broker.economicNumberSchema')).required(t<string>('broker.economicNumberSchema')),
-    trafficNumber: Yup.string().typeError(t<string>('broker.trafficNumberSchema')).required(t<string>('broker.trafficNumberSchema')),
-    vehicleType: Yup.string().typeError(t<string>('broker.vehicleTypeSchema')).required(t<string>('broker.vehicleTypeSchema')),
-    driver: Yup.string().typeError(t<string>('broker.driverSchema')).required(t<string>('broker.driverSchema')),
+    economicNumber: Yup.string().typeError(t('broker.economicNumberSchema')).required(t('broker.economicNumberSchema')),
+    trafficNumber: Yup.string().typeError(t('broker.trafficNumberSchema')).required(t('broker.trafficNumberSchema')),
+    vehicleType: Yup.string().typeError(t('broker.vehicleTypeSchema')).required(t('broker.vehicleTypeSchema')),
+    driver: Yup.string().typeError(t('broker.driverSchema')).required(t('broker.driverSchema')),
     notes: Yup.string().nullable().optional(),
   });
 
@@ -187,7 +187,7 @@ export default function USAMXCrossover({
           setSnackBar('error', e.message);
         },
         onCompleted: () => {
-          setSnackBar('success', t<string>('broker.updateStepSuccess'));
+          setSnackBar('success', t('broker.updateStepSuccess'));
         },
       });
       submitFrom();
@@ -269,7 +269,7 @@ export default function USAMXCrossover({
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Stack spacing={2} sx={{ pt: 1 }}>
                 <ControlledTextField
-                  label={`${t<string>('broker.trafficNumberLabel')} *`}
+                  label={`${t('broker.trafficNumberLabel')} *`}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -280,7 +280,7 @@ export default function USAMXCrossover({
                   disabled={isOnlyView}
                 />
                 <ControlledTextField
-                  label={t<string>('broker.notesLabel')}
+                  label={t('broker.notesLabel')}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -289,7 +289,7 @@ export default function USAMXCrossover({
                   disabled={isOnlyView}
                 />
                 <ControlledTextField
-                  label={t<string>('broker.economicNumber')}
+                  label={t('broker.economicNumber')}
                   register={register}
                   inputType="text"
                   disabled
@@ -298,7 +298,7 @@ export default function USAMXCrossover({
                   key="economicNumber-field"
                 />
                 <ControlledTextField
-                  label={t<string>('broker.vehicleType')}
+                  label={t('broker.vehicleType')}
                   register={register}
                   inputType="text"
                   disabled
@@ -307,7 +307,7 @@ export default function USAMXCrossover({
                   key="vehicleType-field"
                 />
                 <ControlledTextField
-                  label={t<string>('broker.driver')}
+                  label={t('broker.driver')}
                   register={register}
                   inputType="text"
                   disabled
@@ -320,7 +320,7 @@ export default function USAMXCrossover({
           </Grid>
           <Grid container spacing={2}>
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Dropzone label={t<string>('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} disabled={isOnlyView} />
+              <Dropzone label={t('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} disabled={isOnlyView} />
             </Grid>
           </Grid>
         </DialogContent>
@@ -339,15 +339,15 @@ export default function USAMXCrossover({
               onClick={handleSkipTransport}
               disabled={isOnlyView}
             >
-              {t<string>('broker.skipTransport')}
+              {t('broker.skipTransport')}
             </LoadingButton>
             <Stack
               direction="row"
               spacing={2}
             >
-              <Button onClick={onClose}>{t<string>('cancel')}</Button>
+              <Button onClick={onClose}>{t('cancel')}</Button>
               <LoadingButton variant="contained" type="submit" loading={loading} disabled={isOnlyView}>
-                {isEdit ? t<string>('update') : t<string>('register')}
+                {isEdit ? t('update') : t('register')}
               </LoadingButton>
             </Stack>
           </Stack>

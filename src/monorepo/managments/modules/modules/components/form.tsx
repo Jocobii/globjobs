@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import Button from '@mui/lab/LoadingButton';
-import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form/dist/types';
+import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form';
 
 import Scrollbar from '@gsuite/ui/Scrollbar';
@@ -53,13 +53,13 @@ export default function Form({
                   alignItems="center"
                   spacing={2}
                 >
-                  <Typography variant="h4" gutterBottom>{t<string>(`managements.modules.${data ? 'edit' : 'create'}`)}</Typography>
+                  <Typography variant="h4" gutterBottom>{t(`managements.modules.${data ? 'edit' : 'create'}`)}</Typography>
                 </Stack>
                 <ControlledTextField
                   errors={errors}
                   fieldName="name"
                   inputType="text"
-                  label={t<string>('managements.modules.name')}
+                  label={t('managements.modules.name')}
                   register={register}
                   key="name-field"
                 />
@@ -67,7 +67,7 @@ export default function Form({
                   errors={errors}
                   fieldName="description"
                   inputType="text"
-                  label={t<string>('managements.modules.description')}
+                  label={t('managements.modules.description')}
                   register={register}
                   key="description-field"
                 />
@@ -75,7 +75,7 @@ export default function Form({
                   errors={errors}
                   fieldName="route"
                   inputType="text"
-                  label={t<string>('managements.modules.route')}
+                  label={t('managements.modules.route')}
                   register={register}
                   key="route-field"
                 />
@@ -83,7 +83,7 @@ export default function Form({
                   errors={errors}
                   fieldName="component"
                   inputType="text"
-                  label={t<string>('managements.modules.component')}
+                  label={t('managements.modules.component')}
                   register={register}
                   key="component-field"
                 />
@@ -91,27 +91,27 @@ export default function Form({
                   errors={errors}
                   fieldName="icon"
                   inputType="text"
-                  label={t<string>('managements.modules.icon')}
+                  label={t('managements.modules.icon')}
                   register={register}
                   key="icon-field"
                 />
                 <ControlledCheckbox
                   name="exact"
-                  label={t<string>('managements.modules.exact')}
+                  label={t('managements.modules.exact')}
                   control={control}
                 />
                 <ControlledCheckbox
                   name="toolbox"
-                  label={t<string>('managements.modules.toolbox')}
+                  label={t('managements.modules.toolbox')}
                   control={control}
                 />
                 <ControlledAutocomplete
                   defaultValue={data?.environment}
                   errors={errors}
                   name="environment"
-                  label={t<string>('managements.environments.name')}
+                  label={t('managements.environments.name')}
                   control={control}
-                  options={environmentsData?.environmentsRestful || []}
+                  options={environmentsData?.environmentsRestful ?? []}
                   key="environments-autocomplete"
                   optionLabel={(environmentValue: AutoComplete) => {
                     if (environmentValue) {
@@ -135,7 +135,7 @@ export default function Form({
                   multiple
                   errors={errors}
                   name="actions"
-                  label={t<string>('managements.modules.actions')}
+                  label={t('managements.modules.actions')}
                   control={control}
                   options={
                     ['create', 'read', 'update', 'report', 'delete']

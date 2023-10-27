@@ -420,7 +420,7 @@ const useCruce = () => {
       };
     }) as NodeModels[];
     const nodesValidate = currentNodes.filter((node) => Boolean(node));
-    if (parentsDeleteds.length > 0) setSnackBar('warning', t<string>('cruces.pedimentosOmmited'));
+    if (parentsDeleteds.length > 0) setSnackBar('warning', t('cruces.pedimentosOmmited'));
     const { nodes: newNodes } = removeNodesDeleted(nodesValidate);
     return { nodesValidate: newNodes, orphanedNodes };
   };
@@ -679,7 +679,7 @@ const useCruce = () => {
     sendingCrossing = false,
     showConfirmation,
     updateHistoryCreate,
-    onSaveSuccessMessage = t('cruces.onSave.success') as string,
+    onSaveSuccessMessage = t('cruces.onSave.success'),
   }: SubmitProps) => {
     const filesTree = tree.map((node) => getFile(node));
     const filesExternal = externalNode.map((node) => getFile(node));
@@ -696,7 +696,7 @@ const useCruce = () => {
 
     let responseMessage: ResponseMessage = {
       type: 'error',
-      message: sendingCrossing ? t<string>('cruces.onSend.error') : t<string>('cruces.onSave.error'),
+      message: sendingCrossing ? t('cruces.onSend.error') : t('cruces.onSave.error'),
     };
 
     if (Array.isArray(filesResponse)) {
@@ -763,7 +763,7 @@ const useCruce = () => {
 
     const responseMessage: ResponseMessage = {
       type: 'error',
-      message: t<string>('cruces.onSend.error'),
+      message: t('cruces.onSend.error'),
     };
 
     try {
@@ -784,7 +784,7 @@ const useCruce = () => {
     } catch (error) {
       if (error instanceof ApolloError) {
         const { i18Key } = get(error.graphQLErrors[0], 'extensions.exception.response', {} as { i18Key: string });
-        if (i18Key) return errorMessage(t<string>(`cruces.onSave.${i18Key}`), { horizontal: 'center', vertical: 'top' });
+        if (i18Key) return errorMessage(t(`cruces.onSave.${i18Key}`), { horizontal: 'center', vertical: 'top' });
         return errorMessage(error.message);
       }
       return setSnackBar(responseMessage.type, responseMessage.message);

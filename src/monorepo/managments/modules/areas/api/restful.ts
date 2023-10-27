@@ -18,7 +18,7 @@ const restfulAreasDocument = gql`
   }
 `;
 
-export const restfulAreas = async () => request(`${VITE_GATEWAY_URI}/gq/back-office`, restfulAreasDocument);
+export const restfulAreas = async () => request<RestfulAreasResponse>(`${VITE_GATEWAY_URI}/gq/back-office`, restfulAreasDocument);
 
 type QueryFnType = () => Promise<RestfulAreasResponse>;
 

@@ -47,30 +47,32 @@ function TabsComponent({ referencesHistory = [] }: { referencesHistory?: Detail[
         orientation="vertical"
         variant="scrollable"
         value={value}
-        onChange={(e, newValue) => setValue(newValue)}
+        onChange={(__, newValue) => setValue(newValue)}
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
         {
-            referencesHistory.map((form: Detail, index: number) => (
-              <Tab
-                label={t<string>(`broker.steps.step${form.label}`)}
-                id={`vertical-tab-${index}`}
-              />
-            ))
-          }
+          referencesHistory.map((form: Detail, index: number) => (
+            <Tab
+            key={form.label}
+              label={t(`broker.steps.step${form.label}`)}
+              id={`vertical-tab-${index}`}
+            />
+          ))
+        }
       </Tabs>
       {
         referencesHistory.map((form: Detail, index: number) => (
-          <TabPanel value={value} index={index}>
+          <TabPanel value={value} index={index} key={`${index + 1}`}>
             {
-                    form.references.map((ref: string) => (
-                      <Typography
-                        style={{ color: '#256CF6', fontSize: '12px', marginBottom: 15 }}
-                      >
-                        {ref}
-                      </Typography>
-                    ))
-                }
+              form.references.map((ref: string) => (
+                <Typography
+                  key={ref}
+                  style={{ color: '#256CF6', fontSize: '12px', marginBottom: 15 }}
+                >
+                  {ref}
+                </Typography>
+              ))
+            }
           </TabPanel>
         ))
       }

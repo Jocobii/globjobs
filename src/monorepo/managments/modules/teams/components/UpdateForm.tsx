@@ -21,7 +21,7 @@ export default function UpdateContent({ teamId, onClose, t }: UpdateProps) {
       t={t}
       onSubmit={handleSubmit}
       onClose={onClose}
-      title={t<string>('managements.teams.editTeam')}
+      title={t('managements.teams.editTeam')}
       initialValues={data}
     />
   );

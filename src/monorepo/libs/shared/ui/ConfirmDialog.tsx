@@ -19,13 +19,13 @@ function ConfirmDialog({
   const { t } = useTranslation();
   return (
     <DialogComponent
-      title={t<string>(titleText)}
-      body={t<string>(titleBody)}
+      title={t(titleText)}
+      body={t(titleBody)}
       open={open}
       handleClose={handleOpen}
       handleConfirm={confirmAction}
-      okText={t<string>(okText)}
-      cancelText={t<string>('cancel')}
+      okText={t(okText)}
+      cancelText={t('cancel')}
     />
   );
 }

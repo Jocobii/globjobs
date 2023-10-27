@@ -22,7 +22,8 @@ import { useRestfulModules } from '../../modules/api/getModulesRestful';
 
 export type Module = {
   name: string;
-  checked: boolean;
+  key: string;
+  checked?: boolean;
   permissions: { name: string; checked: boolean }[];
 };
 
@@ -51,11 +52,11 @@ export default function Modules({
 }: Props) {
   const [tempModules, setTempModules] = useState<Module[]>([]);
   const handleRoleChange = (e: ChangeEvent<HTMLInputElement>) => onRoleChange(e.target.value);
-  const { data: modulesData, isLoading } = useRestfulModules({ environment: SUITE_ENVIRONMENT });
-  const allModulesLength = modulesData?.modulesRestful?.length || 0;
+  const { data: modulesData, isLoading } = useRestfulModules(SUITE_ENVIRONMENT);
+  const allModulesLength = modulesData?.modulesRestful?.length ?? 0;
 
   useEffect(() => {
-    let allSuiteModules = modulesData?.modulesRestful || [];
+    let allSuiteModules = modulesData?.modulesRestful ?? [];
     let roleModules = selectedRole?.modules || [];
     if (isEdit) {
       roleModules = userModules;
@@ -121,6 +122,7 @@ export default function Modules({
       const targetModule = prev[prevModuleIndex];
       const newModule: Module = {
         name: key,
+        key,
         checked: event.target.checked,
         permissions: targetModule.permissions?.map((p) => ({
           name: p.name,
@@ -138,6 +140,7 @@ export default function Modules({
     const targetPermissions = targetModule.permissions;
     const newModule: Module = {
       name: key,
+      key,
       checked: true,
       permissions: targetPermissions.map((p: { name: string }) => ({
         name: p.name,

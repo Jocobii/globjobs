@@ -44,11 +44,11 @@ export default function ExtraCharge({ onClose, id }: Props) {
   const [chargeAdd, setChargesAdd] = useState<Charge[]>([]);
 
   const schema = yup.object().shape({
-    warehouse: yup.object({}).required(t<string>('broker.warehouseSchema')),
-    reference: yup.string().required(t<string>('broker.referencesSchema')),
-    notes: yup.string().optional().min(3, t<string>('broker.notesSchema')),
-    invoiceDate: yup.date().required(t<string>('broker.invoiceDateSchema')),
-    charges: yup.array().required(t<string>('broker.chargesSchema')),
+    warehouse: yup.object({}).required(t('broker.warehouseSchema')),
+    reference: yup.string().required(t('broker.referencesSchema')),
+    notes: yup.string().optional().min(3, t('broker.notesSchema')),
+    invoiceDate: yup.date().required(t('broker.invoiceDateSchema')),
+    charges: yup.array().required(t('broker.chargesSchema')),
   });
 
   const {
@@ -58,7 +58,7 @@ export default function ExtraCharge({ onClose, id }: Props) {
     formState: { errors },
     control,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
   const getErrorCharges = () => {
     const { charges } = errors;
@@ -107,7 +107,7 @@ export default function ExtraCharge({ onClose, id }: Props) {
                   fieldName="reference"
                   errors={errors}
                   inputType="text"
-                  label={t<string>('broker.referencesLabel')}
+                  label={t('broker.referencesLabel')}
                   register={register}
                   key="reference-field"
                 />
@@ -116,7 +116,7 @@ export default function ExtraCharge({ onClose, id }: Props) {
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <Stack spacing={2} sx={{ pt: 1 }}>
                 <ControlledTextField
-                  label={t<string>('broker.invoiceDateLabel')}
+                  label={t('broker.invoiceDateLabel')}
                   register={register}
                   inputType="date"
                   errors={errors}
@@ -130,7 +130,7 @@ export default function ExtraCharge({ onClose, id }: Props) {
                 <ControlledAutocomplete
                   errors={errors}
                   name="warehouse"
-                  label={t<string>('broker.warehouseLabel')}
+                  label={t('broker.warehouseLabel')}
                   control={control}
                   options={data?.findAllWarehouses ?? []}
                   key="warehouse-autocomplete"
@@ -142,7 +142,7 @@ export default function ExtraCharge({ onClose, id }: Props) {
                   })}
                 />
                 <ControlledTextField
-                  label={t<string>('broker.notesLabel')}
+                  label={t('broker.notesLabel')}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -158,14 +158,14 @@ export default function ExtraCharge({ onClose, id }: Props) {
       {getErrorCharges() && (
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }} style={{ marginTop: 16 }}>
           <Alert severity="error" style={{ width: '100%' }}>
-            {t<string>('broker.messageAddExtraCharge')}
+            {t('broker.messageAddExtraCharge')}
           </Alert>
         </Stack>
       )}
       <DialogActions>
         <Stack direction="row" justifyContent="space-between" spacing={2}>
           <Button sx={{ width: '200px' }} color="error" variant="contained" onClick={onClose}>
-            {t<string>('cancel')}
+            {t('cancel')}
           </Button>
           <LoadingButton
             sx={{ width: '200px' }}
@@ -174,7 +174,7 @@ export default function ExtraCharge({ onClose, id }: Props) {
             loading={false}
             onClick={handleSubmit(handelSubmit)}
           >
-            {t<string>('register')}
+            {t('register')}
           </LoadingButton>
         </Stack>
       </DialogActions>

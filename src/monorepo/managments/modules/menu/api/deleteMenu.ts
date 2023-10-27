@@ -25,7 +25,7 @@ export const deleteMenuMutationDocument = gql`
 `;
 
 export const deleteMenu = ({ menuId }: DeleteMenuDto):
-Promise<Menu> => request(
+Promise<Menu> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   deleteMenuMutationDocument,
   {

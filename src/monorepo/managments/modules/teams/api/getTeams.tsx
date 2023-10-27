@@ -5,6 +5,11 @@ import { PaginatedResponse } from '@gsuite/typings/table';
 
 import { Team } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
+
+type Responses = {
+  teams: PaginatedResponse<Team>;
+};
+
 const getAllTeamsDocument = gql`
   query PaginateTeams($pagination: PaginationDtoInput) {
     teams(paginationInput: $pagination) {
@@ -21,7 +26,7 @@ const getAllTeamsDocument = gql`
   }
 `;
 
-export const getTeamsQuery = async (variables?: Record<string, unknown>) => request(`${VITE_GATEWAY_URI}/gq/back-office`, getAllTeamsDocument, { pagination: variables })
+export const getTeamsQuery = async (variables?: Record<string, unknown>) => request<Responses>(`${VITE_GATEWAY_URI}/gq/back-office`, getAllTeamsDocument, { pagination: variables })
   .then((res) => res.teams);
 
 type QueryFnType = (params?: Record<string, unknown>) => Promise<PaginatedResponse<Partial<Team>>>;

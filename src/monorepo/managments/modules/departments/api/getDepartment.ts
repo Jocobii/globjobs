@@ -16,7 +16,7 @@ const getDepartmentDocument = gql`
   }
 `;
 
-export const getDepartmentQuery = async (departmentId: string): Promise<Department> => request(`${VITE_GATEWAY_URI}/gq/back-office`, getDepartmentDocument, { departmentId }).then((res) => res.department);
+export const getDepartmentQuery = async (departmentId: string): Promise<Department> => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getDepartmentDocument, { departmentId }).then((res) => res.department);
 
 type QueryFnType = typeof getDepartmentQuery;
 type UseDepartmentOptions = {

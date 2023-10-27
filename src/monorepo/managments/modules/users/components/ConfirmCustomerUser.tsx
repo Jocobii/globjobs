@@ -24,22 +24,22 @@ export default function ConfirmCustomerUser({
     <DialogComponent
       open={open}
       maxWidth="xs"
-      title={t<string>('managements.createUser')}
+      title={t('managements.createUser')}
       handleClose={handleClose}
       handleConfirm={handleConfirm}
     >
       <Stack direction="column" spacing={2}>
         <Typography variant="body1" color="primary">
-          {t<string>('managements.usersModule.createQuestion')}
+          {t('managements.usersModule.createQuestion')}
         </Typography>
         <Typography variant="body1" color="textPrimary">
-          {t<string>('managements.user')}
+          {t('managements.user')}
           :
           {' '}
           {userName}
         </Typography>
         <Typography variant="body1" color="textPrimary">
-          {t<string>('managements.companies')}
+          {t('managements.companies')}
           :
           {' '}
           {
@@ -51,7 +51,7 @@ export default function ConfirmCustomerUser({
           }
         </Typography>
         <Typography variant="body1" color="textPrimary">
-          {t<string>('managements.usersModule.emailMessage')}
+          {t('managements.usersModule.emailMessage')}
         </Typography>
         <Typography variant="body1" color="primary">
           {email}

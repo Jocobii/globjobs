@@ -137,7 +137,7 @@ export default function UpdateRoleForm({
     formState: { errors },
     handleSubmit,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const onSubmit = async (formData: object) => {
@@ -423,7 +423,7 @@ export default function UpdateRoleForm({
               name: m.name,
               key: camelize(m.name),
               permissions: _.get(m, 'actions', []).map((p) => {
-                const module = selectRole.data.modules.find((mod:Module) => mod.name === m.name);
+                const module = selectRole?.data?.modules?.find((mod:Module) => mod.name === m.name);
                 const permission = module?.permissions.find((per:Permission) => per.name === p);
                 return {
                   name: p,
@@ -439,9 +439,9 @@ export default function UpdateRoleForm({
         key: m.key,
         permissions: m.permissions.map((p) => {
           const module = selectRole
-            .data
-            .notifications.notifications.map((d:Permission[]) => d);
-          const permission = module.map((all:{ permissions: Permission[] }) => all.permissions)
+            ?.data
+            ?.notifications?.notifications?.map((d) => d);
+          const permission = module?.map((all:{ permissions: Permission[] }) => all.permissions)
             .flat(1)
             .find((per:Permission) => per.name === p.name);
           return ({
@@ -452,11 +452,11 @@ export default function UpdateRoleForm({
       }));
       setValue('name', selectRole.data.name);
       setRoleToSave({
-        name: selectRole.data.name,
+        name: selectRole?.data?.name ?? '',
         modules: modulesInit,
         notifications: {
-          email: selectRole.data.notifications.email,
-          whatsapp: selectRole.data.notifications.whatsapp,
+          email: !!selectRole?.data?.notifications?.email,
+          whatsapp: !!selectRole?.data?.notifications?.whatsapp,
           notifications: notificatinsInit,
         },
       });

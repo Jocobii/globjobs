@@ -43,7 +43,7 @@ export default function DocumentsDelivery({
         }))
         .then(() => {
           showSnackMessage(
-            t<string>('cruces.onSuccess.deliveredDocuments'),
+            t('cruces.onSuccess.deliveredDocuments'),
             'success',
             {
               vertical: 'top',
@@ -57,7 +57,7 @@ export default function DocumentsDelivery({
         });
     } catch (error) {
       console.log(error);
-      errorMessage(t<string>('cruces.an_error'));
+      errorMessage(t('cruces.an_error'));
     }
   };
 
@@ -73,9 +73,9 @@ export default function DocumentsDelivery({
       handleClose={handleClose}
       handleConfirm={handleConfirm}
       doubleCheck
-      doubleCheckText={t<string>('cruces.checked_text')}
+      doubleCheckText={t('cruces.checked_text')}
       cancelButtonVisibility
-      okText={t<string>('confirm')}
+      okText={t('confirm')}
       fullWidth
       maxWidth="sm"
     >

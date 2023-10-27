@@ -23,7 +23,7 @@ query ModulesRestful($environment: String) {
 }
 `;
 
-export const restfulModules = async () => request(
+export const restfulModules = async () => request<RestfulModulesResponse>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   restfulModuleDocument,
   { environment: ENVIRONMENTS_SUITE },

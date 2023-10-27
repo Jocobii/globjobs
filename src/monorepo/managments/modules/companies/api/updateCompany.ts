@@ -62,7 +62,7 @@ export const updateCompanyMutationDocument = gql`
 `;
 
 export const updateCompany = ({ data, number }: UpdateCompanyDto):
-Promise<CompanyDocument> => request(
+Promise<CompanyDocument> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateCompanyMutationDocument,
   {

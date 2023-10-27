@@ -43,11 +43,11 @@ export default function Create({ onClose, open }: Props) {
           sx={{ p: 2 }}
         >
           <Typography variant="h4" gutterBottom>
-            {t<string>('managements.createUser')}
+            {t('managements.createUser')}
           </Typography>
           <FormControlLabel
             control={<Switch checked={isClient} onChange={handleChangeIsClient} />}
-            label={t<string>('managements.isClient')}
+            label={t('managements.isClient')}
           />
         </Stack>
         <Conditional

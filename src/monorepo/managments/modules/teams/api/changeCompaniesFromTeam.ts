@@ -6,6 +6,11 @@ import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { Company } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
+
+type Response = {
+  changeCompaniesFromTeam: Partial<Company[]>;
+};
+
 export type ChangeCompaniesFromTeamDto = {
   ids?: string[];
   teamId: string;
@@ -27,7 +32,7 @@ export const changeCompaniesFromTeamMutationDocument = gql`
 
 export const changeCompaniesFromTeam = (
   { ids, teamId }: ChangeCompaniesFromTeamDto,
-): Promise<Partial<Company[]>> => request(
+): Promise<Partial<Company[]>> => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   changeCompaniesFromTeamMutationDocument,
   {
@@ -38,6 +43,7 @@ export const changeCompaniesFromTeam = (
 
 type UseChangeCompaniesFromTeamOptions = {
   config?: MutationConfig<typeof changeCompaniesFromTeam>;
+  skip?: boolean;
 };
 
 const queryKey = ['companies'];

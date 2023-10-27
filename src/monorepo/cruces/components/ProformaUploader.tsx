@@ -50,7 +50,7 @@ function Component({
         .then(({ data }) => {
           if ('amount' in data) {
             if (data.amount === 0) {
-              setSnackBar('warning', t<string>('cruces.proform.validationFileWithoutPayment'));
+              setSnackBar('warning', t('cruces.proform.validationFileWithoutPayment'));
             }
             setDisabled(data.needsValidation);
             setFileAmount(data.amount);
@@ -84,14 +84,14 @@ function Component({
     setAmount(value);
   };
 
-  let errorText = t<string>('generic.requiredField');
-  if (amountMatchError) errorText = t<string>('cruces.proform.amountDiscrepancy');
+  let errorText = t('generic.requiredField');
+  if (amountMatchError) errorText = t('cruces.proform.amountDiscrepancy');
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item xs={12}>
-        <Typography variant="h6">{t<string>('cruces.proform.addingValidationFile')}</Typography>
-        <Typography fontSize={10}>{t<string>('cruces.proform.missingFields')}</Typography>
+        <Typography variant="h6">{t('cruces.proform.addingValidationFile')}</Typography>
+        <Typography fontSize={10}>{t('cruces.proform.missingFields')}</Typography>
       </Grid>
       <Grid item xs={12}>
         <Dropzone

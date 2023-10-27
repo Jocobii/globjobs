@@ -6,10 +6,21 @@ import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { User } from '../../users/types';
 
+type Response = {
+  deleteUsersFromTeam: {
+    usersUpdated: Partial<User>[];
+    oldTeam: {
+      id: string;
+      name: string;
+    };
+  };
+};
+
 export type DeleteUsersFromTeamDto = {
   ids?: string[];
   teamId?: string;
 };
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export const deleteFromTeamMutationDocument = gql`
   mutation($ids: [String!]!, $teamId: String!) {
@@ -35,9 +46,8 @@ export const deleteFromTeamMutationDocument = gql`
   }
 `;
 
-export const deleteUsersFromTeam = (
-  { ids, teamId }: DeleteUsersFromTeamDto,
-): Promise<Partial<User>[]> => request(
+export const deleteUsersFromTeam = ({ ids, teamId }: DeleteUsersFromTeamDto,
+) => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   deleteFromTeamMutationDocument,
   {
@@ -56,11 +66,11 @@ export function useDeleteUsersFromTeam({ config }: UseDeleteUsersFromTeamOptions
   const { successMessage, errorMessage } = useSnackNotification();
   const { t } = useTranslation();
   return useMutation({
-    onError: (_, e, context: any) => {
+    onError: (_, __, context: any) => {
       if (context?.previousUsers) {
         queryClient.setQueryData(queryKey, context.previousUsers);
       }
-      errorMessage(t<string>('managements.teams.MUST_HAVE_ONE_COACH'));
+      errorMessage(t('managements.teams.MUST_HAVE_ONE_COACH'));
     },
     onSuccess: (data: any, i) => {
       queryClient.invalidateQueries(queryKey);

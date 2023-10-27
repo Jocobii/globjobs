@@ -6,6 +6,10 @@ import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 import { getCustomPropsFromError } from '@gsuite/shared/utils';
 import { Role } from '../types';
 
+type Response = {
+  deleteRole: Role;
+};
+
 export type DeleteRoleDto = {
   roleId: string;
 };
@@ -23,8 +27,7 @@ export const deleteRoleMutationDocument = gql`
   }
 `;
 
-export const deleteRole = ({ roleId }: DeleteRoleDto):
-Promise<Role> => request(
+export const deleteRole = ({ roleId }: DeleteRoleDto) => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   deleteRoleMutationDocument,
   {
@@ -47,21 +50,21 @@ export function useDeleteRole({ config, roleId }: UseDeleteRoleOptions = {}) {
     onMutate: async (res: { roleId?: string }) => {
       await queryClient.cancelQueries(['role', res?.roleId]);
     },
-    onError: (error: any, __, context: any) => {
+    onError: (error: any, __: unknown, context: any) => {
       const { qtyUsers, i18Key = 'GENERIC_ERROR', roleName } = getCustomPropsFromError(error);
       if (context?.previousRoles) {
         queryClient.setQueryData(queryKey, context.previousRoles);
       }
-      errorMessage(t<string>(`managements.roles.${i18Key}`, { qtyUsers, roleName }));
+      errorMessage(t(`managements.roles.${i18Key}`, { qtyUsers, roleName }));
     },
     onSuccess: (data: Role) => {
       queryClient.refetchQueries(['roles', roleId]);
       queryClient.invalidateQueries(queryKey);
       queryClient.refetchQueries(['roles-summary']);
-      successMessage(t<string>('managements.roles.roleDeleted', { roleName: data.name }));
+      successMessage(t('managements.roles.roleDeleted', { roleName: data.name }));
       queryClient.refetchQueries(queryKey);
     },
-    ...config,
     mutationFn: deleteRole,
+    ...config,
   });
 }

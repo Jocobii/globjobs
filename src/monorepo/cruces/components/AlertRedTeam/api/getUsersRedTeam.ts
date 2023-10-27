@@ -7,6 +7,8 @@ type User = {
   _id: string;
   name: string;
 };
+
+
 const allUsersDocument = gql`
   query UsersByTeam($teamId: String!) {
     usersByTeam(teamId: $teamId) {
@@ -20,7 +22,7 @@ export const getUsersQuery = async (variables: Record<string, unknown>) => {
   const pagination = { ...variables };
   const teamId = pagination['teamId'] as string;
   delete pagination['teamId'];
-  return request(
+  return request<any>(
     '/gq/back-office',
     allUsersDocument,
     {
@@ -39,9 +41,9 @@ type UseUsersOptions = {
 
 export function useGetUsersApi({ config, variables: pagination }: UseUsersOptions = {}) {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
-    ...config,
     queryKey: ['users', pagination],
-    queryFn: () => getUsersQuery(pagination || {}),
+    queryFn: () => getUsersQuery(pagination ?? {}),
     suspense: true,
+    ...config,
   });
 }

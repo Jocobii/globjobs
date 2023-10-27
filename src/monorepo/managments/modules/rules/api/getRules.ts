@@ -4,6 +4,11 @@ import { request, gql } from 'graphql-request';
 import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
 import { PaginateRules } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
+
+type Response = {
+  rules: PaginateRules;
+};
+
 const allRulesQueryDocument = gql`
   query PaginateRules($pagination: PaginationDtoInput!) {
     rules(paginationInput: $pagination) {
@@ -24,7 +29,7 @@ const allRulesQueryDocument = gql`
   }
 `;
 
-export const getRulesQuery = async (variables?: Record<string, unknown>): Promise<PaginateRules> => request(`${VITE_GATEWAY_URI}/gq/back-office`, allRulesQueryDocument, { pagination: variables }).then((res) => res.rules).catch((err) => ({ rows: [], error: true, msg: err }));
+export const getRulesQuery = async (variables?: Record<string, unknown>) => request<Response>(`${VITE_GATEWAY_URI}/gq/back-office`, allRulesQueryDocument, { pagination: variables }).then((res) => res.rules);
 
 type QueryFnType = typeof getRulesQuery;
 

@@ -62,7 +62,7 @@ export default function Update({ onClose, open, userId }: Props) {
   const userQuery = useGetUser({ id: userId });
   const { mutateAsync: mutateAsyncToggleActiveUser } = useToggleActiveUser({ userId });
 
-  const label = userQuery?.data?.active ? t<string>('managements.deactivate') : t<string>('managements.activate');
+  const label = userQuery?.data?.active ? t('managements.deactivate') : t('managements.activate');
 
   const schema = Yup.object({
     ...generalInfoSchema(t).fields,
@@ -79,7 +79,7 @@ export default function Update({ onClose, open, userId }: Props) {
     reset,
     getValues,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   useEffect(() => {
@@ -90,6 +90,7 @@ export default function Update({ onClose, open, userId }: Props) {
         const isActive = m.permissions.some((x: any) => x.checked);
         return {
           name: m.name,
+          key: m.key,
           checked: isActive,
           permissions: m.permissions.map((x: any) => ({
             name: x.name,
@@ -256,13 +257,13 @@ export default function Update({ onClose, open, userId }: Props) {
           <DialogContentText>
             {
               userQuery?.data?.active
-                ? t<string>('managements.deactivateMessage', { name: `${userQuery?.data?.name} ${userQuery?.data?.lastName}` })
-                : t<string>('managements.activateMessage', { name: `${userQuery?.data?.name} ${userQuery?.data?.lastName}` })
+                ? t('managements.deactivateMessage', { name: `${userQuery?.data?.name} ${userQuery?.data?.lastName}` })
+                : t('managements.activateMessage', { name: `${userQuery?.data?.name} ${userQuery?.data?.lastName}` })
             }
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={toggleOpenActivateUserDialog}>{t<string>('cancel')}</Button>
+          <Button onClick={toggleOpenActivateUserDialog}>{t('cancel')}</Button>
           <Button variant="contained" onClick={handleSubmitToggleActiveUser}>{label}</Button>
         </DialogActions>
       </Dialog>
@@ -285,7 +286,7 @@ export default function Update({ onClose, open, userId }: Props) {
             direction="row"
             justifyContent="space-between"
           >
-            <Typography variant="h4" gutterBottom>{t<string>('managements.updateUser')}</Typography>
+            <Typography variant="h4" gutterBottom>{t('managements.updateUser')}</Typography>
             <Button
               variant="contained"
               onClick={toggleOpenActivateUserDialog}
@@ -300,17 +301,17 @@ export default function Update({ onClose, open, userId }: Props) {
           >
             <Tab
               sx={{ px: 1 }}
-              label={t<string>('managements.usersModule.generalInfo')}
+              label={t('managements.usersModule.generalInfo')}
               key={1}
             />
             <Tab
               sx={{ px: 1 }}
-              label={t<string>('managements.usersModule.modulesAndPermissions')}
+              label={t('managements.usersModule.modulesAndPermissions')}
               key={2}
             />
             <Tab
               sx={{ px: 1 }}
-              label={t<string>('managements.usersModule.notifications')}
+              label={t('managements.usersModule.notifications')}
               key={3}
             />
           </Tabs>
@@ -361,7 +362,7 @@ export default function Update({ onClose, open, userId }: Props) {
               type="submit"
               loading={isSubmitting}
             >
-              {t<string>('generic.save')}
+              {t('generic.save')}
             </Button>
           </form>
         </Stack>

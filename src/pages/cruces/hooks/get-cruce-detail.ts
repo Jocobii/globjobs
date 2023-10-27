@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Crossing } from '../types';
+import { CreateCrossingType } from '../types';
 
 export const CRUSE_QUERY = gql`
   query($id: String!){
@@ -150,7 +150,7 @@ export const CRUSE_QUERY = gql`
 }
 `;
 
-export const useCruceDetail = (cruceId: string) => useQuery<Crossing>(CRUSE_QUERY, {
+export const useCruceDetail = (cruceId: string) => useQuery<CreateCrossingType>(CRUSE_QUERY, {
   variables: { id: cruceId },
   context: { clientName: 'globalization' },
   skip: !cruceId,

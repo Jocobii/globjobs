@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import Button from '@mui/lab/LoadingButton';
-import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form/dist/types';
+import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 
 import Scrollbar from '@gsuite/ui/Scrollbar';
 import { ControlledTextField, ControlledSelect, ControlledAutocomplete } from '@gsuite/shared/ui';

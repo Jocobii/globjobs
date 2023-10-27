@@ -14,6 +14,10 @@ export type RolesSummary = {
   additional: Additional[],
 };
 
+type Response = {
+  getRolesSummary: PaginatedResponse<Partial<RolesSummary>>;
+};
+
 export type Additional = {
   name: string,
   field: string,
@@ -44,7 +48,7 @@ query GetRolesSummary($pagination: PaginationDtoInput) {
 }
 `;
 
-export const rolesSummary = async (variables?: Record<string, unknown>) => request(`${VITE_GATEWAY_URI}/gq/back-office`, rolesSummaryDocument, { pagination: variables }).then((res) => ({ ...res.getRolesSummary }));
+export const rolesSummary = async (variables?: Record<string, unknown>) => request<Response>(`${VITE_GATEWAY_URI}/gq/back-office`, rolesSummaryDocument, { pagination: variables }).then((res) => ({ ...res.getRolesSummary }));
 
 type QueryFnType = (params?: Record<string, unknown> | undefined) =>
 Promise<PaginatedResponse<Partial<RolesSummary>>>;

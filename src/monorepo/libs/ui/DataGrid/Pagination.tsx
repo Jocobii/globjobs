@@ -12,7 +12,7 @@ export default function CustomPagination() {
       color="primary"
       count={state.pagination.pageCount}
       page={state.pagination.page + 1}
-      onChange={(event, value) => apiRef.current.setPage(value - 1)}
+      onChange={(__, value) => apiRef.current.setPage(value - 1)}
     />
   );
 }

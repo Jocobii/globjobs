@@ -11,10 +11,8 @@ export type CreateUserDto = {
   data: User;
 };
 const { VITE_GATEWAY_URI } = import.meta.env;
-export type CreateUserResponse = {
-  data: {
-    createUser: User;
-  }
+type CreateUserResponse = {
+  createUser: User;
 };
 
 export const createUserMutationDocument = gql`
@@ -80,7 +78,7 @@ export const createUserMutationDocument = gql`
   }
 `;
 
-export const createUser = ({ data }: any): Promise<User> => request(
+export const createUser = ({ data }: any): Promise<User> => request<CreateUserResponse>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   createUserMutationDocument,
   {
@@ -137,7 +135,7 @@ export function useCreateUser({ config }: UseCreateUserOptions = {}) {
     onSuccess: (resp: User) => {
       queryClient.invalidateQueries(queryKey).catch(() => {});
       const { name } = resp;
-      displaySuccessMessage(t<string>('managements.usersModule.userCreated', { name }));
+      displaySuccessMessage(t('managements.usersModule.userCreated', { name }));
       queryClient.refetchQueries(queryKey).catch(() => {});
     },
     ...config,

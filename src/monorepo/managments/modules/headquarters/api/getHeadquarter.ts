@@ -26,7 +26,7 @@ const getHeadquarterDocument = gql`
   }
 `;
 
-export const getHeadquarterQuery = async (headquarterId: string): Promise<Headquarter> => request(`${VITE_GATEWAY_URI}/gq/back-office`, getHeadquarterDocument, { headquarterId }).then((res) => res.headquarter);
+export const getHeadquarterQuery = async (headquarterId: string): Promise<Headquarter> => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getHeadquarterDocument, { headquarterId }).then((res) => res.headquarter);
 
 type QueryFnType = typeof getHeadquarterQuery;
 type UseHeadquarterOptions = {

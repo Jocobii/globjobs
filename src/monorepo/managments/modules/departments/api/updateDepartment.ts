@@ -33,7 +33,7 @@ export const updateDepartmentMutationDocument = gql`
 `;
 
 export const updateDepartment = ({ data, departmentId }: UpdateDepartmentDto):
-Promise<Department> => request(
+Promise<Department> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateDepartmentMutationDocument,
   {

@@ -26,7 +26,7 @@ const allHeadquartersDocument = gql`
   }
 `;
 
-export const getHeadquartersQuery = async (variables?: Record<string, unknown>) => request(`${VITE_GATEWAY_URI}/gq/back-office`, allHeadquartersDocument, { pagination: variables })
+export const getHeadquartersQuery = async (variables?: Record<string, unknown>) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, allHeadquartersDocument, { pagination: variables })
   .then((res) => res.headquarters)
   .catch((err) => ({ rows: [], error: true, msg: err }));
 

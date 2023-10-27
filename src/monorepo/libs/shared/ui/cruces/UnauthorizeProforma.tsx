@@ -49,9 +49,9 @@ export default function UnuthorizeProforma({
   const [handleProformDeletion] = useDeleteProform();
 
   const schema = yup.object().shape({
-    reason: yup.string().required(t<string>(GENERIC_MESSAGE))
-      .min(5, t<string>('cruces.proform.unauthorizeReasonMinLength'))
-      .max(150, t<string>('cruces.proform.unauthorizeReasonMinLength')),
+    reason: yup.string().required(t(GENERIC_MESSAGE))
+      .min(5, t('cruces.proform.unauthorizeReasonMinLength'))
+      .max(150, t('cruces.proform.unauthorizeReasonMinLength')),
   });
 
   const {
@@ -60,7 +60,7 @@ export default function UnuthorizeProforma({
     formState: { errors, isValid },
   } = useForm<FieldValues>({
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const handleSubmit = useCallback(async () => {
@@ -76,7 +76,7 @@ export default function UnuthorizeProforma({
       }).then((resp) => {
         const { name } = resp.data.rejectProforma.data;
         onClose(true);
-        errorMessage(t<string>('cruces.proform.confirmUnauthorizedPayment', { file: name }));
+        errorMessage(t('cruces.proform.confirmUnauthorizedPayment', { file: name }));
       })
         .catch((error: Error) => {
           onClose(false);
@@ -93,7 +93,7 @@ export default function UnuthorizeProforma({
       }).then((resp) => {
         const { name } = resp.data.deleteProforma.data;
         onClose(true);
-        successMessage(t<string>('cruces.proform.confirmDeletedFile', { file: name }));
+        successMessage(t('cruces.proform.confirmDeletedFile', { file: name }));
       })
         .catch((error: Error) => {
           onClose(false);
@@ -143,18 +143,18 @@ export default function UnuthorizeProforma({
             <Typography
               sx={{ fontSize: 20, fontWeight: 600 }}
             >
-              {t<string>('cruces.proform.unauthorizeWarning')}
+              {t('cruces.proform.unauthorizeWarning')}
             </Typography>
             <CloseIcon
               sx={{ fontSize: 30 }}
               style={{ backgroundColor: 'red', color: 'white', borderRadius: 25 }}
             />
-            <Typography color="gray">{t<string>('cruces.proform.cashAmount')}</Typography>
+            <Typography color="gray">{t('cruces.proform.cashAmount')}</Typography>
             <Typography color="primary" sx={{ fontSize: 25, fontWeight: 800 }}>{`${amount}.00 MX`}</Typography>
             {node?.data?.unauthorized === false
             && (
               <>
-                <Typography color="gray">{t<string>('cruces.proform.predeterminedPayment')}</Typography>
+                <Typography color="gray">{t('cruces.proform.predeterminedPayment')}</Typography>
                 <Typography color="primary" sx={{ fontSize: 20, fontWeight: 600 }}>{`${predeterminedPayment}`}</Typography>
               </>
             )}
@@ -196,7 +196,7 @@ export default function UnuthorizeProforma({
             style={{ backgroundColor: 'red', color: 'white', borderRadius: 25 }}
           />
           {'   '}
-          {t<string>('cruces.proform.unauthorizedProforma')}
+          {t('cruces.proform.unauthorizedProforma')}
         </Typography>
         <PanelBody history={history} />
       </Stack>

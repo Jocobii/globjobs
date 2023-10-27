@@ -49,15 +49,15 @@ export default function List({
       columns={[
         {
           field: 'name',
-          headerName: t<string>('managements.company'),
+          headerName: t('managements.company'),
           width: 400,
         },
         {
           field: 'active',
-          headerName: t<string>('managements.status'),
+          headerName: t('managements.status'),
           width: 100,
           renderCell({ value }) {
-            return <Chip variant="outlined" color={value ? 'success' : 'error'} label={value ? t<string>('managements.active') : t<string>('managements.disabled')} size="small" />;
+            return <Chip variant="outlined" color={value ? 'success' : 'error'} label={value ? t('managements.active') : t('managements.disabled')} size="small" />;
           },
         },
         {
@@ -67,18 +67,18 @@ export default function List({
         },
         {
           field: 'number',
-          headerName: t<string>('managements.sapCode'),
+          headerName: t('managements.sapCode'),
           flex: 1,
         },
         {
           field: 'team',
-          headerName: t<string>('managements.team'),
+          headerName: t('managements.team'),
           resizable: true,
           filterable: false,
           width: 200,
           renderCell: ({ value }) => {
             if (!value) {
-              return t<string>('managements.teams.unassigned');
+              return t('managements.teams.unassigned');
             }
             return (
               <Stack
@@ -108,12 +108,12 @@ export default function List({
         },
         {
           field: 'email',
-          headerName: t<string>('managements.emailAddress'),
+          headerName: t('managements.emailAddress'),
           flex: 1,
         },
         {
           field: 'createdAt',
-          headerName: t<string>('managements.registrationDate'),
+          headerName: t('managements.registrationDate'),
           flex: 1,
         },
       ]}

@@ -76,7 +76,7 @@ type SchemaProps = {
 
 export function assignToTeamSchema({ t }: SchemaProps) {
   return object().shape({
-    target: mixed().required(t<string>('generic.requiredField')),
+    target: mixed().required(t('generic.requiredField')),
   });
 }
 

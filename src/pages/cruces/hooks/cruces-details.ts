@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Crossing } from '../types';
+import { CreateCrossingType } from '../types';
 
 export const PAGINATE_CRUCES = gql`
 query($page: Int, $pageSize: Int, $sort: String, $filter: [FilterInput!], $filterBy: Int){
@@ -63,7 +63,7 @@ type FilterOption = {
 type crossingList = {
   page: number;
   pageSize: number;
-  rows: Crossing[] | [];
+  rows: CreateCrossingType[] | [];
   total: number;
   totalPages: number;
 };

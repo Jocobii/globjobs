@@ -45,7 +45,7 @@ export default function DialogValidate({
     setValue,
     control,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function DialogValidate({
   return (
     <DialogComponent
       open={open}
-      title={t<string>('managements.title_update_txt_file')}
+      title={t('managements.title_update_txt_file')}
       okButtonVisibility={false}
       cancelButtonVisibility={false}
     >
@@ -77,7 +77,7 @@ export default function DialogValidate({
               <ControlledAutocomplete
                 errors={errors}
                 name="plate"
-                label={t<string>('managements.plates')}
+                label={t('managements.plates')}
                 control={control}
                 defaultValue={plates[0]}
                 multiple={false}
@@ -90,7 +90,7 @@ export default function DialogValidate({
               <ControlledAutocomplete
                 errors={errors}
                 name="economic"
-                label={t<string>('managements.economic')}
+                label={t('managements.economic')}
                 control={control}
                 defaultValue={economics[0]}
                 multiple={false}
@@ -103,7 +103,7 @@ export default function DialogValidate({
               <ControlledAutocomplete
                 errors={errors}
                 name="country"
-                label={t<string>('managements.country')}
+                label={t('managements.country')}
                 control={control}
                 defaultValue={countrys[0]}
                 multiple={false}
@@ -120,7 +120,7 @@ export default function DialogValidate({
                     color="primary"
                     onClick={handleCloseDialog}
                   >
-                    {t<string>('cancel')}
+                    {t('cancel')}
                   </Button>
                 )}
                 <Button
@@ -128,7 +128,7 @@ export default function DialogValidate({
                   color="primary"
                   onClick={() => handleConfirm(getValues() as NewData)}
                 >
-                  {t<string>('managements.update_txt_file')}
+                  {t('managements.update_txt_file')}
                 </Button>
               </Stack>
             </Stack>

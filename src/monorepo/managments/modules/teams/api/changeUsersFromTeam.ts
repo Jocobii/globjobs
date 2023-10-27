@@ -11,6 +11,17 @@ export type ChangeUsersFromTeamDto = {
   ids?: string[];
   teamId: string;
 };
+type Response = {
+  changeUsersFromTeam: {
+    usersUpdated: User[];
+    newTeam: {
+      id: string;
+      name: string;
+    };
+    teamId: string;
+  };
+};
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export const changeFromTeamMutationDocument = gql`
   mutation($ids: [String!], $teamId: String!) {
@@ -34,7 +45,7 @@ export const changeFromTeamMutationDocument = gql`
 
 export const changeUsersFromTeam = (
   { teamId, ids }: ChangeUsersFromTeamDto,
-): Promise<Partial<User>[]> => request(
+) => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   changeFromTeamMutationDocument,
   {
@@ -58,7 +69,7 @@ export function useChangeUsersFromTeam({ config }: UseChangeUsersFromTeamOptions
       if (context?.previousUsers) {
         queryClient.setQueryData(queryKey, context.previousUsers);
       }
-      errorMessage(t<string>(`managements.teams.${i18Key}`));
+      errorMessage(t(`managements.teams.${i18Key}`));
     },
     onSuccess: (data: any) => {
       const { usersUpdated, newTeam } = data;

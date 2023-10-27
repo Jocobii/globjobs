@@ -27,8 +27,8 @@ function ModalErrors({ node, open, onClose }: Props) {
       maxWidth="md"
       handleClose={onClose}
       handleConfirm={onClose}
-      okText={t<string>('accept')}
-      cancelText={t<string>('cancel')}
+      okText={t('accept')}
+      cancelText={t('cancel')}
     >
       <div>
         <Accordion>

@@ -4,6 +4,10 @@ import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query
 
 import { Team } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
+type Responses = {
+  team: Team;
+};
+
 const getTeamDocument = gql`
   query getTeamQuery($teamId: String!) {
     team(id: $teamId) {
@@ -19,9 +23,8 @@ const getTeamDocument = gql`
   }
 `;
 
-export const getTeamQuery = async (teamId: string): Promise<Team> => request(`${VITE_GATEWAY_URI}/gq/back-office`, getTeamDocument, { teamId })
-  .then((res) => res.team)
-  .catch((err) => ({ rows: [], error: true, msg: err }));
+export const getTeamQuery = async (teamId: string): Promise<Team> => request<Responses>(`${VITE_GATEWAY_URI}/gq/back-office`, getTeamDocument, { teamId })
+  .then((res) => res.team);
 
   type QueryFnType = typeof getTeamQuery;
   type UseTeamsOptions = {

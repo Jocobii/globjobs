@@ -17,7 +17,7 @@ type DialogContainerProps = {
 } & ChildrenProp;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-export function openFunc({ _ = undefined }: any) {}
+export function openFunc() {}
 export const closeFunc = () => {};
 
 export const DialogContext = createContext([
@@ -69,18 +69,17 @@ export function DialogProvider({ children }: ChildrenProp) {
       {children}
       {
         dialogs.map((dialog) => {
-          const { onClose, ...dialogParams } = dialog;
           const handleKill = () => {
             if (dialog.onExited) dialog.onExited();
             setDialogs((ds) => ds.slice(0, ds.length - 1));
           };
-
+          const dialogProps = { ...dialog, onClose: closeDialog };
           return (
             <DialogContainer
-              onClose={closeDialog}
+              key={dialog.id}
               onKill={handleKill}
               // eslint-disable-next-line react/jsx-props-no-spreading
-              {...dialogParams}
+              {...dialogProps}
             />
           );
         })

@@ -115,7 +115,7 @@ export default function ReceivedUsaWarehouse({
     reset,
     formState: { errors },
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
   const [additionalDocs, setAdditionalDocs] = useState<FileDropZone[]>([]);
 
@@ -225,13 +225,13 @@ export default function ReceivedUsaWarehouse({
     if (isCreateOperation && (!client || !clientNumber)) {
       return setError('client', {
         type: 'manual',
-        message: t<string>('broker.clientSchema'),
+        message: t('broker.clientSchema'),
       });
     }
     if (!omitReceived && !receiptNumbers) {
       return setError('receiptNumbers', {
         type: 'manual',
-        message: t<string>('broker.receiptNumbersSchema'),
+        message: t('broker.receiptNumbersSchema'),
       });
     }
     let additionalFiles = null;
@@ -278,7 +278,7 @@ export default function ReceivedUsaWarehouse({
           setSnackBar('error', e.message);
         },
         onCompleted: () => {
-          setSnackBar('success', t<string>('broker.updateStepSuccess'));
+          setSnackBar('success', t('broker.updateStepSuccess'));
         },
       });
       submitFrom();
@@ -326,7 +326,7 @@ export default function ReceivedUsaWarehouse({
                   errors={errors}
                   fieldName="receiptNumber"
                   inputType="text"
-                  label={t<string>('broker.receiptLabel')}
+                  label={t('broker.receiptLabel')}
                   register={register}
                   key="receiptNumber-field"
                   disabled={omitReceived || isOnlyView}
@@ -341,7 +341,7 @@ export default function ReceivedUsaWarehouse({
                     onClick={() => setOmitReceived(true)}
                     disabled={omitReceived || isOnlyView}
                   >
-                    {t<string>('broker.omitReceipt')}
+                    {t('broker.omitReceipt')}
                   </Button>
                 )}
               </Stack>
@@ -354,13 +354,13 @@ export default function ReceivedUsaWarehouse({
                   onClick={searchReceived}
                   disabled={omitReceived || isOnlyView}
                 >
-                  {t<string>('broker.search')}
+                  {t('broker.search')}
                 </LoadingButton>
                 <Button
                   onClick={AddReceived}
                   disabled={omitReceived || isOnlyView}
                 >
-                  {t<string>('add')}
+                  {t('add')}
                 </Button>
               </Stack>
             </Grid>
@@ -371,7 +371,7 @@ export default function ReceivedUsaWarehouse({
                 errors={errors}
                 fieldName="notes"
                 inputType="text"
-                label={t<string>('broker.notesLabel')}
+                label={t('broker.notesLabel')}
                 register={register}
                 key="notes-field"
                 disabled={isOnlyView}
@@ -385,7 +385,7 @@ export default function ReceivedUsaWarehouse({
                   <ControlledAutocomplete
                     errors={errors}
                     name="client"
-                    label={`${t<string>('broker.clientLabel')} *`}
+                    label={`${t('broker.clientLabel')} *`}
                     control={control}
                     options={companiesData?.findCompanies ?? []}
                     key="clients-autocomplete"
@@ -409,7 +409,7 @@ export default function ReceivedUsaWarehouse({
               {getErrorReceives() && (
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }} style={{ marginTop: 16 }}>
                   <Alert severity="error" style={{ width: '100%' }}>
-                    {t<string>('broker.messageAddReceived')}
+                    {t('broker.messageAddReceived')}
                   </Alert>
                 </Stack>
               )}
@@ -436,7 +436,7 @@ export default function ReceivedUsaWarehouse({
           </Grid>
           <Grid container>
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Dropzone disabled={isOnlyView} label={t<string>('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} />
+              <Dropzone disabled={isOnlyView} label={t('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} />
             </Grid>
           </Grid>
         </DialogContent>
@@ -446,12 +446,12 @@ export default function ReceivedUsaWarehouse({
               onClick={skipStep}
               disabled={isOnlyView}
             >
-              {t<string>('broker.skipStep')}
+              {t('broker.skipStep')}
             </Button>
           )}
-          <Button onClick={onClose}>{t<string>('cancel')}</Button>
+          <Button onClick={onClose}>{t('cancel')}</Button>
           <LoadingButton variant="contained" type="submit" loading={loading} disabled={isOnlyView}>
-            {isEdit ? t<string>('update') : t<string>('register')}
+            {isEdit ? t('update') : t('register')}
           </LoadingButton>
         </DialogActions>
       </form>

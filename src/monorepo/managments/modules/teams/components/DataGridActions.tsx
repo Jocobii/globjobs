@@ -41,8 +41,8 @@ export default function DataGridActions({
         }}
         sx={{ mx: 2 }}
       >
-        <Tab label={t<string>('managements.teams.clients')} sx={{ px: 1 }} />
-        <Tab label={t<string>('managements.teams.specialists')} sx={{ px: 1 }} />
+        <Tab label={t('managements.teams.clients')} sx={{ px: 1 }} />
+        <Tab label={t('managements.teams.specialists')} sx={{ px: 1 }} />
       </Tabs>
       <Select
         id="select-team-id"
@@ -56,18 +56,18 @@ export default function DataGridActions({
         }}
         onChange={(e: SelectChangeEvent) => handleTeamChange(e.target?.value as string)}
         renderValue={(selected) => {
-          if (!selected) return <em>{t<string>('managements.teams.teamSelect')}</em>;
-          if (selected === 'na') return <em>{t<string>('managements.teams.teamNotAssigned')}</em>;
+          if (!selected) return <em>{t('managements.teams.teamSelect')}</em>;
+          if (selected === 'na') return <em>{t('managements.teams.teamNotAssigned')}</em>;
           return data?.teamsRestful?.find((team) => team.id === selected)?.name || selected;
         }}
       >
         <MenuItem key="no-value" value="">
           {
-            isCustomer ? t<string>('managements.teams.allClients') : t<string>('managements.teams.allSpecialists')
+            isCustomer ? t('managements.teams.allClients') : t('managements.teams.allSpecialists')
           }
         </MenuItem>
         <MenuItem key="na" value="na">
-          {t<string>('managements.teams.teamNotAssigned')}
+          {t('managements.teams.teamNotAssigned')}
         </MenuItem>
         {
           data?.teamsRestful?.map(({ id, name }) => (

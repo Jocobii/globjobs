@@ -256,7 +256,7 @@ export default function List() {
               sx={{ p: 2 }}
             >
               <Typography variant="h4" gutterBottom>
-                {t<string>('managements.usersModule.edit_user')}
+                {t('managements.usersModule.edit_user')}
               </Typography>
               <CustomerUser
                 onClose={handleEditUserClose}

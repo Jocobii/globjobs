@@ -1,5 +1,5 @@
 import { FileDropZone, NodeModels } from '@gsuite/typings/files';
-import Axios, { AxiosRequestConfig } from 'axios';
+import Axios from 'axios';
 
 const { VITE_GLOBALIZATION_API_URI } = import.meta.env;
 
@@ -8,7 +8,7 @@ const axios = Axios.create({
   // withCredentials: true,
 });
 
-axios.interceptors.request.use((request: AxiosRequestConfig) => {
+axios.interceptors.request.use((request) => {
   const { token } = JSON.parse(localStorage.getItem('wms.config') ?? '{}');
 
   if (token && request.headers) {

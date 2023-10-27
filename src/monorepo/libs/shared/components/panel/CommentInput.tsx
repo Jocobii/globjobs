@@ -24,7 +24,7 @@ export function CommentInput() {
     formState: { errors, isValid },
   } = useForm<FieldValues>({
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
   const { updateHistory } = useUpdateCruceHistory();
   const handleSubmit = () => {

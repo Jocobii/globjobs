@@ -21,7 +21,7 @@ export function CompaniesAutoCompleted({ setSapNumber }: Props) {
     control,
   } = useForm<FieldValues>({
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   return (

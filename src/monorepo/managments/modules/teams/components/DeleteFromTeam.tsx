@@ -53,13 +53,13 @@ export default function DeleteFromTeam({
 
   return (
     <DialogComponent
-      title={t<string>('managements.teams.deleteToTeam')}
+      title={t('managements.teams.deleteToTeam')}
       aria-labelledby="customized-dialog-title"
       open={isModalOpen}
       okButtonVisibility
       cancelButtonVisibility
-      okText={t<string>('managements.teams.deleteToTeam')}
-      cancelText={t<string>('cancel')}
+      okText={t('managements.teams.deleteToTeam')}
+      cancelText={t('cancel')}
       handleClose={handleClose}
       handleConfirm={deleteUserFromTeam}
     >
@@ -83,7 +83,7 @@ export default function DeleteFromTeam({
                 </Grid>
                 <Grid item xs={6}>
                   {coaches.map((item) => (
-                    <Typography gutterBottom>
+                    <Typography gutterBottom key={`${item.name} ${item.lastName}`}>
                       {`${item.name} ${item.lastName}`}
                     </Typography>
                   ))}
@@ -98,7 +98,7 @@ export default function DeleteFromTeam({
                   </Grid>
                   <Grid item xs={6}>
                     {users.map((item) => (
-                      <Typography gutterBottom>
+                      <Typography gutterBottom key={`${item.name} ${item.lastName}`}>
                         {isCustomer ? `${item.name}` : `${item.name} ${item.lastName}`}
                       </Typography>
                     ))}

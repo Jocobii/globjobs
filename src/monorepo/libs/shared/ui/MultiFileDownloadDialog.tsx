@@ -47,7 +47,7 @@ export default function MultiFileDownloadDialog({
   useEffect(() => {
     const defaultFiles = nodes.filter((n) => !_.isNil(n?.data) && !_.isNil(n?.data?.file))
       ?.map(({ data }) => ({
-        name: _.get(data, 'file.name', t<string>('cruces.dispatch_file')),
+        name: _.get(data, 'file.name', t('cruces.dispatch_file')),
         key: _.get(data, 'file.key', ''),
         ext: _.get(data, 'data.ext', 'pdf'),
         checked: true,
@@ -81,7 +81,7 @@ export default function MultiFileDownloadDialog({
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      successMessage(t<string>('cruces.download_success'));
+      successMessage(t('cruces.download_success'));
       onClose();
     }
   };

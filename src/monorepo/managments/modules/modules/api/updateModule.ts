@@ -51,7 +51,7 @@ export const updateModuleMutationDocument = gql`
     }
 `;
 
-export const updateModule = ({ data, moduleId }: UpdateModuleDto): Promise<Module> => request(
+export const updateModule = ({ data, moduleId }: UpdateModuleDto): Promise<Module> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateModuleMutationDocument,
   {
@@ -67,7 +67,7 @@ export const updateModule = ({ data, moduleId }: UpdateModuleDto): Promise<Modul
     actions: get(data, 'actions', []).map(({ id }: SelectOption) => id),
     environment: data.environment,
   },
-).then((res) => res.module);
+).then((res) => res.updateModule);
 
 type UseUpdateModuleOptions = {
   config?: MutationConfig<typeof updateModule>;

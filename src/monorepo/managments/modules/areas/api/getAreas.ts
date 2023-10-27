@@ -27,7 +27,7 @@ const allAreasDocument = gql`
   }
 `;
 
-export const geAreasQuery = async (variables?: Record<string, unknown>) => request(`${VITE_GATEWAY_URI}/gq/back-office`, allAreasDocument, { pagination: variables }).then((res) => res.areas);
+export const geAreasQuery = async (variables?: Record<string, unknown>) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, allAreasDocument, { pagination: variables }).then((res) => res.areas);
 
 type QueryFnType = (params?: Record<string, unknown> | undefined) =>
 Promise<PaginatedResponse<Partial<Area>>>;

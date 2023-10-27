@@ -22,7 +22,7 @@ const getModuleDocument = gql`
   }
 `;
 
-export const getModuleQuery = async (id: string) => request(`${VITE_GATEWAY_URI}/gq/back-office`, getModuleDocument, { id }).then((res) => res.module);
+export const getModuleQuery = async (id: string) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getModuleDocument, { id }).then((res) => res.module);
 
 type QueryFnType = typeof getModuleQuery;
 type UseModuleOptions = {

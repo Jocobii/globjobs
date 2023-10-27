@@ -4,11 +4,19 @@ import { useSnackNotification } from '@gsuite/shared/hooks';
 
 import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
-import { AddToTeam } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
 export type AddToTeamDto = {
   idSpecialist: string;
   teamId: string;
+};
+
+type Response = {
+  AddSpecialistToTeam: {
+    name: string;
+    teams: {
+      id: string;
+    }[]
+  }
 };
 
 export const updateAddToTeamDocument = gql`
@@ -22,15 +30,14 @@ export const updateAddToTeamDocument = gql`
   }
 `;
 
-export const updateAddToTeams = ({ idSpecialist, teamId }: AddToTeamDto):
-Promise<AddToTeam> => request(
+export const updateAddToTeams = ({ idSpecialist, teamId }: AddToTeamDto) => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateAddToTeamDocument,
   {
     idSpecialist,
     teamId,
   },
-).then((res) => res.updateAddToTeams);
+).then((res) => res.AddSpecialistToTeam);
 
 type UseAddToTeamOptions = {
   config?: MutationConfig<typeof updateAddToTeams>;

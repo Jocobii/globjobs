@@ -6,6 +6,11 @@ import { PaginatedResponse } from '@gsuite/typings/table';
 
 import { User } from '../types';
 const { VITE_GATEWAY_URI } = import.meta.env;
+
+type Response = {
+  users: PaginatedResponse<Partial<User>>,
+};
+
 const allUsersDocument = gql`
   query PaginateUsers($teamId: String, $pagination: PaginationDtoInput) {
     users(teamId: $teamId, paginationInput: $pagination) {
@@ -63,7 +68,7 @@ export const getUsersQuery = async (variables: Record<string, unknown>) => {
   const pagination = { ...variables };
   const teamId = pagination['teamId'] as string;
   delete pagination['teamId'];
-  return request(
+  return request<Response>(
     `${VITE_GATEWAY_URI}/gq/back-office`,
     allUsersDocument,
     {
@@ -85,7 +90,7 @@ export function useGetUsers({ config, variables: pagination }: UseUsersOptions =
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
     queryKey: ['users', pagination],
-    queryFn: () => getUsersQuery(pagination || {}),
+    queryFn: () => getUsersQuery(pagination ?? {}),
     suspense: false,
   });
 }

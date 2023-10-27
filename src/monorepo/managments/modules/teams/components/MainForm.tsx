@@ -28,25 +28,25 @@ export default function TeamsForm({
       schema={teamSchema}
       inputProps={{
         name: {
-          label: t<string>('managements.nameSingular'),
+          label: t('managements.nameSingular'),
         },
         'headquarter.id': {
           type: 'select',
-          label: t<string>('managements.site'),
+          label: t('managements.site'),
           options: data?.headquartersRestful?.map(({ id, name }) => ({
             value: id as unknown as string,
             title: name as string,
           })) || [],
         },
         'headquarter.name': {
-          label: t<string>('managements.site'),
+          label: t('managements.site'),
           type: 'autocomplete',
-          keywords: data?.headquartersRestful?.map((headquarter) => headquarter.name || '') || [],
+          keywords: data?.headquartersRestful?.map((headquarter) => headquarter.name ?? '') ?? [],
         },
         groupEmail: {
-          label: t<string>('managements.emailAddress'),
+          label: t('managements.emailAddress'),
         },
-      }}
+      } as any}
       initialValues={initialValues}
       onSubmit={onSubmit}
       onClose={onClose}

@@ -61,7 +61,7 @@ export default function List() {
         onClick={handleDrawerOpen}
         sx={{ height: 60, width: 200, marginBottom: '1%' }}
       >
-        {t<string>('managements.deparments.addNewDepartment')}
+        {t('managements.deparments.addNewDepartment')}
       </Button>
       <DataGrid
         getRowId={({ id }) => id}

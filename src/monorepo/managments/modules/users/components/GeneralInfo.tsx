@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import * as Yup from 'yup';
 import { FieldValues } from 'react-hook-form';
-import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form/dist/types';
+import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 import { capitalizeFirstLetter } from '@gsuite/shared/utils/format';
 import { TFunctionType } from '@gsuite/typings/common';
 import {
@@ -21,7 +21,7 @@ import { RestfulAreasResponse } from '../../areas/api/restful';
 import { RestfulEnvironmentsResponse } from '../../modules/api/getEnvironments';
 
 export const formSchema = (t: TFunctionType) => {
-  const errMessage = t<string>('generic.requiredField');
+  const errMessage = t('generic.requiredField');
   return Yup.object().shape({
     name: Yup.string().required(errMessage),
     lastName: Yup.string().required(errMessage),
@@ -146,7 +146,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="name"
               inputType="text"
-              label={t<string>('managements.name')}
+              label={t('managements.name')}
               register={register}
               key="name-field"
             />
@@ -154,7 +154,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="lastName"
               inputType="text"
-              label={t<string>('managements.lastName')}
+              label={t('managements.lastName')}
               register={register}
               key="lastName-field"
             />
@@ -162,7 +162,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="employeeNumber"
               inputType="text"
-              label={t<string>('managements.employeeNumber')}
+              label={t('managements.employeeNumber')}
               register={register}
               key="employeeNumber-field"
             />
@@ -171,7 +171,7 @@ export default function GeneralInfo({
               fieldName="emailAddress"
               inputType="text"
               disabled={editMode}
-              label={t<string>('managements.emailAddress')}
+              label={t('managements.emailAddress')}
               register={register}
               key="emailAddress-field"
               // endAdornment={inputAddornment}
@@ -180,7 +180,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="phoneNumber"
               inputType="text"
-              label={t<string>('managements.phoneNumber')}
+              label={t('managements.phoneNumber')}
               register={register}
               key="phoneNumber-field"
             />
@@ -188,7 +188,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="birthDate"
               inputType="date"
-              label={t<string>('managements.birthDate')}
+              label={t('managements.birthDate')}
               register={register}
               registerOptions={{ valueAsDate: false }}
               key="birthDate-field"
@@ -197,12 +197,12 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="charge"
               inputType="text"
-              label={t<string>('managements.charge')}
+              label={t('managements.charge')}
               register={register}
               key="charge-field"
             />
             <ControlledSelect
-              label={t<string>('managements.employeeType')}
+              label={t('managements.employeeType')}
               control={control}
               name="employeeType"
               key="employeeType-select"
@@ -219,7 +219,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="coach"
               inputType="text"
-              label={t<string>('managements.coach')}
+              label={t('managements.coach')}
               register={register}
               key="coach-field"
             />
@@ -227,7 +227,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="costCenter"
               inputType="text"
-              label={t<string>('managements.costsCenter')}
+              label={t('managements.costsCenter')}
               register={register}
               key="costCenter-field"
             />
@@ -235,7 +235,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="darwinUser"
               inputType="text"
-              label={t<string>('managements.darwinUser')}
+              label={t('managements.darwinUser')}
               register={register}
               key="darwinUser-field"
             />
@@ -243,7 +243,7 @@ export default function GeneralInfo({
               errors={errors}
               fieldName="rbSystemsUser"
               inputType="text"
-              label={t<string>('managements.rbSystemsUser')}
+              label={t('managements.rbSystemsUser')}
               register={register}
               key="rbSystemsUser-field"
             />
@@ -251,9 +251,9 @@ export default function GeneralInfo({
               errors={errors}
               name="headquarter"
               defaultValue={userHeadquarter}
-              label={t<string>('managements.site')}
+              label={t('managements.site')}
               control={control}
-              options={headquartersData?.headquartersRestful || []}
+              options={headquartersData?.headquartersRestful ?? []}
               key="headquarters-autocomplete"
               optionLabel={(headquarterValue: AutoComplete) => {
                 if (headquarterValue) {
@@ -275,10 +275,10 @@ export default function GeneralInfo({
             <ControlledAutocomplete
               errors={errors}
               name="area"
-              label={t<string>('managements.area')}
+              label={t('managements.area')}
               control={control}
               defaultValue={userArea}
-              options={areasData?.areaRestful || []}
+              options={areasData?.areaRestful ?? []}
               key="areas-autocomplete"
               optionLabel={(areaValue: AutoComplete) => {
                 if (areaValue) {
@@ -301,9 +301,9 @@ export default function GeneralInfo({
               errors={errors}
               defaultValue={userDepartment}
               name="department"
-              label={t<string>('managements.department')}
+              label={t('managements.department')}
               control={control}
-              options={departmentsData?.departmentsRestful || []}
+              options={departmentsData?.departmentsRestful ?? []}
               key="departments-autocomplete"
               optionLabel={(departmentValue: AutoComplete) => {
                 if (departmentValue) {
@@ -332,7 +332,7 @@ export default function GeneralInfo({
               options={environmentsData?.environmentsRestful.map(({ name, id }) => ({
                 id: id ?? '',
                 name: capitalizeFirstLetter(name ?? ''),
-              })) || []}
+              })) ?? []}
               key="environment-autocomplete"
               isOptionEqualToValue={
                 (option: AutoComplete, value: AutoComplete) => option.id === value.id

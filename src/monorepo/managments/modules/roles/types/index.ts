@@ -8,6 +8,7 @@ export interface Role {
 export interface Module {
   name: string;
   key: string;
+  checked?: boolean;
   permissions: Permission[]
 }
 
@@ -21,3 +22,16 @@ export interface Notification {
   whatsapp: boolean;
   notifications: Module[]
 }
+
+export type ErrorType<T = unknown> = {
+  i18Key?: string;
+  response?: {
+    errors?: Array<{
+      extensions: {
+        exception: {
+          response: T;
+        };
+      };
+    }>;
+  };
+};

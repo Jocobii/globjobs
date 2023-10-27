@@ -45,7 +45,7 @@ const emailFilter = createFilterOptions<Email>();
 const daysButtonGritItemComponent = ({
   days,
   onClick,
-}:any) => (
+}: { days: number, onClick: (days: number) => void }) => (
   <Grid item>
     <Button
       variant="contained"
@@ -99,8 +99,8 @@ export default function Form({
       ...formData,
       query: {
         ...formData.query,
-        startDate: newDate[0]?.toDate() || new Date(),
-        endDate: newDate[1]?.toDate() || new Date(),
+        startDate: newDate[0]?.toDate() ?? new Date(),
+        endDate: newDate[1]?.toDate() ?? new Date(),
       },
     });
   };
@@ -130,7 +130,7 @@ export default function Form({
     if (downloadData) {
       const { downloadADPFiles } = downloadData;
       if (downloadADPFiles?.message) {
-        successMessage(t<string>('managements.adp.downloadSuccess'));
+        successMessage(t('managements.adp.downloadSuccess'));
       }
     }
   }, [downloadData]);
@@ -169,22 +169,22 @@ export default function Form({
                 fullWidth
                 renderInput={(params) => (
                   <TextField
-                    label={t<string>('managements.adp.selectCompany')}
+                    label={t('managements.adp.selectCompany')}
                     {...params}
                   />
                 )}
-                onChange={(_event, value) => setSelectedCompany(value || {})}
+                onChange={(_event, value) => setSelectedCompany(value ?? {})}
               />
             </Grid>
-            { selectedCompany && selectedCompany.Numero && (
+            {selectedCompany?.Numero && (
             <Grid item xs={12}>
               <RadioGroup row aria-label="form type" name="formType" value={type} onChange={handleFormTypeChange}>
-                <FormControlLabel value="byDate" control={<Radio />} label={t<string>('managements.adp.byDate')} />
-                <FormControlLabel value="byID" control={<Radio />} label={t<string>('managements.adp.byPedimento')} />
+                <FormControlLabel value="byDate" control={<Radio />} label={t('managements.adp.byDate')} />
+                <FormControlLabel value="byID" control={<Radio />} label={t('managements.adp.byPedimento')} />
               </RadioGroup>
             </Grid>
             )}
-            { selectedCompany && selectedCompany.Numero && (
+            {selectedCompany?.Numero && (
             <Grid item xs={12}>
               {
                 type === 'byDate' && (
@@ -247,20 +247,25 @@ export default function Form({
                       return option;
                     }
 
-                    if (option && option.number) {
+                    if (option?.number) {
                       // Option is an object with a 'number' property, return the number as a string
                       return option.number.toString();
                     }
                     return '';
                   }}
-                  renderTags={(value, getTagProps) => value.map((option:any, index) => (
-                    <Chip
-                      variant="outlined"
-                      color={validPediment(option.number || option) ? 'primary' : 'error'}
-                      label={option.number || option}
-                      {...getTagProps({ index })}
-                    />
-                  ))}
+                  renderTags={(value, getTagProps) => value.map((option: any, index) => {
+                    const number = typeof option === 'string' ? option : option?.number;
+                    const { key, ...restProps } = getTagProps({ index });
+                    return (
+                      <Chip
+                        key={key}
+                        variant="outlined"
+                        color={validPediment(number) ? 'primary' : 'error'}
+                        label={number}
+                        {...restProps}
+                      />
+                    )
+                  })}
                   renderOption={(props, option) => <li {...props}>{option.number}</li>}
                   renderInput={(params) => (
                     <TextField
@@ -270,13 +275,13 @@ export default function Form({
                       placeholder="XXXXXXX"
                     />
                   )}
-                  onChange={(event:any, newValue:any) => {
+                  onChange={(__: unknown, newValue: any) => {
                     setFormData({
                       ...formData,
                       query: {
                         ...formData.query,
-                        ids: newValue.map((item:any) => {
-                          if (item && item.number) {
+                        ids: newValue.map((item: any) => {
+                          if (item?.number) {
                             return item.number;
                           }
                           return item;
@@ -293,36 +298,41 @@ export default function Form({
                 freeSolo
                 multiple
                 options={[]}
-                filterOptions={(options:Email[], params:any) => {
+                filterOptions={(options: any, params:any) => {
                   const filtered = emailFilter(options, params);
                   const { inputValue } = params;
                   // Suggest the creation of a new value
-                  const isExisting = options.some((option:Email) => inputValue === option.email);
+                  const isExisting = options.some((option: any) => inputValue === option.email);
                   if (inputValue !== '' && !isExisting) {
                     filtered.push({ email: `${inputValue}` });
                   }
                   return filtered;
                 }}
                   // loading={loadingCompanies}
-                getOptionLabel={(option:any) => {
+                getOptionLabel={(option: any) => {
                   if (typeof option === 'string') {
                     // Option is already a string, return it as-is
                     return option;
                   }
 
-                  if (option && option.email) {
-                    // Option is an object with a 'number' property, return the number as a string
-                    return option.email.toString();
+                  if (option?.email) {
+                    return option.email;
                   }
                   return '';
                 }}
-                renderTags={(value, getTagProps) => value.map((option:any, index) => (
-                  <Chip
-                    variant="outlined"
-                    label={option.email || option}
-                    {...getTagProps({ index })}
-                  />
-                ))}
+                renderTags={(value, getTagProps) => value.map((option: any, index) => {
+                  const email: string = typeof option === 'string' ? option : option?.email;
+                  const { key, ...restProps } = getTagProps({ index });
+                  return (
+                    <Chip
+                      key={key}
+                      variant="outlined"
+                      label={email}
+                      {...restProps}
+                    />
+                  )
+                })
+                }
                 renderOption={(props, option) => <li {...props}>{option.email}</li>}
                 renderInput={(params) => (
                   <TextField
@@ -332,13 +342,13 @@ export default function Form({
                     placeholder="me@email.com"
                   />
                 )}
-                onChange={(event:any, newValue:any) => {
-                  setFormData({
+                onChange={(__: unknown, newValue: any) => {
+                  return setFormData({
                     ...formData,
                     query: {
                       ...formData.query,
-                      email: newValue.map((item:any) => {
-                        if (item && item.email) {
+                      email: newValue.map((item: any) => {
+                        if (item?.email) {
                           return item.email;
                         }
                         return item;
@@ -350,7 +360,7 @@ export default function Form({
             </Grid>
             )}
             {
-            selectedCompany && selectedCompany.Numero && (
+            selectedCompany?.Numero && (
             <Grid item container xs={12} spacing={3}>
               <Grid item xs={6}>
                 <Button
@@ -361,7 +371,7 @@ export default function Form({
                   onClick={() => handleSubmit()}
                   disabled={!(selectedCompany.Numero)}
                 >
-                  {t<string>('managements.adp.search')}
+                  {t('managements.adp.search')}
                 </Button>
               </Grid>
               <Grid item xs={6}>
@@ -390,12 +400,12 @@ export default function Form({
                         context: { clientName: 'globalization' },
                       });
                     } catch (error) {
-                      errorMessage(t<string>('managements.adp.filesError'));
+                      errorMessage(t('managements.adp.filesError'));
                     }
                   }}
                   disabled={!(selectedCompany.Numero)}
                 >
-                  {t<string>('managements.adp.sendByEmail')}
+                  {t('managements.adp.sendByEmail')}
                 </Button>
               </Grid>
             </Grid>
@@ -403,7 +413,7 @@ export default function Form({
           }
             {
             // only if form is touched
-            selectedCompany && selectedCompany.Numero && formData && formData.query && (
+            selectedCompany?.Numero && formData?.query && (
             <Grid item xs={12}>
               <Button
                 variant="contained"
@@ -412,7 +422,7 @@ export default function Form({
                 onClick={handleClear}
                 disabled={!(selectedCompany.Numero)}
               >
-                {t<string>('managements.adp.clear')}
+                {t('managements.adp.clear')}
               </Button>
             </Grid>
             )

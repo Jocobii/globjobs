@@ -81,13 +81,13 @@ const getPredeterminedPaymentAlias = (
 ) => {
   switch (predeterminedPayment) {
     case PaymentMethods.CAPTURE_LINE:
-      return t<string>('cruces.proform.captureLinePaymentMethodLabel');
+      return t('cruces.proform.captureLinePaymentMethodLabel');
     case PaymentMethods.FINANCING:
-      return t<string>('cruces.proform.financingPaymentMethodLabel');
+      return t('cruces.proform.financingPaymentMethodLabel');
     case PaymentMethods.PECE:
-      return t<string>('cruces.proform.peceLinePaymentMethodLabel');
+      return t('cruces.proform.peceLinePaymentMethodLabel');
     case PaymentMethods.PECE_AGENCY:
-      return t<string>('cruces.proform.peceAgencyLinePaymentMethodLabel');
+      return t('cruces.proform.peceAgencyLinePaymentMethodLabel');
     default:
       return 'unknown';
   }
@@ -126,17 +126,17 @@ function AuthorizeProforma({
           <Typography
             sx={{ fontSize: 20, fontWeight: 600 }}
           >
-            {t<string>('cruces.proform.authorizeWarning')}
+            {t('cruces.proform.authorizeWarning')}
           </Typography>
           <CheckCircleIcon color="success" sx={{ fontSize: 30 }} />
-          <Typography color="gray">{t<string>('cruces.proform.cashAmount')}</Typography>
+          <Typography color="gray">{t('cruces.proform.cashAmount')}</Typography>
           <Typography color="primary" sx={{ fontSize: 25, fontWeight: 800 }}>{`$${amount} MX`}</Typography>
-          <Typography color="gray">{t<string>('cruces.proform.predeterminedPayment')}</Typography>
+          <Typography color="gray">{t('cruces.proform.predeterminedPayment')}</Typography>
           <Typography color="primary" sx={{ fontSize: 20, fontWeight: 600 }}>{paymentLabel}</Typography>
         </Stack>
       </Stack>
       <Typography textAlign="justify" color="gray">
-        {t<string>('cruces.proform.optionalFiles')}
+        {t('cruces.proform.optionalFiles')}
       </Typography>
       <Stack
         alignItems="center"
@@ -154,7 +154,7 @@ function AuthorizeProforma({
             || predeterminedPayment === PaymentMethods.PECE_AGENCY
           ) && (
             <Typography textAlign="left" color="error">
-              {t<string>('cruces.proform.requiredFilesByPayment', { predeterminedPayment })}
+              {t('cruces.proform.requiredFilesByPayment', { predeterminedPayment })}
             </Typography>
           )}
         </Stack>
@@ -162,7 +162,7 @@ function AuthorizeProforma({
       <ControlledTextField
         minRows={4}
         multiline
-        label={t<string>('cruces.addComments')}
+        label={t('cruces.addComments')}
         register={register}
         inputType="text"
         errors={errors}
@@ -185,7 +185,7 @@ function ProformaRevision({
   return (
     <Stack alignItems="center" direction="column" spacing={4} px={5}>
       <Typography textAlign="justify" color="gray">
-        {t<string>('cruces.proform.revisionDescription')}
+        {t('cruces.proform.revisionDescription')}
       </Typography>
       <Stack
         direction="row"
@@ -194,15 +194,15 @@ function ProformaRevision({
       >
         <Stack direction="column" alignItems="center">
           <Typography color="primary" sx={{ fontSize: 25, fontWeight: 600 }}>{patente}</Typography>
-          <Typography color="gray">{t<string>('cruces.table.patent')}</Typography>
+          <Typography color="gray">{t('cruces.table.patent')}</Typography>
         </Stack>
         <Stack direction="column" alignItems="center">
           <Typography color="primary" sx={{ fontSize: 25, fontWeight: 600 }}>{aduana}</Typography>
-          <Typography color="gray">{t<string>('cruces.table.customs')}</Typography>
+          <Typography color="gray">{t('cruces.table.customs')}</Typography>
         </Stack>
         <Stack direction="column" alignItems="center">
           <Typography color="primary" sx={{ fontSize: 25, fontWeight: 600 }}>{pedimento}</Typography>
-          <Typography color="gray">{t<string>('cruces.table.pediment')}</Typography>
+          <Typography color="gray">{t('cruces.table.pediment')}</Typography>
         </Stack>
       </Stack>
       <Stack
@@ -221,7 +221,7 @@ function ProformaRevision({
             borderRadius: 2,
           }}
         >
-          <Typography color="gray">{t<string>('cruces.proform.cashAmount')}</Typography>
+          <Typography color="gray">{t('cruces.proform.cashAmount')}</Typography>
           <Typography color="primary" sx={{ fontSize: 25, fontWeight: 800 }}>{`$${amount} MX`}</Typography>
         </Stack>
       </Stack>
@@ -241,7 +241,7 @@ function ProformaRevision({
             borderRadius: 2,
           }}
         >
-          <Typography color="gray">{t<string>('cruces.proform.predeterminedPayment')}</Typography>
+          <Typography color="gray">{t('cruces.proform.predeterminedPayment')}</Typography>
           <Typography color="primary" sx={{ fontSize: 20, fontWeight: 600 }}>{paymentLabel}</Typography>
         </Stack>
       </Stack>
@@ -280,7 +280,7 @@ export default function ProformaDialog({
 
   const schema = yup.object().shape({
     comments: yup.string().required('Este campo es requerido')
-      .max(150, t<string>('cruces.proform.comentMaxLenghtMessage')),
+      .max(150, t('cruces.proform.comentMaxLenghtMessage')),
   });
 
   const {
@@ -289,7 +289,7 @@ export default function ProformaDialog({
     formState: { errors },
   } = useForm<FieldValues>({
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   useEffect(() => {
@@ -330,7 +330,7 @@ export default function ProformaDialog({
       link.href = url;
 
       const attributeValue = String(filesResponse?.type).includes('zip')
-        ? `${t<string>('cruces.proform.proformFiles')}.zip`
+        ? `${t('cruces.proform.proformFiles')}.zip`
         : `${node.data?.name}.pdf`;
 
       link.setAttribute('download', attributeValue);
@@ -419,7 +419,7 @@ export default function ProformaDialog({
         context: { clientName: 'globalization' },
         onCompleted: async () => {
           await updateHistoryProforma(newFiles);
-          successMessage(t<string>('cruces.proform.paymentSuccesfullyAuthorized'), { vertical: 'top', horizontal: 'right' });
+          successMessage(t('cruces.proform.paymentSuccesfullyAuthorized'), { vertical: 'top', horizontal: 'right' });
           refetch();
         },
       });
@@ -593,10 +593,10 @@ export default function ProformaDialog({
       <Container sx={{ p: 2 }} maxWidth="sm">
         <Stepper activeStep={activeStep}>
           <Step key="1">
-            <StepLabel>{t<string>('cruces.proform.stepFileRevision')}</StepLabel>
+            <StepLabel>{t('cruces.proform.stepFileRevision')}</StepLabel>
           </Step>
           <Step key="2">
-            <StepLabel>{t<string>('cruces.proform.stepPaymentAuthorization')}</StepLabel>
+            <StepLabel>{t('cruces.proform.stepPaymentAuthorization')}</StepLabel>
           </Step>
         </Stepper>
       </Container>
@@ -667,7 +667,7 @@ export default function ProformaDialog({
           sx={{ borderWidth: '1px', borderColor: 'primary', borderStyle: 'solid' }}
           color="primary"
           onClick={handleFilesDownload}
-          title={t<string>('downloadFiles')}
+          title={t('downloadFiles')}
         >
           <DownloadIcon />
         </IconButton>
@@ -681,7 +681,7 @@ export default function ProformaDialog({
             variant="outlined"
             onClick={() => setDeleteProforma(true)}
           >
-            {t<string>('cruces.proform.deleteFile')}
+            {t('cruces.proform.deleteFile')}
           </Button>
           )}
           {(activeStep === 1 && !authorize && !unauthorize && !node.data?.unauthorized) && (
@@ -694,7 +694,7 @@ export default function ProformaDialog({
                 setUnauthorize(true);
               }}
             >
-              {t<string>('cruces.proform.unauthorize')}
+              {t('cruces.proform.unauthorize')}
             </Button>
             <Button
               variant="contained"
@@ -704,7 +704,7 @@ export default function ProformaDialog({
                 setAuthorize(true);
               }}
             >
-              {t<string>('cruces.proform.authorize')}
+              {t('cruces.proform.authorize')}
             </Button>
           </>
           )}
@@ -717,7 +717,7 @@ export default function ProformaDialog({
                 setAuthorize(false);
               }}
             >
-              {t<string>('cruces.proform.goBack')}
+              {t('cruces.proform.goBack')}
             </Button>
             <Button
               variant="contained"
@@ -725,7 +725,7 @@ export default function ProformaDialog({
               startIcon={<CheckCircleIcon />}
               onClick={() => onSubmit()}
             >
-              {t<string>('cruces.proform.authorizePayment')}
+              {t('cruces.proform.authorizePayment')}
             </Button>
           </>
           )}
@@ -738,7 +738,7 @@ export default function ProformaDialog({
                 setUnauthorize(false);
               }}
             >
-              {t<string>('cruces.proform.goBack')}
+              {t('cruces.proform.goBack')}
             </Button>
             <Button
               variant="contained"
@@ -746,7 +746,7 @@ export default function ProformaDialog({
               disabled={!hasComments}
               onClick={() => handleSubmitUnauthorize(true)}
             >
-              {t<string>('cruces.proform.confirmUnauthorize')}
+              {t('cruces.proform.confirmUnauthorize')}
             </Button>
           </>
           )}

@@ -12,6 +12,7 @@ export type BaseEntity = {
 };
 
 export const headquarterSchema = object().shape({
+  id: string(),
   name: string().required(),
   type: mixed().oneOf(['Office', 'Warehouse']).required(),
   phone: string().required(),

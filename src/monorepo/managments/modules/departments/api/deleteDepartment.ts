@@ -24,7 +24,7 @@ export const deleteDepartmentMutationDocument = gql`
 `;
 
 export const deleteDepartment = ({ departmentId }: DeleteDepartmentDto):
-Promise<Department> => request(
+Promise<Department> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   deleteDepartmentMutationDocument,
   {

@@ -177,7 +177,7 @@ export function Table() {
         columns={columns}
         rows={data || []}
         actions={[
-          <TableTabs tabIndex={tabIndex} setTabIndex={setTabIndex} />,
+          <TableTabs tabIndex={tabIndex} setTabIndex={setTabIndex} key={tabIndex} />,
           <IconButton key="more-id" size="large" onClick={() => refetch()} disabled={loading}>
             <CachedIcon width={20} height={20} />
           </IconButton>,

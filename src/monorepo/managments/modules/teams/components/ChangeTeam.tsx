@@ -54,7 +54,7 @@ function ConfirmTeamDialog({ handleConfirm, handleClose, clients }: ConfirmTeamD
       <Typography variant="h4">Editar equipo</Typography>
       <Stack flexDirection="column" justifyContent="center" alignItems="center" sx={{ padding: 4 }}>
         {clients.filter((client) => client?.team !== null).map((client) => (
-          <Stack>
+          <Stack key={client?.name}>
             {`${client?.name ?? 'N/A'} pertenece al ${client?.team?.name ?? 'N/A'}`}
           </Stack>
         ))}
@@ -86,19 +86,19 @@ function ChangeTeamForm({
       }}
     >
       <Formeazy<ChangeTeam>
-        title={t<string>('managements.teams.teamChage')}
+        title={t('managements.teams.teamChage')}
         schema={changeTeamSchema}
-        submitLabel={t<string>('managements.teams.assignToTeam')}
+        submitLabel={t('managements.teams.assignToTeam')}
         inputProps={{
           'team.id': {
             type: 'select',
-            label: t<string>('managements.teams.teamSelect'),
+            label: t('managements.teams.teamSelect'),
             options: data?.teamsRestful?.map(({ id, name }) => ({
               value: id,
               title: name,
-            })) || [],
+            })) ?? [],
           },
-        }}
+        } as any}
         extraContent={(
           <Box>
             <DataList
@@ -122,7 +122,7 @@ function SpecialistContent({ dataList, onClose, t }: ContentProps) {
 
   const onSubmit: SubmitHandler<ChangeTeam> = async ({ team }: ChangeTeam) => {
     await mutateAsync({
-      teamId: team?.id,
+      teamId: team?.id as string,
       ids: selectedUserIds,
     });
     onClose();
@@ -130,7 +130,7 @@ function SpecialistContent({ dataList, onClose, t }: ContentProps) {
   return (
     <ChangeTeamForm
       t={t}
-      listTitle={t<string>('managements.teams.doChengeTeam')}
+      listTitle={t('managements.teams.doChengeTeam')}
       dataList={dataList}
       onClose={onClose}
       isCustomer={false}
@@ -155,7 +155,7 @@ function ClientContent({ dataList, onClose, t }: ContentProps) {
 
   const onSubmit: SubmitHandler<ChangeTeam> = async ({ team }: ChangeTeam) => {
     await mutateAsync({
-      teamId: team?.id,
+      teamId: team?.id as string,
       ids: selectedClientIds,
     });
     onClose();
@@ -172,7 +172,7 @@ function ClientContent({ dataList, onClose, t }: ContentProps) {
       confirm ? (
         <ChangeTeamForm
           t={t}
-          listTitle={t<string>('managements.teams.selectedClients')}
+          listTitle={t('managements.teams.selectedClients')}
           dataList={dataList}
           isCustomer
           onClose={onClose}

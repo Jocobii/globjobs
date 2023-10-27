@@ -22,7 +22,7 @@ const PageContent = forwardRef<Ref, Props>(({
     <Box ref={ref} className={className}>
       <>
         <Helmet>
-          <title>{`${title || 'G-Suite'} ${new Date().getFullYear()}`}</title>
+          <title>{`${title ?? 'G-Suite'} ${new Date().getFullYear()}`}</title>
         </Helmet>
         {children}
       </>
@@ -34,5 +34,7 @@ PageContent.defaultProps = {
   title: 'G-Suite',
   className: '',
 };
+
+PageContent.displayName = 'PageContent';
 
 export default PageContent;

@@ -63,7 +63,7 @@ export default function Fop({
     reset,
     formState: { errors },
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
   const skipStep = () => {
     skipReceiveWms({
@@ -147,7 +147,7 @@ export default function Fop({
           setSnackBar('error', e.message);
         },
         onCompleted: () => {
-          setSnackBar('success', t<string>('broker.updateStepSuccess'));
+          setSnackBar('success', t('broker.updateStepSuccess'));
         },
       });
       submitFrom();
@@ -195,7 +195,7 @@ export default function Fop({
                   defaultValue={defaultValue}
                   errors={errors}
                   name="receiptNumber"
-                  label={`${t<string>('broker.receiptLabel')} *`}
+                  label={`${t('broker.receiptLabel')} *`}
                   control={control}
                   options={data?.receiptFind ?? []}
                   key="receiptNumber-autocomplete"
@@ -205,7 +205,7 @@ export default function Fop({
                   disabled={isOnlyView}
                 />
                 <ControlledTextField
-                  label={t<string>('broker.notesLabel')}
+                  label={t('broker.notesLabel')}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -218,7 +218,7 @@ export default function Fop({
           </Grid>
           <Grid container spacing={2}>
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Dropzone label={t<string>('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} disabled={isOnlyView} />
+              <Dropzone label={t('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} disabled={isOnlyView} />
             </Grid>
           </Grid>
         </DialogContent>
@@ -227,11 +227,11 @@ export default function Fop({
             onClick={skipStep}
             disabled={isOnlyView}
           >
-            {t<string>('broker.skipStep')}
+            {t('broker.skipStep')}
           </Button>
-          <Button onClick={onClose}>{t<string>('cancel')}</Button>
+          <Button onClick={onClose}>{t('cancel')}</Button>
           <LoadingButton variant="contained" type="submit" loading={loading} disabled={isOnlyView}>
-            {isEdit ? t<string>('update') : t<string>('register')}
+            {isEdit ? t('update') : t('register')}
           </LoadingButton>
         </DialogActions>
       </form>

@@ -12,11 +12,6 @@ export type UpdateModuleDto = {
   menuId: string;
 };
 
-  type SelectOption = {
-    id: string;
-    name: string;
-  };
-
 export const updateMenuMutationDocument = gql`
   mutation (
     $id: String!,
@@ -41,16 +36,16 @@ export const updateMenuMutationDocument = gql`
   }
 `;
 
-export const updateMenu = ({ data, menuId }: UpdateModuleDto): Promise<Menu> => request(
+export const updateMenu = ({ data, menuId }: UpdateModuleDto): Promise<Menu> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   updateMenuMutationDocument,
   {
     id: menuId,
     name: data.name,
-    icon: data['icon'],
-    order: data['order'],
-    modules: get(data, 'modules', []).map(({ id }: SelectOption) => id),
-    environment: data['environment'],
+    icon: data.icon,
+    order: data.order,
+    modules: get(data, 'modules', []).map(({ id }) => id),
+    environment: data.environment,
   },
 ).then((res) => res.user);
 

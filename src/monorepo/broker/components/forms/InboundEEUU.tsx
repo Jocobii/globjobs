@@ -74,13 +74,13 @@ export default function InboundEEUU({
   const [isInbond, setIsInbond] = useState(false);
   const [oldValue, setOldValue] = useState<ImpusaStep>();
   const schema = Yup.object({
-    importType: Yup.string().required(t<string>('broker.importTypeSchema')),
+    importType: Yup.string().required(t('broker.importTypeSchema')),
     entryType: Yup.string().when('importType', {
       is: (importType: string) => importType === 'Inbond',
-      then: Yup.string().required(t<string>('broker.entryTypeSchema'))
-        .min(7, t<string>('broker.entryTypeMin')),
-    }),
-    releaseDate: Yup.string().required(t<string>('broker.releaseDateSchema')),
+      then: Yup.string().required(t('broker.entryTypeSchema'))
+        .min(7, t('broker.entryTypeMin')),
+    } as any),
+    releaseDate: Yup.string().required(t('broker.releaseDateSchema')),
     notes: Yup.string().nullable().optional(),
     references: Yup.string().nullable().optional(),
   });
@@ -94,7 +94,7 @@ export default function InboundEEUU({
     getValues,
     reset,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   watch((value) => {
@@ -188,7 +188,7 @@ export default function InboundEEUU({
           setSnackBar('error', e.message);
         },
         onCompleted: () => {
-          setSnackBar('success', t<string>('broker.updateStepSuccess'));
+          setSnackBar('success', t('broker.updateStepSuccess'));
         },
       });
       submitFrom();
@@ -233,7 +233,7 @@ export default function InboundEEUU({
               <Stack spacing={2} sx={{ pt: 1 }}>
                 <ControlledSelect
                   name="importType"
-                  label={`${t<string>('broker.importTypeLabel')} *`}
+                  label={`${t('broker.importTypeLabel')} *`}
                   control={control}
                   defaultValue=""
                   key="importType-select"
@@ -250,7 +250,7 @@ export default function InboundEEUU({
                   errors={errors}
                   fieldName="releaseDate"
                   inputType="datetime-local"
-                  label={`${t<string>('broker.releaseDateLabel')} *`}
+                  label={`${t('broker.releaseDateLabel')} *`}
                   register={register}
                   disabled={isOnlyView}
                 />
@@ -274,7 +274,7 @@ export default function InboundEEUU({
                   />
                 )}
                 <ControlledTextField
-                  label={t<string>('broker.notesLabel')}
+                  label={t('broker.notesLabel')}
                   errors={errors}
                   fieldName="notes"
                   inputType="text"
@@ -297,7 +297,7 @@ export default function InboundEEUU({
                 errors={errors}
                 fieldName="references"
                 inputType="text"
-                label={t<string>('broker.referencesLabel')}
+                label={t('broker.referencesLabel')}
                 register={register}
                 disabled={isOnlyView}
               />
@@ -317,7 +317,7 @@ export default function InboundEEUU({
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Dropzone
                 key="additional-docs-dropzone"
-                label={t<string>('broker.additionalFiles')}
+                label={t('broker.additionalFiles')}
                 files={additionalDocs}
                 filesSetter={setAdditionalDocs}
                 disabled={isOnlyView}
@@ -326,14 +326,14 @@ export default function InboundEEUU({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>{t<string>('cancel')}</Button>
+          <Button onClick={onClose}>{t('cancel')}</Button>
           <LoadingButton
             variant="contained"
             type="submit"
             loading={loading}
             disabled={(isInbond && hasError) || isOnlyView}
           >
-            {isEdit ? t<string>('update') : t<string>('register')}
+            {isEdit ? t('update') : t('register')}
           </LoadingButton>
         </DialogActions>
       </form>

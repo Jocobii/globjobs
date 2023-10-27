@@ -150,7 +150,7 @@ export default function DocumentsReadyMX({
       shippingOrders: [],
       shipper: '',
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
   const getErrors = (name: 'shippingOrders' | 'arrayFields') => {
     const error = errors[name];
@@ -361,7 +361,7 @@ export default function DocumentsReadyMX({
           setSnackBar('error', e.message);
         },
         onCompleted: () => {
-          setSnackBar('success', t<string>('broker.updateStepSuccess'));
+          setSnackBar('success', t('broker.updateStepSuccess'));
         },
       });
       submitFrom();
@@ -493,7 +493,7 @@ export default function DocumentsReadyMX({
                         fieldName={`arrayFields[${index}].requirementNumber`}
                         errors={errors}
                         inputType="Txt"
-                        label={t<string>('broker.requirementLabel')}
+                        label={t('broker.requirementLabel')}
                         register={register}
                         key="requirementNumber-field"
                         disabled
@@ -622,7 +622,7 @@ export default function DocumentsReadyMX({
                 {getErrors('shippingOrders') && (
                   <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 3, sm: 2 }} style={{ marginTop: 16 }}>
                     <Alert severity="error" style={{ width: '100%' }}>
-                      {t<string>('broker.messageShippingOrders')}
+                      {t('broker.messageShippingOrders')}
                     </Alert>
                   </Stack>
                 )}
@@ -684,9 +684,9 @@ export default function DocumentsReadyMX({
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>{t<string>('cancel')}</Button>
+          <Button onClick={onClose}>{t('cancel')}</Button>
           <LoadingButton variant="contained" type="submit" loading={loading || loadingShipper} disabled={!!shipperError || isOnlyView}>
-            {isEdit ? t<string>('update') : t<string>('register')}
+            {isEdit ? t('update') : t('register')}
           </LoadingButton>
         </DialogActions>
       </form>

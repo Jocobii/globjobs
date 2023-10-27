@@ -13,7 +13,7 @@ import Button from '@mui/lab/LoadingButton';
 import CachedIcon from '@mui/icons-material/Cached';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form/dist/types';
+import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form';
 
 import Scrollbar from '@gsuite/ui/Scrollbar';
@@ -123,13 +123,13 @@ export default function UsersForm({
                   alignItems="center"
                   spacing={2}
                 >
-                  <Typography variant="h4" gutterBottom>{t<string>('managements.createUser')}</Typography>
+                  <Typography variant="h4" gutterBottom>{t('managements.createUser')}</Typography>
                 </Stack>
                 <ControlledTextField
                   errors={errors}
                   fieldName="name"
                   inputType="text"
-                  label={t<string>('managements.name')}
+                  label={t('managements.name')}
                   register={register}
                   key="name-field"
                 />
@@ -137,7 +137,7 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="lastName"
                   inputType="text"
-                  label={t<string>('managements.lastName')}
+                  label={t('managements.lastName')}
                   register={register}
                   key="lastName-field"
                 />
@@ -145,7 +145,7 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="employeeNumber"
                   inputType="text"
-                  label={t<string>('managements.employeeNumber')}
+                  label={t('managements.employeeNumber')}
                   register={register}
                   key="employeeNumber-field"
                 />
@@ -153,7 +153,7 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="emailAddress"
                   inputType="text"
-                  label={t<string>('managements.emailAddress')}
+                  label={t('managements.emailAddress')}
                   register={register}
                   key="emailAddress-field"
                   endAdornment={inputAddornment}
@@ -162,7 +162,7 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="phoneNumber"
                   inputType="text"
-                  label={t<string>('managements.phoneNumber')}
+                  label={t('managements.phoneNumber')}
                   register={register}
                   key="phoneNumber-field"
                 />
@@ -170,7 +170,7 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="birthDate"
                   inputType="date"
-                  label={t<string>('managements.birthDate')}
+                  label={t('managements.birthDate')}
                   register={register}
                   registerOptions={{ valueAsDate: false }}
                   key="birthDate-field"
@@ -179,12 +179,12 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="charge"
                   inputType="text"
-                  label={t<string>('managements.charge')}
+                  label={t('managements.charge')}
                   register={register}
                   key="charge-field"
                 />
                 <ControlledSelect
-                  label={t<string>('managements.employeeType')}
+                  label={t('managements.employeeType')}
                   control={control}
                   name="employeeType"
                   key="employeeType-select"
@@ -201,7 +201,7 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="coach"
                   inputType="text"
-                  label={t<string>('managements.coach')}
+                  label={t('managements.coach')}
                   register={register}
                   key="coach-field"
                 />
@@ -209,7 +209,7 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="costCenter"
                   inputType="text"
-                  label={t<string>('managements.costsCenter')}
+                  label={t('managements.costsCenter')}
                   register={register}
                   key="costCenter-field"
                 />
@@ -217,7 +217,7 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="darwinUser"
                   inputType="text"
-                  label={t<string>('managements.darwinUser')}
+                  label={t('managements.darwinUser')}
                   register={register}
                   key="darwinUser-field"
                 />
@@ -225,14 +225,14 @@ export default function UsersForm({
                   errors={errors}
                   fieldName="rbSystemsUser"
                   inputType="text"
-                  label={t<string>('managements.rbSystemsUser')}
+                  label={t('managements.rbSystemsUser')}
                   register={register}
                   key="rbSystemsUser-field"
                 />
                 <ControlledAutocomplete
                   errors={errors}
                   name="headquarter"
-                  label={t<string>('managements.site')}
+                  label={t('managements.site')}
                   control={control}
                   options={headuartersData?.headquartersRestful || []}
                   key="headquarters-autocomplete"
@@ -256,7 +256,7 @@ export default function UsersForm({
                 <ControlledAutocomplete
                   errors={errors}
                   name="area"
-                  label={t<string>('managements.area')}
+                  label={t('managements.area')}
                   control={control}
                   options={areasData?.areaRestful || []}
                   key="areas-autocomplete"
@@ -280,7 +280,7 @@ export default function UsersForm({
                 <ControlledAutocomplete
                   errors={errors}
                   name="department"
-                  label={t<string>('managements.department')}
+                  label={t('managements.department')}
                   control={control}
                   options={departmentsData?.departmentsRestful || []}
                   key="departments-autocomplete"

@@ -14,7 +14,7 @@ export default function CreateContent({ onClose, t }: FormBaseProps) {
   return (
     <TeamsForm
       t={t}
-      title={t<string>('managements.teams.createTeam')}
+      title={t('managements.teams.createTeam')}
       onSubmit={handleSubmit}
       onClose={onClose}
     />

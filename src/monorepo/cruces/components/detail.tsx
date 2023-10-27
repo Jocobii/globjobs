@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
@@ -141,32 +140,32 @@ export default function CruceDetail() {
   const handleOptionsMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     setOptionsAnchorEl(e.currentTarget);
   };
-  const { _id: currentStatusId } = value?.status || {};
+  const { _id: currentStatusId } = value?.status ?? {};
 
   useEffect(() => {
     if (value?.id) {
       setCrossing({ ...value });
       setExternalNode(value?.nodes.externalNode);
       setTree(value?.nodes.tree);
-      setDispatchNodes(value?.nodes.dispatchFileNode || []);
+      setDispatchNodes(value?.nodes.dispatchFileNode ?? []);
     }
   }, [value?.id]);
 
   useEffect(() => {
-    setExternalNode(value?.nodes.externalNode || []);
-    setTree(value?.nodes.tree || []);
-    setDispatchNodes(value?.nodes.dispatchFileNode || []);
+    setExternalNode(value?.nodes.externalNode ?? []);
+    setTree(value?.nodes.tree ?? []);
+    setDispatchNodes(value?.nodes.dispatchFileNode ?? []);
   }, [value?.nodes?.externalNode, value?.nodes?.tree, value?.nodes?.dispatchFileNode]);
 
   useEffect(() => {
-    setTree(crossing?.nodes?.tree || []);
-    setExternalNode(crossing?.nodes?.externalNode || []);
-    setDispatchNodes(dispatchNodes || []);
+    setTree(crossing?.nodes?.tree ?? []);
+    setExternalNode(crossing?.nodes?.externalNode ?? []);
+    setDispatchNodes(dispatchNodes ?? []);
   }, [crossing, setDispatchNodes, setExternalNode, setTree]);
 
   useEffect(() => {
-    setTree(crossing?.nodes?.tree || []);
-    setDispatchNodes(crossing?.nodes?.dispatchFileNode || []);
+    setTree(crossing?.nodes?.tree ?? []);
+    setDispatchNodes(crossing?.nodes?.dispatchFileNode ?? []);
   }, [crossing?.nodes?.tree, crossing?.nodes?.dispatchFileNode]);
 
   useEffect(() => {
@@ -188,7 +187,6 @@ export default function CruceDetail() {
   }, [externalNode.length, tree.length, dispatchNodes.length]);
 
   // toda la logica de subir, etiquetar y separar archivos se mandara al back.
-  // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
     const newNodes = async () => {
       const formValues = {
@@ -263,7 +261,7 @@ export default function CruceDetail() {
         }
       });
 
-      const { _id: idStatus } = crossing?.status || {};
+      const { _id: idStatus } = crossing?.status ?? {};
       const correctStatus = [DOCUMENTS_PROCESS_STATUS, PROFORMA_AUTHORIZATION_STATUS].includes(idStatus ?? '');
       const canSetPedimentoPagado = correctStatus && [...newExternalNodes, ...newTree].some((e) => e?.data?.tags === 'Pedimento pagado');
 
@@ -413,7 +411,7 @@ export default function CruceDetail() {
         }).catch(() => {});
       }
       showSnackMessage(
-        response?.data?.sendCrossing?.message || '',
+        response?.data?.sendCrossing?.message ?? '',
         response?.data?.sendCrossing?.error ? 'error' : 'success',
         {
           vertical: 'top',
@@ -427,7 +425,7 @@ export default function CruceDetail() {
         },
       );
     } catch (error) {
-      errorMessage(t<string>('cruces.an_error'));
+      errorMessage(t('cruces.an_error'));
     }
   };
 
@@ -478,7 +476,7 @@ export default function CruceDetail() {
       }
       refetch();
     } catch (error) {
-      errorMessage(t<string>('cruces.error_update_txt_file'));
+      errorMessage(t('cruces.error_update_txt_file'));
     }
   };
 
@@ -502,9 +500,9 @@ export default function CruceDetail() {
         context: { clientName: 'globalization' },
       });
       refetch();
-      successMessage(t<string>('cruces.crossing_has_updated'));
+      successMessage(t('cruces.crossing_has_updated'));
     } catch (error) {
-      errorMessage(t<string>('cruces.an_error_update'));
+      errorMessage(t('cruces.an_error_update'));
     }
   };
 
@@ -523,10 +521,10 @@ export default function CruceDetail() {
         return setLoading(false);
       }
       setLoading(false);
-      return successMessage(t<string>('cruces.send_file_to_email'));
+      return successMessage(t('cruces.send_file_to_email'));
     } catch (error) {
       setLoading(false);
-      return errorMessage(t<string>('cruces.download_error'));
+      return errorMessage(t('cruces.download_error'));
     }
   };
 
@@ -584,7 +582,7 @@ export default function CruceDetail() {
               >
                 <Stack spacing={6} sx={{ marginLeft: '1%' }} direction="row">
                   <Typography color="#3A8FE8" variant="h5" component="div" gutterBottom>
-                    {t<string>('cruces.operation')}
+                    {t('cruces.operation')}
                     {' '}
                     {value?.number}
                   </Typography>
@@ -592,12 +590,12 @@ export default function CruceDetail() {
                     {value?.type}
                   </Typography>
                   <Typography variant="h5" component="div" gutterBottom>
-                    {t<string>('cruces.patent')}
+                    {t('cruces.patent')}
                     {' '}
                     {value?.patente}
                   </Typography>
                   <Typography variant="h5" component="div" gutterBottom>
-                    {t<string>('cruces.customsOffice')}
+                    {t('cruces.customsOffice')}
                     {' '}
                     {value?.aduana}
                   </Typography>
@@ -607,7 +605,7 @@ export default function CruceDetail() {
                     </Typography>
                   )}
                   <Button variant="outlined" onClick={downloadFilesZip} disabled={loading} sx={{ m: 2 }}>
-                    <Typography variant="inherit">{t<string>('cruces.download_zip')}</Typography>
+                    <Typography variant="inherit">{t('cruces.download_zip')}</Typography>
                   </Button>
                 </Stack>
               </Grid>
@@ -633,11 +631,11 @@ export default function CruceDetail() {
                     <Typography>
                       {
                         `
-                          ${t<string>('cruces.files')}
+                          ${t('cruces.files')}
                           (
-                              ${allIssues.error} ${t<string>('cruces.mistakes')},
-                              ${allIssues.warning} ${t<string>('cruces.warning')},
-                              ${allIssues.information} ${t<string>('cruces.information')}
+                              ${allIssues.error} ${t('cruces.mistakes')},
+                              ${allIssues.warning} ${t('cruces.warning')},
+                              ${allIssues.information} ${t('cruces.information')}
                           )
                         `
                       }
@@ -652,8 +650,9 @@ export default function CruceDetail() {
                   >
                     <Grid item spacing={2}>
                       {
-                        options.map((option) => (
+                        options.map((option, index) => (
                           <IconButton
+                            key={`${index + 1}`}
                             style={{ margin: 3, color: '#2F82E0' }}
                             onClick={option.onClick}
                           >
@@ -710,7 +709,7 @@ export default function CruceDetail() {
                         size="small"
                         disabled={isDocumentDeliveredStatus()}
                       >
-                        {t<string>('cruces.add_file')}
+                        {t('cruces.add_file')}
                       </Button>
                     </Grid>
                     <Grid item>
@@ -720,7 +719,7 @@ export default function CruceDetail() {
                         size="small"
                         disabled={isDocumentDeliveredStatus()}
                       >
-                        <Typography variant="inherit">{t<string>('cruces.update_crossing')}</Typography>
+                        <Typography variant="inherit">{t('cruces.update_crossing')}</Typography>
                       </Button>
                     </Grid>
                     <Grid item>
@@ -731,7 +730,7 @@ export default function CruceDetail() {
                         loading={loadingSend}
                         size="small"
                       >
-                        <Typography variant="inherit">{t<string>('cruces.send_to_darwin')}</Typography>
+                        <Typography variant="inherit">{t('cruces.send_to_darwin')}</Typography>
                       </ButtonLoading>
                     </Grid>
                     <Grid item>
@@ -758,7 +757,7 @@ export default function CruceDetail() {
                 </Conditional>
               </Grid>
               <Panel
-                history={crossing?.history || []}
+                history={crossing?.history ?? []}
               />
             </>
           )}
@@ -781,7 +780,7 @@ export default function CruceDetail() {
         <CancelCruceModal
           open={openCancelCruceModal}
           handleVisibility={setOpenCancelCruceModal}
-          title={`${t<string>('cruces.operation')} ${value?.number}`}
+          title={`${t('cruces.operation')} ${value?.number}`}
           crossingId={id}
           t={t}
         />
