@@ -6,12 +6,9 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { createClient } from 'graphql-ws';
 
 import { setContext } from '@apollo/client/link/context';
-const {
-  NX_GLOBALIZATION_GRAPHQL_SOCKET_URI,
-  VITE_GLOBALIZATION_GRAPHQL_URI,
-  VITE_GATEWAY_URI,
-  DEV,
-} = import.meta.env;
+const { DEV } = import.meta.env;
+
+import { env } from '@/config'
 
 const getToken = () => {
   const { accessToken } = JSON.parse(localStorage.getItem('@@g-globalization-auth') ?? '{}');
@@ -20,7 +17,7 @@ const getToken = () => {
 };
 
 const wsLink = new GraphQLWsLink(createClient({
-  url: NX_GLOBALIZATION_GRAPHQL_SOCKET_URI ?? '',
+  url: env.VITE_GLOBALIZATION_GRAPHQL_SOCKET_URI ?? '',
   retryAttempts: 5,
   connectionParams: {
     Authorization: getToken(),
@@ -30,12 +27,12 @@ const wsLink = new GraphQLWsLink(createClient({
 wsLink.client.on('closed', (e) => console.log(e));
 
 const gateway = new HttpLink({
-  uri: `${VITE_GATEWAY_URI}`,
+  uri: `${env.VITE_GATEWAY_URI}`,
   credentials: DEV ? undefined : 'include',
 });
 
 const globalization = new HttpLink({
-  uri: `${VITE_GLOBALIZATION_GRAPHQL_URI}`,
+  uri: `${env.VITE_GLOBALIZATION_GRAPHQL_URI}`,
   credentials: DEV ? undefined : 'include',
 });
 
