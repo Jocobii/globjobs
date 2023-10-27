@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import loadable from '@loadable/component';
 import {
   Container,
@@ -12,40 +11,22 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
 import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import CachedIcon from '@mui/icons-material/Cached';
+import { usePagination } from '@/hooks'
 
-import { DataGrid, ModelOptions } from '@gsuite/ui/DataGrid';
+import { DataGrid } from '@gsuite/ui/DataGrid';
 
-import { useDepartments } from './api/getDepartments';
-import { useDeleteDepartment } from './api/deleteDepartment';
+import { useDepartments } from '../api/getDepartments';
+import { useDrawer } from '../hooks/useDrawer';
 
-const DrawerForm = loadable(() => import('./components/DepartmentsForm'), { fallback: <h3>Loading...</h3> });
+const DrawerForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loading...</h3> });
 
 export default function List() {
   const { t } = useTranslation();
-  const [variables, setVariables] = useState({});
-  const [departmentId, setDepartmentId] = useState<string | null>(null);
-  const { mutateAsync } = useDeleteDepartment();
-  const query = useDepartments({ variables });
+  const { variables, handleDataGridEvents } = usePagination();
+  const { departmentId, handleDrawerClose, handleDrawerOpen, handleMenuClick } = useDrawer();
+  const { data, refetch, isLoading, isFetching } = useDepartments({ variables });
 
-  const handleDrawerClose = () => setDepartmentId(null);
-  const handleDrawerOpen = () => setDepartmentId('create');
-
-  const handleMenuClick = (type: string, rowId: string) => {
-    if (type === 'delete') {
-      mutateAsync({ departmentId: rowId });
-      return;
-    }
-
-    setDepartmentId(rowId);
-  };
-
-  const handleRefresh = () => query.refetch();
-
-  const handleDataGridEvents = (event: ModelOptions) => {
-    if (Object.keys(event).length > 0) {
-      setVariables(event);
-    }
-  };
+  const handleRefresh = () => refetch();
 
   return (
     <Container maxWidth="xl">
@@ -61,11 +42,11 @@ export default function List() {
         onClick={handleDrawerOpen}
         sx={{ height: 60, width: 200, marginBottom: '1%' }}
       >
-        {t('managements.deparments.addNewDepartment')}
+        {t('managements.departments.addNewDepartment')}
       </Button>
       <DataGrid
         getRowId={({ id }) => id}
-        loading={query.isLoading || query.isFetching}
+        loading={isLoading || isFetching}
         pinnedColumns={{ right: ['actions'] }}
         columns={[
           {
@@ -109,15 +90,15 @@ export default function List() {
             ),
           },
         ]}
-        rows={query.data?.rows}
+        rows={data?.rows}
         actions={[
-          <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={query.isFetching}>
+          <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={isFetching}>
             <CachedIcon width={20} height={20} />
           </IconButton>,
         ]}
         mode="server"
         serverOptions={{
-          totalRowCount: query.data?.total || 0,
+          totalRowCount: data?.total || 0,
           handleChange: handleDataGridEvents,
         }}
       />

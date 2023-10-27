@@ -7,7 +7,7 @@ import { RuleSchema, Rule, Props } from '../types';
 import { FIELD_FORM_EASY } from '../utils/const';
 
 export default function DrawerForm({ open, onClose, ruleId = undefined }: Props) {
-  const ruleQuery = useRule({ ruleId });
+  const { data } = useRule({ ruleId });
   const { mutateAsync: updatedRule } = useUpdateRule();
   const { mutateAsync: createRule } = useCreateRule();
   const isUpdate = ruleId && ruleId !== 'create';
@@ -30,7 +30,7 @@ export default function DrawerForm({ open, onClose, ruleId = undefined }: Props)
         title={isUpdate ? t('managements.rules.edit_rule') : t('managements.rules.create_rule')}
         schema={RuleSchema}
         inputProps={FIELD_FORM_EASY}
-        initialValues={ruleQuery.data ?? {}}
+        initialValues={data ?? {}}
         onSubmit={handleSubmit}
         onClose={onClose}
       />

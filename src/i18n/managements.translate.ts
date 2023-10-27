@@ -131,8 +131,10 @@ export const managementsEn = {
   areas: {
     addNewArea: 'Add area',
   },
-  deparments: {
+  departments: {
     addNewDepartment: 'Add department',
+    edit_department: 'Edit department',
+    create_department: 'Create department',
   },
   headquarters: {
     addNewHeadquarters: 'Add headquarters',
@@ -297,8 +299,10 @@ export const managementsEs = {
   areas: {
     addNewArea: 'Agregar area',
   },
-  deparments: {
+  departments: {
     addNewDepartment: 'Agregar departamento',
+    edit_department: 'Editar departamento',
+    create_department: 'Crear departamento',
   },
   headquarters: {
     addNewHeadquarters: 'Agregar sede',

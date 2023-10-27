@@ -20,3 +20,9 @@ export const departmentSchema = object().shape({
 export type Department = InferType<typeof departmentSchema>;
 
 export type IDepartment = Department & BaseEntity;
+
+export type Props = {
+  open: boolean;
+  departmentId?: string;
+  onClose: () => void;
+};

@@ -16,12 +16,12 @@ const getDepartmentDocument = gql`
   }
 `;
 
-export const getDepartmentQuery = async (departmentId: string): Promise<Department> => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getDepartmentDocument, { departmentId }).then((res) => res.department);
+export const getDepartmentQuery = async (departmentId?: string): Promise<Department> => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getDepartmentDocument, { departmentId }).then((res) => res.department);
 
 type QueryFnType = typeof getDepartmentQuery;
 type UseDepartmentOptions = {
   config?: QueryConfig<QueryFnType>;
-  departmentId: string;
+  departmentId?: string;
 };
 
 export function useGetDepartment({ departmentId, config }: UseDepartmentOptions) {
@@ -29,5 +29,6 @@ export function useGetDepartment({ departmentId, config }: UseDepartmentOptions)
     ...config,
     queryKey: ['department', departmentId],
     queryFn: () => getDepartmentQuery(departmentId),
+    enabled: !!departmentId && departmentId !== 'create',
   });
 }
