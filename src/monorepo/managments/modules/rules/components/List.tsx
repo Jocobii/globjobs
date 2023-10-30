@@ -23,7 +23,7 @@ const DrawerForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loadin
 export default function List() {
   const { variables, handleDataGridEvents } = usePagination();
   const { data, refetch, isLoading, isFetching } = useRules({ variables });
-  const { ruleId, handleDrawerOpen, handleDrawerClose, handleMenuClick } = useDrawer();;
+  const { ruleId, handleDrawerOpen, handleDrawerClose, handleMenuClick } = useDrawer();
 
   const handleRefresh = () => refetch();
 

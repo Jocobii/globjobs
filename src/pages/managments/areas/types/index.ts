@@ -11,9 +11,12 @@ export type BaseEntity = {
 };
 
 export const areaSchema = object().shape({
-  name: string().required(),
-  abbreviation: string().required(),
-  department: object({}).required(),
+  name: string().required().min(3).max(100),
+  abbreviation: string().required().min(2).max(15),
+  department: object({
+    id: string().required(),
+    name: string().required(),
+  }).required(),
 });
 
 export type Area = InferType<typeof areaSchema>;
@@ -34,10 +37,6 @@ export type AreaCreateFormProps = {
   data?: any,
 };
 
-export type CreateDrawerProps = {
-  open: boolean;
-  onClose: () => void;
-};
 export type Department = {
   _id: string;
   name: string;
