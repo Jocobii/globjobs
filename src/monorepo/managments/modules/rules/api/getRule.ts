@@ -37,7 +37,6 @@ type UseRuleOptions = {
 } & GetRuleDTO;
 
 export function useRule({ ruleId, config }: UseRuleOptions) {
-  console.log('ruleId', ruleId);
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
     queryKey: ['rule', ruleId],

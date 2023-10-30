@@ -62,11 +62,11 @@ const Teams = loadable(() => import('@monorepo/managments/modules/teams/List'), 
   fallback: <LoadingScreen />,
 });
 
-const Departments = loadable(() => import('@/monorepo/managments/modules/departments'), {
+const Departments = loadable(() => import('@/pages/managments/departments'), {
   fallback: <LoadingScreen />,
 });
 
-const AreasHome = loadable(() => import('@monorepo/managments/modules/areas'), {
+const AreasHome = loadable(() => import('@/pages/managments/areas'), {
   fallback: <LoadingScreen />,
 });
 

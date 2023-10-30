@@ -11,7 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
 import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import CachedIcon from '@mui/icons-material/Cached';
-import { usePagination } from '@/hooks'
+import { useDataGrid } from '@/hooks'
 
 import { DataGrid } from '@gsuite/ui/DataGrid';
 
@@ -22,7 +22,7 @@ const DrawerForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loadin
 
 export default function List() {
   const { t } = useTranslation();
-  const { variables, handleDataGridEvents } = usePagination();
+  const { variables, handleDataGridEvents } = useDataGrid();
   const { departmentId, handleDrawerClose, handleDrawerOpen, handleMenuClick } = useDrawer();
   const { data, refetch, isLoading, isFetching } = useDepartments({ variables });
 
