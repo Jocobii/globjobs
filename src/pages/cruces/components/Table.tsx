@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { parseDate, DD_MM_YYYY_HH_MM } from '@/utils'
 import { Chip } from '@mui/material';
-import { usePagination, useCustomNavigate } from '@/hooks'
+import { useDataGrid, useCustomNavigate } from '@/hooks'
 import { useCrucesList,  } from '../hooks/react-query-cruces-list';
 import { getUserName } from '../adapters'
 import DataGrid from "../../../components/datagrid/DataGrid";
@@ -14,7 +14,7 @@ import {
 function Home() {
   const crossingByTeam = 3;
   const { goTo } = useCustomNavigate();
-  const { variables, setVariables } = usePagination();
+  const { variables, setVariables } = useDataGrid();
   const [filterBy, setFilterBy] = useState(crossingByTeam);
 
   const {

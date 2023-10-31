@@ -16,7 +16,7 @@ import _ from 'lodash';
 
 import { DataGrid } from '@gsuite/ui/DataGrid';
 import Conditional from '@gsuite/ui/Conditional';
-import { usePagination } from '@/hooks'
+import { useDataGrid } from '@/hooks'
 
 import { useMenus } from '../api/getMenus';
 import { useDrawer } from '../hooks/useDrawer';
@@ -25,7 +25,7 @@ const UpdateForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loadin
 
 export default function List() {
   const { t } = useTranslation();
-  const { variables, handleDataGridEvents } = usePagination();
+  const { variables, handleDataGridEvents } = useDataGrid();
   const { rowId, handleMenuClick, handleEditDrawerClose, handleDrawerOpen } = useDrawer();
   const { data, refetch, loading } = useMenus({ variables });
 

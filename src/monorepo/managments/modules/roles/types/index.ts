@@ -1,3 +1,4 @@
+import { object, string } from 'yup';
 export interface Role {
   id: string;
   name: string;
@@ -35,3 +36,13 @@ export type ErrorType<T = unknown> = {
     }>;
   };
 };
+
+export type Props = {
+  open: boolean;
+  roleId?: string;
+  onClose: () => void;
+};
+
+export const schema = object({
+  name: string().max(50, 'Maximo de caracteres es 50.').required('El nombre es requerido.'),
+});

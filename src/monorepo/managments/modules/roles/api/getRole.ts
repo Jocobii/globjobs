@@ -41,13 +41,13 @@ query GetRole(
 }
 `;
 
-export const role = async (id: string) => request<Response>(`${VITE_GATEWAY_URI}/gq/back-office`, roleDocument, { id }).then((res) => res.role);
+export const role = async (id?: string) => request<Response>(`${VITE_GATEWAY_URI}/gq/back-office`, roleDocument, { id }).then((res) => res.role);
 
 type QueryFnType = typeof role;
 
 type UseRestfulTeamOptions = {
   config?: QueryConfig<QueryFnType>;
-  id: string;
+  id?: string;
 };
 
 export function useRole({ id, config }: UseRestfulTeamOptions) {
@@ -56,5 +56,6 @@ export function useRole({ id, config }: UseRestfulTeamOptions) {
     queryKey: ['role', id],
     queryFn: () => role(id),
     suspense: true,
+    enabled: !!id && id !== 'create',
   });
 }

@@ -77,9 +77,12 @@ export const managementsEn = {
   },
   roles: {
     addRole: 'Add Role',
+    editRole: 'Edit Role',
     roleDeleted: 'Role {{roleName}} successfully removed',
     ROLE_DELETE_HAS_USERS: 'It is not possible to delete {{roleName}} role. There are {{qtyUsers}} users assigned to this role.',
     ROLE_CREATE_ERROR: 'There is already a role named {{name}}',
+    step_1: 'Modules and Permissions',
+    step_2: 'Notifications',
   },
   usersModule: {
     userWillDisabled: 'The {{userName}} user will be disabled',
@@ -245,9 +248,12 @@ export const managementsEs = {
   },
   roles: {
     addRole: 'Agregar Rol',
+    editRole: 'Editar Rol',
     roleDeleted: 'Rol {{roleName}} eliminado con éxito',
     ROLE_DELETE_HAS_USERS: 'No es posible eliminar el rol de {{roleName}}. Existen {{qtyUsers}} usuarios asignados a ese rol.',
     ROLE_CREATE_ERROR: 'Ya existe un rol llamado {{name}}',
+    step_1: 'Modulos y permisos',
+    step_2: 'Notificaciones',
   },
   usersModule: {
     userWillDisabled: 'El usuario {{userName}} será desactivado',
