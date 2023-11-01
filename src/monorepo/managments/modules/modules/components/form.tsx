@@ -5,43 +5,43 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 import Button from '@mui/lab/LoadingButton';
-import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
-import { FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import Scrollbar from '@gsuite/ui/Scrollbar';
 import { ControlledTextField, ControlledAutocomplete, ControlledCheckbox } from '@gsuite/shared/ui';
 import { capitalizeFirstLetter } from '@gsuite/shared/utils/format';
 import { useRestfulEnvironments } from '../api/getEnvironments';
 
-type Props = {
-  handleSubmit: any;
-  errors: FieldErrors;
-  register: UseFormRegister<FieldValues>;
-  isSubmitting?: boolean;
-  control: Control<FieldValues>;
-  data?: any;
-};
+import { Module,  moduleSchema, Options } from '../types';
 
-type AutoComplete = {
-  id: string;
-  name: string;
+type Props = {
+  initialValues?: Module;
+  moduleId?: string;
+  onSubmit: (data: Module) => void;
 };
 
 export default function Form({
-  handleSubmit,
-  errors,
-  register,
-  isSubmitting = false,
-  control,
-  data = null,
+  initialValues,
+  moduleId,
+  onSubmit,
 }: Props) {
-  const { t } = useTranslation();
   const { data: environmentsData } = useRestfulEnvironments();
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(moduleSchema),
+    defaultValues: initialValues,
+  });
+  const isUpdate = moduleId && moduleId !== 'create';
 
   return (
-    <form autoComplete="off" onSubmit={handleSubmit}>
+    <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <Scrollbar>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
@@ -53,7 +53,7 @@ export default function Form({
                   alignItems="center"
                   spacing={2}
                 >
-                  <Typography variant="h4" gutterBottom>{t(`managements.modules.${data ? 'edit' : 'create'}`)}</Typography>
+                  <Typography variant="h4" gutterBottom>{t(`managements.modules.${isUpdate ? 'edit' : 'create'}`)}</Typography>
                 </Stack>
                 <ControlledTextField
                   errors={errors}
@@ -106,20 +106,20 @@ export default function Form({
                   control={control}
                 />
                 <ControlledAutocomplete
-                  defaultValue={data?.environment}
+                  defaultValue={initialValues?.environment}
                   errors={errors}
                   name="environment"
                   label={t('managements.environments.name')}
                   control={control}
                   options={environmentsData?.environmentsRestful ?? []}
                   key="environments-autocomplete"
-                  optionLabel={(environmentValue: AutoComplete) => {
+                  optionLabel={(environmentValue: Options) => {
                     if (environmentValue) {
                       return environmentValue?.name;
                     }
                     return null;
                   }}
-                  valueSerializer={(environmentValue: AutoComplete) => {
+                  valueSerializer={(environmentValue: Options) => {
                     if (environmentValue) {
                       const { name, id } = environmentValue;
                       return {
@@ -131,7 +131,7 @@ export default function Form({
                   }}
                 />
                 <ControlledAutocomplete
-                  defaultValue={data?.actions}
+                  defaultValue={initialValues?.actions}
                   multiple
                   errors={errors}
                   name="actions"
@@ -145,11 +145,11 @@ export default function Form({
                       }))
                     }
                   isOptionEqualToValue={
-                    (option: AutoComplete, value: AutoComplete) => option.id === value.id
+                    (option: Options, value: Options) => option.id === value.id
                   }
                   freeSolo
                   key="actions-autocomplete"
-                  optionLabel={(actionValue: AutoComplete) => {
+                  optionLabel={(actionValue: Options) => {
                     if (actionValue) {
                       return (
                         typeof actionValue === 'string'
@@ -159,7 +159,7 @@ export default function Form({
                     }
                     return null;
                   }}
-                  valueSerializer={(actionValue: AutoComplete[]) => actionValue.map((value) => {
+                  valueSerializer={(actionValue: Options[]) => actionValue.map((value) => {
                     if (typeof value === 'string') {
                       return {
                         id: value, name: value,

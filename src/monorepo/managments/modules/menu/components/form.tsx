@@ -65,8 +65,7 @@ export default function Update({ rowId, onSubmit }: Props) {
     if(getValues('modules')) {
       changeModule(data.modules);
     }
-  }
-  , []);
+  }, []);
 
   return (
     <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>

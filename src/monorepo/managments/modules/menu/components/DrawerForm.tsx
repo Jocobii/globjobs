@@ -17,7 +17,7 @@ export default function DrawerForm({ open, onClose, rowId = undefined }: Props) 
   const { createMenu } = useCreateMenu();
   const isUpdate = rowId && rowId !== 'create';
 
-  const handleSubmit = async (data: Menu) => {
+  const handleSubmit = (data: Menu) => {
 
     if (isUpdate) {
       updateMenu({ data, menuId: rowId });

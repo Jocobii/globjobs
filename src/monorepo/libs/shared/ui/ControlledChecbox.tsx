@@ -3,7 +3,7 @@ import { Controller, Control } from 'react-hook-form';
 import { FormControlLabel, Checkbox } from '@mui/material';
 
 type Props = {
-  control: Control;
+  control: Control<any>;
   name: string;
   label: string;
 };

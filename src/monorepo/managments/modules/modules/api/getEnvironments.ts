@@ -1,8 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
-import { Environment } from '../types';
+import { Options } from '../types';
 
 export type RestfulEnvironmentsResponse = {
-  environmentsRestful: Array<Partial<Environment>>,
+  environmentsRestful: Array<Partial<Options>>,
 };
 
 const restfulEnvironmentsDocument = gql`

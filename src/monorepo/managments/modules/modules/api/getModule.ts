@@ -22,12 +22,12 @@ const getModuleDocument = gql`
   }
 `;
 
-export const getModuleQuery = async (id: string) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getModuleDocument, { id }).then((res) => res.module);
+export const getModuleQuery = async (id?: string) => request<any>(`${VITE_GATEWAY_URI}/gq/back-office`, getModuleDocument, { id }).then((res) => res.module);
 
 type QueryFnType = typeof getModuleQuery;
 type UseModuleOptions = {
   config?: QueryConfig<QueryFnType>;
-  id: string;
+  id?: string;
 };
 
 export function useGetModule({ id, config }: UseModuleOptions) {
@@ -36,5 +36,6 @@ export function useGetModule({ id, config }: UseModuleOptions) {
     queryKey: ['module', id],
     queryFn: () => getModuleQuery(id),
     suspense: true,
+    enabled: !!id && id !== 'create',
   });
 }

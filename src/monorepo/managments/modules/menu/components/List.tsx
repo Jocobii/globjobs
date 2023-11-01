@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CachedIcon from '@mui/icons-material/Cached';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 import _ from 'lodash';
 
 import { DataGrid } from '@gsuite/ui/DataGrid';
@@ -24,7 +24,6 @@ import { useDrawer } from '../hooks/useDrawer';
 const UpdateForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loading...</h3> });
 
 export default function List() {
-  const { t } = useTranslation();
   const { variables, handleDataGridEvents } = useDataGrid();
   const { rowId, handleMenuClick, handleEditDrawerClose, handleDrawerOpen } = useDrawer();
   const { data, refetch, loading } = useMenus({ variables });

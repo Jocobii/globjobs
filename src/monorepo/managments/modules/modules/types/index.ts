@@ -11,7 +11,7 @@ export type BaseEntity = {
   createdAt: number;
 };
 
-export type Environment = {
+export type Options = {
   id: string;
   name: string;
 };
@@ -21,10 +21,9 @@ export const moduleSchema = object().shape({
   description: string().required(),
   component: string().required(),
   icon: string().required(),
-  endpoint: string().required(),
   route: string().required(),
-  toolbox: boolean().required(),
-  exact: boolean().required(),
+  toolbox: boolean().required().default(false),
+  exact: boolean().required().default(false),
   actions: array().of(
     object().shape({
       id: string().required(),
