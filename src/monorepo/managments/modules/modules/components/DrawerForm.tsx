@@ -3,7 +3,7 @@ import { Dialogeazy } from '@gsuite/ui/Dialogeazy';
 import { useGetModule } from '../api/getModule';
 import { useUpdateModule } from '../api/updateModule';
 import { useCreateModule } from '../api/createModule';
-import Form from './Form';
+import Form from './form';
 import { Module } from '../types';
 
 type Props = {

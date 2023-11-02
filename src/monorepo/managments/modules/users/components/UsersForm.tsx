@@ -19,8 +19,8 @@ import { FieldValues } from 'react-hook-form';
 import Scrollbar from '@gsuite/ui/Scrollbar';
 import { ControlledTextField, ControlledAutocomplete, ControlledSelect } from '@gsuite/shared/ui';
 import { useRestfulHeadquarters } from '../../headquarters/api/restful';
-import { useRestfulDepartments } from '../../departments/api/restful';
-import { useRestfulAreas } from '../../areas/api/restful';
+import { useRestfulDepartments } from '@/pages/managments/departments/api/restful';
+import { useRestfulAreas } from '@/pages/managments/areas/api/restful';
 import { useGenerateEmailAddress } from '../../../services/generateEmailAddress';
 import { useValidateEmailAddress } from '../../../services/isValidEmail';
 

@@ -2,7 +2,7 @@ import { Dialogeazy } from '@gsuite/ui/Dialogeazy';
 import { useGetMenu } from '../api/getMenu';
 import { useUpdateMenu } from '../api/updateMenu';
 import { useCreateMenu } from '../api/createMenu';
-import Form from './Form';
+import Form from './form';
 import { Menu } from '../types';
 
 type Props = {

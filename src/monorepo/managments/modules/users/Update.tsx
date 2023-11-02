@@ -26,8 +26,8 @@ import GeneralInfo, {
 import Modules, { Module } from './components/Modules2';
 import Notifications, { Notification, formSchema as notificationsSchema } from './components/Notifications';
 import { useRestfulHeadquarters } from '../headquarters/api/restful';
-import { useRestfulDepartments } from '../departments/api/restful';
-import { useRestfulAreas } from '../areas/api/restful';
+import { useRestfulDepartments } from '@/pages/managments/departments/api/restful';
+import { useRestfulAreas } from '@/pages/managments/areas/api/restful';
 import { useRestfulRoles } from '../roles/api/restful';
 import { useRestfulEnvironments } from '../modules/api/getEnvironments';
 import { UseUpdateUser } from './api/updateUser';

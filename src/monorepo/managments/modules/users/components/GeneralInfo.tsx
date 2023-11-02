@@ -16,8 +16,8 @@ import {
 } from '@gsuite/shared/ui';
 
 import { RestfulHeadquartersResponse } from '../../headquarters/api/restful';
-import { RestfulDepartmentsResponse } from '../../departments/api/restful';
-import { RestfulAreasResponse } from '../../areas/api/restful';
+import { RestfulDepartmentsResponse } from '@/pages/managments/departments/api/restful';
+import { RestfulAreasResponse } from '@/pages/managments/areas/api/restful';
 import { RestfulEnvironmentsResponse } from '../../modules/api/getEnvironments';
 
 export const formSchema = (t: TFunctionType) => {
