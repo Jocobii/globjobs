@@ -69,7 +69,7 @@ const Departments = loadable(() => import('@/pages/managments/departments'), {
 const AreasHome = loadable(() => import('@/pages/managments/areas'), {
   fallback: <LoadingScreen />,
 });
-
+ 
 const Rules = loadable(() => import('@monorepo/managments/modules/rules'), {
   fallback: <LoadingScreen />,
 });
@@ -82,7 +82,7 @@ const Roles = loadable(() => import('@monorepo/managments/modules/roles'), {
   fallback: <LoadingScreen />,
 });
 
-const UsersHome = loadable(() => import('@monorepo/managments/modules/users'), {
+const Users = loadable(() => import('@/pages/managments/users'), {
   fallback: <LoadingScreen />,
 });
 
@@ -200,7 +200,7 @@ export default function Router() {
         },
         {
           path: 'users',
-          element: <UsersHome />,
+          element: <Users />,
         },
         {
           path: 'areas',
