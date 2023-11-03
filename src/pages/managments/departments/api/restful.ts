@@ -1,14 +1,15 @@
-import { request, gql } from 'graphql-request';
+import { gql } from 'graphql-request';
 import { useQuery } from '@tanstack/react-query';
 
-import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
+import { graphqlGatewayClient } from '@/clients';
+import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
 
 import { Department } from '../types';
 
 export type RestfulDepartmentsResponse = {
   departmentsRestful: Array<Partial<Department>>,
 };
-const { VITE_GATEWAY_URI } = import.meta.env;
+
 const restfulDepartmentsDocument = gql`
   query {
     departmentsRestful {
@@ -18,7 +19,7 @@ const restfulDepartmentsDocument = gql`
   }
 `;
 
-export const restfulDepartments = async () => request<RestfulDepartmentsResponse>(`${VITE_GATEWAY_URI}/gq/back-office`, restfulDepartmentsDocument);
+export const restfulDepartments = async () => graphqlGatewayClient.request<RestfulDepartmentsResponse>(restfulDepartmentsDocument);
 
 type QueryFnType = () => Promise<RestfulDepartmentsResponse>;
 

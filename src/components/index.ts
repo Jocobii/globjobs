@@ -39,4 +39,5 @@ export { default as Rplbet } from './forms/Rplbet';
 export { default as SnackList } from './SnackList';
 export { default as Conditional } from './Conditional';
 export { default as Breadcrums } from './RouteBreadCrums';
+export { default as ControlledCheckbox } from './ControlledCheckbox';
 export * from './RefreshButton';
