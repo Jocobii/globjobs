@@ -58,7 +58,7 @@ const Headquarters = loadable(() => import('@monorepo/managments/modules/headqua
   fallback: <LoadingScreen />,
 });
 
-const Teams = loadable(() => import('@monorepo/managments/modules/teams/List'), {
+const Teams = loadable(() => import('@/pages/managments/teams'), {
   fallback: <LoadingScreen />,
 });
 
