@@ -1,6 +1,6 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql } from '@apollo/client';
 
-import type { MenuElement } from "@/typings/menu";
+import type { MenuElement } from '@/typings/menu';
 
 type RestfulMenusResponse = {
   menusByEnvironment: Array<Partial<MenuElement>>;

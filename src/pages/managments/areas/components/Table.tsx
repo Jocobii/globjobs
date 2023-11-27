@@ -5,9 +5,9 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
-import { RefreshButton } from '@/components';
 import { DataGrid } from '@gsuite/ui/DataGrid';
 import { GridColumns } from '@mui/x-data-grid-pro';
+import { RefreshButton } from '@/components';
 
 interface Props {
   data: any;
@@ -22,7 +22,6 @@ export function Table({
   handleMenuClick,
   handleRefresh,
 }: Props) {
-
   const columns: GridColumns = [{
     field: 'name',
     headerName: 'Name',
@@ -70,7 +69,7 @@ export function Table({
       pinnedColumns={{ right: ['actions'] }}
       columns={columns}
       rows={data.data?.rows || []}
-      actions={[ <RefreshButton key="refresh-button" handleRefresh={handleRefresh} disabled={data.isFetching} /> ]}
+      actions={[<RefreshButton key="refresh-button" handleRefresh={handleRefresh} disabled={data.isFetching} />]}
       mode="server"
       serverOptions={{
         totalRowCount: data.data?.total || 0,

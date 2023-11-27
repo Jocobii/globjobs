@@ -9,7 +9,7 @@ axios.interceptors.request.use((request) => {
   const { token } = JSON.parse(localStorage.getItem('wms.config') ?? '{}');
 
   if (token && request.headers) {
-    request.headers['Authorization'] = `Bearer ${token}`;
+    request.headers.Authorization = `Bearer ${token}`;
   }
 
   return request;

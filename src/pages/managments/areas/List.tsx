@@ -1,10 +1,10 @@
 import { Container, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
-import { useArea } from './hooks';
 import Conditional from '@gsuite/ui/Conditional';
 import loadable from '@loadable/component';
-import { Table } from './components'
+import { useArea } from './hooks';
+import { Table } from './components';
 
 const DrawerForm = loadable(() => import('./components/DrawerForm'), { fallback: <p> </p> });
 

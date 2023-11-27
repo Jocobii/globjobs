@@ -264,7 +264,7 @@ export default function Form({
                         label={number}
                         {...restProps}
                       />
-                    )
+                    );
                   })}
                   renderOption={(props, option) => <li {...props}>{option.number}</li>}
                   renderInput={(params) => (
@@ -330,9 +330,8 @@ export default function Form({
                       label={email}
                       {...restProps}
                     />
-                  )
-                })
-                }
+                  );
+                })}
                 renderOption={(props, option) => <li {...props}>{option.email}</li>}
                 renderInput={(params) => (
                   <TextField
@@ -342,20 +341,18 @@ export default function Form({
                     placeholder="me@email.com"
                   />
                 )}
-                onChange={(__: unknown, newValue: any) => {
-                  return setFormData({
-                    ...formData,
-                    query: {
-                      ...formData.query,
-                      email: newValue.map((item: any) => {
-                        if (item?.email) {
-                          return item.email;
-                        }
-                        return item;
-                      }),
-                    },
-                  });
-                }}
+                onChange={(__: unknown, newValue: any) => setFormData({
+                  ...formData,
+                  query: {
+                    ...formData.query,
+                    email: newValue.map((item: any) => {
+                      if (item?.email) {
+                        return item.email;
+                      }
+                      return item;
+                    }),
+                  },
+                })}
               />
             </Grid>
             )}

@@ -1,4 +1,4 @@
-import { CustomTheme } from '@/typings/theme';
+import { CustomTheme } from '../../typings/theme';
 
 export default function Breadcrumbs(theme: CustomTheme) {
   return {

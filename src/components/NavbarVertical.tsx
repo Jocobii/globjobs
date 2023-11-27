@@ -13,7 +13,7 @@ import { NAVBAR } from '../utils/config';
 import { useRestfulMenus } from '../hooks/useRestfulMenus';
 import cssStyles from '../utils/cssStyles';
 import NavSectionVertical from './NavSectionVertical';
-import { navigationBarConfigData } from '@/utils';
+import { navigationBarConfigData } from '../utils';
 import CollapseButton from './CollapseButton';
 
 type Props = {
@@ -30,7 +30,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function NavbarVertical({ isOpenSidebar, onCloseSidebar}: Props) {
+export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }: Props) {
   const { data: menus } = useRestfulMenus();
   console.log('menus', menus);
   const theme = useTheme();
@@ -47,7 +47,6 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar}: Props) 
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderContent = (
@@ -84,7 +83,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar}: Props) 
         navConfig={
           navigationBarConfigData(
             menus?.menusByEnvironment
-              .map((r) => ({ ...r, order: r['order'] || '0' }))
+              .map((r) => ({ ...r, order: r.order || '0' }))
               .sort(({ order: asort }, { order: bsort }) => (asort > bsort ? 1 : -1)) || [],
           )
         }
@@ -135,7 +134,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar}: Props) 
               }),
               ...(collapseHover && {
                 ...cssStyles(theme).bgBlur(),
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
                 boxShadow: (t: any) => t.customShadows.z24,
               }),
             },

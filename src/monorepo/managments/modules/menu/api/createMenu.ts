@@ -37,4 +37,4 @@ export const useCreateMenu = () => {
     },
   });
   return { createMenu };
-}
+};

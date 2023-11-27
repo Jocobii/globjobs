@@ -1,6 +1,6 @@
 import { alpha } from '@mui/material';
 
-import { CustomTheme } from '@/typings/theme';
+import { CustomTheme } from '../../typings/theme';
 
 export default function Drawer(theme: CustomTheme) {
   const isLight = theme.palette.mode === 'light';

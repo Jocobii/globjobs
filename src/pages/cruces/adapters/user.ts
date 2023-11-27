@@ -9,4 +9,4 @@ export const getUserName = (params: GridRenderCellParams) => {
   }
 
   return nameExist ? `${value?.name}  ${lastName}` : 'NA';
-}
+};

@@ -1,4 +1,4 @@
-import { CustomTheme } from '@/typings/theme';
+import { CustomTheme } from '../../typings/theme';
 
 import Fab from './Fab';
 import Card from './Card';

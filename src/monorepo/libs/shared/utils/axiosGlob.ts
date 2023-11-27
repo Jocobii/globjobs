@@ -11,7 +11,7 @@ axios.interceptors.request.use((request) => {
   const token = getTokenFromLS();
 
   if (token && request.headers) {
-    request.headers['Authorization'] = `Bearer ${token}`;
+    request.headers.Authorization = `Bearer ${token}`;
   }
 
   return request;

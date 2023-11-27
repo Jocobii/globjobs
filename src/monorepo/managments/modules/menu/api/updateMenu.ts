@@ -5,7 +5,8 @@ import { get } from 'lodash';
 import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { Menu } from '../types';
-const  { VITE_GATEWAY_URI } = import.meta.env;
+
+const { VITE_GATEWAY_URI } = import.meta.env;
 
 export type UpdateModuleDto = {
   data: Partial<Menu>;

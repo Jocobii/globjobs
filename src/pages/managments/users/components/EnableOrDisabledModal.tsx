@@ -1,6 +1,8 @@
-import { DialogComponent } from '@/components';
-import { Typography, Button, DialogActions, DialogContentText } from '@mui/material';
+import {
+  Typography, Button, DialogActions, DialogContentText,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { DialogComponent } from '@/components';
 import { User } from '../types';
 import { useToggleActiveUser } from '../api/toggleActiveUser';
 
@@ -15,7 +17,7 @@ export default function FormDialog({
   const { t } = useTranslation();
   const { mutateAsync: mutateAsyncToggleActiveUser } = useToggleActiveUser({ userId: user.id });
   const userName = `${user.name} ${user.lastName}`;
-  
+
   const nextStatus = user.active ? t('managements.disabled') : t('managements.enable');
 
   const onSubmit = async () => {
@@ -23,7 +25,6 @@ export default function FormDialog({
     handleClose();
   };
 
-  
   return (
     <DialogComponent
       title={`${nextStatus} ${t('managements.user')}`}

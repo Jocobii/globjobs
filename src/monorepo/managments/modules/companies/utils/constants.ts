@@ -1,3 +1,5 @@
+import { Companies } from '../types';
+
 interface Sector {
   label: string,
   key: string
@@ -114,5 +116,239 @@ export const sectors: Section[] = [
 
       { label: '15.- Aluminio.', key: 'aluminum' },
     ],
+  },
+];
+
+export const TYPE_OPTIONS = [
+  {
+    label: 'IMMEX',
+    key: 'immex',
+  },
+  {
+    label: 'Empresa con Registro de la Frontera',
+    key: 'empresa',
+  },
+  {
+    label: 'Otra Sociedad Mercantil',
+    key: 'otro',
+  },
+];
+
+export const MERCHANDISE_OPTIONS = [
+  {
+    label: 'Apartado A',
+    key: 'a',
+  },
+  {
+    label: 'Apartado B',
+    key: 'b',
+  },
+  {
+    label: 'Apartado C',
+    key: 'c',
+  },
+  {
+    label: 'Apartado D',
+    key: 'd',
+  },
+  {
+    label: 'Apartado E',
+    key: 'e',
+  },
+  {
+    label: 'Apartado F',
+    key: 'f',
+  },
+  {
+    label: 'Apartado G',
+    key: 'g',
+  },
+];
+
+export const PAYMENT_METHODS = [
+  'PECE',
+  'Línea de Captura',
+  'PECE Agencia',
+  'Financiamiento',
+];
+
+export const COMPLEMENTARY_ADP_DOCUMENTS = {
+  petitionSimplifiedCopy: false,
+  petitionNullCopy: false,
+  manifestationOfValue: false,
+  spreadsheet: false,
+  attachedDocumentWithoutDigitization: false,
+  shipper: false,
+  manifestationEntry: false,
+  waybill: false,
+  billOfLading: false,
+  guideOrTransportDocuments: false,
+  millCertificate: false,
+  prosec: false,
+  immex: false,
+};
+
+export const MANDATORY_ADP_DOCUMENTS = {
+  paidPetition: true,
+  invoices: true,
+  dodaPita: true,
+  coveDetailAcknowledgment: true,
+  ed: true,
+  edXml: true,
+  edAcknowledgment: true,
+  validationFiles: true,
+  paymentFiles: true,
+  dodaPitaXml: true,
+  coveXml: true,
+};
+
+export const IMPORT = {
+  alcohol: false,
+  automotive: false,
+  chemicalPrecursors: false,
+  chemicalProducts: false,
+  cigars: false,
+  explosives: false,
+  firearms: false,
+  footwear: false,
+  hydrocarbons: false,
+  ironAndSteel: false,
+  ironAndSteelProducts: false,
+  knives: false,
+  machines: false,
+  nuclearRadioactive: false,
+  pyrotechnics: false,
+  textile: false,
+};
+
+export const EXPORT = {
+  alcohol: false,
+  aluminum: false,
+  beer: false,
+  cigars: false,
+  energizing: false,
+  glass: false,
+  goldSilverAndCopper: false,
+  iron: false,
+  liqueurs: false,
+  minerals: false,
+  plastics: false,
+  rubber: false,
+  tequila: false,
+  wines: false,
+  wood: false,
+};
+
+export const UENS_DEFAULT = {
+  aamx: {
+    active: false,
+  },
+  aaus: {
+    active: false,
+  },
+  warehouse: {
+    active: false,
+  },
+  g3pl: {
+    active: false,
+  },
+  gnex: {
+    active: false,
+  },
+  gogetters: {
+    active: false,
+  },
+  kshield: {
+    active: false,
+  },
+  transportmx: {
+    active: false,
+  },
+  transportus: {
+    active: false,
+  },
+
+};
+
+export const UENS = [
+  {
+    label: 'AA Mexicano',
+    key: 'uens.aamx.active',
+  },
+  {
+    label: 'AA Americano',
+    key: 'uens.aaus.active',
+  },
+  {
+    label: 'Almacén',
+    key: 'uens.warehouse.active',
+  },
+  {
+    label: 'G-3PL',
+    key: 'uens.g3pl.active',
+  },
+  {
+    label: 'G-Nex',
+    key: 'uens.gnex.active',
+  },
+  {
+    label: 'Go Getters',
+    key: 'uens.gogetters.active',
+  },
+  {
+    label: 'K-Shield',
+    key: 'uens.kshield.active',
+  },
+  {
+    label: 'Transporte MX',
+    key: 'uens.transportmx.active',
+  },
+  {
+    label: 'Transporte USA',
+    key: 'uens.transportus.active',
+  },
+];
+
+type uensOptions = {
+  label: string;
+  key: keyof Companies['uens'];
+};
+
+export const UENS_OPTIONS: uensOptions[] = [
+  {
+    label: 'AA Mexicano',
+    key: 'aamx',
+  },
+  {
+    label: 'AA Americano',
+    key: 'aaus',
+  },
+  {
+    label: 'Almacén',
+    key: 'warehouse',
+  },
+  {
+    label: 'G-3PL',
+    key: 'g3pl',
+  },
+  {
+    label: 'G-Nex',
+    key: 'gnex',
+  },
+  {
+    label: 'Go Getters',
+    key: 'gogetters',
+  },
+  {
+    label: 'K-Shield',
+    key: 'kshield',
+  },
+  {
+    label: 'Transporte MX',
+    key: 'transportmx',
+  },
+  {
+    label: 'Transporte USA',
+    key: 'transportus',
   },
 ];

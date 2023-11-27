@@ -1,4 +1,4 @@
-import { CustomTheme, Color } from '@/typings/theme';
+import { CustomTheme, Color } from '../../typings/theme';
 
 export default function ButtonGroup(theme: CustomTheme) {
   const styleContained = (color: Color) => ({

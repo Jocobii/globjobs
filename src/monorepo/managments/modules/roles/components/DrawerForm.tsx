@@ -1,9 +1,9 @@
+import { Dialogeazy } from '@gsuite/ui/Dialogeazy';
 import { Props } from '../types';
 
-import { Dialogeazy } from '@gsuite/ui/Dialogeazy';
 import Form from './Form';
 
-export default function DrawerForm({ open, onClose, roleId = undefined }: Props) {  
+export default function DrawerForm({ open, onClose, roleId = undefined }: Props) {
   return (
     <Dialogeazy
       open={open}

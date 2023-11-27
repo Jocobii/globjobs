@@ -107,14 +107,14 @@ export default function Table({
         params: GridRenderCellParams<GridValueGetterParams<Rows>, GridValidRowModel>,
       ) => {
         const { row } = params;
-        if (row['gopsReferences'] && row['gopsReferences'].length) return <CheckCircle color="success" />;
+        if (row.gopsReferences && row.gopsReferences.length) return <CheckCircle color="success" />;
         return null;
       },
       valueGetter: (
         params: GridRenderCellParams<GridValueGetterParams<Rows>, GridValidRowModel>,
       ) => {
         const { row } = params;
-        if (row['gopsReferences'] && row['gopsReferences'].length) return 'Agrupador';
+        if (row.gopsReferences && row.gopsReferences.length) return 'Agrupador';
         return '';
       },
     },
@@ -278,14 +278,14 @@ export default function Table({
         params: GridRenderCellParams<GridValueGetterParams<Rows>, GridValidRowModel>,
       ) => {
         const { row } = params;
-        if (row['gopsReferences'] && row['gopsReferences'].length) return row['gopsReferences'].map((gop: Operations) => gop.number).join(' | ');
+        if (row.gopsReferences && row.gopsReferences.length) return row.gopsReferences.map((gop: Operations) => gop.number).join(' | ');
         return null;
       },
       valueGetter: (
         params: GridRenderCellParams<GridValueGetterParams<Rows>, GridValidRowModel>,
       ) => {
         const { row } = params;
-        if (row['gopsReferences'] && row['gopsReferences'].length) return row['gopsReferences'].map((gop: Operations) => gop.number).join(' | ');
+        if (row.gopsReferences && row.gopsReferences.length) return row.gopsReferences.map((gop: Operations) => gop.number).join(' | ');
         return '';
       },
     },

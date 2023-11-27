@@ -12,4 +12,4 @@ export type Auth = {
   user?: User;
   isAuthenticated: boolean;
   errorMessage?: string;
-}
+};

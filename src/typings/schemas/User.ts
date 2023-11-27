@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const userSchema = z.object({
   id: z.string(),
@@ -23,7 +23,7 @@ export const userSchema = z.object({
   active: z.boolean(),
   role: z.object({
     name: z.string(),
-  })
-})
+  }),
+});
 
 export type Users = z.infer<typeof userSchema>;

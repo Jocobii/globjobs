@@ -3,6 +3,7 @@ import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query
 import { useQuery } from '@tanstack/react-query';
 
 import { Module } from '../types';
+
 type Responses = {
   modulesPermissions: Module[];
 };

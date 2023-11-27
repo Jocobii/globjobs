@@ -241,10 +241,10 @@ export default function Update({ onClose, open, userId }: Props) {
 
   useEffect(() => {
     const form = getValues();
-    if (!isBoolean(form['wpNotifications'])) {
+    if (!isBoolean(form.wpNotifications)) {
       setValue('wpNotifications', false);
     }
-    if (!isBoolean(form['emailNotifications'])) {
+    if (!isBoolean(form.emailNotifications)) {
       setValue('emailNotifications', false);
     }
   }, [getValues]);

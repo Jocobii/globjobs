@@ -1,9 +1,9 @@
 import { gql } from 'graphql-request';
 import { useMutation } from '@tanstack/react-query';
 
-import { publicGraphqlGatewayClient } from '@/clients/GraphqlRequest';
-import { MutationConfig } from '@/lib/react-query';
-import { User } from '@/typings/authentication';
+import { publicGraphqlGatewayClient } from '../clients/GraphqlRequest';
+import { MutationConfig } from '../lib/react-query';
+import { User } from '../typings/authentication';
 
 const loginMutationDocument = gql`
   mutation (
@@ -25,7 +25,7 @@ const loginMutationDocument = gql`
 `;
 
 export type LoginUser = {
-  data: { 
+  data: {
     email: string,
     password: string,
     environment: string,
@@ -34,23 +34,23 @@ export type LoginUser = {
 
 type LoginUserMutationDocumentResponse = {
   loginUser: { user: Omit<User, 'photoUrl'>, access_token: string };
-}
+};
 
 export const loginUser = ({ data }: LoginUser) => publicGraphqlGatewayClient
   .request<LoginUserMutationDocumentResponse>(
-    loginMutationDocument,
-    { ...data },
-  )
-    .then((res) => res?.loginUser);
+  loginMutationDocument,
+  { ...data },
+)
+  .then((res) => res?.loginUser);
 
-type useLoginUserOptions = {
+type UseLoginUserOptions = {
   config?: MutationConfig<typeof loginUser>;
 };
 
-export function useLoginUser({ config }: useLoginUserOptions = {}) {
+export function useLoginUser({ config }: UseLoginUserOptions = {}) {
   return useMutation({
     onError: (error) => error,
-    onSuccess: (data) => data, 
+    onSuccess: (data) => data,
     ...config,
     mutationFn: loginUser,
   });

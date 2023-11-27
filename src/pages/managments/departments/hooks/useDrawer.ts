@@ -16,7 +16,7 @@ export function useDrawer() {
 
     setDepartmentId(departmentId);
   };
-  
+
   return {
     departmentId,
     handleDrawerOpen,

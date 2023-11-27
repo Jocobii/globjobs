@@ -1,4 +1,4 @@
-import { MaterialDesignContent } from 'notistack'
+import { MaterialDesignContent } from 'notistack';
 import { styled } from '@mui/material/styles';
 
 export const StyledMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) => ({

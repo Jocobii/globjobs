@@ -78,11 +78,9 @@ const emptyResponse: crossingList = {
 
 type CruceListResponse = {
   crossingList: crossingList | undefined;
-}
-
+};
 
 export const useCrucesList = ({ variables } : FilterOption) => {
-  
   const {
     data, loading, error, refetch, fetchMore,
   } = useQuery<CruceListResponse>(PAGINATE_CRUCES, {

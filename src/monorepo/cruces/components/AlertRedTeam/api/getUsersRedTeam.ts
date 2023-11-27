@@ -8,7 +8,6 @@ type User = {
   name: string;
 };
 
-
 const allUsersDocument = gql`
   query UsersByTeam($teamId: String!) {
     usersByTeam(teamId: $teamId) {
@@ -20,8 +19,8 @@ const allUsersDocument = gql`
 
 export const getUsersQuery = async (variables: Record<string, unknown>) => {
   const pagination = { ...variables };
-  const teamId = pagination['teamId'] as string;
-  delete pagination['teamId'];
+  const teamId = pagination.teamId as string;
+  delete pagination.teamId;
   return request<any>(
     '/gq/back-office',
     allUsersDocument,

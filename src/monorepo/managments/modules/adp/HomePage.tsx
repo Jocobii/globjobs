@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useSnackNotification } from '@gsuite/shared/hooks';

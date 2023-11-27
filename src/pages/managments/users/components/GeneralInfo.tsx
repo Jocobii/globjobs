@@ -8,13 +8,13 @@ import * as Yup from 'yup';
 import { FieldValues } from 'react-hook-form';
 import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 
-import { capitalizeFirstLetter } from '@/utils/format';
-import { TFunctionType } from '@/typings/common';
+import { capitalizeFirstLetter } from '../../../../utils/format';
+import { TFunctionType } from '../../../../typings/common';
 import {
   ControlledTextField,
   ControlledAutocomplete,
   ControlledSelect,
-} from '@/components';
+} from '../../../../components';
 import { RestfulHeadquartersResponse } from '../../headquarters/api/restful';
 import { RestfulDepartmentsResponse } from '../../departments/api/restful';
 import { RestfulAreasResponse } from '../../areas/api/restful';

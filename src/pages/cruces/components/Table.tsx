@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { parseDate, DD_MM_YYYY_HH_MM } from '@/utils'
 import { Chip } from '@mui/material';
-import { useDataGrid, useCustomNavigate } from '@/hooks'
-import { useCrucesList,  } from '../hooks/react-query-cruces-list';
-import { getUserName } from '../adapters'
-import DataGrid from "../../../components/datagrid/DataGrid";
-import ButtonToolbar from './ButtonToolbar';
-import { ExtraComponents } from './ExtraComponents';
 import {
   GridValueGetterParams, GridColDef, GridRenderCellParams,
 } from '@mui/x-data-grid';
+import { parseDate, DD_MM_YYYY_HH_MM } from '@/utils';
+import { useDataGrid, useCustomNavigate } from '@/hooks';
+import { useCrucesList } from '../hooks/react-query-cruces-list';
+import { getUserName } from '../adapters';
+import DataGrid from '../../../components/datagrid/DataGrid';
+import ButtonToolbar from './ButtonToolbar';
+import { ExtraComponents } from './ExtraComponents';
 
 function Home() {
   const crossingByTeam = 3;
@@ -152,7 +152,7 @@ function Home() {
       rows={data?.rows ?? []}
       loading={isLoading || isFetching}
       actions={[
-        <ButtonToolbar key="ButtonAdd" action="crear-operacion" actionFunction={actionFunction} />
+        <ButtonToolbar key="ButtonAdd" action="crear-operacion" actionFunction={actionFunction} />,
       ]}
       onRowDoubleClickUrl="/cruces"
       mode="server"
@@ -163,7 +163,7 @@ function Home() {
       }}
       pageSize={10}
     />
-  )
+  );
 }
 
 export default Home;

@@ -6,7 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import MenuPopover from './MenuPopover';
-import useAuthentication from '@/hooks/useAuthentication';
+import useAuthentication from '../hooks/useAuthentication';
 
 const MENU_OPTIONS = [
   {

@@ -6,9 +6,10 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { createClient } from 'graphql-ws';
 
 import { setContext } from '@apollo/client/link/context';
-const { DEV } = import.meta.env;
 
-import { env } from '@/config'
+import { env } from '../config';
+
+const { DEV } = import.meta.env;
 
 const getToken = () => {
   const { accessToken } = JSON.parse(localStorage.getItem('@@g-globalization-auth') ?? '{}');
@@ -56,7 +57,7 @@ const client = new ApolloClient({
       },
       wsLink,
       ApolloLink.split(
-        (operation) => operation.getContext()['clientName'] === 'globalization',
+        (operation) => operation.getContext().clientName === 'globalization',
         globalization,
         gateway,
       ),

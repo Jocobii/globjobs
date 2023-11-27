@@ -11,8 +11,7 @@ import { get } from 'lodash';
 import { type Variables } from 'graphql-request';
 import DataGrid, { ModelOptions } from '@/components/datagrid/DataGrid';
 import { TFunctionType } from '@/typings/common';
-import { CLIENT_ROLE, COACH_SPECIALIST_ROLE } from '@/utils';
-import { stringIncludes } from '@/utils';
+import { CLIENT_ROLE, COACH_SPECIALIST_ROLE, stringIncludes } from '@/utils';
 import { useGetUsers } from '../../users/api/getUsers';
 
 const DEFAULT_FILTER = {

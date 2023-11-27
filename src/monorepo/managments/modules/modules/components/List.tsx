@@ -18,16 +18,20 @@ import Conditional from '@gsuite/ui/Conditional';
 
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded';
-import { useDataGrid } from '@/hooks'
+import { useDataGrid } from '@/hooks';
 import { useDrawer } from '../hooks/useDrawer';
 import { useModules } from '../api/getModules';
 
 import DrawerForm from './DrawerForm';
 
 export default function List() {
-  const { rowId, handleDrawerOpen, handleEditDrawerClose, handleMenuClick } = useDrawer();
+  const {
+    rowId, handleDrawerOpen, handleEditDrawerClose, handleMenuClick,
+  } = useDrawer();
   const { variables, handleDataGridEvents } = useDataGrid();
-  const { data, refetch, isLoading, isFetching } = useModules({ variables });
+  const {
+    data, refetch, isLoading, isFetching,
+  } = useModules({ variables });
 
   const handleRefresh = () => refetch();
 

@@ -29,14 +29,14 @@ export default function Abstract({
           <Stack spacing={1}>
             <Stack sx={{ minWidth: '100%' }} direction="row" justifyItems="start">
               <Box
-                sx={{ 
-                  borderRadius: '100%', 
-                  backgroundColor: color, 
-                  display: 'flex', 
-                  justifyContent: 'center', 
+                sx={{
+                  borderRadius: '100%',
+                  backgroundColor: color,
+                  display: 'flex',
+                  justifyContent: 'center',
                   alignItems: 'center',
                   p: 0.8,
-                  boxShadow: 'inset 3px 2px 7px rgba(0, 0, 0, 0.2)'
+                  boxShadow: 'inset 3px 2px 7px rgba(0, 0, 0, 0.2)',
                 }}
               >
                 {icon}

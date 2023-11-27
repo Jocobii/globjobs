@@ -4,7 +4,7 @@ import {
   Grid, Paper, Stack,
 } from '@mui/material';
 import { Form } from './components';
-import { useCreateOperation } from '../../hooks'
+import { useCreateOperation } from '../../hooks';
 
 function CreateNewOperationLayout() {
   const { id } = useParams();
@@ -89,7 +89,7 @@ function CreateNewOperationLayout() {
         </Grid>
       </Grid>
     </Paper>
-  )
+  );
 }
 
-export default CreateNewOperationLayout
+export default CreateNewOperationLayout;

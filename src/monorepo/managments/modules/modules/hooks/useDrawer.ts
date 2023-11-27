@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { useDeleteModule } from '../api/deleteModule';
 
 export function useDrawer() {

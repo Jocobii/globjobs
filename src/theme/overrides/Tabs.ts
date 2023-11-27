@@ -10,8 +10,8 @@ export default function Tabs(theme: CustomTheme) {
           borderTopLeftRadius: theme.shape.borderRadius,
           borderTopRightRadius: theme.shape.borderRadius,
           '&.Mui-selected': {
-            color: 'white',
-            background: '#3A8FE8',
+            color: theme.palette.primary.main,
+            borderColor: theme.palette.primary.main,
           },
           '&:not(:last-of-type)': {
             marginRight: theme.spacing(5),

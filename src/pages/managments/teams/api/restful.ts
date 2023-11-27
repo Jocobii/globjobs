@@ -37,4 +37,3 @@ export function useRestfulTeams({ config }: UseRestfulTeamOptions = {}) {
     queryFn: () => restfulTeams(),
   });
 }
-

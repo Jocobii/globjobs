@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { FileDropZone } from '@/typings/files';
 import {
   CreateCrossingType, nodesSchema, NodesSchema,
-} from '../types'
+} from '../types';
 
 export function useCreateOperation(id: string) {
   const navigate = useNavigate();
-  const [nodes, setNodes] = useState<NodesSchema>({} as NodesSchema)
+  const [nodes, setNodes] = useState<NodesSchema>({} as NodesSchema);
   const [crossingValues, setCrossingValues] = useState<CreateCrossingType>({} as CreateCrossingType);
   const [files, setFiles] = useState<FileDropZone[]>([]);
   console.log('files', files);
@@ -22,7 +22,7 @@ export function useCreateOperation(id: string) {
     if (files.length === 0) return;
     const {
       type, client, clientNumber,
-      patente, aduana, comments
+      patente, aduana, comments,
     } = crossingValues;
 
     const data = new FormData();
@@ -37,27 +37,27 @@ export function useCreateOperation(id: string) {
     const config = {
       method: 'post',
       url: 'http://localhost:3340/api/crossing/createNodesCrossing',
-      headers: { 
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTY3OTExZDg0YjI0NGY0OTQ2NzZhMyIsIm5hbWUiOiJBbGV4YW5kZXIgSm9jb2JpIiwiZW1haWwiOiJhbGV4YW5kZXIuam9jb2JpQGctZ2xvYmFsLmNvbSIsImlhdCI6MTY5MzU5MjY2MH0.ToSrAjk42sjcjggDYhgJSRzpuWE4FOjvFD7fJtnnOPA', 
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTY3OTExZDg0YjI0NGY0OTQ2NzZhMyIsIm5hbWUiOiJBbGV4YW5kZXIgSm9jb2JpIiwiZW1haWwiOiJhbGV4YW5kZXIuam9jb2JpQGctZ2xvYmFsLmNvbSIsImlhdCI6MTY5MzU5MjY2MH0.ToSrAjk42sjcjggDYhgJSRzpuWE4FOjvFD7fJtnnOPA',
       },
-      data
+      data,
     };
 
     axios.request(config)
-    .then((response) => {
-      const data = nodesSchema.parse(response.data);
-      setNodes(data)
-      setFiles([]);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((response) => {
+        const data = nodesSchema.parse(response.data);
+        setNodes(data);
+        setFiles([]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [files, navigate]);
 
   useEffect(() => {
-    if (files.length === 0) return; 
-    onSubmit()
-  }, [files, onSubmit])
+    if (files.length === 0) return;
+    onSubmit();
+  }, [files, onSubmit]);
 
   return {
     files,
@@ -66,5 +66,5 @@ export function useCreateOperation(id: string) {
     setCrossingValues,
     nodes,
     setNodes,
-  }
+  };
 }

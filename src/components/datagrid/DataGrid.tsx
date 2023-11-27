@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
   memo, useState, useCallback, useEffect, useMemo,
 } from 'react';
@@ -30,7 +31,7 @@ import WrapTextIcon from '@mui/icons-material/WrapText';
 
 import { SxProps, styled } from '@mui/material/styles';
 
-import { removeDuplicates, filterOption } from '@/utils/datagrid';
+import { removeDuplicates, filterOption } from '../../utils/datagrid';
 import CustomPagination from './Pagination';
 
 type Item = {
@@ -118,7 +119,7 @@ function CustomToolbar({
 }: ToolbarProps) {
   return (
     <GridToolbarContainer>
-      <Box sx={{ marginRight: 2}} >{extraToolbarComponents}</Box>
+      <Box sx={{ marginRight: 2 }}>{extraToolbarComponents}</Box>
       <GridToolbarColumnsButton style={{ color }} />
       <GridToolbarFilterButton style={{ color }} />
       <GridToolbarDensitySelector style={{ color }} />
@@ -134,7 +135,7 @@ function InternalDataGridCustom({
   title = '',
   columns,
   rows = [],
-  getRowId = (row) => row['id'],
+  getRowId = (row) => row.id,
   checkboxSelection = false,
   loading = false,
   pageSize = 12,
@@ -178,10 +179,10 @@ function InternalDataGridCustom({
       {
         actions.length > 0 ? (
           <ActionContent sx={{ marginTop: 4 }}>
-          <CardHeader title={title} sx={{ p: 1 }} />
-          <Box sx={{ flexGrow: 1 }} />
-          {actions}
-        </ActionContent>
+            <CardHeader title={title} sx={{ p: 1 }} />
+            <Box sx={{ flexGrow: 1 }} />
+            {actions}
+          </ActionContent>
         ) : null
       }
       <Box

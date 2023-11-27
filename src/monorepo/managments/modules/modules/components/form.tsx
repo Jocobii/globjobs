@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import {
   Grid,
   Card,
@@ -15,7 +14,7 @@ import { ControlledTextField, ControlledAutocomplete, ControlledCheckbox } from 
 import { capitalizeFirstLetter } from '@gsuite/shared/utils/format';
 import { useRestfulEnvironments } from '../api/getEnvironments';
 
-import { Module,  moduleSchema, Options } from '../types';
+import { Module, moduleSchema, Options } from '../types';
 
 type Props = {
   initialValues?: Module;

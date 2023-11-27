@@ -16,16 +16,19 @@ import CachedIcon from '@mui/icons-material/Cached';
 import { t } from 'i18next';
 import CircleIcon from '@mui/icons-material/Circle';
 import { grey } from '@mui/material/colors';
-import { useDataGrid } from '@/hooks'
+import { useDataGrid } from '@/hooks';
 import { Additional, useRolesSummary } from '../api/getRolesSummary';
-import  DrawerForm from './DrawerForm';
+import DrawerForm from './DrawerForm';
 import useDrawer from '../hooks/useDrawer';
 
 export default function List() {
   const { variables, handleDataGridEvents } = useDataGrid();
-  const { roleId, handleMenuClick, handleEditDrawerClose, handleDrawerOpen } = useDrawer();
-  const { refetch, data, isLoading, isFetching } = useRolesSummary({ variables });
-
+  const {
+    roleId, handleMenuClick, handleEditDrawerClose, handleDrawerOpen,
+  } = useDrawer();
+  const {
+    refetch, data, isLoading, isFetching,
+  } = useRolesSummary({ variables });
 
   const handleRefresh = () => refetch();
 
@@ -84,7 +87,6 @@ export default function List() {
       setColumns([]);
     };
   }, [data?.rows, variables, columns]);
-
 
   return (
     <Container maxWidth="xl" style={{ height: '100%' }}>

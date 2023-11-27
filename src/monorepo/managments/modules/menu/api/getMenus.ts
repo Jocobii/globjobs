@@ -7,7 +7,6 @@ type PaginateMenusResponse = {
   menus: PaginatedResponse<Menu>;
 };
 
-
 const menusDocument = gql`
   query PaginateMenus($pagination: PaginationDtoInput) {
     menus(paginationInput: $pagination) {
@@ -40,6 +39,6 @@ export const useMenus = (variables?: Record<string, unknown>) => {
     loading,
     refetch,
   };
-}
+};
 
 export default useMenus;

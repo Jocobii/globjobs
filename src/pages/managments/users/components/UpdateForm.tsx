@@ -16,7 +16,9 @@ import type { FieldErrors, UseFormRegister, Control } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { Scrollbar, ControlledTextField, ControlledAutocomplete, ControlledSelect } from '@/components';
+import {
+  Scrollbar, ControlledTextField, ControlledAutocomplete, ControlledSelect,
+} from '../../../../components';
 import { useRestfulHeadquarters } from '../../headquarters/api/restful';
 import { useRestfulDepartments } from '../../departments/api/restful';
 import { useRestfulAreas } from '../../areas/api/restful';

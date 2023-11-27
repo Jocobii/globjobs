@@ -311,8 +311,8 @@ export default function ProformaDialog({
         id: crossingId,
         action: 'update_proforma',
         files: findStatus?.name,
-        ...(getValues()['comments'] && {
-          comments: getValues()['comments'],
+        ...(getValues().comments && {
+          comments: getValues().comments,
         }),
         ...(newFiles && newFiles?.length > 0 && {
           files: newFiles.map((f) => `${f.key}`),

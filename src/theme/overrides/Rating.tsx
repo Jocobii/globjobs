@@ -1,4 +1,4 @@
-import { CustomTheme } from '@/typings/theme';
+import { CustomTheme } from '../../typings/theme';
 import { StarIcon } from './CustomIcons';
 
 const ICON_SMALL = { width: 20, height: 20 };

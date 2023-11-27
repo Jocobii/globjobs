@@ -1,5 +1,4 @@
-import { Buttons, Alert, TextFieldC } from './';
-
+import { Buttons, Alert, TextFieldC } from '.';
 
 export default function index() {
   return (
@@ -8,5 +7,5 @@ export default function index() {
       <Alert />
       <TextFieldC />
     </div>
-  )
+  );
 }

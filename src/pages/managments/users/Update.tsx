@@ -16,9 +16,9 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm, FieldValues } from 'react-hook-form';
-import { useSnackNotification } from '@/hooks';
 import dayjs from 'dayjs';
 import isBoolean from 'lodash/isBoolean';
+import { useSnackNotification } from '@/hooks';
 
 import GeneralInfo, {
   formSchema as generalInfoSchema,
@@ -241,10 +241,10 @@ export default function Update({ onClose, open, userId }: Props) {
 
   useEffect(() => {
     const form = getValues();
-    if (!isBoolean(form['wpNotifications'])) {
+    if (!isBoolean(form.wpNotifications)) {
       setValue('wpNotifications', false);
     }
-    if (!isBoolean(form['emailNotifications'])) {
+    if (!isBoolean(form.emailNotifications)) {
       setValue('emailNotifications', false);
     }
   }, [getValues]);

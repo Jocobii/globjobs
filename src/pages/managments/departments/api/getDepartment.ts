@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
 import { Department } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 const getDepartmentDocument = gql`
   query GetDepartmentQuery($departmentId: String!) {

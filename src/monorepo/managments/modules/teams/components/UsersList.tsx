@@ -12,8 +12,8 @@ import { stringIncludes } from '@gsuite/shared/utils';
 import { DataGrid, ModelOptions } from '@gsuite/ui/DataGrid';
 import { type Variables } from 'graphql-request';
 import { CLIENT_ROLE, COACH_SPECIALIST_ROLE } from '@gsuite/shared/utils/constants';
-import { useGetUsers } from '../../users/api/getUsers';
 import { TFunctionType } from '@gsuite/typings/common';
+import { useGetUsers } from '../../users/api/getUsers';
 
 const DEFAULT_FILTER = {
   filter: [

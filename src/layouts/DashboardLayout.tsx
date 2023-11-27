@@ -1,10 +1,9 @@
 import { useContext, useState, Suspense } from 'react';
-import { ErrorBoundary, LoadingScreen } from '@/components';
 import { Outlet } from 'react-router-dom';
 
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { Box, Theme } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { ErrorBoundary, LoadingScreen } from '@/components';
 import { DataContext } from '../contexts/AppContext';
 
 import { HEADER, NAVBAR } from '../utils/config';
@@ -48,29 +47,29 @@ export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   return (
-      <Box
-        sx={{
-          display: { lg: 'flex' },
-          minHeight: { lg: 1 },
-          backgroundColor: theme.palette.background.paper,
-        }}
-      >
-        <DashboardHeader isCollapse={isCollapse} onOpenSidebar={() => setOpen(true)} />
+    <Box
+      sx={{
+        display: { lg: 'flex' },
+        minHeight: { lg: 1 },
+        backgroundColor: theme.palette.background.paper,
+      }}
+    >
+      <DashboardHeader isCollapse={isCollapse} onOpenSidebar={() => setOpen(true)} />
 
-        <NavbarVertical
-          isOpenSidebar={open}
-          onCloseSidebar={() => setOpen(false)}
-        />
+      <NavbarVertical
+        isOpenSidebar={open}
+        onCloseSidebar={() => setOpen(false)}
+      />
 
-        <MainStyle collapseClick={collapseClick}>
-          <ErrorBoundary>
-            <Suspense
-              fallback={<LoadingScreen />}
-            >
+      <MainStyle collapseClick={collapseClick}>
+        <ErrorBoundary>
+          <Suspense
+            fallback={<LoadingScreen />}
+          >
             <Outlet />
-            </Suspense>
-          </ErrorBoundary>
-        </MainStyle>
-      </Box>
+          </Suspense>
+        </ErrorBoundary>
+      </MainStyle>
+    </Box>
   );
 }

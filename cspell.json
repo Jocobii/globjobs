@@ -60,7 +60,13 @@
     "nrwl",
     "sonarjs",
     "childrens",
-    "datagrid"
+    "datagrid",
+    "prosec",
+    "doda",
+    "uens",
+    "aaus",
+    "IEPS",
+    "PROXEC"
   ],
   "ignorePaths": [
     "node_modules/**",

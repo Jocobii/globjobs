@@ -4,12 +4,12 @@ import { useSnackNotification } from '@gsuite/shared/hooks';
 
 import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
-import { CompanyFull, CompanyDocument } from '../types';
+import { Companies, CompanyDocument } from '../types';
 
 const { VITE_GATEWAY_URI } = import.meta.env;
 
 export type CreateCompanyDto = {
-  data: CompanyFull;
+  data: Companies;
 };
 
 export const createCompanyMutationDocument = gql`
@@ -32,6 +32,10 @@ mutation (
   $taxes: Boolean
   $taxesOption: String
   $defaultPaymentMethod: String
+  $sendAdpAutomatically: Boolean
+  $complementaryADPDocuments: ComplementaryADPDocumentsInput
+  $mandatoryADPDocuments: MandatoryADPDocumentsInput
+  $uens: UensInput
 ) {
   createCompany(
     createCompanyInput: {
@@ -53,6 +57,10 @@ mutation (
       taxes: $taxes
       taxesOption: $taxesOption
       defaultPaymentMethod: $defaultPaymentMethod
+      sendAdpAutomatically: $sendAdpAutomatically
+      complementaryADPDocuments: $complementaryADPDocuments
+      mandatoryADPDocuments: $mandatoryADPDocuments
+      uens: $uens
     }
   ) {
     number

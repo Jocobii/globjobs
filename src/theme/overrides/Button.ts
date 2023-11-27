@@ -1,4 +1,4 @@
-import { CustomTheme } from '@/typings/theme';
+import { CustomTheme } from '../../typings/theme';
 
 export default function Button(theme: CustomTheme) {
   return {
@@ -12,7 +12,7 @@ export default function Button(theme: CustomTheme) {
           '&.Mui-disabled': {
             pointerEvents: 'auto',
             cursor: 'not-allowed',
-          }
+          },
         },
         sizeLarge: {
           height: 48,
@@ -58,7 +58,7 @@ export default function Button(theme: CustomTheme) {
             backgroundColor: theme.palette.action.hover,
           },
         },
-        
+
       },
     },
   };

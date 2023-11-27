@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 
-import { graphqlGatewayClient } from '@/clients';
-import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
-import { PaginatedResponse } from '@/typings/datagrid';
+import { graphqlGatewayClient } from '../../../../clients';
+import { ExtractFnReturnType, QueryConfig } from '../../../../lib/react-query';
+import { PaginatedResponse } from '../../../../typings/datagrid';
 
 import { User } from '../types';
 
@@ -66,8 +66,8 @@ const allUsersDocument = gql`
 
 export const getUsersQuery = async (variables: Record<string, unknown>) => {
   const pagination = { ...variables };
-  const teamId = pagination['teamId'] as string;
-  delete pagination['teamId'];
+  const teamId = pagination.teamId as string;
+  delete pagination.teamId;
   return graphqlGatewayClient.request<Response>(
     allUsersDocument,
     {

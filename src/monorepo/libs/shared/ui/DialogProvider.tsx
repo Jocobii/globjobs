@@ -16,7 +16,6 @@ type DialogContainerProps = {
   onKill: () => void;
 } & ChildrenProp;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 export function openFunc() {}
 export const closeFunc = () => {};
 

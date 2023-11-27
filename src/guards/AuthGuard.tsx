@@ -10,7 +10,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   const { isAuthenticated, accessToken } = useAuthentication();
 
   if (!isAuthenticated || !accessToken) {
-    return <Navigate to='/auth/login' />
+    return <Navigate to="/auth/login" />;
   }
 
   return (

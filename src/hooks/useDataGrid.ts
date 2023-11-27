@@ -44,5 +44,5 @@ export const useDataGrid = () => {
     setVariables,
     variables,
     setModelOptions,
-  }
-}
+  };
+};

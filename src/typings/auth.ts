@@ -1,6 +1,6 @@
 import type { ObjectShape } from 'yup';
 
-export type ID =  string;
+export type ID = string;
 
 export type User = {
   id: ID;
@@ -12,7 +12,7 @@ export type User = {
 };
 
 export type ObjectShapeValues = ObjectShape extends Record<string, infer V> ? V : never;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export type Shape<T extends Record<any, any>> = Partial<Record<keyof T, ObjectShapeValues>>;
 
 export type SignInFormValues = {

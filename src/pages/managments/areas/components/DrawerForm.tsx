@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
-import { ControlledTextField, ControlledAutocomplete } from '@/components';
 import { Dialogeazy } from '@gsuite/ui/Dialogeazy';
 import {
   Stack, Typography, Button,
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ControlledTextField, ControlledAutocomplete, LoadingScreen } from '@/components';
 import { useCreateArea, useUpdateArea, useGetArea } from '../api';
 import { useRestfulDepartments } from '../../departments/api/restful';
 import { areaSchema, Area } from '../types';
-import { LoadingScreen } from '@/components';
 
 export type CreateDrawerProps = {
   open: boolean;
@@ -33,7 +32,7 @@ export function DrawerForm({ open, onClose, areaId = undefined }: CreateDrawerPr
   } = useForm<Area>({
     mode: 'onChange',
     resolver: yupResolver(areaSchema),
-  })
+  });
   console.log('errors', errors, open);
   const { data } = useGetArea({ areaId });
   const { mutateAsync: updateArea } = useUpdateArea();
@@ -56,8 +55,8 @@ export function DrawerForm({ open, onClose, areaId = undefined }: CreateDrawerPr
     setValue('name', data?.area.name);
     setValue('abbreviation', data?.area.abbreviation);
     setValue('department', data?.area.department);
-  }, [data, setValue])
-  
+  }, [data, setValue]);
+
   if (areaId && areaId !== 'create' && !data) {
     return <LoadingScreen />;
   }
@@ -75,7 +74,7 @@ export function DrawerForm({ open, onClose, areaId = undefined }: CreateDrawerPr
       >
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%', height: '100%' }}>
           <Stack spacing={2} sx={{ margin: 3, height: '90%' }}>
-            <Typography variant='h3'>{isUpdate ? 'Actualizar Area' : 'Agregar Area'}</Typography>
+            <Typography variant="h3">{isUpdate ? 'Actualizar Area' : 'Agregar Area'}</Typography>
             <ControlledTextField
               fieldName="name"
               defaultValue={data?.area.name}

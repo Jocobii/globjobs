@@ -21,4 +21,4 @@ export const useRestfulEnvironments = (variables?: Record<string, unknown>) => {
     loading,
     refetch,
   };
-}
+};

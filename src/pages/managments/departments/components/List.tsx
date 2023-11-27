@@ -11,9 +11,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
 import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded';
 import CachedIcon from '@mui/icons-material/Cached';
-import { useDataGrid } from '@/hooks'
-
 import { DataGrid } from '@gsuite/ui/DataGrid';
+import { useDataGrid } from '@/hooks';
 
 import { useDepartments } from '../api/getDepartments';
 import { useDrawer } from '../hooks/useDrawer';
@@ -23,8 +22,12 @@ const DrawerForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loadin
 export default function List() {
   const { t } = useTranslation();
   const { variables, handleDataGridEvents } = useDataGrid();
-  const { departmentId, handleDrawerClose, handleDrawerOpen, handleMenuClick } = useDrawer();
-  const { data, refetch, isLoading, isFetching } = useDepartments({ variables });
+  const {
+    departmentId, handleDrawerClose, handleDrawerOpen, handleMenuClick,
+  } = useDrawer();
+  const {
+    data, refetch, isLoading, isFetching,
+  } = useDepartments({ variables });
 
   const handleRefresh = () => refetch();
 

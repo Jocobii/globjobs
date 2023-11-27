@@ -1,6 +1,6 @@
 // UsA warehouse receipt
-import { useState, useContext, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useState, useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   DialogContent,
   DialogActions,
@@ -14,30 +14,30 @@ import {
   Box,
   InputAdornment,
   Alert,
-} from "@mui/material";
+} from '@mui/material';
 
-import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { LoadingButton } from "@mui/lab";
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { LoadingButton } from '@mui/lab';
 
-import { FileDropZone } from "@/typings/files";
-import { NotificationsContext } from "@/contexts/NotificationsContext";
-import ControlledTextField from "../ControlledTextField";
-import Dropzone from "../Dropzone";
-import ControlledAutocomplete from "../ControlledAutocomplete";
-import { useStepInfo } from "@/services/stepInfo";
+import { FileDropZone } from '@/typings/files';
+import { NotificationsContext } from '@/contexts/NotificationsContext';
+import ControlledTextField from '../ControlledTextField';
+import Dropzone from '../Dropzone';
+import ControlledAutocomplete from '../ControlledAutocomplete';
+import { useStepInfo } from '@/services/stepInfo';
 
-import { uploadFiles, createArrayFiles } from "@/services/uploadFiles";
-import { useReceivedStockAndTrace } from "@/services/receivedStockAndTrace";
+import { uploadFiles, createArrayFiles } from '@/services/uploadFiles';
+import { useReceivedStockAndTrace } from '@/services/receivedStockAndTrace';
 import {
   useAddHistory,
   useSkipStep,
   useUpdateHistory,
-} from "@/services/operation-detail";
-import { useCompanies } from "@/services/companies";
-import TableReceived from "../TableReceived";
-import { difference } from "@/utils/func";
+} from '@/services/operation-detail';
+import { useCompanies } from '@/services/companies';
+import TableReceived from '../TableReceived';
+import { difference } from '@/utils/func';
 
 type Lines = {
   receiveLineItemPackageName: string;
@@ -72,23 +72,21 @@ interface ReceivedTypeStep extends Record<string, unknown> {
   notes: string;
 }
 
-const getReceiptRows = (receiptFound: ReceivedType) =>
-  receiptFound?.lines?.map((receipt: Lines, index) => ({
-    ...receipt,
-    id: index,
-  })) ?? [];
+const getReceiptRows = (receiptFound: ReceivedType) => receiptFound?.lines?.map((receipt: Lines, index) => ({
+  ...receipt,
+  id: index,
+})) ?? [];
 
 export default function ReceivedUsaWarehouse({
   submitFrom = () => null,
   onClose,
-  operationId = "",
+  operationId = '',
   isCreateOperation = false,
   isEdit,
   isOnlyView = false,
 }: Props) {
   const { t } = useTranslation();
-  const [getReceivedStockAndTrace, { loading: loadingReceived }] =
-    useReceivedStockAndTrace();
+  const [getReceivedStockAndTrace, { loading: loadingReceived }] = useReceivedStockAndTrace();
   const { setSnackBar } = useContext(NotificationsContext);
   const [addHistory, { loading }] = useAddHistory(operationId);
   const [oldValue, setOldValue] = useState<ReceivedTypeStep>();
@@ -107,10 +105,10 @@ export default function ReceivedUsaWarehouse({
             receiveLineItemPackageName: Yup.string(),
             receiveLineItemReceivedQty: Yup.number(),
             packagesQuantity: Yup.number(),
-          })
+          }),
         ),
         receivedDate: Yup.string().optional(),
-      })
+      }),
     ),
     notes: Yup.string().optional(),
     client: Yup.string().optional(),
@@ -153,8 +151,8 @@ export default function ReceivedUsaWarehouse({
         ...stepInfo?.getStepInfo,
         releaseDate: stepInfo?.getStepInfo?.releaseDate
           ? new Date(stepInfo?.getStepInfo?.releaseDate)
-              .toISOString()
-              .slice(0, 16)
+            .toISOString()
+            .slice(0, 16)
           : null,
       };
 
@@ -179,10 +177,10 @@ export default function ReceivedUsaWarehouse({
         isEdit,
       },
       onError: (e) => {
-        setSnackBar("error", e.message);
+        setSnackBar('error', e.message);
       },
       onCompleted: () => {
-        setSnackBar("success", t("broker.skipStepUsaSuccess"));
+        setSnackBar('success', t('broker.skipStepUsaSuccess'));
       },
     });
     onClose();
@@ -192,35 +190,35 @@ export default function ReceivedUsaWarehouse({
     const { receiptNumbers } = getValues();
     if (!receiptNumbers) {
       if (receiptFound) {
-        setValue("receiptNumbers", [receiptFound]);
+        setValue('receiptNumbers', [receiptFound]);
       }
     } else {
       const repeatedIndex = receiptNumbers.findIndex(
-        (receive) => receive?.number === receiptFound?.number
+        (receive) => receive?.number === receiptFound?.number,
       );
       if (repeatedIndex >= 0) {
-        setSnackBar("error", t("broker.duplicatedReceive"), 3000);
-        setValue("receiptNumber", "");
+        setSnackBar('error', t('broker.duplicatedReceive'), 3000);
+        setValue('receiptNumber', '');
         return setReceiptFound(undefined);
       }
-      setValue("receiptNumbers", [
+      setValue('receiptNumbers', [
         receiptFound!,
-        ...(getValues("receiptNumbers") ?? []),
+        ...(getValues('receiptNumbers') ?? []),
       ]);
     }
 
-    setValue("receiptNumber", "");
+    setValue('receiptNumber', '');
     return setReceiptFound(undefined);
   };
 
   const searchReceived = async () => {
     await getReceivedStockAndTrace({
       variables: {
-        received: `R-${getValues("receiptNumber")}`,
+        received: `R-${getValues('receiptNumber')}`,
       },
       onCompleted(data) {
         setReceiptFound({
-          number: `R-${getValues("receiptNumber")}`,
+          number: `R-${getValues('receiptNumber')}`,
           receivedDate:
             data.getReceivedStockAndTrace[0]?.receiveOrderCreationDate,
           lines: data.getReceivedStockAndTrace.map(
@@ -234,12 +232,12 @@ export default function ReceivedUsaWarehouse({
               receiveLineItemReceivedQty,
               packagesQuantity,
               receiveOrderCreationDate,
-            })
+            }),
           ),
         });
       },
       onError() {
-        setSnackBar("error", t("broker.receivedNotFound"));
+        setSnackBar('error', t('broker.receivedNotFound'));
       },
     });
   };
@@ -251,15 +249,15 @@ export default function ReceivedUsaWarehouse({
     clientNumber,
   }: FormValues) => {
     if (isCreateOperation && (!client || !clientNumber)) {
-      return setError("client", {
-        type: "manual",
-        message: t("broker.clientSchema"),
+      return setError('client', {
+        type: 'manual',
+        message: t('broker.clientSchema'),
       });
     }
     if (!omitReceived && !receiptNumbers) {
-      return setError("receiptNumbers", {
-        type: "manual",
-        message: t("broker.receiptNumbersSchema"),
+      return setError('receiptNumbers', {
+        type: 'manual',
+        message: t('broker.receiptNumbersSchema'),
       });
     }
     let additionalFiles = null;
@@ -289,24 +287,24 @@ export default function ReceivedUsaWarehouse({
 
       const changes = difference(
         oldValue ?? ({} as ReceivedTypeStep),
-        newValue
+        newValue,
       );
       await updateHistory({
         variables: {
           ...stepData,
           logInput: {
-            system: "operations",
-            user: "",
-            action: "update",
+            system: 'operations',
+            user: '',
+            action: 'update',
             newValue: JSON.stringify(changes),
             date: new Date(),
           },
         },
         onError: (e) => {
-          setSnackBar("error", e.message);
+          setSnackBar('error', e.message);
         },
         onCompleted: () => {
-          setSnackBar("success", t("broker.updateStepSuccess"));
+          setSnackBar('success', t('broker.updateStepSuccess'));
         },
       });
       submitFrom();
@@ -316,10 +314,10 @@ export default function ReceivedUsaWarehouse({
     await addHistory({
       variables: stepData,
       onError: () => {
-        setSnackBar("error", t("broker.receiptUsaError"));
+        setSnackBar('error', t('broker.receiptUsaError'));
       },
       onCompleted: () => {
-        setSnackBar("success", t("broker.receiptUsaSuccess"));
+        setSnackBar('success', t('broker.receiptUsaSuccess'));
         onClose();
       },
     });
@@ -331,10 +329,10 @@ export default function ReceivedUsaWarehouse({
       <form onSubmit={handleSubmit(submitHandler)}>
         <DialogContent
           sx={{
-            width: "auto",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
+            width: 'auto',
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
           }}
         >
           <Grid
@@ -342,8 +340,8 @@ export default function ReceivedUsaWarehouse({
             sx={{
               padding: 0,
               width: {
-                lg: "800px",
-                md: "600px",
+                lg: '800px',
+                md: '600px',
               },
             }}
             spacing={2}
@@ -354,7 +352,7 @@ export default function ReceivedUsaWarehouse({
                   errors={errors}
                   fieldName="receiptNumber"
                   inputType="text"
-                  label={t("broker.receiptLabel")}
+                  label={t('broker.receiptLabel')}
                   register={register}
                   key="receiptNumber-field"
                   disabled={omitReceived || isOnlyView}
@@ -367,7 +365,7 @@ export default function ReceivedUsaWarehouse({
                     onClick={() => setOmitReceived(true)}
                     disabled={omitReceived || isOnlyView}
                   >
-                    {t("broker.omitReceipt")}
+                    {t('broker.omitReceipt')}
                   </Button>
                 )}
               </Stack>
@@ -380,13 +378,13 @@ export default function ReceivedUsaWarehouse({
                   onClick={searchReceived}
                   disabled={omitReceived || isOnlyView}
                 >
-                  {t("broker.search")}
+                  {t('broker.search')}
                 </LoadingButton>
                 <Button
                   onClick={AddReceived}
                   disabled={omitReceived || isOnlyView}
                 >
-                  {t("add")}
+                  {t('add')}
                 </Button>
               </Stack>
             </Grid>
@@ -397,7 +395,7 @@ export default function ReceivedUsaWarehouse({
                 errors={errors}
                 fieldName="notes"
                 inputType="text"
-                label={t("broker.notesLabel")}
+                label={t('broker.notesLabel')}
                 register={register}
                 key="notes-field"
                 disabled={isOnlyView}
@@ -411,15 +409,13 @@ export default function ReceivedUsaWarehouse({
                   <ControlledAutocomplete
                     errors={errors}
                     name="client"
-                    label={`${t("broker.clientLabel")} *`}
+                    label={`${t('broker.clientLabel')} *`}
                     control={control}
                     options={companiesData?.findCompanies ?? []}
                     key="clients-autocomplete"
-                    optionLabel={({ name, number }: AutoComplete) =>
-                      `${number} - ${name}`
-                    }
+                    optionLabel={({ name, number }: AutoComplete) => `${number} - ${name}`}
                     valueSerializer={({ name, number }: AutoComplete) => {
-                      setValue("clientNumber", number);
+                      setValue('clientNumber', number);
                       return name;
                     }}
                   />
@@ -434,28 +430,28 @@ export default function ReceivedUsaWarehouse({
             <Grid item lg={12} md={12} sm={12} xs={12}>
               {getErrorReceives() && (
                 <Stack
-                  direction={{ xs: "column", sm: "row" }}
+                  direction={{ xs: 'column', sm: 'row' }}
                   spacing={{ xs: 3, sm: 2 }}
                   style={{ marginTop: 16 }}
                 >
-                  <Alert severity="error" style={{ width: "100%" }}>
-                    {t("broker.messageAddReceived")}
+                  <Alert severity="error" style={{ width: '100%' }}>
+                    {t('broker.messageAddReceived')}
                   </Alert>
                 </Stack>
               )}
               <List>
                 <Box
                   sx={{
-                    display: "grid",
+                    display: 'grid',
                     gap: 3,
                     gridTemplateColumns: {
-                      sx: "repeat(1, 1fr)",
-                      sm: "repeat(2, 1fr)",
-                      lg: "repeat(3, 1fr)",
+                      sx: 'repeat(1, 1fr)',
+                      sm: 'repeat(2, 1fr)',
+                      lg: 'repeat(3, 1fr)',
                     },
                   }}
                 >
-                  {getValues("receiptNumbers")?.map((received, index) => (
+                  {getValues('receiptNumbers')?.map((received, index) => (
                     <ListItem
                       key={`${received.number + index} - ${
                         received.receivedDate
@@ -475,7 +471,7 @@ export default function ReceivedUsaWarehouse({
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Dropzone
                 disabled={isOnlyView}
-                label={t("broker.additionalFiles")}
+                label={t('broker.additionalFiles')}
                 files={additionalDocs}
                 filesSetter={setAdditionalDocs}
               />
@@ -485,17 +481,17 @@ export default function ReceivedUsaWarehouse({
         <DialogActions>
           {!isCreateOperation && (
             <Button onClick={skipStep} disabled={isOnlyView}>
-              {t("broker.skipStep")}
+              {t('broker.skipStep')}
             </Button>
           )}
-          <Button onClick={onClose}>{t("cancel")}</Button>
+          <Button onClick={onClose}>{t('cancel')}</Button>
           <LoadingButton
             variant="contained"
             type="submit"
             loading={loading}
             disabled={isOnlyView}
           >
-            {isEdit ? t("update") : t("register")}
+            {isEdit ? t('update') : t('register')}
           </LoadingButton>
         </DialogActions>
       </form>

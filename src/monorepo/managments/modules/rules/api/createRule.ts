@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { IRule, Rule, PaginateRules } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export type CreateRuleDTO = {
   data: Rule;

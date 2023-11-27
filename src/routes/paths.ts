@@ -6,7 +6,6 @@ export const CLIENT_ROLE = '60de0221ba8f6728321ea699';
 
 export const CLIENT_ENVIRONMENT = '6482333525826c6274fac953';
 
-
 const ROOTS_APP = '/';
 
 function path(root: string, subLink: string): string {

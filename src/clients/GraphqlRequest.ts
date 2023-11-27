@@ -1,9 +1,9 @@
 import { GraphQLClient } from 'graphql-request';
+
 const {
   VITE_GLOBALIZATION_GRAPHQL_URI: GLOBALIZATION_GRAPHQL_URI,
-  VITE_GATEWAY_URI: GATEWAY_URI
+  VITE_GATEWAY_URI: GATEWAY_URI,
 } = import.meta.env;
-
 
 const getToken = () => {
   const { accessToken } = JSON.parse(localStorage.getItem('@@g-globalization-auth') ?? '{}');

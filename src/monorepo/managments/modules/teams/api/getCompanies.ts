@@ -5,6 +5,7 @@ import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query
 import { PaginatedResponse } from '@gsuite/typings/table';
 
 import { Company } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 
 type Responses = {

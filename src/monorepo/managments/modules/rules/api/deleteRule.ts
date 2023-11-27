@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { IRule as Rule, PaginateRules } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 const deleteMutation = gql`
   mutation deleteRuleMutation($ruleId: String!) {

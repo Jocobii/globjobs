@@ -10,7 +10,7 @@ export type AddCoachToTeamDto = {
   teamId: string;
 };
 
-const  { VITE_GATEWAY_URI } = import.meta.env;
+const { VITE_GATEWAY_URI } = import.meta.env;
 
 type Response = {
   addCoachToTeam: {

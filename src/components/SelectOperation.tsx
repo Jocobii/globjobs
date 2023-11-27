@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import DialogComponent from './DialogComponent';
 
-import Raet from './forms/Raet'
+import Raet from './forms/Raet';
 import Rplbet from './forms/Rplbet';
 import CollectionTransport from './forms/CollectionTransport';
 import ReceivedUsaWarehouse from './forms/ReceivedUsaWarehouse';

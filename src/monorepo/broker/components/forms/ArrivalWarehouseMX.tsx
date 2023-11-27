@@ -190,8 +190,8 @@ export default function ArrivalWarehouseMX({
         step: 7,
       },
       onError: (error) => {
-        if (error?.graphQLErrors[0]?.extensions['key']) {
-          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions['key']}`));
+        if (error?.graphQLErrors[0]?.extensions.key) {
+          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions.key}`));
         } else {
           setSnackBar('error', t('broker.arrivalWarehouseMxError'));
         }
@@ -224,8 +224,8 @@ export default function ArrivalWarehouseMX({
         isEdit,
       },
       onError: (error) => {
-        if (error?.graphQLErrors[0]?.extensions['key']) {
-          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions['key']}`));
+        if (error?.graphQLErrors[0]?.extensions.key) {
+          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions.key}`));
         } else {
           setSnackBar('error', t('broker.transportCollectionError'));
         }

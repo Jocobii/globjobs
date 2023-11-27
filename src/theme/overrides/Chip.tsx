@@ -1,4 +1,4 @@
-import { CustomTheme } from '@/typings/theme';
+import { CustomTheme } from '../../typings/theme';
 import { CloseIcon } from './CustomIcons';
 
 export default function Chip(theme: CustomTheme) {

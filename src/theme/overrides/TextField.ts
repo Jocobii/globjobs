@@ -22,7 +22,7 @@ export default function TextField(theme: CustomTheme) {
             fontWeight: 600,
           },
         },
-      }
-    }
+      },
+    },
   };
 }

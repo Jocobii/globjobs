@@ -6,10 +6,11 @@ type Props = {
   control: Control<any>;
   name: string;
   label: string;
+  disabled?: boolean;
 };
 
 function TextField({
-  name, label, control,
+  name, label, control, disabled = false,
 }: Props) {
   return (
     <Controller
@@ -37,6 +38,7 @@ function TextField({
               checked={value}
               ref={ref}
               color={error ? 'error' : 'primary'}
+              disabled={disabled}
             />
           )}
           label={label}

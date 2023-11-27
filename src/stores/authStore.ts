@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import get from 'lodash/get';
 
-import { getLocalStorage, setLocalStorage, deleteLocalStorage } from '@/utils/func';
-import { LOCALSTORAGE_AUTH_KEY, LOCALSTORAGE_CONFIG_KEY } from '@/seeders';
-import { User, Auth } from '@/typings/authentication';
+import { getLocalStorage, setLocalStorage, deleteLocalStorage } from '../utils/func';
+import { LOCALSTORAGE_AUTH_KEY, LOCALSTORAGE_CONFIG_KEY } from '../seeders';
+import { User, Auth } from '../typings/authentication';
 
 type AuthStore = {
   logIn: (user: User, accessToken: string) => void;
@@ -20,7 +20,7 @@ const initializeState = (): Auth => {
     isAuthenticated: !!accessToken,
     errorMessage: '',
   };
-}
+};
 
 export const useAuthStore = create<AuthStore>((set) => ({
   ...initializeState(),

@@ -47,8 +47,7 @@ export const deleteFromTeamMutationDocument = gql`
   }
 `;
 
-export const deleteUsersFromTeam = ({ ids, teamId }: DeleteUsersFromTeamDto,
-) => graphqlGatewayClient.request<Response>(
+export const deleteUsersFromTeam = ({ ids, teamId }: DeleteUsersFromTeamDto) => graphqlGatewayClient.request<Response>(
   deleteFromTeamMutationDocument,
   {
     ids,

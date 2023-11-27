@@ -141,7 +141,7 @@ function DataGridCustom({
   title = '',
   columns,
   rows = [],
-  getRowId = (row) => row['id'],
+  getRowId = (row) => row.id,
   checkboxSelection = false,
   loading = false,
   pageSize = 12,

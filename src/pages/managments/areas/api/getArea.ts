@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Area } from '../types'
+import { Area } from '../types';
 
 type Response = {
   area: Area;
@@ -23,11 +23,9 @@ export type GetAreaDTO = {
   areaId?: string;
 };
 
-export const useGetArea = ({ areaId }: GetAreaDTO) => {
-  return useQuery<Response>(getAreaDocument, {
-    variables: {
-      areaId
-    },
-    skip: !areaId
-  })
-};
+export const useGetArea = ({ areaId }: GetAreaDTO) => useQuery<Response>(getAreaDocument, {
+  variables: {
+    areaId,
+  },
+  skip: !areaId,
+});

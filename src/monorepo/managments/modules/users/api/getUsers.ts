@@ -5,6 +5,7 @@ import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query
 import { PaginatedResponse } from '@gsuite/typings/table';
 
 import { User } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 
 type Response = {
@@ -66,8 +67,8 @@ const allUsersDocument = gql`
 
 export const getUsersQuery = async (variables: Record<string, unknown>) => {
   const pagination = { ...variables };
-  const teamId = pagination['teamId'] as string;
-  delete pagination['teamId'];
+  const teamId = pagination.teamId as string;
+  delete pagination.teamId;
   return request<Response>(
     `${VITE_GATEWAY_URI}/gq/back-office`,
     allUsersDocument,

@@ -5,6 +5,7 @@ import { useSnackNotification } from '@gsuite/shared/hooks';
 import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { Department } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export type DeleteDepartmentDto = {
   departmentId: string;

@@ -119,7 +119,7 @@ function CreateNewOperationLayout() {
         </Grid>
       </Grid>
     </Paper>
-  )
+  );
 }
 
-export default CreateNewOperationLayout
+export default CreateNewOperationLayout;

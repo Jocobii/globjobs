@@ -6,6 +6,7 @@ export { default as DataGridWithDetail } from './TableWithDetail';
 export { CustomToolbar } from './Table';
 export { default as ControlledTextField } from './ControlledTextField';
 export { default as ControlledAutocomplete } from './ControlledAutocomplete';
+export { default as ControlledSwitch } from './ControlledSwitch';
 export { default as ControlledSelect } from './ControlledSelect';
 export { default as Dropzone } from './Dropzone';
 export { default as Board } from './Board';

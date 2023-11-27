@@ -25,4 +25,4 @@ export const useRestfulModules = (environment?: string) => {
     data,
     isLoading: loading,
   };
-}
+};

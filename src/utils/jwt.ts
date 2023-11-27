@@ -34,13 +34,13 @@ const handleTokenExpired = (exp: number) => {
 const setSession = (accessToken: string | null) => {
   if (!accessToken) {
     localStorage.removeItem('accessToken');
-    delete axios.defaults.headers.common['Authorization'];
+    delete axios.defaults.headers.common.Authorization;
 
     return;
   }
 
   localStorage.setItem('accessToken', accessToken);
-  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   // This function below will handle when token is expired
   const { exp } = decodeToken(accessToken);
   handleTokenExpired(exp);

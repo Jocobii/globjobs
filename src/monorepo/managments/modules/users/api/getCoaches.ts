@@ -2,6 +2,7 @@ import { request, gql } from 'graphql-request';
 import { useQuery } from '@tanstack/react-query';
 
 import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export type Coaches = {
   _id: string;

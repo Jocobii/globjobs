@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export function TextFieldC() {
   return (
     <>
-      <Typography variant='h1'> TextField </Typography>
+      <Typography variant="h1"> TextField </Typography>
       <Divider sx={{ marginBottom: 5 }} />
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 24 }}>
         <Grid item xs={2} sm={4} md={4}>
@@ -38,5 +38,5 @@ export function TextFieldC() {
         </Grid>
       </Grid>
     </>
-  )
+  );
 }

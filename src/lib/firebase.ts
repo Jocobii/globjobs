@@ -20,7 +20,7 @@ const config = {
 const app = initializeApp(config);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+provider.setCustomParameters({ prompt: 'select_account' });
 
 export const loginWithGoogle = () => signInWithPopup(auth, provider)
   .then((res) => res)

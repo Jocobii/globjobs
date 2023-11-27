@@ -5,6 +5,7 @@ import { useSnackNotification } from '@gsuite/shared/hooks';
 import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 
 import { Area } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export type DeleteAreaDto = {
   areaId: string;

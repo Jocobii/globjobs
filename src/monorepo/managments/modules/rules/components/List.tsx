@@ -13,7 +13,7 @@ import CachedIcon from '@mui/icons-material/Cached';
 import { t } from 'i18next';
 
 import { DataGrid } from '@gsuite/ui/DataGrid';
-import { useDataGrid } from '@/hooks'
+import { useDataGrid } from '@/hooks';
 
 import { useRules } from '../api/getRules';
 import { useDrawer } from '../hooks/useDrawer';
@@ -22,8 +22,12 @@ const DrawerForm = loadable(() => import('./DrawerForm'), { fallback: <h3>Loadin
 
 export default function List() {
   const { variables, handleDataGridEvents } = useDataGrid();
-  const { data, refetch, isLoading, isFetching } = useRules({ variables });
-  const { ruleId, handleDrawerOpen, handleDrawerClose, handleMenuClick } = useDrawer();
+  const {
+    data, refetch, isLoading, isFetching,
+  } = useRules({ variables });
+  const {
+    ruleId, handleDrawerOpen, handleDrawerClose, handleMenuClick,
+  } = useDrawer();
 
   const handleRefresh = () => refetch();
 

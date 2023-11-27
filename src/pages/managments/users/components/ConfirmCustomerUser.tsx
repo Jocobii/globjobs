@@ -1,6 +1,6 @@
-import { DialogComponent } from '@/components';
 import { Chip, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { DialogComponent } from '@/components';
 
 type Props = {
   open: boolean;

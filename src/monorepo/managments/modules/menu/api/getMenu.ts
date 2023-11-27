@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
 
-const  { VITE_GATEWAY_URI } = import.meta.env;
+const { VITE_GATEWAY_URI } = import.meta.env;
 
 const getMenuDocument = gql`
   query menu($id: String!) {

@@ -16,7 +16,7 @@ export function useDrawer() {
 
     setRuleId(rowId);
   };
-  
+
   return {
     ruleId,
     handleDrawerOpen,

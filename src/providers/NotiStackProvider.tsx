@@ -1,5 +1,5 @@
 import { SnackbarProvider } from 'notistack';
-import { StyledMaterialDesignContent } from '../theme/overrides/SnackMessages'
+import { StyledMaterialDesignContent } from '../theme/overrides/SnackMessages';
 import { SnackList } from '../components';
 
 declare module 'notistack' {

@@ -3,10 +3,10 @@ import { styled } from '@mui/material/styles';
 import {
   Theme, Box, Stack, AppBar, Toolbar, IconButton, Grid,
 } from '@mui/material';
-import { Breadcrums } from '@/components'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import Breadcrums from './RouteBreadCrums';
 
 import Logo from './Logo';
 import { DataContext } from '../contexts/AppContext';
@@ -101,13 +101,13 @@ export default function DashboardHeader({
           <Grid
             item
             xs={6}
-            display={{ xs: 'flex'}}
+            display={{ xs: 'flex' }}
             md={4}
             sx={{
               backgroundColor: 'background.paper',
               border: '1px solid background.paper',
               borderRadius: '0 0 0 20px',
-              padding: 1
+              padding: 1,
             }}
           >
             {isDesktop && verticalLayout && <Logo sx={{ mr: 2.5 }} />}

@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { Module, Notification } from "../types";
-import { useRole } from "../api/getRole";
+import { useState, useEffect } from 'react';
+import { Module, Notification } from '../types';
+import { useRole } from '../api/getRole';
 import { useGetModules } from '../api/getModules';
-import { NOTIFICATIONS } from "../utils/const";
+import { NOTIFICATIONS } from '../utils/const';
 
 type Props = {
   roleId?: string;
@@ -22,7 +22,6 @@ export default function useForm({ roleId }: Props) {
   useEffect(() => {
     if (modulesInit && (!roleId || roleId === 'create')) {
       setModules(modulesInit);
-      return;
     }
   }, [modulesInit, roleId]);
 
@@ -83,10 +82,9 @@ export default function useForm({ roleId }: Props) {
 
     setNotifications({
       ...notifications,
-      notifications: notifications.notifications.map((module) => updateModule(module, modulo, permission, checked))
-    })
-
-  }
+      notifications: notifications.notifications.map((module) => updateModule(module, modulo, permission, checked)),
+    });
+  };
 
   return {
     onChangeModules,

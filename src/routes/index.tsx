@@ -1,10 +1,10 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import loadable from '@loadable/component';
-import DashboardLayout from '@/layouts/DashboardLayout';
-import LogoOnlyLayout from '@/layouts/LogoOnlyLayout';
-import PublicGuard from '@/guards/PublicGuard';
+import DashboardLayout from '../layouts/DashboardLayout';
+import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
+import PublicGuard from '../guards/PublicGuard';
 
-import LoadingScreen from '@/components/LoadingScreen';
+import LoadingScreen from '../components/LoadingScreen';
 
 const CrucesHome = loadable(() => import('@monorepo/cruces/app/page/Cruces'), {
   fallback: <LoadingScreen />,
@@ -46,11 +46,7 @@ const CompanyModule = loadable(() => import('@monorepo/managments/modules/compan
   fallback: <LoadingScreen />,
 });
 
-const CompanyDetail = loadable(() => import('@monorepo/managments/modules/companies/Detail'), {
-  fallback: <LoadingScreen />,
-});
-
-const CompanyUpdate = loadable(() => import('@monorepo/managments/modules/companies/Detail'), {
+const CompanyForm = loadable(() => import('@monorepo/managments/modules/companies/components/form/Form'), {
   fallback: <LoadingScreen />,
 });
 
@@ -58,18 +54,18 @@ const Headquarters = loadable(() => import('@monorepo/managments/modules/headqua
   fallback: <LoadingScreen />,
 });
 
-const Teams = loadable(() => import('@/pages/managments/teams'), {
+const Teams = loadable(() => import('../pages/managments/teams'), {
   fallback: <LoadingScreen />,
 });
 
-const Departments = loadable(() => import('@/pages/managments/departments'), {
+const Departments = loadable(() => import('../pages/managments/departments'), {
   fallback: <LoadingScreen />,
 });
 
-const AreasHome = loadable(() => import('@/pages/managments/areas'), {
+const AreasHome = loadable(() => import('../pages/managments/areas'), {
   fallback: <LoadingScreen />,
 });
- 
+
 const Rules = loadable(() => import('@monorepo/managments/modules/rules'), {
   fallback: <LoadingScreen />,
 });
@@ -82,7 +78,7 @@ const Roles = loadable(() => import('@monorepo/managments/modules/roles'), {
   fallback: <LoadingScreen />,
 });
 
-const Users = loadable(() => import('@/pages/managments/users'), {
+const Users = loadable(() => import('../pages/managments/users'), {
   fallback: <LoadingScreen />,
 });
 
@@ -104,7 +100,7 @@ const NotFound = loadable(() => import('../pages/NotFound'), {
 
 const SignIn = loadable(() => import('../pages/auth/pages/SignIn'), {
   fallback: <LoadingScreen />,
-})
+});
 
 export default function Router() {
   return useRoutes([
@@ -123,12 +119,12 @@ export default function Router() {
               <SignIn />
             </PublicGuard>
           ),
-        }
+        },
       ],
     },
     {
       path: 'g',
-      element: (<DashboardLayout/>),
+      element: (<DashboardLayout />),
       children: [
         { element: <Navigate to="/g/ops" replace />, index: true },
         {
@@ -172,7 +168,7 @@ export default function Router() {
         {
           path: '/ui/components',
           element: <SuiteUiComponents />,
-        }
+        },
       ],
     },
     {
@@ -183,11 +179,11 @@ export default function Router() {
         { path: 'company', element: <CompanyModule /> },
         {
           path: 'company/detail/:id',
-          element: <CompanyDetail />,
+          element: <CompanyForm />,
         },
         {
           path: 'company/update/:id',
-          element: <CompanyUpdate edit />,
+          element: <CompanyForm edit />,
         },
         { path: 'headquarters', element: <Headquarters /> },
         {
@@ -237,7 +233,7 @@ export default function Router() {
     },
     {
       path: 't',
-      element: (<DashboardLayout/>),
+      element: (<DashboardLayout />),
       children: [
         { element: <Navigate to="/t/operation/readyDocuments" replace />, index: true },
         {
@@ -252,7 +248,7 @@ export default function Router() {
     },
     {
       path: 'p',
-      element: (<DashboardLayout/>),
+      element: (<DashboardLayout />),
       children: [
         { element: <Navigate to="/p/pedimento" replace />, index: true },
         {

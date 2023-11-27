@@ -108,4 +108,4 @@ export const FIELD_FORM_EASY: any = { // TODO: se va a remover el form easy
     type: 'select',
     options: OPERATORS,
   },
-}
+};

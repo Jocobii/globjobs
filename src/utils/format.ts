@@ -1,4 +1,3 @@
-
 export const capitalizeFirstLetter = (word: string) => {
   const wordToLower = word.toLowerCase();
 
@@ -30,4 +29,3 @@ export const getCustomPropsFromError = (error: any) => {
     ...error.response.errors[0].extensions.exception.response,
   };
 };
-

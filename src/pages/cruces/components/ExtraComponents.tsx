@@ -1,4 +1,4 @@
-import { Stack, Tab, Tabs} from '@mui/material';
+import { Stack, Tab, Tabs } from '@mui/material';
 import { useState, SyntheticEvent } from 'react';
 import {
   PeopleAlt as PeopleAltIcon,
@@ -23,46 +23,46 @@ export function ExtraComponents({ actionFunction }: Toolbar) {
   };
 
   return (
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        spacing={2}
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      spacing={2}
+    >
+      <Tabs
+        value={tabIndex}
+        onChange={handleTabChange}
+        TabIndicatorProps={{
+          style: {
+            backgroundColor: 'blue',
+            visibility: 'hidden',
+          },
+        }}
       >
-        <Tabs
-          value={tabIndex}
-          onChange={handleTabChange}
-          TabIndicatorProps={{
-            style: {
-              backgroundColor: 'blue',
-              visibility: 'hidden',
-            },
+        <Tab
+          icon={<PeopleAltIcon />}
+          label="Operaciones del equipo"
+          value="operaciones-equipo"
+          sx={{
+            borderRadius: '80px 0px 0px 80px',
+            padding: '10px',
+            border: '1px solid #9CC7F3',
+            borderRightColor: 'transparent',
+            marginRight: '0px !important',
           }}
-        >
-          <Tab
-            icon={<PeopleAltIcon />}
-            label="Operaciones del equipo"
-            value="operaciones-equipo"
-            sx={{
-              borderRadius: '80px 0px 0px 80px',
-              padding: '10px',
-              border: '1px solid #9CC7F3',
-              borderRightColor: 'transparent',
-              marginRight: '0px !important',
-            }}
-          />
-          <Tab
-            icon={<PersonIcon />}
-            label="Mis Operaciones"
-            value="mis-operaciones"
-            sx={{
-              borderRadius: '0px 80px 80px 0px',
-              padding: '10px',
-              border: '1px solid #9CC7F3',
-              borderLeftColor: 'transparent',
-            }}
-          />
-        </Tabs>
-      </Stack>
+        />
+        <Tab
+          icon={<PersonIcon />}
+          label="Mis Operaciones"
+          value="mis-operaciones"
+          sx={{
+            borderRadius: '0px 80px 80px 0px',
+            padding: '10px',
+            border: '1px solid #9CC7F3',
+            borderLeftColor: 'transparent',
+          }}
+        />
+      </Tabs>
+    </Stack>
   );
 }

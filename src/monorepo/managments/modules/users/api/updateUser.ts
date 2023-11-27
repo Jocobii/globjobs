@@ -7,6 +7,7 @@ import { MutationConfig, queryClient } from '@gsuite/shared/lib/react-query';
 import { getCustomPropsFromError } from '@gsuite/shared/utils';
 
 import { User } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export type UpdateUserDto = {
   data: Partial<User>;

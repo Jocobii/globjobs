@@ -1,5 +1,5 @@
 import CryptoJS from 'crypto-js';
-import { base64Encode } from '@/utils/base64';
+import { base64Encode } from './base64';
 
 interface Details {
   expiryDate: Date,

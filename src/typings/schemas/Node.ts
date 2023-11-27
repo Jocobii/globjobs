@@ -44,4 +44,4 @@ export const nodeSchema = z.object({
   data: DataNode.optional(),
 });
 
-export type NodeModel = z.infer<typeof nodeSchema>
+export type NodeModel = z.infer<typeof nodeSchema>;

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { Autocomplete, TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import ClearIcon from '@mui/icons-material/Clear';

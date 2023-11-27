@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import {
   useState,
   Suspense,
@@ -35,11 +34,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 
-import { DataGrid } from '@/components/datagrid';
-import { Conditional } from '@/components';
 import {
   DataGrid as DataGridMinimal,
 } from '@gsuite/shared/ui';
+import { DataGrid } from '@/components/datagrid';
+import { Conditional } from '@/components';
 import { CLIENT_ROLE } from '@/routes/paths';
 
 import EnableOrDisabledModal from './components/EnableOrDisabledModal';

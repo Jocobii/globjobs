@@ -47,7 +47,7 @@ export const useCompanyList = () => {
     refetch: refetchData,
   } = useQuery(PAGINATE_COMPANY, {
     variables: {
-      filter: variables['filter'] || {},
+      filter: variables.filter || {},
       pageSize,
       page,
     },
@@ -57,7 +57,7 @@ export const useCompanyList = () => {
     fetchMore({
       query: PAGINATE_COMPANY,
       variables: {
-        filter: variables['filter'] || {},
+        filter: variables.filter || {},
         pageSize,
         page,
       },
@@ -72,7 +72,7 @@ export const useCompanyList = () => {
     fetchMore({
       query: PAGINATE_COMPANY,
       variables: {
-        filter: variables['filter'] || {},
+        filter: variables.filter || {},
         pageSize,
         page,
       },

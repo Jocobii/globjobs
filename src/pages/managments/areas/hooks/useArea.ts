@@ -11,7 +11,7 @@ export const useArea = () => {
   const handleDrawer = () => setOpenDrawer(!openDrawer);
   const handleEditDrawerClose = () => {
     setAreaId('');
-    handleDrawer()
+    handleDrawer();
   };
   const { mutateAsync } = useDeleteArea();
 
@@ -35,5 +35,5 @@ export const useArea = () => {
     openDrawer,
     query,
     handleDataGridEvents,
-  }
+  };
 };

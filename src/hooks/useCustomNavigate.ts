@@ -1,7 +1,7 @@
-import { useNavigate, redirect } from "react-router-dom"
+import { useNavigate, redirect } from 'react-router-dom';
 
 export function useCustomNavigate() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const goTo = (path: string) => navigate(path);
 
@@ -10,5 +10,5 @@ export function useCustomNavigate() {
   return {
     goTo,
     reDirect,
-  }
+  };
 }

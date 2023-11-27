@@ -2,6 +2,7 @@ import { gql, request } from 'graphql-request';
 import { useQuery } from '@tanstack/react-query';
 
 import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 const getModuleDocument = gql`
   query module($id: String!) {

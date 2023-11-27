@@ -152,7 +152,7 @@ const useCruce = () => {
 
     if (typeValue !== Number(type)) errors.push(`El tipo de operacion seleccionado no corresponde con el de TXT ${file.name}`);
 
-    if (formValues['clientNumber'] !== numeroCliente) errors.push(`El numero de cliente no corresponde con el de TXT ${file.name}`);
+    if (formValues.clientNumber !== numeroCliente) errors.push(`El numero de cliente no corresponde con el de TXT ${file.name}`);
 
     return errors;
   };
@@ -195,7 +195,7 @@ const useCruce = () => {
       const type = section501?.split('|')[TXT['501'].TIPO] ?? '';
       const clavePedimento = section501?.split('|')[TXT['501'].CLAVE] ?? '';
       const numeroCliente = section501?.split('|')[TXT['501'].CLIENTE_NUMBER] ?? '';
-      const typeValue = formValues['type'] === 'Importacion' ? 1 : 2;
+      const typeValue = formValues.type === 'Importacion' ? 1 : 2;
       const txtValues = {
         typeValue, numeroCliente, type,
       };
@@ -304,7 +304,7 @@ const useCruce = () => {
         patente,
         factura: invoice,
         clientNumber,
-        clavePedimento: v.data?.extraData ? v?.data?.extraData['clavePedimento'] : '',
+        clavePedimento: v.data?.extraData ? v?.data?.extraData.clavePedimento : '',
         type: type === 'Importacion' ? '1' : '2',
       };
     });

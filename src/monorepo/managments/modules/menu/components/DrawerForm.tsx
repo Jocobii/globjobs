@@ -18,21 +18,22 @@ export default function DrawerForm({ open, onClose, rowId = undefined }: Props) 
   const isUpdate = rowId && rowId !== 'create';
 
   const handleSubmit = (data: Menu) => {
-
     if (isUpdate) {
       updateMenu({ data, menuId: rowId });
     }
 
     if (!isUpdate) {
-      createMenu({ variables: {
-        name: data.name,
-        icon: data.icon,
-        modules: data.modules.map((m) => m.id),
-        environment: data.environment,
-      } });
+      createMenu({
+        variables: {
+          name: data.name,
+          icon: data.icon,
+          modules: data.modules.map((m) => m.id),
+          environment: data.environment,
+        },
+      });
     }
     onClose();
-  }
+  };
 
   return (
     <Dialogeazy

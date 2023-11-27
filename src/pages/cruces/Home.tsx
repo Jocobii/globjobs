@@ -8,7 +8,7 @@ const Table = loadable(() => import('./components/Table'), {
 function Home() {
   return (
     <Table />
-  )
+  );
 }
 
 export default Home;

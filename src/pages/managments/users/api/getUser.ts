@@ -179,10 +179,10 @@ const getUserDocument = gql`
 
 export const getUserQuery = async (id?: string) => graphqlGatewayClient
   .request<Response>(
-    getUserDocument, 
-    { id },
-  )
-    .then((res) => res.user);
+  getUserDocument,
+  { id },
+)
+  .then((res) => res.user);
 
 type QueryFnType = typeof getUserQuery;
 type UseUserOptions = {

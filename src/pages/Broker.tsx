@@ -73,17 +73,17 @@ export function Gops() {
 
 function App() {
   return (
-      <DataProvider>
-        <ThemeProvider>
-          <NotificationsProvider>
-            <PageContent>
-              <Container maxWidth={false}>
-                <Gops />
-              </Container>
-            </PageContent>
-          </NotificationsProvider>
-        </ThemeProvider>
-      </DataProvider>
+    <DataProvider>
+      <ThemeProvider>
+        <NotificationsProvider>
+          <PageContent>
+            <Container maxWidth={false}>
+              <Gops />
+            </Container>
+          </PageContent>
+        </NotificationsProvider>
+      </ThemeProvider>
+    </DataProvider>
   );
 }
 

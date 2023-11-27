@@ -3,6 +3,7 @@ import { request, gql } from 'graphql-request';
 
 import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
 import { PaginateRules } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 
 type Response = {

@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
-import { Grid, Stack, Chip, useTheme } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
+import {
+  Grid, Stack, Chip, useTheme,
+} from '@mui/material';
 import {
   DataGrid,
   GridToolbarContainer,
@@ -14,11 +15,11 @@ import {
   GridRowParams,
   GridRenderCellParams,
   GridValidRowModel,
-} from "@mui/x-data-grid";
-import { useTranslation } from "react-i18next";
-import { CheckCircle } from "@mui/icons-material";
+} from '@mui/x-data-grid';
+import { useTranslation } from 'react-i18next';
+import { CheckCircle } from '@mui/icons-material';
 
-import { filterOption } from "@/utils/datagrid";
+import { filterOption } from '@/utils/datagrid';
 
 export type PaginationOperations = {
   operations: {
@@ -48,7 +49,7 @@ export type Rows = {
   history: [
     {
       userName: string;
-    }
+    },
   ];
   transportationDate: string;
   receiptUsaDate: string;
@@ -84,10 +85,9 @@ function CustomToolbar({ color }: ToolbarProps) {
   );
 }
 
-const parseDate = (value?: string) =>
-  value ? dayjs(value).format("DD/MM/YYYY HH:mm:ss") : "N/A";
+const parseDate = (value?: string) => (value ? dayjs(value).format('DD/MM/YYYY HH:mm:ss') : 'N/A');
 
-export const mode = "server";
+export const mode = 'server';
 
 export default function Table({
   data,
@@ -99,63 +99,61 @@ export default function Table({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const theme = useTheme();
-  const color = theme.palette.mode === "light" ? "#000" : "#fff";
+  const color = theme.palette.mode === 'light' ? '#000' : '#fff';
 
   const columns: GridColumns<GridValueGetterParams<Rows>> = [
     {
-      headerName: t("broker.table.aggregator"),
+      headerName: t('broker.table.aggregator'),
       width: 50,
-      field: "gopsReferences",
+      field: 'gopsReferences',
       renderCell: (
         params: GridRenderCellParams<
-          GridValueGetterParams<Rows>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<Rows>,
+        GridValidRowModel
+        >,
       ) => {
         const { row } = params;
-        if (row["gopsReferences"] && row["gopsReferences"].length)
-          return <CheckCircle color="success" />;
+        if (row.gopsReferences && row.gopsReferences.length) return <CheckCircle color="success" />;
         return null;
       },
       valueGetter: (
         params: GridRenderCellParams<
-          GridValueGetterParams<Rows>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<Rows>,
+        GridValidRowModel
+        >,
       ) => {
         const { row } = params;
-        if (row["gopsReferences"] && row["gopsReferences"].length)
-          return "Agrupador";
-        return "";
+        if (row.gopsReferences && row.gopsReferences.length) return 'Agrupador';
+        return '';
       },
     },
     {
-      headerName: t("broker.table.number"),
+      headerName: t('broker.table.number'),
       width: 200,
-      field: "number",
+      field: 'number',
       valueGetter: (params: GridValueGetterParams<Rows>) => {
         const { value } = params;
-        return value || "N/A";
+        return value || 'N/A';
       },
     },
     {
-      headerName: t("broker.table.client"),
+      headerName: t('broker.table.client'),
       width: 200,
-      field: "client",
+      field: 'client',
       valueGetter: (params: GridValueGetterParams<Rows>) => {
         const { value } = params;
-        return value || "N/A";
+        return value || 'N/A';
       },
     },
     {
-      headerName: t("broker.table.completed"),
+      headerName: t('broker.table.completed'),
       width: 200,
-      field: "completed",
+      field: 'completed',
       renderCell: (
         params: GridRenderCellParams<
-          GridValueGetterParams<boolean>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<boolean>,
+        GridValidRowModel
+        >,
       ) => {
         const { row } = params;
         const { completed: value, isCanceled } = row;
@@ -163,193 +161,186 @@ export default function Table({
         return (
           <Chip
             sx={{ fontWeight: 600 }}
-            color={value ? "success" : "warning"}
-            label={value ? "Completed" : "In Progress"}
+            color={value ? 'success' : 'warning'}
+            label={value ? 'Completed' : 'In Progress'}
           />
         );
       },
       valueGetter: (
         params: GridRenderCellParams<
-          GridValueGetterParams<boolean>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<boolean>,
+        GridValidRowModel
+        >,
       ) => {
         const { value } = params;
-        return value ? "Completed" : "In Progress";
+        return value ? 'Completed' : 'In Progress';
       },
     },
     {
-      headerName: t("broker.table.createBy"),
+      headerName: t('broker.table.createBy'),
       width: 200,
-      field: "history1",
+      field: 'history1',
       renderCell: (
         params: GridRenderCellParams<
-          GridValueGetterParams<Rows>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<Rows>,
+        GridValidRowModel
+        >,
       ) => {
         const { row } = params;
         const { history } = row;
         if (history && Array.isArray(history) && history.length > 0) {
-          return history[0]?.userName || "N/A";
+          return history[0]?.userName || 'N/A';
         }
-        return "N/A";
+        return 'N/A';
       },
       valueGetter: (
         params: GridRenderCellParams<
-          GridValueGetterParams<Rows>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<Rows>,
+        GridValidRowModel
+        >,
       ) => {
         const { row } = params;
         const { history } = row;
         if (history && Array.isArray(history) && history.length > 0) {
-          return history[0]?.userName || "N/A";
+          return history[0]?.userName || 'N/A';
         }
-        return "N/A";
+        return 'N/A';
       },
     },
     {
-      headerName: t("broker.table.updateBy"),
+      headerName: t('broker.table.updateBy'),
       width: 200,
-      field: "history",
+      field: 'history',
       renderCell: (
         params: GridRenderCellParams<
-          GridValueGetterParams<Rows>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<Rows>,
+        GridValidRowModel
+        >,
       ) => {
         const { row } = params;
         const { history: value, canceledBy } = row;
-        if (canceledBy) return canceledBy ?? "N/A";
+        if (canceledBy) return canceledBy ?? 'N/A';
         if (value && Array.isArray(value) && value.length > 0) {
           const copyHistory = [...value];
           const lastHistory = copyHistory.pop();
-          return lastHistory?.userName || "N/A";
+          return lastHistory?.userName || 'N/A';
         }
-        return "N/A";
+        return 'N/A';
       },
       valueGetter: (
         params: GridRenderCellParams<
-          GridValueGetterParams<Rows>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<Rows>,
+        GridValidRowModel
+        >,
       ) => {
         const { value } = params;
         if (value && Array.isArray(value) && value.length > 0) {
           const copyHistory = [...value];
           const lastHistory = copyHistory.pop();
-          return lastHistory?.userName || "N/A";
+          return lastHistory?.userName || 'N/A';
         }
-        return "N/A";
+        return 'N/A';
       },
     },
     {
-      headerName: t("broker.table.notificationDate"),
+      headerName: t('broker.table.notificationDate'),
       width: 200,
-      field: "notificationDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'notificationDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.expectedArrivalDate"),
+      headerName: t('broker.table.expectedArrivalDate'),
       minWidth: 200,
       maxWidth: 400,
-      field: "expectedArrivalDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'expectedArrivalDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.releaseUsaDate"),
+      headerName: t('broker.table.releaseUsaDate'),
       width: 200,
-      field: "releaseUsaDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'releaseUsaDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.transportationDate"),
+      headerName: t('broker.table.transportationDate'),
       width: 200,
-      field: "transportationDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'transportationDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.receiptUsaDate"),
+      headerName: t('broker.table.receiptUsaDate'),
       width: 200,
-      field: "receiptUsaDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'receiptUsaDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.importMxDate"),
+      headerName: t('broker.table.importMxDate'),
       width: 200,
-      field: "importMxDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'importMxDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.borderCrossingDate"),
+      headerName: t('broker.table.borderCrossingDate'),
       width: 200,
-      field: "borderCrossingDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'borderCrossingDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.warehouseMexDate"),
+      headerName: t('broker.table.warehouseMexDate'),
       width: 200,
-      field: "warehouseMexDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'warehouseMexDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.completedDate"),
+      headerName: t('broker.table.completedDate'),
       width: 200,
-      field: "completedDate",
-      valueGetter: ({ value }: GridValueGetterParams<string>) =>
-        parseDate(value),
+      field: 'completedDate',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
-      headerName: t("broker.table.timeElapsedTotal"),
+      headerName: t('broker.table.timeElapsedTotal'),
       width: 200,
-      field: "timeElapsedTotal",
-      valueGetter: ({ value }: GridValueGetterParams<string>) => value || "N/A",
+      field: 'timeElapsedTotal',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => value || 'N/A',
     },
     {
-      headerName: t("broker.table.aggregator"),
+      headerName: t('broker.table.aggregator'),
       width: 500,
-      field: "gopsReferencesSplitted",
+      field: 'gopsReferencesSplitted',
       renderCell: (
         params: GridRenderCellParams<
-          GridValueGetterParams<Rows>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<Rows>,
+        GridValidRowModel
+        >,
       ) => {
         const { row } = params;
-        if (row["gopsReferences"] && row["gopsReferences"].length)
-          return row["gopsReferences"]
+        if (row.gopsReferences && row.gopsReferences.length) {
+          return row.gopsReferences
             .map((gop: Operations) => gop.number)
-            .join(" | ");
+            .join(' | ');
+        }
         return null;
       },
       valueGetter: (
         params: GridRenderCellParams<
-          GridValueGetterParams<Rows>,
-          GridValidRowModel
-        >
+        GridValueGetterParams<Rows>,
+        GridValidRowModel
+        >,
       ) => {
         const { row } = params;
-        if (row["gopsReferences"] && row["gopsReferences"].length)
-          return row["gopsReferences"]
+        if (row.gopsReferences && row.gopsReferences.length) {
+          return row.gopsReferences
             .map((gop: Operations) => gop.number)
-            .join(" | ");
-        return "";
+            .join(' | ');
+        }
+        return '';
       },
     },
     {
-      headerName: "Motivo de la cancelación",
+      headerName: 'Motivo de la cancelación',
       width: 200,
-      field: "cancellationReason",
-      valueGetter: ({ value }: GridValueGetterParams<string>) => value || "",
+      field: 'cancellationReason',
+      valueGetter: ({ value }: GridValueGetterParams<string>) => value || '',
     },
   ];
   const eventManager = (options: any) => {
@@ -379,8 +370,7 @@ export default function Table({
           onRowDoubleClick={(params: GridRowParams) => {
             const { row } = params;
             if (row?.isCanceled) return;
-            if (!row.gopsReferences.length)
-              navigate(`/g/ops/detail/${params.id}`);
+            if (!row.gopsReferences.length) navigate(`/g/ops/detail/${params.id}`);
           }}
           pageSize={data?.operations?.pageSize || 20}
           rowsPerPageOptions={[20, 50, 100, 500]}

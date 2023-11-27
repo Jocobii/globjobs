@@ -5,10 +5,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
-  Stack, 
-  Alert, 
-  TextField, 
-  IconButton, 
+  Stack,
+  Alert,
+  TextField,
+  IconButton,
   InputAdornment,
   TextFieldProps,
 } from '@mui/material';
@@ -17,7 +17,7 @@ import { LoadingButton } from '@mui/lab';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import useAuthentication from '@/hooks/useAuthentication';
+import useAuthentication from '../hooks/useAuthentication';
 import { SignInFormValues } from '../typings/auth';
 import { hashPassword } from '../utils/hasher';
 
@@ -41,7 +41,7 @@ const StyledTextField = styled(TextField)<TextFieldProps>(({ theme }) => ({
     '&:hover fieldset': {
       borderColor: theme.palette.error.main,
     },
-  }
+  },
 }));
 
 export default function SignInForm() {

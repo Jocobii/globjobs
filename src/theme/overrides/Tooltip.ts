@@ -1,4 +1,4 @@
-import { CustomTheme } from '@/typings/theme';
+import { CustomTheme } from '../../typings/theme';
 
 export default function Tooltip(theme: CustomTheme) {
   const isLight = theme.palette.mode === 'light';

@@ -5,6 +5,7 @@ import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query
 import { PaginatedResponse } from '@gsuite/typings/table';
 
 import { Module } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 const modulesDocument = gql`
   query PaginateModules($pagination: PaginationDtoInput) {

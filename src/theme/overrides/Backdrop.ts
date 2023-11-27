@@ -1,6 +1,6 @@
 import { alpha } from '@mui/material/styles';
 
-import { CustomTheme } from '@/typings/theme';
+import { CustomTheme } from '../../typings/theme';
 
 export default function Backdrop(theme: CustomTheme) {
   const varLow = alpha(theme.palette.grey[900], 0.48);

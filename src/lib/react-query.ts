@@ -1,5 +1,5 @@
 // Si lo ves, haste el 👨‍🦯
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { AxiosError } from 'axios';
 import {
   QueryClient,

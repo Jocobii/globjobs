@@ -15,7 +15,6 @@ import {
   MenuItem,
 } from '@mui/material';
 import {
-  GridColumns,
   DataGridProProps,
   GridRowParams,
   GridFilterInputValueProps,
@@ -32,14 +31,14 @@ import { DataGrid } from '@gsuite/ui/DataGrid';
 import LoadingBackdrop from '@gsuite/ui/LoadingBackdrop';
 import Conditional from '@gsuite/ui/Conditional';
 
-import { useGetUser } from '../users/api/getUser';
-import { useGetCompanies } from './api/getCompanies';
-import SelectCompany from './components/SelectCompany';
-import DetailPanel from './components/DetailPanel';
-import { Company, Rows } from './types';
-import { AutoComplete } from '../users/CustomerUserForm';
+import { useGetUser } from '../../users/api/getUser';
+import { useGetCompanies } from '../api/getCompanies';
+import SelectCompany from './SelectCompany';
+import DetailPanel from './DetailPanel';
+import { Company, Rows } from '../types';
+import { AutoComplete } from '../../users/CustomerUserForm';
 
-const CustomerUser = loadable(() => import('../users/CustomerUserForm'), { fallback: <h3>Loading...</h3> });
+const CustomerUser = loadable(() => import('../../users/CustomerUserForm'), { fallback: <h3>Loading...</h3> });
 
 type EditCustomer = {
   open: boolean;
@@ -150,89 +149,6 @@ export default function List() {
     );
   }, []);
 
-  const columns: GridColumns = [
-    {
-      field: 'name',
-      headerName: 'Empresa',
-      width: 200,
-    },
-    {
-      field: 'active',
-      headerName: 'Estatus',
-      width: 200,
-      sortable: false,
-      filterOperators: [
-        {
-          label: 'Equals',
-          value: 'Equals',
-          getApplyFilterFn: (filterValue: any) => (params: any) => params
-            .value.toLowerCase().includes(String(filterValue).toLowerCase()),
-          InputComponent,
-        },
-      ],
-      renderCell: (params) => {
-        const { value } = params;
-        return (
-          <Chip
-            sx={{
-              fontWeight: 'bold',
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: value ? 'success' : 'error',
-            }}
-            variant="outlined"
-            color={value ? 'success' : 'error'}
-            label={value ? 'Active' : 'Inactive'}
-          />
-        );
-      },
-    },
-    {
-      field: 'rfc',
-      headerName: 'RFC',
-      width: 200,
-    },
-    {
-      field: 'number',
-      headerName: 'Clave',
-      width: 200,
-    },
-    {
-      field: 'users',
-      headerName: 'Usuarios',
-      width: 200,
-      filterable: false,
-      renderCell: (params) => {
-        const { value } = params;
-        return (value && value.length) || 0;
-      },
-    },
-    {
-      field: 'team.name',
-      headerName: 'Equipo',
-      width: 200,
-      valueGetter: ({ row }) => get(row, 'team.name', 'N/A'),
-    },
-    {
-      field: 'actions',
-      headerName: 'Acciones',
-      width: 200,
-      filterable: false,
-      sortable: false,
-      renderCell: ({ row }) => (
-        <Stack direction="row" spacing={1}>
-          <IconButton
-            aria-label="editar"
-            color="primary"
-            onClick={() => handleUpdate(get(row, 'number'))}
-          >
-            <EditIcon />
-          </IconButton>
-        </Stack>
-      ),
-    },
-  ];
-
   return (
     <Suspense fallback={<LoadingBackdrop />}>
       <Conditional
@@ -280,9 +196,90 @@ export default function List() {
           loading={query.isLoading || query.isFetching}
           getRowId={({ id }) => id}
           pinnedColumns={{ right: ['actions'] }}
-          columns={columns}
+          columns={[
+            {
+              field: 'name',
+              headerName: 'Empresa',
+              width: 200,
+            },
+            {
+              field: 'active',
+              headerName: 'Estatus',
+              width: 200,
+              sortable: false,
+              filterOperators: [
+                {
+                  label: 'Equals',
+                  value: 'Equals',
+                  getApplyFilterFn: (filterValue: unknown) => (params: any) => params
+                    .value.toLowerCase().includes(String(filterValue).toLowerCase()),
+                  InputComponent,
+                },
+              ],
+              renderCell: (params) => {
+                const { value } = params;
+                return (
+                  <Chip
+                    sx={{
+                      fontWeight: 'bold',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: value ? 'success' : 'error',
+                    }}
+                    variant="outlined"
+                    color={value ? 'success' : 'error'}
+                    label={value ? 'Active' : 'Inactive'}
+                  />
+                );
+              },
+            },
+            {
+              field: 'rfc',
+              headerName: 'RFC',
+              width: 200,
+            },
+            {
+              field: 'number',
+              headerName: 'Clave',
+              width: 200,
+            },
+            {
+              field: 'users',
+              headerName: 'Usuarios',
+              width: 200,
+              filterable: false,
+              renderCell: (params) => {
+                const { value } = params;
+                return (value && value.length) || 0;
+              },
+            },
+            {
+              field: 'team.name',
+              headerName: 'Equipo',
+              width: 200,
+              valueGetter: ({ row }) => get(row, 'team.name', 'N/A'),
+            },
+            {
+              field: 'actions',
+              headerName: 'Acciones',
+              width: 200,
+              filterable: false,
+              sortable: false,
+              renderCell: ({ row }) => (
+                <Stack direction="row" spacing={1}>
+                  <IconButton
+                    aria-label="editar"
+                    color="primary"
+                    onClick={() => handleUpdate(get(row, 'number'))}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </Stack>
+              ),
+            },
+          ]}
           onClearConfig={() => setVariables({})}
-          rows={query.data?.rows || []}
+          rows={query.data?.rows ?? []}
           actions={[
             <IconButton key="more-id" size="large" onClick={handleRefresh} disabled={query.isFetching}>
               <CachedIcon width={20} height={20} />

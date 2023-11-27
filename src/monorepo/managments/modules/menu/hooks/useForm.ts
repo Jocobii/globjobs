@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 import { useRestfulEnvironments } from '../../modules/api/getEnvironments';
 import { useRestfulModules } from '../../modules/api/getModulesRestful';
-import { Module } from "../types";
+import { Module } from '../types';
 
 type Environment = {
   id: string;
@@ -27,10 +27,9 @@ export function useForm() {
   };
 
   const changeModule = (modules: Partial<Module[]>) => {
-    setNameFieldVisible(modules.length > 1)
+    setNameFieldVisible(modules.length > 1);
     setEnvironmentDisabled(!!modules.length);
   };
-
 
   return {
     nameVisible,

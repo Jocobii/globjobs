@@ -2,7 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 import { useTranslation } from 'react-i18next';
 
-
 import { MutationConfig, queryClient } from '@/lib/react-query';
 import { getCustomPropsFromError } from '@/utils';
 import { graphqlGatewayClient } from '@/clients';

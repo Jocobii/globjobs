@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ExtractFnReturnType, QueryConfig } from '@gsuite/shared/lib/react-query';
 
 import { Area } from '../types';
+
 const { VITE_GATEWAY_URI } = import.meta.env;
 export type RestfulAreasResponse = {
   areaRestful: Array<Partial<Area>>,

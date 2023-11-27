@@ -15,12 +15,12 @@ export default function useAuthentication() {
   const navigate = useNavigate();
   const { mutateAsync: googleLoginMutateAsync } = useGoogleLogin();
   const { mutateAsync: emailLoginMutateAsync } = useLoginUser();
-  const { 
-    setErrorMessage, 
-    logIn, 
-    errorMessage, 
-    user, 
-    isAuthenticated, 
+  const {
+    setErrorMessage,
+    logIn,
+    errorMessage,
+    user,
+    isAuthenticated,
     accessToken,
     logOut,
   } = useAuthStore();
@@ -29,7 +29,7 @@ export default function useAuthentication() {
     try {
       setIsLoading(true);
       const firebaseAuthResponse = await loginWithGoogle();
-      
+
       if (!firebaseAuthResponse || Object.keys(firebaseAuthResponse).length < 1) {
         throw new Error('Something went wrong while trying to authenticate with Google');
       }
@@ -38,17 +38,17 @@ export default function useAuthentication() {
       const emailAddress = get(user, 'email', '');
       const isVerified = get(user, 'emailVerified', false);
       const photoUrl = get(user, 'reloadUserInfo.providerUserInfo[0].photoUrl', '');
-      
+
       if (!emailAddress || !isVerified) throw new Error('User not verified on google');
 
       const response = await googleLoginMutateAsync({ data: { emailAddress } }).catch();
-      
+
       logIn({ ...response.user, photoUrl }, response.access_token);
       setIsLoading(false);
       navigate('/g/ops');
     } catch (err) {
       let message = 'Something went wrong';
-      
+
       if (err instanceof Error) message = err?.message;
       if (err instanceof ClientError) message = get(err, 'response.errors[0].message', 'Something went wrong');
 
@@ -75,7 +75,7 @@ export default function useAuthentication() {
       navigate('/g/ops');
     } catch (err) {
       let message = 'Something went wrong';
-      
+
       if (err instanceof Error) message = err?.message;
       if (err instanceof ClientError) message = get(err, 'response.errors[0].message', 'Something went wrong');
 
@@ -96,8 +96,8 @@ export default function useAuthentication() {
     handleGoogleLogin,
     isLoading,
     errorMessage,
-    user, 
-    isAuthenticated, 
+    user,
+    isAuthenticated,
     accessToken,
   };
 }

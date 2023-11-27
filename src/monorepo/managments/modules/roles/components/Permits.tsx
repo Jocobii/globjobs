@@ -1,4 +1,6 @@
-import { Accordion, AccordionSummary, FormControlLabel, Checkbox, AccordionDetails, FormGroup, Stack, Box } from '@mui/material';
+import {
+  Accordion, AccordionSummary, FormControlLabel, Checkbox, AccordionDetails, FormGroup, Stack, Box,
+} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 type permissions = {
@@ -25,16 +27,18 @@ export default function Permits({
 }: Props) {
   const hasPermissions = permissions.length > 0;
 
-  if (!hasPermissions) return (
-    <Stack direction="row" spacing={1}>
-      <FormControlLabel
-        key={`parent-${name}`}
-        label={name}
-        control={<Checkbox checked={checked} id={keyName} />}
-        onChange={onChange}
-      />
-    </Stack>
-  );
+  if (!hasPermissions) {
+    return (
+      <Stack direction="row" spacing={1}>
+        <FormControlLabel
+          key={`parent-${name}`}
+          label={name}
+          control={<Checkbox checked={checked} id={keyName} />}
+          onChange={onChange}
+        />
+      </Stack>
+    );
+  }
 
   return (
     <Accordion>
@@ -70,7 +74,7 @@ export default function Permits({
                 <FormControlLabel
                   key={permission}
                   label={permission}
-                  control={<Checkbox checked={checked} id={`${keyName}-${permission}`}/>}
+                  control={<Checkbox checked={checked} id={`${keyName}-${permission}`} />}
                   onChange={onChange}
                 />
               ))}

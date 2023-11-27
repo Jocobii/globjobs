@@ -11,7 +11,7 @@ export default function PublicGuard({ children, redirectTo = '/g/ops' }: PublicG
   const { isAuthenticated, accessToken } = useAuthentication();
 
   if (isAuthenticated && accessToken) {
-    return <Navigate to={redirectTo} />
+    return <Navigate to={redirectTo} />;
   }
 
   return (

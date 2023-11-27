@@ -46,8 +46,7 @@ export const deleteFromTeamMutationDocument = gql`
   }
 `;
 
-export const deleteUsersFromTeam = ({ ids, teamId }: DeleteUsersFromTeamDto,
-) => request<Response>(
+export const deleteUsersFromTeam = ({ ids, teamId }: DeleteUsersFromTeamDto) => request<Response>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   deleteFromTeamMutationDocument,
   {

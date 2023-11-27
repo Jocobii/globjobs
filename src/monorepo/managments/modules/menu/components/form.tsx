@@ -10,10 +10,10 @@ import { SubmitHandler, useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Scrollbar from '@gsuite/ui/Scrollbar';
 import { ControlledTextField, ControlledAutocomplete } from '@gsuite/shared/ui';
+import { useEffect } from 'react';
 import { useGetMenu } from '../api/getMenu';
 import { Menu, menuSchema, Options } from '../types';
 import { useForm as useForms } from '../hooks/useForm';
-import { useEffect } from 'react';
 
 type Props = {
   onSubmit: SubmitHandler<Menu>;
@@ -32,7 +32,6 @@ export default function Update({ rowId, onSubmit }: Props) {
     changeModule,
     modulesOptions,
   } = useForms();
-
 
   const {
     handleSubmit,
@@ -62,74 +61,74 @@ export default function Update({ rowId, onSubmit }: Props) {
       filterModules(data.environment);
     }
 
-    if(getValues('modules')) {
+    if (getValues('modules')) {
       changeModule(data.modules);
     }
   }, []);
 
   return (
     <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-    <Scrollbar>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={12}>
-          <Card sx={{ p: 3 }}>
-            <Stack spacing={3}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-                spacing={2}
-              >
-                <Typography variant="h4" gutterBottom>{t(`managements.menu.${data ? 'edit' : 'create'}`)}</Typography>
-              </Stack>
-              <ControlledAutocomplete
-                defaultValue={data?.environment}
-                errors={errors}
-                name="environment"
-                label={t('managements.environments.name')}
-                control={control}
-                options={environmentsData?.environmentsRestful || []}
-                key="environments-autocomplete"
-                optionLabel={(environmentValue: Options) => {
-                  if (environmentValue) {
-                    return environmentValue?.name;
-                  }
-                  return null;
-                }}
-                valueSerializer={(environmentValue: Options) => {
-                  if (environmentValue) {
-                    const { name, id } = environmentValue;
-                    return {
-                      name,
-                      id,
-                    };
-                  }
-                  return null;
-                }}
-                disabled={environmentFieldDisabled}
-              />
-              <ControlledAutocomplete
-                defaultValue={data?.modules}
-                multiple
-                errors={errors}
-                name="modules"
-                label={t('managements.modules.list')}
-                control={control}
-                options={modulesOptions.filter((m) => !m.toolbox)}
-                key="modules-autocomplete"
-                optionLabel={(actionValue: Options) => {
-                  if (actionValue) {
-                    return actionValue?.name;
-                  }
-                  return null;
-                }}
-                isOptionEqualToValue={
+      <Scrollbar>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={12}>
+            <Card sx={{ p: 3 }}>
+              <Stack spacing={3}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <Typography variant="h4" gutterBottom>{t(`managements.menu.${data ? 'edit' : 'create'}`)}</Typography>
+                </Stack>
+                <ControlledAutocomplete
+                  defaultValue={data?.environment}
+                  errors={errors}
+                  name="environment"
+                  label={t('managements.environments.name')}
+                  control={control}
+                  options={environmentsData?.environmentsRestful || []}
+                  key="environments-autocomplete"
+                  optionLabel={(environmentValue: Options) => {
+                    if (environmentValue) {
+                      return environmentValue?.name;
+                    }
+                    return null;
+                  }}
+                  valueSerializer={(environmentValue: Options) => {
+                    if (environmentValue) {
+                      const { name, id } = environmentValue;
+                      return {
+                        name,
+                        id,
+                      };
+                    }
+                    return null;
+                  }}
+                  disabled={environmentFieldDisabled}
+                />
+                <ControlledAutocomplete
+                  defaultValue={data?.modules}
+                  multiple
+                  errors={errors}
+                  name="modules"
+                  label={t('managements.modules.list')}
+                  control={control}
+                  options={modulesOptions.filter((m) => !m.toolbox)}
+                  key="modules-autocomplete"
+                  optionLabel={(actionValue: Options) => {
+                    if (actionValue) {
+                      return actionValue?.name;
+                    }
+                    return null;
+                  }}
+                  isOptionEqualToValue={
                   (option: Options, value: Options) => option.id === value.id
                 }
-                valueSerializer={(actionValue: Options[]) => actionValue}
-                disabled={modulesFieldDisabled}
-              />
-              {
+                  valueSerializer={(actionValue: Options[]) => actionValue}
+                  disabled={modulesFieldDisabled}
+                />
+                {
                 nameVisible && (
                   <ControlledTextField
                     errors={errors}
@@ -141,7 +140,7 @@ export default function Update({ rowId, onSubmit }: Props) {
                   />
                 )
               }
-              {
+                {
                 data && (
                   <ControlledTextField
                     errors={errors}
@@ -153,20 +152,20 @@ export default function Update({ rowId, onSubmit }: Props) {
                   />
                 )
               }
-              <ControlledTextField
-                errors={errors}
-                fieldName="icon"
-                inputType="text"
-                label={t('managements.menu.icon')}
-                register={register}
-                key="icon-field"
-              />
-              <Button type="submit" variant="contained" loading={isSubmitting}>Submit</Button>
-            </Stack>
-          </Card>
+                <ControlledTextField
+                  errors={errors}
+                  fieldName="icon"
+                  inputType="text"
+                  label={t('managements.menu.icon')}
+                  register={register}
+                  key="icon-field"
+                />
+                <Button type="submit" variant="contained" loading={isSubmitting}>Submit</Button>
+              </Stack>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </Scrollbar>
-  </form>
+      </Scrollbar>
+    </form>
   );
 }

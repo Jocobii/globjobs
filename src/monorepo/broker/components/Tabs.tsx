@@ -53,7 +53,7 @@ function TabsComponent({ referencesHistory = [] }: { referencesHistory?: Detail[
         {
           referencesHistory.map((form: Detail, index: number) => (
             <Tab
-            key={form.label}
+              key={form.label}
               label={t(`broker.steps.step${form.label}`)}
               id={`vertical-tab-${index}`}
             />
