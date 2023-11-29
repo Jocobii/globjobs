@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import get from 'lodash/get';
 import { ClientError } from 'graphql-request';
 
-import { useAuthStore } from '@/stores/authStore';
-import { useGoogleLogin } from '@/services/googleLogin';
-import { useLoginUser } from '@/services/login';
-import { loginWithGoogle } from '@/lib/firebase';
-import { ENVIRONMENTS_SUITE } from '@/seeders';
+import { useAuthStore } from '../stores/authStore';
+import { useGoogleLogin } from '../services/googleLogin';
+import { useLoginUser } from '../services/login';
+import { loginWithGoogle } from '../lib/firebase';
+import { ENVIRONMENTS_SUITE } from '../seeders';
+
+const SOMETHING = 'Something went wrong';
 
 export default function useAuthentication() {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +36,10 @@ export default function useAuthentication() {
         throw new Error('Something went wrong while trying to authenticate with Google');
       }
 
-      const { user } = firebaseAuthResponse;
-      const emailAddress = get(user, 'email', '');
-      const isVerified = get(user, 'emailVerified', false);
-      const photoUrl = get(user, 'reloadUserInfo.providerUserInfo[0].photoUrl', '');
+      const { user: firebaseUser } = firebaseAuthResponse;
+      const emailAddress = get(firebaseUser, 'email', '');
+      const isVerified = get(firebaseUser, 'emailVerified', false);
+      const photoUrl = get(firebaseUser, 'reloadUserInfo.providerUserInfo[0].photoUrl', '');
 
       if (!emailAddress || !isVerified) throw new Error('User not verified on google');
 
@@ -47,10 +49,10 @@ export default function useAuthentication() {
       setIsLoading(false);
       navigate('/g/ops');
     } catch (err) {
-      let message = 'Something went wrong';
+      let message = SOMETHING;
 
       if (err instanceof Error) message = err?.message;
-      if (err instanceof ClientError) message = get(err, 'response.errors[0].message', 'Something went wrong');
+      if (err instanceof ClientError) message = get(err, 'response.errors[0].message', SOMETHING);
 
       setErrorMessage(message);
     } finally {
@@ -74,10 +76,10 @@ export default function useAuthentication() {
       setIsLoading(false);
       navigate('/g/ops');
     } catch (err) {
-      let message = 'Something went wrong';
+      let message = SOMETHING;
 
       if (err instanceof Error) message = err?.message;
-      if (err instanceof ClientError) message = get(err, 'response.errors[0].message', 'Something went wrong');
+      if (err instanceof ClientError) message = get(err, 'response.errors[0].message', SOMETHING);
 
       setErrorMessage(message);
     } finally {

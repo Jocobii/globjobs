@@ -18,7 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm, FieldValues } from 'react-hook-form';
 import dayjs from 'dayjs';
 import isBoolean from 'lodash/isBoolean';
-import { useSnackNotification } from '@/hooks';
+import { useSnackNotification } from '../../../hooks';
 
 import GeneralInfo, {
   formSchema as generalInfoSchema,

@@ -1,10 +1,8 @@
 import { SnackbarProvider } from 'notistack';
-import ThemeProvider from '@gsuite/shared/theme';
-import ReactQuery from '@gsuite/shared/providers/ReactQuery';
-import loadable from '@loadable/component';
-import ErrorBoundary from '@gsuite/shared/ui/ErrorBoundary';
-
-const HomePage = loadable(() => import('./HomePage'), { fallback: <h3>Loading...</h3> });
+import ThemeProvider from '@/theme';
+import ReactQuery from '@/providers/ReactQuery';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import HomePage from './HomePage';
 
 function Component() {
   return (

@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 
-import { MutationConfig, queryClient } from '@/lib/react-query';
-import { graphqlGatewayClient } from '@/clients';
-import { useSnackNotification } from '@/hooks';
+import { MutationConfig, queryClient } from '../../../../lib/react-query';
+import { graphqlGatewayClient } from '../../../../clients';
+import { useSnackNotification } from '../../../../hooks';
 
 import { Team } from '../types';
 
@@ -25,7 +25,9 @@ export const createTeamMutationDocument = gql`
   }
 `;
 
-export const createTeam = ({ data }: CreateTeamDto): Promise<Team> => graphqlGatewayClient.request<Response>(createTeamMutationDocument, {
+export const createTeam = (
+  { data }: CreateTeamDto,
+): Promise<Team> => graphqlGatewayClient.request<Response>(createTeamMutationDocument, {
   createTeamInput: {
     name: data.name,
     groupEmail: data.groupEmail,

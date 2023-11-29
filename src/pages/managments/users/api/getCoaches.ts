@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request';
 import { useQuery } from '@tanstack/react-query';
 
-import { graphqlGatewayClient } from '@/clients';
-import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
+import { graphqlGatewayClient } from '../../../../clients';
+import { ExtractFnReturnType, QueryConfig } from '../../../../lib/react-query';
 
 export type Coaches = {
   _id: string;
@@ -24,7 +24,9 @@ const restfulTeamDocument = gql`
   }
 `;
 
-export const getAllCoaches = async () => graphqlGatewayClient.request<CoachesResponse>(restfulTeamDocument);
+export const getAllCoaches = async () => graphqlGatewayClient.request<CoachesResponse>(
+  restfulTeamDocument,
+);
 
 type QueryFnType = () => Promise<CoachesResponse>;
 

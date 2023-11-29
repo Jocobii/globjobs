@@ -2,7 +2,7 @@ import {
   useSnackbar, SnackbarOrigin, BaseVariant, SnackbarKey,
 } from 'notistack';
 
-type onExited = (node: HTMLElement, key: SnackbarKey) => void | undefined;
+type OnExited = (node: HTMLElement, key: SnackbarKey) => void | undefined;
 
 const defaultPosition: SnackbarOrigin = {
   vertical: 'top',
@@ -17,7 +17,7 @@ function useSnackNotification() {
     type: BaseVariant,
     position: SnackbarOrigin = defaultPosition,
     duration = 4000,
-    onExited?: onExited,
+    onExited?: OnExited,
   ) => {
     enqueueSnackbar(message, {
       variant: type,

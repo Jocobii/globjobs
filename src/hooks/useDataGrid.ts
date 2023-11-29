@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { filterOption } from '../utils/datagrid';
-import { ModelOptions } from '@/components/datagrid/DataGrid';
+import { ModelOptions } from '../components/datagrid/DataGrid';
 
 export const useDataGrid = () => {
   const [variables, setVariables] = useState({});

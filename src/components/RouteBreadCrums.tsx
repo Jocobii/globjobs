@@ -1,4 +1,4 @@
-import { Stack, Link } from '@mui/material';
+import { Stack, Link, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { useLocation } from 'react-router-dom';
@@ -16,24 +16,24 @@ function RouteBreadCrums() {
           Suite
         </Link>
         {allRoutes.map((route, index) => {
-				  if (index === allRoutes.length - 1) {
+          if (index === allRoutes.length - 1) {
             return (
               <Typography key={route} color="text.primary">
                 {route}
               </Typography>
             );
-				  }
-				  return (
-  <Link
-    key="route"
-    component="button"
-    underline="hover"
-    color="inherit"
-    onClick={() => { console.log(`/${route}`); goTo(`/${route}`); }}
-  >
-    {route}
-  </Link>
-				  );
+          }
+          return (
+            <Button
+              key={route}
+              href={`/${route}`}
+              color="inherit"
+              type="button"
+              onClick={() => goTo(`/${route}`)}
+            >
+              {route}
+            </Button>
+          );
         })}
       </Breadcrumbs>
     </Stack>

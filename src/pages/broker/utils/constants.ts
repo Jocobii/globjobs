@@ -1,0 +1,39 @@
+interface IStepsNames {
+  ARRIVAL_EEUU: number;
+  INBOUND_EEUU: number;
+  COLLECTION_RANSPORT: number;
+  RECEIVED_USA_WAREHOUSE: number;
+  DOCUMENTS_READY_MX: number;
+  USA_MX_CROSSOVER: number;
+  ARRIVAL_WAREHOUSE_MX: number;
+  FINISHED: number;
+  COMPLETED: number;
+}
+
+const STEPS_NAMES: IStepsNames = {
+  ARRIVAL_EEUU: 1,
+  INBOUND_EEUU: 2,
+  COLLECTION_RANSPORT: 3,
+  RECEIVED_USA_WAREHOUSE: 4,
+  DOCUMENTS_READY_MX: 5,
+  USA_MX_CROSSOVER: 6,
+  ARRIVAL_WAREHOUSE_MX: 7,
+  FINISHED: 8,
+  COMPLETED: 9,
+};
+
+export const TXT = {
+  501: {
+    TIPO: 1,
+    CLAVE: 2,
+    PEDIMENTO: 3,
+    CLIENTE_NUMBER: 4,
+    TOTAL_PRICE: 10,
+  },
+  505: {
+    INVOICE_NUMBER: 1,
+  },
+  520: {},
+};
+
+export default STEPS_NAMES;

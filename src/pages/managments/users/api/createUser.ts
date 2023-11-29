@@ -2,9 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 import { useTranslation } from 'react-i18next';
 
-import { graphqlGatewayClient } from '@/clients';
-import { useSnackNotification } from '@/hooks';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { graphqlGatewayClient } from '../../../../clients';
+import { useSnackNotification } from '../../../../hooks';
+import { MutationConfig, queryClient } from '../../../../lib/react-query';
 
 import { User } from '../types';
 
@@ -79,7 +79,9 @@ export const createUserMutationDocument = gql`
   }
 `;
 
-export const createUser = ({ data }: any): Promise<User> => graphqlGatewayClient.request<CreateUserResponse>(
+export const createUser = (
+  { data }: any,
+): Promise<User> => graphqlGatewayClient.request<CreateUserResponse>(
   createUserMutationDocument,
   {
     name: data.name,

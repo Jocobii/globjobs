@@ -16,7 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import * as Yup from 'yup';
 import { FieldValues, type Control } from 'react-hook-form';
 
-import { ControlledCheckbox } from '@/components';
+import { ControlledCheckbox } from '../../../../components';
 
 import { Role } from '../../roles/types';
 

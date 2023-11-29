@@ -80,7 +80,7 @@ const AuthContext = createContext<AuthContextValue>({
   logout: () => Promise.resolve(),
 });
 
-function AuthProvider({ children }: AuthProviderProps) {
+function AuthProvider({ children }: Readonly<AuthProviderProps>) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -141,7 +141,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       payload: {
         isAuthenticated: true,
         user: {
-          id: user.id as string,
+          id: user.id,
           fullName: `${user.name} ${user.lastName}`,
           emailAddress: user.emailAddress,
           role: user.role,

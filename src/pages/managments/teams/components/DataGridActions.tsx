@@ -8,7 +8,7 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
-import { TFunctionType } from '@/typings/common';
+import { TFunctionType } from '../../../../typings/common';
 
 import { RestfulTeamsResponse } from '../api/restful';
 

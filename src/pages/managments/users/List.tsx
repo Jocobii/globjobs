@@ -37,9 +37,9 @@ import dayjs from 'dayjs';
 import {
   DataGrid as DataGridMinimal,
 } from '@gsuite/shared/ui';
-import { DataGrid } from '@/components/datagrid';
-import { Conditional } from '@/components';
-import { CLIENT_ROLE } from '@/routes/paths';
+import { DataGrid } from '../../../components/datagrid';
+import { Conditional } from '../../../components';
+import { CLIENT_ROLE } from '../../../routes/paths';
 
 import EnableOrDisabledModal from './components/EnableOrDisabledModal';
 import { User, Company } from './types';

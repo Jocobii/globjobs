@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import { styled, useTheme } from '@mui/material/styles';
 import { Box, Theme } from '@mui/material';
-import { ErrorBoundary, LoadingScreen } from '@/components';
+import { ErrorBoundary, LoadingScreen } from '../components';
 import { DataContext } from '../contexts/AppContext';
 
 import { HEADER, NAVBAR } from '../utils/config';

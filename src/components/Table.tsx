@@ -19,7 +19,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { CheckCircle } from '@mui/icons-material';
 
-import { filterOption } from '@/utils/datagrid';
+import { filterOption } from '../utils/datagrid';
 
 export type PaginationOperations = {
   operations: {

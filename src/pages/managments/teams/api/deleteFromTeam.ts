@@ -2,9 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 import { useTranslation } from 'react-i18next';
 
-import { MutationConfig, queryClient } from '@/lib/react-query';
-import { graphqlGatewayClient } from '@/clients';
-import { useSnackNotification } from '@/hooks';
+import { MutationConfig, queryClient } from '../../../../lib/react-query';
+import { graphqlGatewayClient } from '../../../../clients';
+import { useSnackNotification } from '../../../../hooks';
 
 import { User } from '../../users/types';
 
@@ -47,7 +47,9 @@ export const deleteFromTeamMutationDocument = gql`
   }
 `;
 
-export const deleteUsersFromTeam = ({ ids, teamId }: DeleteUsersFromTeamDto) => graphqlGatewayClient.request<Response>(
+export const deleteUsersFromTeam = (
+  { ids, teamId }: DeleteUsersFromTeamDto,
+) => graphqlGatewayClient.request<Response>(
   deleteFromTeamMutationDocument,
   {
     ids,

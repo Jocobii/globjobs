@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 
-import { graphqlGatewayClient } from '@/clients';
-import { useSnackNotification } from '@/hooks';
-import { MutationConfig, queryClient } from '@/lib/react-query';
+import { graphqlGatewayClient } from '../../../../clients';
+import { useSnackNotification } from '../../../../hooks';
+import { MutationConfig, queryClient } from '../../../../lib/react-query';
 
 import { User } from '../types';
 
@@ -24,7 +24,9 @@ export const toggleActiveUserMutationDocument = gql`
   }
 `;
 
-export const toggleActiveUser = ({ id }: { id: string }): Promise<User> => graphqlGatewayClient.request<Response>(
+export const toggleActiveUser = (
+  { id }: { id?: string },
+): Promise<User> => graphqlGatewayClient.request<Response>(
   toggleActiveUserMutationDocument,
   {
     id,

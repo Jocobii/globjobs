@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
 
-import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
-import { graphqlGatewayClient } from '@/clients';
-import { PaginatedResponse } from '@/typings/datagrid';
+import { ExtractFnReturnType, QueryConfig } from '../../../../lib/react-query';
+import { graphqlGatewayClient } from '../../../../clients';
+import { PaginatedResponse } from '../../../../typings/datagrid';
 
 import { Company } from '../types';
 
@@ -32,7 +32,12 @@ const allCompaniesDocument = gql`
   }
 `;
 
-export const getCompaniesQuery = async (variables?: Record<string, unknown>) => graphqlGatewayClient.request<Responses>(allCompaniesDocument, { pagination: variables }).then((res) => res.companyList);
+export const getCompaniesQuery = async (
+  variables?: Record<string, unknown>,
+) => graphqlGatewayClient.request<Responses>(
+  allCompaniesDocument,
+  { pagination: variables },
+).then((res) => res.companyList);
 
 type QueryFnType = (params?: Record<string, unknown> | undefined) =>
 Promise<PaginatedResponse<Partial<Company>>>;

@@ -1,10 +1,10 @@
 import { BrowserRouter } from 'react-router-dom';
 import { LicenseInfo } from '@mui/x-license-pro';
 
-import ErrorBoundary from '@gsuite/shared/ui/ErrorBoundary';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { DataProvider } from '../contexts/AppContext';
 import { AuthProvider } from '../contexts/AuthContext';
-import { NotiStackProvider } from '../providers';
+import { NotiStackProvider } from '@/providers';
 import ReactQuery from './ReactQuery';
 import ThemeProvider from '../theme';
 import { MuiLicense } from '../utils/license';

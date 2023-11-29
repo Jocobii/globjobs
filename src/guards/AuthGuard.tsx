@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import useAuthentication from '@/hooks/useAuthentication';
+import useAuthentication from '../hooks/useAuthentication';
 
 type AuthGuardProps = {
   children: JSX.Element | Array<JSX.Element>;
@@ -13,9 +13,5 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     return <Navigate to="/auth/login" />;
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return children;
 }

@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import useAuthentication from '@/hooks/useAuthentication';
+import useAuthentication from '../hooks/useAuthentication';
 
 type PublicGuardProps = {
   children: JSX.Element | Array<JSX.Element>;
@@ -14,9 +14,5 @@ export default function PublicGuard({ children, redirectTo = '/g/ops' }: PublicG
     return <Navigate to={redirectTo} />;
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return children;
 }
