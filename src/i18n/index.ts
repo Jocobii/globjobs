@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 
 import { brokerEn, brokerEs } from './broker.translate';
 import { managementsEn, managementsEs } from './managements.translate';
-import { crucesEn, crucesEs } from './cruces.translate';
+import { crucesEn, crucesEs } from './cruces.traslate';
 
 i18n
   .use(initReactI18next)
@@ -39,10 +39,11 @@ i18n
           },
           ui: {
             uploadedFiles: 'uploaded files',
-            generalFiles: 'General files',
+            generalFiles: 'New files',
             noFilesAdded: 'No files added',
             removeFile: 'Click on any file to remove it from the list.',
             file: 'File',
+            dragOrUploadFiles: 'Drag or upload your files',
           },
           generic: {
             requiredField: 'This field is required',
@@ -86,10 +87,11 @@ i18n
           },
           ui: {
             uploadedFiles: 'Archivos subidos',
-            generalFiles: 'Archivos generales',
+            generalFiles: 'Archivos nuevos',
             noFilesAdded: 'No se han agregado archivos',
             removeFile: 'Haga clic en cualquier archivo para eliminarlo de la lista.',
             file: 'Archivo',
+            dragOrUploadFiles: 'Arrastra o sube tus archivos',
           },
           generic: {
             requiredField: 'Este campo es requerido',

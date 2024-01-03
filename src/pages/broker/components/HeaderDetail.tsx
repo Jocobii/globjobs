@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Typography, Button, Stack } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from 'react-router-dom';
-import CancelForm from './CancelForm';
+import CancelForm from './forms/CancelForm';
 
 type Props = {
   OperationNumber: string;
@@ -14,7 +14,7 @@ type Props = {
 
 export default function HeaderDetail({
   OperationNumber, isInvoiced, isAdmin, OperationStep,
-}: Readonly<Props>) {
+}: Props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -22,12 +22,12 @@ export default function HeaderDetail({
   return (
     <Stack direction="column" justifyContent="flex-start" alignItems="flex-start" spacing={2}>
       <Button startIcon={<ArrowBackIosIcon />} variant="contained" color="primary" onClick={() => navigate(-1)}>
-        {t('broker.toReturn')}
+        {t<string>('broker.toReturn')}
       </Button>
       <Typography variant="h4" color="primary">
         {OperationNumber}
       </Typography>
-      <Button color="error" disabled={isInvoiced || !isAdmin || OperationStep === 9} onClick={handleClick}>{t('broker.cancel')}</Button>
+      <Button color="error" disabled={isInvoiced || !isAdmin || OperationStep === 9} onClick={handleClick}>{t<string>('broker.cancel')}</Button>
       <CancelForm handleClick={handleClick} isOpen={open} />
     </Stack>
   );

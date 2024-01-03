@@ -9,7 +9,7 @@ import loadable from '@loadable/component';
 import { NodeModels, RequiredActions } from '@gsuite/typings/files';
 import { useCrossing } from '@gsuite/shared/contexts';
 import { useDialog } from '@gsuite/shared/ui';
-import LoadingBackdrop from '@gsuite/ui/LoadingBackdrop';
+import LoadingBackdrop from '@gsuite/shared/ui/CircularLoader';
 
 const AuthorizeProforma = loadable(() => import('@gsuite/shared/ui/cruces/AuthorizeProforma'), { fallback: <LoadingBackdrop /> });
 

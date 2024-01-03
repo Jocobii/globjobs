@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import {
   useState, useContext, useEffect,
 } from 'react';
@@ -17,7 +18,6 @@ import { useValidateFiles } from '@gsuite/shared/services/cruces';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { useUpdateStatusCruce } from '@gsuite/shared/services/cruces/cruce-update';
 import {
   PAID_DOCUMENTS_STATUS,
   FOLDER_OPTIONS,
@@ -43,6 +43,8 @@ import {
   RequiredActions,
   ValidateFile,
 } from '@gsuite/typings/files';
+import { RequiredActionsTypes } from '@gsuite/typings/crossing';
+
 import { useSnackNotification } from '@gsuite/shared/hooks';
 import { uploadFiles } from '@gsuite/shared/lib/uploadFile';
 import { useTranslation } from 'react-i18next';
@@ -66,6 +68,7 @@ interface Props {
 }
 
 type UploadedSimpleNode = UploadedFile & SimpleNode;
+const GENERAL_FOLDER = 'general-folder';
 
 export default function UploadFileToFolder({
   isOpen,
@@ -78,6 +81,7 @@ export default function UploadFileToFolder({
   const [isOnlyTxt, setIsOnlyTxt] = useState(false);
   const [amount, setAmount] = useState<number>(0);
   const [hasProforma, setHasProforma] = useState<boolean>(false);
+  const [hasEntrySummary, setHasEntrySummary] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const { setSnackBar } = useContext(NotificationsContext);
   const { t } = useTranslation();
@@ -89,11 +93,13 @@ export default function UploadFileToFolder({
   ) ?? [];
   const {
     getValidateTxt,
+    readTxtFile,
     createNodes,
     addValidateTxt,
     getTxtIssues,
     issuesFile,
     flatTreeNodes,
+    removeRepetitionFromFileName,
   } = useCruce();
   const [validatePedimento] = useValidateFiles();
   const pedimentosFolders = targetFolder === 'pedimentos' ? getPedimentosFolders() : [];
@@ -106,7 +112,6 @@ export default function UploadFileToFolder({
     ...(targetFolder === 'pedimentos' ? { pedimento: yup.string().required('La carpeta es requerida') } : {}),
   });
   const { updateCrossing } = useUpdateCruce();
-  const { updateStatusCrossing } = useUpdateStatusCruce();
   const {
     formState: { errors },
     control,
@@ -114,7 +119,7 @@ export default function UploadFileToFolder({
     setValue,
     getValues,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
   });
 
   const handleUpdateHistory = async (files: string[], action: string, comments?: string) => {
@@ -166,6 +171,8 @@ export default function UploadFileToFolder({
     pedimentoNumber?: string,
   ) => {
     const isProforma = (fileUploaded?.tags && fileUploaded?.tags?.toLowerCase()?.includes('proforma')) || false;
+    const isEntrySummary = (fileUploaded?.tags && fileUploaded?.tags?.toLowerCase()?.includes('autorización de impuestos (us)')) || false;
+    const hasRequiredActions = isProforma || isEntrySummary;
     return {
       id: fileUploaded.key,
       parent: parent === '' ? '0' : parent.toString(),
@@ -183,14 +190,14 @@ export default function UploadFileToFolder({
         ...(fileUploaded.tags && {
           tags: fileUploaded.tags,
         }),
-        ...(isProforma && {
+        ...(hasRequiredActions && {
           tags: capitalize(fileUploaded?.tags), // force capitalize to trigger step 2
         }),
-        ...(isProforma && {
+        ...(hasRequiredActions && {
           pendingAuthorization: true,
           pedimentoNumber: pedimentoNumber?.toString(),
         }),
-        ...(isProforma && amount >= 0 && {
+        ...(hasRequiredActions && amount >= 0 && {
           authorizedCashAmount: amount,
         }),
         ...integrationNumber && { integrationNumber: integrationNumber.toString() },
@@ -218,7 +225,7 @@ export default function UploadFileToFolder({
           ...crossing?.nodes?.externalNode ?? [],
           ...uploadedFile.map((fileUploaded) => fileToNode(
             fileUploaded,
-            'general-folder',
+            GENERAL_FOLDER,
             integrationNumber,
             pedimentoNumber,
           )),
@@ -242,25 +249,6 @@ export default function UploadFileToFolder({
 
     if (targetFolder === DESPACHO_FOLDER) {
       let lastFileNode = crossing?.nodes?.dispatchFileNode ?? [];
-      const canStatus = lastFileNode.filter((e) => e?.data?.tags === 'Pedimento pagado');
-      if (canStatus.length === 0) {
-        updateHistory({
-          variables: {
-            operation: {
-              id: crossing?.id,
-              action: 'update_status',
-              files: 'Documentos pagados',
-            },
-          },
-          context: { clientName: 'globalization' },
-        }).then(() => {
-          updateStatusCrossing({
-            variables: { id: crossing?.id, status: PAID_DOCUMENTS_STATUS },
-            context: { clientName: 'globalization' },
-          });
-        });
-        refetch();
-      }
       if (uploadedFile.find((e) => e.tags === 'DODA / PITA')?.tags) {
         lastFileNode = lastFileNode.filter(
           (node) => node.id !== 'dispatch-folder-dummy',
@@ -295,10 +283,14 @@ export default function UploadFileToFolder({
 
   const createRequiredActions = (
     treeNodes?: NodeModels[],
-    actualRequiredActions?: RequiredActions[],
+    actualRequiredActions: RequiredActions[] = [],
   ): RequiredActions[] | [] => {
     if (!treeNodes || treeNodes.length < 1) return actualRequiredActions ?? [];
-    const pendingAuthorizationFile = treeNodes?.find((n) => !!n.data?.pendingAuthorization);
+    const filesActions = treeNodes?.filter((n) => !!n.data?.pendingAuthorization);
+    const pendingFiles = filesActions?.filter(
+      (n) => actualRequiredActions?.findIndex((ra) => ra.fileNodeId === n.id) < 0,
+    );
+    const pendingAuthorizationFile = pendingFiles.length > 0 ? pendingFiles[0] : null;
 
     if (!pendingAuthorizationFile) return actualRequiredActions ?? [];
 
@@ -307,12 +299,10 @@ export default function UploadFileToFolder({
       name: 'pendingAuthorization',
       resolved: false,
       nameFile: pendingAuthorizationFile.data?.file?.name as string,
+      type: pendingAuthorizationFile.data?.tags?.toLowerCase()?.includes('proforma') ? RequiredActionsTypes.PROFORMA : RequiredActionsTypes.TAXES,
     };
 
-    if (
-      actualRequiredActions
-      && actualRequiredActions?.length > 1
-    ) {
+    if (Array.isArray(actualRequiredActions) && actualRequiredActions?.length > 0) {
       const requiredActionAlreadyExists = actualRequiredActions.some(
         (ra) => (
           (ra.nameFile === pendingAuthorizationFile.data?.file?.name)
@@ -335,7 +325,7 @@ export default function UploadFileToFolder({
 
     const { _id: id } = currentCrossing.status ?? {};
     if (![DOCUMENTS_PROCESS_STATUS, PROFORMA_AUTHORIZATION_STATUS].includes(id ?? '')) return false;
-    return allFiles.some((e) => e?.data?.tags === 'Pedimento pagado');
+    return allFiles.some((e) => e?.data?.tags?.toLowerCase() === 'pedimento pagado');
   };
 
   const handleUpdateCrossing = async (newCrossing: Crossing, finalFiles: UploadedSimpleNode[]) => {
@@ -392,9 +382,9 @@ export default function UploadFileToFolder({
           },
         });
       }
-      if (finalFiles.length > 0) setSnackBar('success', t('cruces.file_added'));
+      if (finalFiles.length > 0) setSnackBar('success', t<string>('cruces.file_added'));
     } catch (error) {
-      setSnackBar('error', t('cruces.file_not_added'));
+      setSnackBar('error', t<string>('cruces.file_not_added'));
     }
   };
 
@@ -450,7 +440,7 @@ export default function UploadFileToFolder({
   const handleSubmit = async () => {
     const { pedimento, comments } = getValues();
     if (taggersFile.length === 0 && !isOnlyTxt) {
-      setSnackBar('error', t('cruces.file_not_selected'));
+      setSnackBar('error', t<string>('cruces.file_not_selected'));
       return;
     }
 
@@ -458,7 +448,7 @@ export default function UploadFileToFolder({
     const proformaFile = taggersFile.find((e) => e.tags === 'Proforma');
     const dodaTargetFile = file.find((f) => f.name.includes(dodaFile?.name as string));
     if (dodaFile?.tags && dodaTargetFile?.type !== 'application/pdf') {
-      setSnackBar('error', t('cruces.file_not_pdf'));
+      setSnackBar('error', t<string>('cruces.file_not_pdf'));
       return;
     }
 
@@ -466,14 +456,38 @@ export default function UploadFileToFolder({
 
     const filesToUpload = valFile ? [...file, valFile] : file;
 
+    const data = await new Promise((resolve) => {
+      const txtFiles = filesToUpload.filter((f) => f.name.toLowerCase().includes('.txt'));
+      const promises = txtFiles.map((f) => readTxtFile(f, crossing as FieldValues));
+      Promise.all(promises).then((values) => {
+        resolve(values);
+      });
+    });
+    if (Array.isArray(data) && data?.length > 0) {
+      const someError = data.some((d) => d?.error);
+      if (someError) {
+        setLoading(false);
+        return;
+      }
+    }
     const currentCrossingFiles = flatTreeNodes(crossing?.nodes);
     const duplicatedFiles: FileDropZone[] = [];
 
     filesToUpload.forEach((fileToUpload) => {
       const { name } = fileToUpload;
       const [originalName, ext] = name.split('.');
+
       const duplicatedFile = currentCrossingFiles.find(
-        (df) => df.text.includes(originalName) && df.data?.ext?.includes(ext),
+        (df) => ((df.text === originalName || df.data?.file?.name === originalName)
+        || (df.text === name || df.data?.file?.name === name)
+        || (
+          removeRepetitionFromFileName(df?.text as string) === originalName
+          || removeRepetitionFromFileName(df.data?.file?.name as string) === originalName
+        ) || (
+          removeRepetitionFromFileName(df?.text as string) === name
+          || removeRepetitionFromFileName(df.data?.file?.name as string) === name
+        ))
+          && df.data?.ext === ext,
       );
 
       if (duplicatedFile) duplicatedFiles.push(fileToUpload);
@@ -535,7 +549,7 @@ export default function UploadFileToFolder({
         integrationNumber = await getIntegrationNumber(uploadDodaPita.key, crossing?.id ?? '');
       } catch {
         setLoading(false);
-        setSnackBar('error', t('cruces.integration_number_not_found'));
+        setSnackBar('error', t<string>('cruces.integration_number_not_found'));
         return;
       }
     }
@@ -677,6 +691,23 @@ export default function UploadFileToFolder({
         });
       }
     }
+    if (!newCrossing.nodes?.externalNode?.find(
+      (n) => String(n.id).toLowerCase() === GENERAL_FOLDER,
+    )) {
+      newCrossing.nodes = {
+        ...newCrossing.nodes,
+        externalNode: [
+          {
+            id: GENERAL_FOLDER,
+            text: 'Archivos Generales',
+            parent: '0',
+            droppable: true,
+            data: undefined,
+          },
+          ...newCrossing.nodes?.externalNode ?? [],
+        ],
+      };
+    }
 
     setCrossing({ ...newCrossing, sentDarwin: false });
     await handleUpdateCrossing(newCrossing, finalFiles);
@@ -698,7 +729,7 @@ export default function UploadFileToFolder({
         }}
         okButtonVisibility={false}
         cancelButtonVisibility={false}
-        title={t('cruces.addFile')}
+        title={t<string>('cruces.addFile')}
       >
         {
           step === 0 ? (
@@ -707,7 +738,7 @@ export default function UploadFileToFolder({
                 <Box sx={{ width: '100%' }}>
                   <Stack spacing={2}>
                     <Dropzone
-                      label={t('ui.file')}
+                      label={t<string>('ui.file')}
                       files={file}
                       filesSetter={setFiles}
                     />
@@ -715,7 +746,7 @@ export default function UploadFileToFolder({
                       <ControlledAutocomplete
                         errors={errors}
                         name="pedimento"
-                        label={t('cruces.pedimento_destination')}
+                        label={t<string>('cruces.pedimento_destination')}
                         control={control}
                         defaultValue={() => {
                           setValue('pedimento', pedimentosFolders[0]?.id ?? '');
@@ -733,7 +764,7 @@ export default function UploadFileToFolder({
                           errors={errors}
                           name="folder"
                           disabled
-                          label={t('cruces.destination_folder')}
+                          label={t<string>('cruces.destination_folder')}
                           control={control}
                           options={FOLDER_OPTIONS}
                           key="folder-autocomplete"
@@ -744,7 +775,7 @@ export default function UploadFileToFolder({
                       )
                     }
                     <ControlledTextField
-                      label={t('cruces.history.aditionalComments')}
+                      label={t<string>('cruces.history.aditionalComments')}
                       register={register}
                       inputType="text"
                       errors={errors}
@@ -765,6 +796,7 @@ export default function UploadFileToFolder({
                 getTaggerFiles={setTaggersFile}
                 setHasProforma={setHasProforma}
                 setDisabled={setDisabled}
+                setHasEntrySummary={setHasEntrySummary}
               />
             </DialogContent>
           ) : <p> </p>
@@ -776,6 +808,7 @@ export default function UploadFileToFolder({
                 setDisabled={setDisabled}
                 setValFile={setValFile}
                 setAmount={setAmount}
+                addFile={hasEntrySummary}
               />
             </DialogContent>
           ) : <p> </p>
@@ -790,7 +823,7 @@ export default function UploadFileToFolder({
               handleClose(true);
             }}
           >
-            {t('cancel')}
+            {t<string>('cancel')}
           </Button>
           {
             step === 1 && (
@@ -803,7 +836,7 @@ export default function UploadFileToFolder({
                   setStep(step - 1);
                 }}
               >
-                {t('prev')}
+                {t<string>('prev')}
               </Button>
             )
           }

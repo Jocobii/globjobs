@@ -22,12 +22,14 @@ type Props = {
   setDisabled: (prop: boolean) => void;
   setValFile: (file: FileDropZone) => void;
   setAmount: Dispatch<SetStateAction<number>>;
+  addFile?: boolean;
 };
 
 function Component({
   setDisabled,
   setValFile,
   setAmount,
+  addFile = true,
 }: Props) {
   const {
     handleBlur,
@@ -43,14 +45,27 @@ function Component({
   const { t } = useTranslation();
 
   const { validateProformaFile } = useCruce();
+  const MODAL_STYLES = {
+    proforma: {
+      exchangeRate: 'MXN',
+      title: t<string>('cruces.proform.addingValidationFile'),
+      subTitle: t<string>('cruces.proform.missingFields'),
+    },
+    entrySummary: {
+      exchangeRate: 'USD',
+      title: t<string>('cruces.entrySummary.paymentAmount'),
+      subTitle: t<string>('cruces.entrySummary.missingFields'),
+    },
+  };
 
+  const ModalText = addFile ? MODAL_STYLES.proforma : MODAL_STYLES.entrySummary;
   useEffect(() => {
     if (file.length) {
       validateProformaFile(file as FileDropZone[])
         .then(({ data }) => {
           if ('amount' in data) {
             if (data.amount === 0) {
-              setSnackBar('warning', t('cruces.proform.validationFileWithoutPayment'));
+              setSnackBar('warning', t<string>('cruces.proform.validationFileWithoutPayment'));
             }
             setDisabled(data.needsValidation);
             setFileAmount(data.amount);
@@ -84,25 +99,27 @@ function Component({
     setAmount(value);
   };
 
-  let errorText = t('generic.requiredField');
-  if (amountMatchError) errorText = t('cruces.proform.amountDiscrepancy');
+  let errorText = t<string>('generic.requiredField');
+  if (amountMatchError) errorText = t<string>('cruces.proform.amountDiscrepancy');
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item xs={12}>
-        <Typography variant="h6">{t('cruces.proform.addingValidationFile')}</Typography>
-        <Typography fontSize={10}>{t('cruces.proform.missingFields')}</Typography>
+        <Typography variant="h6">{ModalText.title}</Typography>
+        <Typography fontSize={10}>{ModalText.subTitle}</Typography>
       </Grid>
       <Grid item xs={12}>
-        <Dropzone
-          label="Archivo de validacion"
-          files={file}
-          filesSetter={setFiles}
-          accept={{
-            // 'octet-stream': ['application/octet-stream'],
-          }}
-          maxFiles={1}
-        />
+        {addFile && (
+          <Dropzone
+            label="Archivo de validacion"
+            files={file}
+            filesSetter={setFiles}
+            accept={{
+              // 'octet-stream': ['application/octet-stream'],
+            }}
+            maxFiles={1}
+          />
+        )}
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -113,7 +130,7 @@ function Component({
           label="Pago en Efectivo"
           id="outlined-start-adornment"
           InputProps={{
-            endAdornment: <InputAdornment position="start">MXN</InputAdornment>,
+            endAdornment: <InputAdornment position="start">{ModalText.exchangeRate}</InputAdornment>,
           }}
           onChange={handleAmountChange}
           error={hasError || amountMatchError}

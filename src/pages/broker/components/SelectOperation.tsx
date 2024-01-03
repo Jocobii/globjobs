@@ -2,21 +2,17 @@ import { useState } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import DialogComponent from '@/components/DialogComponent';
+import DialogComponent from '@gsuite/shared/ui/DialogComponent';
 
 import {
-  Raet,
-  Rplbet,
-  CollectionTransport,
-  ReceivedUsaWarehouse,
-} from './form';
+  Raet, Rplbet, CollectionTransport, ReceivedUsaWarehouse,
+} from './forms';
 
 type Props = {
   open: boolean;
   handleClose: () => void;
   handleCreateOperation: () => void;
 };
-
 enum Option {
   RPLBET = 'RPLBET',
   RAET = 'RAET',
@@ -25,28 +21,26 @@ enum Option {
   SELECT = 'SELECT',
 }
 
-export default function SelectOperation({
-  open, handleClose, handleCreateOperation,
-}: Readonly<Props>) {
+export default function SelectOperation({ open, handleClose, handleCreateOperation }: Props) {
   const [option, setOption] = useState<Option>(Option.SELECT);
   const { t } = useTranslation();
 
   const operationOptions = [
     {
       id: Option.RPLBET,
-      text: t('broker.RPLBET'),
+      text: t<string>('broker.RPLBET'),
     },
     {
       id: Option.RAET,
-      text: t('broker.RAET'),
+      text: t<string>('broker.RAET'),
     },
     {
       id: Option.ACT,
-      text: t('broker.ACT'),
+      text: t<string>('broker.ACT'),
     },
     {
       id: Option.SDET,
-      text: t('broker.SDET'),
+      text: t<string>('broker.SDET'),
     },
   ];
 
@@ -87,7 +81,7 @@ export default function SelectOperation({
       body: (
         <Stack spacing={2} alignContent="center">
           <Typography variant="subtitle1" align="center">
-            {t('broker.selectOperation')}
+            {t<string>('broker.selectOperation')}
           </Typography>
           {operationOptions.map(({ id, text }) => (
             <Button

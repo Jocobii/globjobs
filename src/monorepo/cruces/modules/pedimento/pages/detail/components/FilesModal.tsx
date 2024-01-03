@@ -35,7 +35,7 @@ export function FilesModal({ open, handleClose, refetch }: Props) {
     getValues,
     resetField,
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
   });
 
   const handleNext = () => {

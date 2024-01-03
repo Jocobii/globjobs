@@ -34,6 +34,7 @@ export type CruseQuery = {
     type: string;
     comments?: string;
     pedimento?: string;
+    trafficType?: string;
     user?: {
       _id: string;
       name: string;
@@ -52,12 +53,14 @@ export type CruseQuery = {
     }
     history: History[]
     sentDarwin: boolean;
+    isAAUSDocComplete: boolean;
   }
 };
 
 export const CRUSE_QUERY = gql`
   query($id: String!){
   getCrossing(id:$id){
+    isAAUSDocComplete
     id
     number
     client
@@ -151,6 +154,7 @@ export const CRUSE_QUERY = gql`
             }
           }
           pendingAuthorization
+          pendingPaymentAuthorization
           authorizedCashAmount
           pedimentoNumber
         }
@@ -173,6 +177,7 @@ export const CRUSE_QUERY = gql`
           digitized
           firstDigitized
           pendingAuthorization
+          pendingPaymentAuthorization
           pedimentoNumber
         }
       }
@@ -197,14 +202,56 @@ export const CRUSE_QUERY = gql`
         }
       }
     }
+    maritimeFlow {
+      user {
+        id
+        name
+        lastName
+      }
+      files {
+        url
+        key
+      }
+      step {
+        label
+        key
+      }
+      issuedAt
+      status {
+        _id
+        name
+        color
+        publicName
+        key
+      }
+      nextStatus {
+        _id
+        name
+        color
+        publicName
+        key
+      }
+      completed
+      data {
+        emails
+        appointmentDate
+        eta
+        inspection
+        containerNumber
+        closingDate
+        sailingDate
+      }
+    }
     typeModulation
     sentDarwin
+    trafficType
     isWithoutTxtFlow
     requiredActions {
       fileNodeId
       name
       nameFile
       resolved
+      type
     }
   }
 }

@@ -8,7 +8,7 @@ export type Token = {
   exp: number;
 };
 
-const decodeToken = (accessToken: string) => jwtDecode<Token>(accessToken);
+export const decodeToken = (accessToken: string) => jwtDecode<Token>(accessToken);
 
 const isValidToken = (accessToken: string) => {
   if (!accessToken) {

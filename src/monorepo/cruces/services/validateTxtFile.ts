@@ -1,18 +1,16 @@
 import { FileDropZone, NodeModels } from '@gsuite/typings/files';
-import Axios from 'axios';
-
-const { VITE_GLOBALIZATION_API_URI } = import.meta.env;
+import Axios, { AxiosRequestConfig } from 'axios';
 
 const axios = Axios.create({
-  baseURL: `${VITE_GLOBALIZATION_API_URI}/crossing`,
-  // withCredentials: true,
+  baseURL: '/crossing',
+  withCredentials: true,
 });
 
-axios.interceptors.request.use((request) => {
+axios.interceptors.request.use((request: AxiosRequestConfig) => {
   const { token } = JSON.parse(localStorage.getItem('wms.config') ?? '{}');
 
   if (token && request.headers) {
-    request.headers.Authorization = `Bearer ${token}`;
+    request.headers['Authorization'] = `Bearer ${token}`;
   }
 
   return request;

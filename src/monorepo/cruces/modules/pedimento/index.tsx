@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import { SnackbarProvider } from 'notistack';
 
-import ThemeProvider from '@gsuite/shared/theme';
 import ReactQuery from '@gsuite/shared/providers/ReactQuery';
 
 import DataGridSkeleton from '@gsuite/ui/DataGridSkeleton';
@@ -14,13 +13,11 @@ export function App() {
     <Suspense
       fallback={<DataGridSkeleton />}
     >
-      <ThemeProvider>
         <SnackbarProvider maxSnack={3}>
           <ReactQuery>
             <Home />
           </ReactQuery>
         </SnackbarProvider>
-      </ThemeProvider>
     </Suspense>
   );
 }

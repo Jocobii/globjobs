@@ -29,7 +29,7 @@ function getIcon(ext: string) {
   }
 }
 
-export default function Documents({ documents }: Readonly<Props>) {
+export default function Documents({ documents }: Props) {
   return (
     <Box
       sx={{

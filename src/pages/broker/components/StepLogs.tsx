@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import { DialogComponent } from '@/components';
+import { DialogComponent } from '@gsuite/shared/ui';
 import LogTimeLine from './LogTimeLine';
 
 type Logs = {
@@ -34,7 +34,7 @@ export default function CustomizedTimeline({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} autoFocus>
-            {t('accept')}
+            {t<string>('accept')}
           </Button>
         </DialogActions>
       </DialogComponent>

@@ -11,7 +11,7 @@ type Props = {
     },
   ];
 };
-export default function ListExtraCharge({ resume }: Readonly<Props>) {
+export default function ListExtraCharge({ resume }: Props) {
   return (
     <List
       dense

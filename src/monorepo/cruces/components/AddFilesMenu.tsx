@@ -99,7 +99,7 @@ export default function AddFilesMenu({
               Archivos a despacho
             </ListItemText>
           </MenuItem>
-          <MenuItem sx={{ mb: 1 }}>
+          <MenuItem sx={{ mb: 1 }} disabled={crossing?.nodes?.tree?.length === 0 || false}>
             <ListItemIcon>
               <InsertDriveFileIcon color="primary" />
             </ListItemIcon>

@@ -34,7 +34,7 @@ export function Table() {
       params: {
         ...(variables?.sort && { sort: { field: variables.sort, order: variables.sort.includes('-') ? 'desc' : 'asc' } }),
         filter: [
-          { c: 'claveSAP', o: 'contains', v: sapNumber },
+          ...(sapNumber && [{ c: 'claveSAP', o: 'contains', v: sapNumber }]),
           ...(tabIndex === 1 ? [{ c: 'pago', o: 'and', v: 'NOT' }] : []),
           ...variables?.filter ?? [],
         ],
@@ -177,7 +177,7 @@ export function Table() {
         columns={columns}
         rows={data || []}
         actions={[
-          <TableTabs tabIndex={tabIndex} setTabIndex={setTabIndex} key={tabIndex} />,
+          <TableTabs tabIndex={tabIndex} setTabIndex={setTabIndex} />,
           <IconButton key="more-id" size="large" onClick={() => refetch()} disabled={loading}>
             <CachedIcon width={20} height={20} />
           </IconButton>,

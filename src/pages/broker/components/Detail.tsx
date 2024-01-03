@@ -12,7 +12,7 @@ type Props = {
 
 export default function Detail({
   quantity, name, color, icon, onClick,
-}: Readonly<Props>) {
+}: Props) {
   return (
     <Card
       sx={{

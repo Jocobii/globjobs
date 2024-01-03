@@ -65,7 +65,7 @@ export default function CruceDetail() {
         >
           <Stack spacing={6} sx={{ marginLeft: '1%' }} direction="row">
             <Typography color="#3A8FE8" variant="h5" component="div" gutterBottom>
-              {t('cruces.operation')}
+              {t<string>('cruces.operation')}
               {' '}
               {crossingData?.number}
             </Typography>
@@ -73,12 +73,12 @@ export default function CruceDetail() {
               {crossingData?.type}
             </Typography>
             <Typography variant="h5" component="div" gutterBottom>
-              {t('cruces.patent')}
+              {t<string>('cruces.patent')}
               {' '}
               1674
             </Typography>
             <Typography variant="h5" component="div" gutterBottom>
-              {t('cruces.customsOffice')}
+              {t<string>('cruces.customsOffice')}
               {' '}
               {crossingData?.aduana}
             </Typography>

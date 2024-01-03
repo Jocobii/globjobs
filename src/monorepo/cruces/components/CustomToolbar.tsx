@@ -15,6 +15,7 @@ import {
   Person as PersonIcon,
 } from '@mui/icons-material';
 import CachedIcon from '@mui/icons-material/Cached';
+import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { ButtonToolbar } from './ButtonToolbar';
 
 export const ListOption = {
@@ -24,9 +25,10 @@ export const ListOption = {
 
 export type Toolbar = {
   actionFunction: (action: string) => void;
+  isCustomExport?: boolean;
 };
 
-export function CustomToolbar({ actionFunction }: Toolbar) {
+export function CustomToolbar({ actionFunction, isCustomExport = false }: Toolbar) {
   const theme = useTheme();
   const color = theme.palette.mode === 'light' ? '#000' : '#fff';
   const [tabIndex, setTabIndex] = useState<number>(0);
@@ -77,7 +79,21 @@ export function CustomToolbar({ actionFunction }: Toolbar) {
         <GridToolbarColumnsButton style={{ color }} />
         <GridToolbarFilterButton style={{ color }} />
         <GridToolbarDensitySelector style={{ color }} />
-        <GridToolbarExport style={{ color }} />
+        {
+          isCustomExport ? (
+            <ButtonToolbar
+              action="EXPORT"
+              variant="text"
+              icon={(
+                <SystemUpdateAltIcon width={20} height={20} />
+              )}
+              actionFunction={actionFunction}
+              isTable
+            />
+          ) : (
+            <GridToolbarExport style={{ color }} />
+          )
+        }
       </GridToolbarContainer>
     </Box>
   );

@@ -1,7 +1,7 @@
 import {
   Button, Grid, Stack,
 } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { DialogComponent, ControlledAutocomplete } from '@gsuite/shared/ui';
@@ -9,16 +9,10 @@ import { useTranslation } from 'react-i18next';
 import { Option, renderOptions } from './OptionsRender';
 import { useCoachTeam } from '../services/get-coach-teams';
 
-const schema = yup.object().shape({
-  userId: yup.string().required('El usuario es requerido'),
-});
-
-type SchemaType = yup.InferType<typeof schema>;
-
 type Props = {
   open: boolean;
   handleClose: () => void;
-  handleAssignUser: (data: SchemaType) => void;
+  handleAssignUser: (data: FieldValues) => void;
   coachId: string;
 };
 
@@ -30,11 +24,15 @@ export default function AssignSpecialist({
 }: Props) {
   const { t } = useTranslation();
   const { data } = useCoachTeam(coachId);
+  const schema = yup.object().shape({
+    userId: yup.string().required('El usuario es requerido'),
+  });
+
   const {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<SchemaType>({
+  } = useForm<FieldValues>({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
@@ -45,7 +43,7 @@ export default function AssignSpecialist({
       okButtonVisibility={false}
       cancelButtonVisibility={false}
       maxWidth="md"
-      title={t('cruces.assign_specialist')}
+      title={t<string>('cruces.assign_specialist')}
     >
       <Grid
         container
@@ -63,7 +61,7 @@ export default function AssignSpecialist({
             <ControlledAutocomplete
               errors={errors}
               name="userId"
-              label={t('cruces.name')}
+              label={t<string>('cruces.name')}
               control={control}
               options={data?.getCoachTeams ?? []}
               key="userId-autocomplete"
@@ -89,14 +87,14 @@ export default function AssignSpecialist({
               onClick={handleClose}
               color="error"
             >
-              {t('cruces.cancel')}
+              {t<string>('cruces.cancel')}
             </Button>
             <Button
               variant="contained"
               type="submit"
               onClick={handleSubmit(handleAssignUser)}
             >
-              {t('cruces.table.assign')}
+              {t<string>('cruces.table.assign')}
             </Button>
           </Stack>
         </Grid>

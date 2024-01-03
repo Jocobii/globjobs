@@ -7,10 +7,7 @@ interface Props {
   entryType: string;
   hasError: boolean;
 }
-
-export default function InboundValidationIcon({
-  loadingEntryType, entryType, hasError,
-}: Readonly<Props>) {
+export default function InboundValidationIcon({ loadingEntryType, entryType, hasError }: Props) {
   const theme = useTheme();
   if (entryType && loadingEntryType) {
     return (

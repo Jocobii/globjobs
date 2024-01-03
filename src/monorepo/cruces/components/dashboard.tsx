@@ -25,52 +25,52 @@ export default function DashboardHome() {
   const columns: GridColDef[] = [
     {
       field: 'Numero',
-      headerName: t('cruces.table.sapId'),
+      headerName: t<string>('cruces.table.sapId'),
       width: 300,
     },
     {
       field: 'nombre',
-      headerName: t('cruces.table.client'),
+      headerName: t<string>('cruces.table.client'),
       width: 300,
     },
     {
       field: 'patente',
-      headerName: t('cruces.table.patent'),
+      headerName: t<string>('cruces.table.patent'),
       width: 150,
     },
     {
       field: 'aduana',
-      headerName: t('cruces.table.customs'),
+      headerName: t<string>('cruces.table.customs'),
       width: 150,
     },
     {
       field: 'pedimento',
-      headerName: t('cruces.table.pediment'),
+      headerName: t<string>('cruces.table.pediment'),
       width: 150,
     },
     {
       field: 'referencia',
-      headerName: t('cruces.table.reference'),
+      headerName: t<string>('cruces.table.reference'),
       width: 150,
     },
     {
       field: 'clave',
-      headerName: t('cruces.table.key'),
+      headerName: t<string>('cruces.table.key'),
       width: 150,
     },
     {
       field: 'Semana',
-      headerName: t('cruces.table.week'),
+      headerName: t<string>('cruces.table.week'),
       width: 150,
     },
     {
       field: 'FirmaConsolidado',
-      headerName: t('cruces.table.consolidatedSign'),
+      headerName: t<string>('cruces.table.consolidatedSign'),
       width: 150,
     },
     {
       field: 'FechaApertura',
-      headerName: t('cruces.table.openDate'),
+      headerName: t<string>('cruces.table.openDate'),
       width: 150,
     },
   ];

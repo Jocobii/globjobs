@@ -15,3 +15,4 @@ export * from './addNewFilesToCrossing';
 export * from './validateProforma';
 export * from './get-one-company';
 export * from './findCompany';
+export * from './reportCrossing';

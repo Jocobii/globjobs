@@ -37,6 +37,9 @@ import Loading from '../Loading';
 import TreeList from '../TreeList';
 import AddFilesMenu from '../AddFilesMenu';
 import ConfirmSendOperation from '../ConfirmSendOperation';
+import useTeamByClient from '../../services/team-by-client';
+
+const AREA_CE = '64f8a55f4960056b0eedcb7a';
 
 const DialogValidate = loadable(() => import('../DialogValidate'), { fallback: <p> </p> });
 
@@ -44,6 +47,9 @@ type Props = {
   closeDialog: () => void;
   refetch: () => void;
 };
+
+const crossingType = ['Importacion', 'Exportacion'];
+const trafficType = ['maritimo', 'terrestre'];
 
 const GENERIC_MESSAGE = 'generic.requiredField';
 export default function AddCruce({
@@ -80,22 +86,23 @@ export default function AddCruce({
   const [validatePedimento] = useValidateFiles();
   const { debouncedCompany, data } = useFindCompany();
   const { crossing, setCrossing, dialogData } = useCrossing();
-  const crossingType = ['Importacion', 'Exportacion'];
   const schema = yup.object().shape({
-    type: yup.string().required(t(GENERIC_MESSAGE)),
+    trafficType: yup.string().required(t<string>(GENERIC_MESSAGE)),
+    type: yup.string().required(t<string>(GENERIC_MESSAGE)),
     customerUser: yup.object().shape({
-      _id: yup.string().required(t(GENERIC_MESSAGE)),
-      name: yup.string().required(t(GENERIC_MESSAGE)),
-      lastName: yup.string().required(t(GENERIC_MESSAGE)),
-    }).required(t(GENERIC_MESSAGE)),
-    client: yup.string().required(t(GENERIC_MESSAGE)),
-    clientNumber: yup.string().required(t(GENERIC_MESSAGE)),
-    patente: yup.string().required(t(GENERIC_MESSAGE)).length(4, t('cruces.onSave.patentLength')),
-    aduana: yup.string().required(t(GENERIC_MESSAGE)).length(3, t('cruces.onSave.aduanaLength')),
+      _id: yup.string().required(t<string>(GENERIC_MESSAGE)),
+      name: yup.string().required(t<string>(GENERIC_MESSAGE)),
+      lastName: yup.string().required(t<string>(GENERIC_MESSAGE)),
+    }).required(t<string>(GENERIC_MESSAGE)),
+    team: yup.string().required(t<string>(GENERIC_MESSAGE)),
+    client: yup.string().required(t<string>(GENERIC_MESSAGE)),
+    clientNumber: yup.string().required(t<string>(GENERIC_MESSAGE)),
+    patente: yup.string().required(t<string>(GENERIC_MESSAGE)).length(4, t<string>('cruces.onSave.patentLength')),
+    aduana: yup.string().required(t<string>(GENERIC_MESSAGE)).length(3, t<string>('cruces.onSave.aduanaLength')),
     comments: yup.string(),
   });
 
-  const { debouncedOneCompany, data: companyUsers } = useGetOneCompany();
+  const { findOneCompany, data: companyUsers } = useGetOneCompany();
   const [checkCrossing] = useValidateTxT();
   const {
     register,
@@ -103,10 +110,21 @@ export default function AddCruce({
     setValue,
     formState: { errors, isValid },
     control,
+    watch,
+    resetField,
   } = useForm<FieldValues>({
     mode: 'onChange',
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
   });
+  const number = getValues('clientNumber');
+
+  watch('clientNumber');
+
+  const { teamByClient } = useTeamByClient({
+    areaId: AREA_CE,
+    number,
+  });
+
   const updateHistoryCreate = async (id: string, allFiles: string[], comments: string) => {
     await updateHistory({
       variables: {
@@ -162,8 +180,9 @@ export default function AddCruce({
     };
     submitProps.updateHistoryCreate = updateHistoryCreate;
     return async () => {
-      await onSubmit({ ...crossing, ...getValues() }, submitProps);
-      await setCrossing(defaultState);
+      const submitData = await onSubmit({ ...crossing, ...getValues() }, submitProps);
+      // Agregar validacion por si hay error no limpiar el state
+      await setCrossing(submitData === 'error' ? crossing! : defaultState);
     };
   };
   const arrayUsers = companyUsers?.companyGetOneByNumber?.users;
@@ -254,6 +273,12 @@ export default function AddCruce({
     });
   }, [externalNode, tree]);
 
+  useEffect(() => {
+    if (teamByClient?.length === 1) {
+      setValue('team', teamByClient[0]?.id);
+    }
+  }, [teamByClient]);
+
   const hasUploadedFiles: boolean = ( // exclude parent folder
     tree?.filter((n: NodeModels) => n.parent !== '0')?.length > 0
     || externalNode?.filter((n: NodeModels) => n.parent !== '0')?.length > 0
@@ -283,6 +308,21 @@ export default function AddCruce({
           <Grid item lg={4} md={4} sm={4} xs={4}>
             <Stack spacing={3} sx={{ pt: 1 }}>
               <ControlledSelect
+                name="trafficType"
+                label="Tipo de tráfico"
+                control={control}
+                defaultValue=""
+                key="importTrafficType-select"
+                disabled={hasUploadedFiles}
+                errors={errors}
+              >
+                {trafficType.map((cruceType) => (
+                  <MenuItem key={cruceType} value={cruceType} style={{ color }}>
+                    {cruceType}
+                  </MenuItem>
+                ))}
+              </ControlledSelect>
+              <ControlledSelect
                 name="type"
                 label="Tipo de operacion"
                 control={control}
@@ -303,7 +343,7 @@ export default function AddCruce({
                 label="Cliente"
                 control={control}
                 options={data?.companiesFind ?? []}
-                key="cliente-autocomplete"
+                key="customer-autocomplete"
                 optionLabel={(clientValue: { name: string, number: string }) => {
                   if (clientValue) {
                     return `${clientValue?.number} - ${clientValue?.name}`;
@@ -317,9 +357,17 @@ export default function AddCruce({
                   }
                   return null;
                 }}
+                onSelect={(value) => {
+                  // clear customerUser field
+                  setValue('customerUser', '');
+                  // clear team field
+                  resetField('customerUser');
+                  if (!value?.includes('-')) return;
+                  const sapNumber = value.split('-')[0].trim();
+                  findOneCompany(sapNumber);
+                }}
                 customOnChange={(value) => {
                   debouncedCompany(value);
-                  debouncedOneCompany(value);
                 }}
               />
               <ControlledAutocomplete
@@ -330,6 +378,7 @@ export default function AddCruce({
                 options={arrayUsers ?? []}
                 key="cliente-autocomplete"
                 optionLabel={(user: { name: string, lastName: string }) => {
+                  if (arrayUsers?.length === 0) return '';
                   if (user) {
                     return `${user?.name} ${user?.lastName}`;
                   }
@@ -343,6 +392,23 @@ export default function AddCruce({
                   return null;
                 }}
               />
+              {teamByClient?.length > 1 && (
+                <ControlledSelect
+                  name="team"
+                  label="Equipo"
+                  control={control}
+                  defaultValue={teamByClient[0]?.id}
+                  key="importType-select"
+                  disabled={!number || !teamByClient}
+                  errors={errors}
+                >
+                  {teamByClient?.map(({ id, name }) => (
+                    <MenuItem key={id} value={id} style={{ color }}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </ControlledSelect>
+              )}
               <Stack spacing={3} sx={{ pt: 1 }} direction="row">
                 <ControlledTextField
                   label="Patente"
@@ -406,10 +472,7 @@ export default function AddCruce({
         >
           Cancelar
         </Button>
-        <LoadingButton variant="contained" onClick={getSubmitHandler(false)} loading={loading}>
-          Guardar Operación
-        </LoadingButton>
-        <LoadingButton variant="outlined" onClick={() => setConfirmModal(!confirmModal)} loading={loading}>
+        <LoadingButton variant="contained" onClick={() => setConfirmModal(!confirmModal)} loading={loading}>
           Enviar Operación
         </LoadingButton>
       </DialogActions>

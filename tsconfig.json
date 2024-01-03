@@ -23,20 +23,20 @@
     "paths": {
       "@/*": ["src/*"],
       "@monorepo/*": [
-        "./monorepo/*"
+        "./src/monorepo/*"
       ],
       "@gsuite/contexts/*": [
-        "./monorepo/libs/shared/contexts/*"
+        "./src/monorepo/libs/shared/contexts/*"
       ],
       "@gsuite/hooks/*": [
-        "./monorepo/libs/shared/hooks/*"
+        "./src/monorepo/libs/shared/hooks/*"
       ],
-      "@gsuite/typings/*": ["./monorepo/libs/typings/*"],
+      "@gsuite/typings/*": ["./src/monorepo/libs/typings/*"],
       "@gsuite/shared/*": [
-        "./monorepo/libs/shared/*"
+        "./src/monorepo/libs/shared/*"
       ],
       "@gsuite/ui/*": [
-        "./monorepo/libs/ui/*"
+        "./src/monorepo/libs/ui/*"
       ]
     }
   },

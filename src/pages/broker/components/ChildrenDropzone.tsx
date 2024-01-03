@@ -2,8 +2,8 @@ import {
   useEffect, useState, Dispatch, SetStateAction,
 } from 'react';
 
-import { FileDropZone } from '@/typings/files';
-import { Dropzone } from '@/components';
+import { FileDropZone } from '@gsuite/typings/files';
+import { Dropzone } from '@gsuite/shared/ui';
 
 type Props = {
   index: number;
@@ -16,7 +16,7 @@ type Props = {
 export default function ChildrenDropzone({
   index, fileSetter, label, fileRemove = () => null,
   disabled = false,
-}: Readonly<Props>) {
+}: Props) {
   const [files, setFiles] = useState<FileDropZone[]>([]);
 
   useEffect(() => {
@@ -28,6 +28,7 @@ export default function ChildrenDropzone({
     });
   }, [files, fileSetter, index]);
 
+  // TODO: Generar key dinamico
   return (
     <Dropzone
       disabled={disabled}

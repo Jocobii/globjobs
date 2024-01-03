@@ -61,10 +61,10 @@ export default function OfficeConfirmation({
           },
           context: { clientName: 'globalization' },
         })).then(() => refetch())
-        .then(() => successMessage(t('cruces.onSuccess.deliveredDocuments')));
+        .then(() => successMessage(t<string>('cruces.onSuccess.deliveredDocuments')));
     } catch (error) {
       console.log(error);
-      errorMessage(t('cruces.an_error'));
+      errorMessage(t<string>('cruces.an_error'));
     }
   };
 
@@ -81,7 +81,7 @@ export default function OfficeConfirmation({
       handleConfirm={handleConfirm}
       okButtonVisibility={checked}
       cancelButtonVisibility
-      okText={t('cruces.send_to_traffic')}
+      okText={t<string>('cruces.send_to_traffic')}
       fullWidth
       maxWidth="sm"
     >

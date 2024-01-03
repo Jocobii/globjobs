@@ -8,8 +8,8 @@ import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import Typography from '@mui/material/Typography';
-import { normalizeKeyName } from '@/utils/format';
-import { Logs } from '../typings';
+import { normalizeKeyName } from '@gsuite/shared/utils/format';
+import { Logs } from '../types';
 
 interface Props {
   logs: Logs[];
@@ -30,7 +30,7 @@ export default function AlternateTimeline({ logs = [] }: Props) {
           {' '}
         </Typography>
         <Typography variant="caption" key={value}>
-          {typeof objectValues[value] === 'object' ? t('wasUpdated') : objectValues[value]}
+          {typeof objectValues[value] === 'object' ? t<string>('wasUpdated') : objectValues[value]}
         </Typography>
       </>
     ));
@@ -64,7 +64,7 @@ export default function AlternateTimeline({ logs = [] }: Props) {
             </TimelineContent>
           </TimelineItem>
         ))
-          : <Typography variant="h6" component="span">{t('broker.withoutLogs')}</Typography>
+          : <Typography variant="h6" component="span">{t<string>('broker.withoutLogs')}</Typography>
       }
     </Timeline>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import React, { useState, useEffect } from 'react';
 import {
   Button,
@@ -37,7 +38,7 @@ import ErrorFixerComponent from './ErrorFixer';
 import { useCruceDetail } from '../services/cruce-detail';
 import ModalIntegrationNumber from './ModalIntegrationNumber';
 
-const onlyNumbers = /^\d+$/;
+const onlyNumbers = /^[0-9]+$/;
 
 const DISPATCH_FOLDER = 'dispatch-folder';
 
@@ -70,8 +71,6 @@ type Tag = {
 };
 
 const getColor = (isValid: boolean): string => (isValid ? '#65E340' : '#FF0800');
-
-const getAuthorizationColor = (isPending: boolean): string => (isPending ? '#FFA500' : '#007FFF');
 
 const tagColors = {
   errors: '#FF0000',
@@ -185,9 +184,9 @@ function DeleteFileModal({
 
   const originNode = folders[folderParent] || 'tree';
   const generalDispatchNodes: GlobalNodes = {
-    dispatchNodes: crossing?.nodes?.dispatchFileNode ?? [],
-    externalNode: crossing?.nodes?.externalNode ?? [],
-    tree: crossing?.nodes?.tree ?? [],
+    dispatchNodes: crossing?.nodes?.dispatchFileNode || [],
+    externalNode: crossing?.nodes?.externalNode || [],
+    tree: crossing?.nodes?.tree || [],
   };
   const originNodes = generalDispatchNodes[originNode] || [];
 
@@ -221,7 +220,7 @@ function DeleteFileModal({
           operation: {
             id: crossing?.id,
             action: 'deleted_file',
-            files: relatedFiles.map((file) => `${file.text}.${file.data?.ext}`),
+            files: relatedFiles.map((file) => `${file.text}.${file.data?.ext}` || ''),
           },
         },
         context: { clientName: 'globalization' },
@@ -248,15 +247,15 @@ function DeleteFileModal({
         if (n.text !== selectedNode.text) return n;
         return null;
       },
-    ) ?? []
-    : crossing?.nodes?.tree?.filter((n) => n.text !== selectedNode.text) ?? []);
+    ) || []
+    : crossing?.nodes?.tree?.filter((n) => n.text !== selectedNode.text) || []);
   const handleDelete = async () => {
     if ([DISPATCH_FOLDER, 'general-folder'].includes(folderParent)) {
       await deleteFromExternalOrDispatchNodes();
       return;
     }
     const pedimento = relatedFiles[0].parent;
-    const totalTxt = crossing?.nodes?.tree?.filter((e) => e.data?.ext === 'txt' && e.parent === pedimento).length ?? 0;
+    const totalTxt = crossing?.nodes?.tree?.filter((e) => e.data?.ext === 'txt' && e.parent === pedimento).length || 0;
     const quantityTXTToDelete = relatedFiles.filter((e: NodeModels) => e?.data?.ext === 'txt').length || 0;
     const allTXTWereDeleted = (totalTxt - quantityTXTToDelete) === 0;
 
@@ -269,7 +268,7 @@ function DeleteFileModal({
       nodes: {
         ...crossing?.nodes,
         tree: [...newTree],
-        ...(allTXTWereDeleted && { externalNode: [...crossing?.nodes?.externalNode ?? [], ...orphans.map((n) => ({ ...n, parent: '0' }))] }),
+        ...(allTXTWereDeleted && { externalNode: [...crossing?.nodes?.externalNode || [], ...orphans.map((n) => ({ ...n, parent: '0' }))] }),
       },
     };
 
@@ -292,7 +291,7 @@ function DeleteFileModal({
           operation: {
             id: crossing?.id,
             action: 'deleted_file',
-            files: relatedFiles.map((file) => `${file.text}.${file.data?.ext}`),
+            files: relatedFiles.map((file) => `${file.text}.${file.data?.ext}` || ''),
           },
         },
         context: { clientName: 'globalization' },
@@ -334,14 +333,14 @@ function DeleteFileModal({
     <DialogComponent
       open={isOpen}
       handleClose={() => setIsOpen(false)}
-      title={t('cruces.confirm_delete_file')}
-      body={t('cruces.confirm_delete_file_text')}
+      title={t<string>('cruces.confirm_delete_file')}
+      body={t<string>('cruces.confirm_delete_file_text')}
       doubleCheck
-      doubleCheckText={t('cruces.confirm_want_to_delete')}
+      doubleCheckText={t<string>('cruces.confirm_want_to_delete')}
       maxWidth="sm"
       handleConfirm={handleDelete}
-      okText={t('cruces.delete_documents')}
-      cancelText={t('cancel')}
+      okText={t<string>('cruces.delete_documents')}
+      cancelText={t<string>('cancel')}
     >
       <FilesToDelete filesToDelete={relatedFiles} />
     </DialogComponent>
@@ -418,10 +417,27 @@ function AuthorizationTag({ node, t }:
 { node: NodeModels, t: TFunctionType }) {
   const { data } = node;
   const nodeIsProforma = data?.tags?.toLowerCase().includes('proforma');
-  const hasPendingAuthorization = data?.pendingPaymentAuthorization ?? true;
+  const nodeIsTaxes = data?.tags?.toLowerCase().includes('autorización de impuestos (us)');
   const hasBeenUnauthorized = !data?.pendingAuthorization && data?.unauthorized;
+  const hasPendingAuthorization = data?.pendingAuthorization ?? true;
+  const hasPendingPaymentAuthorization = data?.pendingPaymentAuthorization ?? false;
+  const unauthorized = data?.unauthorized ?? false;
 
-  if (hasBeenUnauthorized) {
+  const getAuthorizationColor = () => {
+    if (unauthorized) return tagColors.errors;
+    if (hasPendingAuthorization) return tagColors.warnings;
+    if (hasPendingPaymentAuthorization) return tagColors.warnings;
+    return tagColors.validate;
+  };
+
+  const proformaStatusTag = () => {
+    if (unauthorized) return 'Autorización rechazada';
+    if (hasPendingAuthorization) return 'Autorización pendiente';
+    if (hasPendingPaymentAuthorization) return 'Autorización de pago pendiente';
+    return 'Autorización aprobada';
+  };
+
+  if (hasBeenUnauthorized && !nodeIsTaxes) {
     return (
       <Button
         variant="outlined"
@@ -438,21 +454,39 @@ function AuthorizationTag({ node, t }:
     );
   }
 
-  if (!nodeIsProforma) return null;
-  return (
-    <Button
-      variant="outlined"
-      size="small"
-      sx={{
-        color: getAuthorizationColor(hasPendingAuthorization),
-        borderColor: getAuthorizationColor(hasPendingAuthorization),
-        p: 0.2,
-        fontSize: 8,
-      }}
-    >
-      {hasPendingAuthorization ? 'proforma autorizada' : 'Proforma autorizada para pago'}
-    </Button>
-  );
+  if (nodeIsProforma) {
+    return (
+      <Button
+        variant="outlined"
+        size="small"
+        sx={{
+          color: getAuthorizationColor(),
+          borderColor: getAuthorizationColor(),
+          p: 0.2,
+          fontSize: 8,
+        }}
+      >
+        {proformaStatusTag()}
+      </Button>
+    );
+  }
+  if (nodeIsTaxes) {
+    return (
+      <Button
+        variant="outlined"
+        size="small"
+        sx={{
+          color: getAuthorizationColor(),
+          borderColor: getAuthorizationColor(),
+          p: 0.2,
+          fontSize: 8,
+        }}
+      >
+        {proformaStatusTag()}
+      </Button>
+    );
+  }
+  return null;
 }
 
 export function ListDocuments({
@@ -472,12 +506,12 @@ export function ListDocuments({
   const [errorVisibility, setErrorVisibility] = useState(false);
   const [changeTag, setChangeTag] = useState(false);
   const [isDigitized, setDigitized] = useState(
-    node.data?.digitized ?? node?.data?.firstDigitized,
+    node.data?.digitized || node?.data?.firstDigitized,
   );
   const { crossing, setCrossing } = useCrossing();
 
   useEffect(() => {
-    setDigitized(node.data?.digitized ?? node?.data?.firstDigitized);
+    setDigitized(node.data?.digitized || node?.data?.firstDigitized);
   }, [node.data?.digitized, node?.data?.firstDigitized]);
 
   const handleToggle = (e: React.MouseEvent) => {
@@ -511,12 +545,12 @@ export function ListDocuments({
     if (node.data?.digitized) return;
     const nodes = {
       ...crossing?.nodes,
-      ...(node.parent === 'general-folder' && { externalNode: changeDigitized(crossing?.nodes?.externalNode ?? []) }),
+      ...(node.parent === 'general-folder' && { externalNode: changeDigitized(crossing?.nodes?.externalNode || []) }),
       ...(node.parent === DISPATCH_FOLDER && {
-        dispatchFileNode: changeDigitized(crossing?.nodes?.dispatchFileNode ?? []),
+        dispatchFileNode: changeDigitized(crossing?.nodes?.dispatchFileNode || []),
       }),
       ...(onlyNumbers.test(node.parent.toString()) && {
-        tree: changeDigitized(crossing?.nodes?.tree ?? []),
+        tree: changeDigitized(crossing?.nodes?.tree || []),
       }),
     };
     setDigitized(!isDigitized);
@@ -525,7 +559,7 @@ export function ListDocuments({
       nodes,
       isWithoutTxtFlow: nodes?.tree?.length || [].length > 0
         ? false
-        : isWithoutTxtFlow(nodes?.externalNode ?? []),
+        : isWithoutTxtFlow(nodes?.externalNode || []),
     });
   };
 
@@ -712,7 +746,7 @@ export function ListDocuments({
             <OptionsComponent
               node={node}
               handleOption={handleOptions}
-              typeFile={node.data?.ext ?? 'pdf'}
+              typeFile={node.data?.ext || 'pdf'}
             />
             <ChangeTag
               open={changeTag}

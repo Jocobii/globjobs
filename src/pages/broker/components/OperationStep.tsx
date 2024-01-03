@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import {
   Stepper, Step, StepLabel, Typography, Button, Stack, Card, Box, CircularProgress,
 } from '@mui/material';
+import { NotificationsContext } from '@gsuite/shared/contexts/NotificationsContext';
 import { useTheme } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
+import { STEPS_NAMES } from '@gsuite/shared/constants';
 import loadable from '@loadable/component';
-import DialogComponent from '@/components/DialogComponent';
-import STEPS_NAMES from '../utils/constants';
-import { NotificationsContext } from '@/contexts/NotificationsContext';
+import DialogComponent from '@gsuite/shared/ui/DialogComponent';
 import SteperButtons from './SteperButtons';
-import { useStepInfo } from '../hooks/stepInfo';
+import { useStepInfo } from '../services/stepInfo';
 
 import {
   ArrivalEEUU,
@@ -20,9 +20,9 @@ import {
   DocumentsReadyMX,
   USAMXCrossover,
   ArrivalWarehouseMX,
-} from './form';
+} from './forms';
 
-const Finished = loadable(() => import('./form/Finished'), { fallback: <h3>Loading...</h3> });
+const Finished = loadable(() => import('./forms/Finished'), { fallback: <h3>Loading...</h3> });
 
 type From = {
   body: JSX.Element;
@@ -61,7 +61,7 @@ export default function OperationStep({
   clientNumber = '',
   isInvoiced = false,
   isAdmin,
-}: Readonly<Props>) {
+}: Props) {
   const {
     ARRIVAL_EEUU, INBOUND_EEUU, COLLECTION_RANSPORT, RECEIVED_USA_WAREHOUSE,
     DOCUMENTS_READY_MX, USA_MX_CROSSOVER, ARRIVAL_WAREHOUSE_MX, FINISHED,
@@ -274,7 +274,7 @@ export default function OperationStep({
                   isInvoiced={isInvoiced}
                 />
                 <StepLabel>
-                  <Typography variant="body2">{t(`broker.steps.${stepName}`)}</Typography>
+                  <Typography variant="body2">{t<string>(`broker.steps.${stepName}`)}</Typography>
                   <Typography color="GrayText" variant="body2">
                     {date}
                   </Typography>
@@ -295,7 +295,7 @@ export default function OperationStep({
               {timeElapsed ?? 'Not started'}
             </Typography>
             <Typography variant="subtitle2" align="center">
-              {t('broker.timeTotal')}
+              {t<string>('broker.timeTotal')}
             </Typography>
           </Stack>
         </Card>
@@ -342,22 +342,22 @@ export default function OperationStep({
                 <>
                   {step}
                   {' '}
-                  {t('broker.stepOf')}
+                  {t<string>('broker.stepOf')}
                   {' '}
                   {steps.length}
                   <br />
                 </>
               ) : (
-                <p>{t('broker.finished')}</p>
+                <p>{t<string>('broker.finished')}</p>
               )}
             </Typography>
           </Box>
           <Stack>
-            <Typography variant="subtitle1">{t(`broker.steps.${steps[(step && step - 1) || 0].step}`)}</Typography>
+            <Typography variant="subtitle1">{t<string>(`broker.steps.${steps[(step && step - 1) || 0].step}`)}</Typography>
             <Typography variant="caption">
-              {t('broker.nextStep')}
+              {t<string>('broker.nextStep')}
               :
-              {t(`broker.steps.${steps[step]?.step}`) || 'No More steps available'}
+              {t<string>(`broker.steps.${steps[step]?.step}`) || 'No More steps available'}
             </Typography>
           </Stack>
         </Stack>
@@ -387,7 +387,7 @@ export default function OperationStep({
               {timeElapsed ?? 'Not started'}
             </Typography>
             <Typography variant="subtitle2" align="center">
-              {t('broker.timeTotal')}
+              {t<string>('broker.timeTotal')}
             </Typography>
           </Stack>
         </Card>
@@ -405,7 +405,7 @@ export default function OperationStep({
             }}
             onClick={() => openFromStep(step)}
           >
-            {t('add')}
+            {t<string>('add')}
           </Button>
         )}
       </>

@@ -1,10 +1,10 @@
 import { lazy, useState } from 'react';
-
 import {
   Box, Grid, Stack, Typography,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
+
 import {
   FlightLand as FlightLandIcon,
   VerifiedUser as VerifiedUserIcon,
@@ -16,8 +16,7 @@ import {
   FlagCircle as FlagCircleIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
-import { useDashboardAbstract } from '../hooks/operation-dashboard';
+import { useDashboardAbstract } from '../services/operation-dashboard';
 
 const Abstract = lazy(() => import('./Abstract'));
 const Detail = lazy(() => import('./Detail'));
@@ -55,21 +54,21 @@ export default function Header() {
       quantity: requestedOperations ?? 0,
       name: t('broker.requestedOperations'),
       color: theme.palette.primary.main,
-      icon: <FlightLandIcon fontSize="large" sx={{ color: '#fff' }} />,
+      icon: <FlightLandIcon fontSize="large" color="primary" />,
       onClick: () => filterByStatus('operation'),
     },
     {
       quantity: operationProcess ?? 0,
       name: t('broker.inProcessOperations'),
       color: theme.palette.warning.main,
-      icon: <DonutSmallIcon fontSize="large" sx={{ color: '#fff' }} />,
+      icon: <DonutSmallIcon fontSize="large" color="warning" />,
       onClick: () => filterByStatus('inProcess'),
     },
     {
       quantity: operationFinished ?? 0,
       name: t('broker.finishedOperations'),
       color: theme.palette.success.main,
-      icon: <VerifiedUserIcon fontSize="large" sx={{ color: '#fff' }} />,
+      icon: <VerifiedUserIcon fontSize="large" color="success" />,
       onClick: () => filterByStatus('finished'),
     },
   ];
@@ -147,7 +146,7 @@ export default function Header() {
     <Grid container sx={{ display: 'block !important' }}>
       <Stack direction="column">
         <Typography variant="h6" color="primary" sx={{ mb: 1 }}>
-          {t('broker.summary')}
+          {t<string>('broker.summary')}
         </Typography>
         <Box
           sx={{
@@ -174,7 +173,7 @@ export default function Header() {
           ))}
         </Box>
         <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
-          {t('broker.detail')}
+          {t<string>('broker.detail')}
         </Typography>
 
         <Box

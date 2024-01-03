@@ -18,7 +18,6 @@ import { FilesModal } from './FilesModal';
 import { CRUSE_QUERY_SUB } from '../hooks/cruceDetailSub';
 
 const loading = false;
-const isDraftOperation = false;
 export function Layout() {
   const { id } = useParams<{ id: string }>();
   const { data, subscribeToMore, refetch } = useCruceDetail(id ?? '');
@@ -122,20 +121,6 @@ export function Layout() {
             spacing={3}
             mt={2}
           >
-            {isDraftOperation && (
-              <>
-                <Button
-                  variant="contained"
-                >
-                  Pedir operaicon
-                </Button>
-                <Button
-                  variant="outlined"
-                >
-                  Acpetar
-                </Button>
-              </>
-            )}
             <Button
               variant="contained"
               onClick={handleOpen}

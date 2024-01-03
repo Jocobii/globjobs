@@ -1,9 +1,11 @@
+import React from 'react';
+
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useTranslation } from 'react-i18next';
-import STEPS_NAMES from '../utils/constants';
+import { STEPS_NAMES } from '@gsuite/shared/constants';
 
 interface Props {
   isAdmin: boolean;
@@ -27,7 +29,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t('add')}
+        {t<string>('add')}
       </Button>
     );
   }
@@ -38,7 +40,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t('edit')}
+        {t<string>('edit')}
       </Button>
     );
   }
@@ -49,7 +51,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t('view')}
+        {t<string>('view')}
       </Button>
     );
   }

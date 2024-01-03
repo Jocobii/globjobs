@@ -16,8 +16,6 @@ const getValidStatus = (status: string) => {
 
 function Content() {
   const { status } = useParams();
-  const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(15);
   const [variables, setVariables] = useState({});
 
   const {
@@ -29,8 +27,6 @@ function Content() {
     variables: {
       ...variables,
       filterBy: 3,
-      page,
-      pageSize,
     },
     initStatus: getValidStatus(status ?? ''),
   });
@@ -39,8 +35,6 @@ function Content() {
 
   return (
     <Table
-      handlePageChange={setPage}
-      setPageSize={setPageSize}
       setVariables={setVariables}
       data={data?.crossingList}
       loading={loading}

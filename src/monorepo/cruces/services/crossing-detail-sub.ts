@@ -5,6 +5,7 @@ import { CruseQuery } from './cruce-detail';
 export const CRUSE_QUERY = gql`
   subscription CRUCES_UPDATE ($id: String!){
   CRUCES_UPDATE(id: $id){
+    isAAUSDocComplete
     id
     number
     client
@@ -144,6 +145,44 @@ export const CRUSE_QUERY = gql`
           tags
           integrationNumber
         }
+      }
+    }
+    maritimeFlow {
+      user {
+        id
+        name
+        lastName
+      }
+      files {
+        url
+        key
+      }
+      step {
+        label
+        key
+      }
+      issuedAt
+      status {
+        _id
+        name
+        color
+        publicName
+        key
+      }
+      nextStatus {
+        _id
+        name
+        color
+        publicName
+        key
+      }
+      completed
+      data {
+        emails
+        appointmentDate
+        eta
+        inspection
+        containerNumber
       }
     }
     typeModulation

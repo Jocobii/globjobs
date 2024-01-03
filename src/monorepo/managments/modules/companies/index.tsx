@@ -1,4 +1,4 @@
-import LoadingBackdrop from '@gsuite/ui/LoadingBackdrop';
+import LoadingBackdrop from '@gsuite/shared/ui/CircularLoader';
 
 import loadable from '@loadable/component';
 

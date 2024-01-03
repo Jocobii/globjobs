@@ -1,8 +1,5 @@
 import FolderIcon from '@mui/icons-material/Folder';
 import { Button } from '@mui/material';
-import {
-  pdfIcon, csvIcon, txtIcon, xlsIcon, pngIcon, fileIcon, xmlIcon,
-} from '@/assets';
 
 type Props = {
   droppable?: boolean;
@@ -44,25 +41,25 @@ export default function TypeIcon({
 
   switch (ext) {
     case 'pdf':
-      body = <img src={pdfIcon} alt="pdf" height={40} width={40} draggable={false} />;
+      body = <img src="assets/pdf.png" alt="pdf" height={40} width={40} draggable={false} />;
       break;
     case 'csv':
-      body = <img src={csvIcon} alt="csv" height={40} width={40} draggable={false} />;
+      body = <img src="assets/csv.png" alt="csv" height={40} width={40} draggable={false} />;
       break;
     case 'xls':
-      body = <img src={xlsIcon} alt="xls" height={40} width={40} draggable={false} />;
+      body = <img src="assets/xls.png" alt="xls" height={40} width={40} draggable={false} />;
       break;
     case 'xml':
-      body = <img src={xmlIcon} alt="xml" height={40} width={40} draggable={false} />;
+      body = <img src="assets/xml.png" alt="xml" height={40} width={40} draggable={false} />;
       break;
     case 'txt':
-      body = <img src={txtIcon} alt="txt" height={40} width={40} draggable={false} />;
+      body = <img src="assets/txt.png" alt="txt" height={40} width={40} draggable={false} />;
       break;
     case 'png':
-      body = <img src={pngIcon} alt="png" height={40} width={40} draggable={false} />;
+      body = <img src="assets/png.png" alt="png" height={40} width={40} draggable={false} />;
       break;
     default:
-      body = <img src={fileIcon} alt="file" height={40} width={40} draggable={false} />;
+      body = <img src="assets/file.png" alt="file" height={40} width={40} draggable={false} />;
       break;
   }
   return (

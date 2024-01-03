@@ -6,29 +6,29 @@ import PublicGuard from '../guards/PublicGuard';
 
 import LoadingScreen from '../components/LoadingScreen';
 
-// const CrucesHome = loadable(() => import('@monorepo/cruces/app/page/Cruces'), {
-//   fallback: <LoadingScreen />,
-// });
+const CrucesHome = loadable(() => import('@monorepo/cruces/app/page/Cruces'), {
+  fallback: <LoadingScreen />,
+});
 
-// const CrucesDetail = loadable(() => import('@monorepo/cruces/app/page/CruceDetail'), {
-//   fallback: <LoadingScreen />,
-// });
+const CrucesDetail = loadable(() => import('@monorepo/cruces/app/page/CruceDetail'), {
+  fallback: <LoadingScreen />,
+});
 
-// const RemoteTraffic = loadable(() => import('@monorepo/cruces/modules/traffic'), {
-//   fallback: <LoadingScreen />,
-// });
+const RemoteTraffic = loadable(() => import('@monorepo/cruces/modules/traffic'), {
+  fallback: <LoadingScreen />,
+});
 
-// const RemoteTrafficDetail = loadable(() => import('@monorepo/cruces/modules/traffic/pages/detail'), {
-//   fallback: <LoadingScreen />,
-// });
+const RemoteTrafficDetail = loadable(() => import('@monorepo/cruces/modules/traffic/pages/detail'), {
+  fallback: <LoadingScreen />,
+});
 
-// const RemotePedimento = loadable(() => import('@monorepo/cruces/modules/pedimento'), {
-//   fallback: <LoadingScreen />,
-// });
+const RemotePedimento = loadable(() => import('@monorepo/cruces/modules/pedimento'), {
+  fallback: <LoadingScreen />,
+});
 
-// const RemotePedimentoDetail = loadable(() => import('@monorepo/cruces/modules/pedimento/pages/detail'), {
-//   fallback: <LoadingScreen />,
-// });
+const RemotePedimentoDetail = loadable(() => import('@monorepo/cruces/modules/pedimento/pages/detail'), {
+  fallback: <LoadingScreen />,
+});
 
 // const SuiteUiComponents = loadable(() => import('../pages/ui/Main'), {
 //   fallback: <LoadingScreen />,
@@ -38,9 +38,9 @@ import LoadingScreen from '../components/LoadingScreen';
 //   fallback: <LoadingScreen />,
 // });
 
-// const AdpHome = loadable(() => import('@monorepo/managments/modules/adp'), {
-//   fallback: <LoadingScreen />,
-// });
+const AdpHome = loadable(() => import('@/pages/adp'), {
+  fallback: <LoadingScreen />,
+});
 
 // const CompanyModule = loadable(() => import('@monorepo/managments/modules/companies'), {
 //   fallback: <LoadingScreen />,
@@ -82,17 +82,17 @@ import LoadingScreen from '../components/LoadingScreen';
 //   fallback: <LoadingScreen />,
 // });
 
-const BrokerHome = loadable(() => import('@/pages/broker'), {
+const BrokerHome = loadable(() => import('@/pages/broker/app/page/GOPS'), {
   fallback: <LoadingScreen />,
 });
 
-const BrokerDetail = loadable(() => import('@/pages/broker/GOPSDetail'), {
+const BrokerDetail = loadable(() => import('@/pages/broker/app/page/GOPSDetail'), {
   fallback: <LoadingScreen />,
 });
 
-// const RemoteBrokerReferences = loadable(() => import('@monorepo/broker/app/page/References'), {
-//   fallback: <LoadingScreen />,
-// });
+const RemoteBrokerReferences = loadable(() => import('@/pages/broker/app/page/References'), {
+  fallback: <LoadingScreen />,
+});
 
 const NotFound = loadable(() => import('@/pages/NotFound'), {
   fallback: <LoadingScreen />,
@@ -131,10 +131,10 @@ export default function Router() {
           path: 'ops',
           element: <BrokerHome />,
         },
-        // {
-        //   path: 'ops/references',
-        //   element: <RemoteBrokerReferences />,
-        // },
+        {
+          path: 'ops/references',
+          element: <RemoteBrokerReferences />,
+        },
         {
           path: 'ops/status/:status',
           element: <BrokerHome />,
@@ -150,14 +150,14 @@ export default function Router() {
       element: (<DashboardLayout />),
       children: [
         { element: <Navigate to="/c/cruces" replace />, index: true },
-        // {
-        //   path: 'cruces',
-        //   element: <CrucesHome />,
-        // },
-        // {
-        //   path: 'cruces/detail/:id',
-        //   element: <CrucesDetail />,
-        // },
+        {
+          path: 'cruces',
+          element: <CrucesHome />,
+        },
+        {
+          path: 'cruces/detail/:id',
+          element: <CrucesDetail />,
+        },
       ],
     },
     {
@@ -220,47 +220,47 @@ export default function Router() {
     //     },
     //   ],
     // },
-    // {
-    //   path: 'f',
-    //   element: (<DashboardLayout />),
-    //   children: [
-    //     { element: <Navigate to="/f/adp" replace />, index: true },
-    //     {
-    //       path: 'adp',
-    //       element: <AdpHome />,
-    //     },
-    //   ],
-    // },
-    // {
-    //   path: 't',
-    //   element: (<DashboardLayout />),
-    //   children: [
-    //     { element: <Navigate to="/t/operation/readyDocuments" replace />, index: true },
-    //     {
-    //       path: 'operation/:status',
-    //       element: <RemoteTraffic />,
-    //     },
-    //     {
-    //       path: 'operation/detail/:id',
-    //       element: <RemoteTrafficDetail />,
-    //     },
-    //   ],
-    // },
-    // {
-    //   path: 'p',
-    //   element: (<DashboardLayout />),
-    //   children: [
-    //     { element: <Navigate to="/p/pedimento" replace />, index: true },
-    //     {
-    //       path: 'pedimento',
-    //       element: <RemotePedimento />,
-    //     },
-    //     {
-    //       path: 'pedimento/:id',
-    //       element: <RemotePedimentoDetail />,
-    //     },
-    //   ],
-    // },
+    {
+      path: 'f',
+      element: (<DashboardLayout />),
+      children: [
+        { element: <Navigate to="/f/adp" replace />, index: true },
+        {
+          path: 'adp',
+          element: <AdpHome />,
+        },
+      ],
+    },
+    {
+      path: 't',
+      element: (<DashboardLayout />),
+      children: [
+        { element: <Navigate to="/t/operation/readyDocuments" replace />, index: true },
+        {
+          path: 'operation/:status',
+          element: <RemoteTraffic />,
+        },
+        {
+          path: 'operation/detail/:id',
+          element: <RemoteTrafficDetail />,
+        },
+      ],
+    },
+    {
+      path: 'p',
+      element: (<DashboardLayout />),
+      children: [
+        { element: <Navigate to="/p/pedimento" replace />, index: true },
+        {
+          path: 'pedimento',
+          element: <RemotePedimento />,
+        },
+        {
+          path: 'pedimento/:id',
+          element: <RemotePedimentoDetail />,
+        },
+      ],
+    },
     {
       path: '*',
       element: <LogoOnlyLayout />,

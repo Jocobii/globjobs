@@ -24,6 +24,7 @@ query($page: Int, $pageSize: Int, $sort: String, $filter: [FilterInput!], $filte
         publicName
       }
       typeModulation
+      trafficType
       nodes {
         tree {
           data {

@@ -6,6 +6,7 @@ type Pops = {
   icon?: React.ReactNode;
   actionFunction: (action: string) => void;
   variant?: 'text' | 'outlined' | 'contained';
+  isTable?: boolean;
 };
 
 export function ButtonToolbar({
@@ -13,14 +14,20 @@ export function ButtonToolbar({
   icon = <AddIcon />,
   actionFunction,
   variant = 'contained',
+  isTable = false,
 }: Pops) {
   return (
     <Button
       variant={variant}
-      color="primary"
       startIcon={icon}
+      color={variant === 'contained' ? 'primary' : 'inherit'}
       onClick={() => actionFunction(action)}
-      sx={{ height: 60, width: 200, margin: 0 }}
+      sx={{
+        height: isTable ? 20 : 60,
+        width: isTable ? 100 : 200,
+        margin: 0,
+        fontWeight: isTable ? 400 : 700,
+      }}
     >
       {action}
     </Button>

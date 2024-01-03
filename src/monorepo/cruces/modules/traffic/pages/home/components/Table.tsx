@@ -1,59 +1,36 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import useSpinningControls from '@gsuite/shared/hooks/useSpinningControls';
 import { DialogComponent } from '@gsuite/shared/ui';
-import CustomPagination from '@gsuite/ui/DataGrid/Pagination';
-
+import { DataGrid } from '@gsuite/ui/DataGrid';
 import {
   Chip,
-  IconButton,
   Stack,
   Button,
   Typography,
-  LinearProgress,
-  useTheme,
 } from '@mui/material';
 import { getStatusName } from '@gsuite/shared/utils/funcs';
+import { GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid-pro';
 import { useSnackNotification } from '@gsuite/shared/hooks';
-import {
-  GridColDef,
-  GridRenderCellParams,
-  GridValueGetterParams,
-  DataGridPro as DataGrid,
-  GridRowParams,
-} from '@mui/x-data-grid-pro';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { CrossingListResponse } from '@gsuite/typings/crossing';
 import { useState } from 'react';
-import { CustomToolbar } from './CustomToolbar';
 import { useAssignTrafficUser } from '../../../services/assign-traffic-user';
+import { CustomToolbar } from './CustomToolbar';
 
 interface Props {
   data: CrossingListResponse | undefined;
   setVariables: (options: any) => void;
   loading: boolean;
   setStatus: (status: string) => void;
-  handlePageChange: (p: number) => void;
-  setPageSize: (s: number) => void;
 }
 
 function Table({
-  data, setVariables, loading, setStatus, handlePageChange, setPageSize,
+  data, setVariables, loading, setStatus,
 }: Props) {
   const { showSnackMessage } = useSnackNotification();
   const [assignTrafficUser] = useAssignTrafficUser();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [operationId, setOperationId] = useState<string | null>(null);
-  const theme = useTheme();
-  const color = theme.palette.mode === 'light' ? '#000' : '#fff';
-  const mode = 'server';
-
-  const {
-    hoveredRowId,
-    onMouseEnterRow,
-    onMouseLeaveRow,
-  } = useSpinningControls();
 
   const handleAttend = (id: string) => {
     setOperationId(id);
@@ -71,7 +48,7 @@ function Table({
       onCompleted: () => {
         handleClose();
         showSnackMessage(
-          t('cruces.assigned_operation'),
+          t<string>('cruces.assigned_operation'),
           'success',
           {
             vertical: 'top',
@@ -109,7 +86,7 @@ function Table({
               color="primary"
               onClick={() => handleAttend(params.row.id)}
             >
-              {t('cruces.table.attend')}
+              {t<string>('cruces.table.attend')}
             </Button>
           </Stack>
         );
@@ -180,30 +157,11 @@ function Table({
     },
     {
       field: 'type',
-      headerName: t('cruces.table.specialist').toString(),
+      headerName: t('cruces.table.operationType').toString(),
       width: 200,
       renderCell: (params: GridRenderCellParams) => {
         const { value } = params;
         return value?.toUpperCase() ?? 'NA';
-      },
-    },
-    {
-      field: 'actions',
-      headerName: '',
-      width: 120,
-      sortable: false,
-      disableColumnMenu: true,
-      renderCell: (record) => {
-        if (hoveredRowId === record.id) {
-          return (
-            <Stack direction="row">
-              <IconButton onClick={() => navigate(`/t/operation/detail/${record.id}`)}>
-                <VisibilityIcon />
-              </IconButton>
-            </Stack>
-          );
-        }
-        return null;
       },
     },
   ];
@@ -218,59 +176,20 @@ function Table({
 
   return (
     <>
+      <CustomToolbar actionFunction={actionFunction} />
       <DataGrid
-        components={{
-          Toolbar: CustomToolbar,
-          Pagination: CustomPagination,
-          LoadingOverlay: LinearProgress,
+        mode="server"
+        serverOptions={{
+          totalRowCount: data?.total ?? 0,
+          handleChange: eventManager,
         }}
-        componentsProps={{
-          toolbar: {
-            actionFunction,
-            color,
-            row: {
-              onMouseEnterRow,
-              onMouseLeaveRow,
-            },
-          },
-        }}
-        sx={{
-          overflowX: 'scroll',
-          '.MuiDataGrid-columnSeparator': {
-            display: 'none',
-            margin: 2,
-          },
-          '&.MuiDataGrid-root': {
-            border: 'none',
-          },
-          color,
-          p: 1,
-        }}
-        pageSize={12}
-        pagination
-        paginationMode={mode}
-        sortingMode={mode}
-        filterMode={mode}
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        {...(mode === 'server' && {
-          onSortModelChange: eventManager,
-          onPageChange: eventManager,
-          onPageSizeChange: eventManager,
-          onFilterModelChange: eventManager,
-        })}
-        rowCount={data?.total ?? 0}
-        rowsPerPageOptions={[5, 20, 50, 100]}
-        disableSelectionOnClick
-        autoHeight
         columns={columns}
         rows={data?.rows ?? []}
-        onRowDoubleClick={(params: GridRowParams) => {
+        onRowDoubleClick={(params) => {
           navigate(`/t/operation/detail/${params.id}`);
         }}
         getRowId={({ id }) => id}
         loading={loading}
-        onPageSizeChange={(newSize: number) => setPageSize(newSize)}
-        onPageChange={(newPage: number) => handlePageChange(newPage + 1)}
       />
       <DialogComponent
         open={!!operationId}

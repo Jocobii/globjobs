@@ -1,15 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
   Box,
-  Stack, Tab, Tabs, useTheme,
+  Stack, Tab, Tabs,
 } from '@mui/material';
-import {
-  GridToolbarContainer,
-  GridToolbarColumnsButton,
-  GridToolbarFilterButton,
-  GridToolbarDensitySelector,
-  GridToolbarExport,
-} from '@mui/x-data-grid-pro';
 import { useParams } from 'react-router-dom';
 import { useState, SyntheticEvent } from 'react';
 
@@ -39,9 +32,7 @@ function a11yProps(index: number) {
 }
 
 export function CustomToolbar({ actionFunction }: Toolbar) {
-  const theme = useTheme();
   const { status } = useParams();
-  const color = theme.palette.mode === 'light' ? '#000' : '#fff';
   const [tabIndex, setTabIndex] = useState<number>(getValidStatus(status || 'documentsReady'));
 
   const handleTabChange = (_e: SyntheticEvent, newValue: number) => {
@@ -56,7 +47,6 @@ export function CustomToolbar({ actionFunction }: Toolbar) {
         justifyContent="space-between"
         alignItems="center"
         spacing={2}
-        sx={{ marginBottom: 3 }}
       >
         <Tabs
           value={tabIndex}
@@ -92,12 +82,6 @@ export function CustomToolbar({ actionFunction }: Toolbar) {
           />
         </Tabs>
       </Stack>
-      <GridToolbarContainer>
-        <GridToolbarColumnsButton style={{ color }} />
-        <GridToolbarFilterButton style={{ color }} />
-        <GridToolbarDensitySelector style={{ color }} />
-        <GridToolbarExport style={{ color }} />
-      </GridToolbarContainer>
     </Box>
   );
 }

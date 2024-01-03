@@ -22,7 +22,7 @@ export const managementsEn = {
   team: 'Team',
   employeeType: 'Employee Type',
   costsCenter: 'Costs center',
-  darwinUser: 'Darwin user',
+  darwinUser: 'Annex user',
   rbSystemsUser: 'RB Systems user',
   actions: 'Actions',
   status: 'Status',
@@ -54,6 +54,7 @@ export const managementsEn = {
     addSpecialist: 'Add Specialist',
     newTeam: 'New Team',
     createTeam: 'Create Team',
+    addToTeam: 'Add to team',
     assignToTeam: 'Change team',
     teamChage: 'Team Change',
     doChengeTeam: 'Do you want to change the team?',
@@ -75,15 +76,15 @@ export const managementsEn = {
     unassigned: 'Unassigned',
     MUST_HAVE_ONE_COACH: 'The team must have at least one coach',
     MUST_HAVE_ONE_USER: 'The team cannot be left empty of specialists or coaches.',
+    deleteToTeamConfirm: 'Surely you want to eliminate these clients from the team',
+    operations_in_progress: 'The equipment has operations in process with some of the selected customers',
+    companies_deleted: 'Team customers were eliminated',
   },
   roles: {
     addRole: 'Add Role',
-    editRole: 'Edit Role',
     roleDeleted: 'Role {{roleName}} successfully removed',
     ROLE_DELETE_HAS_USERS: 'It is not possible to delete {{roleName}} role. There are {{qtyUsers}} users assigned to this role.',
     ROLE_CREATE_ERROR: 'There is already a role named {{name}}',
-    step_1: 'Modules and Permissions',
-    step_2: 'Notifications',
   },
   usersModule: {
     userWillDisabled: 'The {{userName}} user will be disabled',
@@ -135,18 +136,14 @@ export const managementsEn = {
   areas: {
     addNewArea: 'Add area',
   },
-  departments: {
+  deparments: {
     addNewDepartment: 'Add department',
-    edit_department: 'Edit department',
-    create_department: 'Create department',
   },
   headquarters: {
     addNewHeadquarters: 'Add headquarters',
   },
   rules: {
     addNewRule: 'Add rule',
-    edit_rule: 'Edit rule for TXT',
-    create_rule: 'Create rule for TXT',
   },
   adp: {
     filesFetched: 'Files fetched successfully',
@@ -162,11 +159,15 @@ export const managementsEn = {
   user_has_operations: 'The user has operations',
   user_role_not_found: 'The user role was not found',
   user_not_found: 'The user was not found',
-  update_txt_file: 'Update files and send Darwin',
+  update_txt_file: 'Update files and send Annex',
   plates: 'Plates',
   economic: 'Economic',
   country: 'Country',
   title_update_txt_file: 'Update TXT files',
+  companiesModule: {
+    eight_rule_layout_successfull_inserted: 'Sucessfully added {{insertCount}} Eight Rules',
+    certificates_layout_successfully_inserted: 'Sucessfully added {{insertCount}} Certificates of Origin',
+  },
 };
 
 export const managementsEs = {
@@ -193,7 +194,7 @@ export const managementsEs = {
   team: 'Equipo',
   employeeType: 'Tipo de empleado',
   costsCenter: 'Centro de costos',
-  darwinUser: 'Usuario darwin',
+  darwinUser: 'Usuario Anexo',
   rbSystemsUser: 'Usuario RB Systems',
   actions: 'Acciones',
   status: 'Estatus',
@@ -226,6 +227,7 @@ export const managementsEs = {
     addSpecialist: 'Agregar Especialista',
     newTeam: 'Nuevo Equipo',
     createTeam: 'Crear Equipo',
+    addToTeam: 'Agregar a equipo',
     assignToTeam: 'Cambiar de equipo',
     teamChage: 'Cambio de equipo',
     doChengeTeam: '¿Desea cambiar de equipo?',
@@ -247,15 +249,15 @@ export const managementsEs = {
     unassigned: 'Sin asignar',
     MUST_HAVE_ONE_COACH: 'El equipo debe tener al menos un coach',
     MUST_HAVE_ONE_USER: 'El equipo no puede quedar vacio de especialistas o de coaches.',
+    deleteToTeamConfirm: 'Seguro que desea eliminar estos clientes del equipo',
+    operations_in_progress: 'El equipo tiene operaciones en proceso con algunos de los clientes seleccionados',
+    companies_deleted: 'Se eliminaron los clientes del equipo',
   },
   roles: {
     addRole: 'Agregar Rol',
-    editRole: 'Editar Rol',
     roleDeleted: 'Rol {{roleName}} eliminado con éxito',
     ROLE_DELETE_HAS_USERS: 'No es posible eliminar el rol de {{roleName}}. Existen {{qtyUsers}} usuarios asignados a ese rol.',
     ROLE_CREATE_ERROR: 'Ya existe un rol llamado {{name}}',
-    step_1: 'Modulos y permisos',
-    step_2: 'Notificaciones',
   },
   usersModule: {
     userWillDisabled: 'El usuario {{userName}} será desactivado',
@@ -307,18 +309,14 @@ export const managementsEs = {
   areas: {
     addNewArea: 'Agregar area',
   },
-  departments: {
+  deparments: {
     addNewDepartment: 'Agregar departamento',
-    edit_department: 'Editar departamento',
-    create_department: 'Crear departamento',
   },
   headquarters: {
     addNewHeadquarters: 'Agregar sede',
   },
   rules: {
     addNewRule: 'Agregar regla',
-    edit_rule: 'Editar regla para TXT',
-    create_rule: 'Crear regla para TXT',
   },
   adp: {
     filesFetched: 'Archivos obtenidos exitosamente',
@@ -334,9 +332,13 @@ export const managementsEs = {
   user_has_operations: 'El usuario tiene operaciones en proceso',
   user_role_not_found: 'No se encontró el rol de usuario',
   user_not_found: 'El usuario no fue encontrado',
-  update_txt_file: 'Actualizar archivos y enviar a darwin',
+  update_txt_file: 'Actualizar archivos y enviar a el anexo',
   plates: 'Placas',
   economic: 'Económico',
   country: 'País',
   title_update_txt_file: 'Actualizar archivos txt',
+  companiesModule: {
+    eight_rule_layout_successfully_inserted: 'Se agregaron {{insertCount}} Regla(s) octava(s) con éxito',
+    certificates_layout_successfully_inserted: 'Se agregaron {{insertCount}} Certificado(s) de Origen con éxito',
+  },
 };

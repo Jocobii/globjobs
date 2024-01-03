@@ -11,7 +11,7 @@ type Props = {
   charges: Rows[];
 };
 
-export default function TableExtraCharge({ charges }: Readonly<Props>) {
+export default function TableExtraCharge({ charges }: Props) {
   const theme = useTheme();
   const color = theme.palette.mode === 'light' ? '#000' : '#fff';
   const columns = [

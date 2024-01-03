@@ -5,6 +5,8 @@ import {
   LinearProgress,
   Stack,
   useTheme,
+  Avatar,
+  Typography,
 } from '@mui/material';
 import { FieldValues } from 'react-hook-form';
 import { DialogComponent } from '@gsuite/shared/ui';
@@ -15,12 +17,12 @@ import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 import loadable from '@loadable/component';
 import { useTranslation } from 'react-i18next';
-
+import FlagIcon from '@mui/icons-material/Flag';
 import { COACH_CE_ROLE } from '@gsuite/shared/utils/constants';
 import { useSnackNotification } from '@gsuite/shared/hooks';
 import { filterOption } from '@gsuite/ui/DataGrid/utils';
 import { getUserSession } from '@gsuite/shared/contexts/AuthContext';
-import LoadingBackdrop from '@gsuite/ui/LoadingBackdrop';
+import LoadingBackdrop from '@gsuite/shared/ui/CircularLoader';
 import CustomPagination from '@gsuite/ui/DataGrid/Pagination';
 import {
   REQUESTED_OPERATION_STATUS,
@@ -32,6 +34,7 @@ import { useCrucesList } from '../services/cruces-list';
 
 const AssignSpecialist = loadable(() => import('./AssignSpecialist'), { fallback: <LoadingBackdrop /> });
 const AddCruce = loadable(() => import('./forms/addCruce'), { fallback: <LoadingBackdrop /> });
+const CustomExportModal = loadable(() => import('./CustomExportModal'), { fallback: <LoadingBackdrop /> });
 
 export type Rows = {
   id: string;
@@ -72,12 +75,14 @@ export function TableHome() {
   const [isCoach, setIsCoach] = useState<boolean>(false);
   const [coachId, setCoachId] = useState<string>('');
   const { setCrossing } = useCrossing();
+  const [openModal, setOpenModal] = useState(false);
   const [modelOptions, setModelOptions] = useState<any>({});
+  const handleOpen = () => setOpenModal(!openModal);
   const [filterBy, setFilterBy] = useState(crossingByTeam);
   const color = theme.palette.mode === 'light' ? '#000' : '#fff';
   const parseDate = (value?: string) => (value ? dayjs(value).format('DD/MM/YYYY - HH:mm') : 'N/A');
 
-  const getColorByTimeAgo = (value: GridRowParams): string => {
+  const getColorByTimeAgo = (value: GridRenderCellParams): string => {
     const { statusHistory } = value.row ?? {};
     if (!Array.isArray(statusHistory) || statusHistory.length === 0) return '';
     const lastStatus = statusHistory[statusHistory.length - 1];
@@ -85,8 +90,8 @@ export function TableHome() {
     const now = dayjs();
     const minutes = now.diff(lastStatusDate, 'm');
     if (minutes < 30) return '';
-    if (minutes >= 30 && minutes < 60) return 'MuiDataGrid-row-orange';
-    if (minutes >= 60) return 'MuiDataGrid-row-red';
+    if (minutes >= 30 && minutes < 60) return 'orange';
+    if (minutes >= 60) return 'red';
     return '';
   };
 
@@ -168,7 +173,7 @@ export function TableHome() {
         userId,
       },
       onCompleted: () => {
-        successMessage(t('cruces.specialist_assigned'));
+        successMessage(t<string>('cruces.specialist_assigned'));
         setOpenAssign(false);
         refetch();
       },
@@ -177,8 +182,20 @@ export function TableHome() {
 
   const columns: GridColDef[] = [
     {
+      field: 'delay',
+      headerName: '',
+      width: 10,
+      renderCell: (
+        params: GridRenderCellParams,
+      ) => {
+        const colorByTimeAgo = getColorByTimeAgo(params);
+        if (!colorByTimeAgo) return '';
+        return <FlagIcon sx={{ color: colorByTimeAgo }} />;
+      },
+    },
+    {
       field: 'user',
-      headerName: t('cruces.table.specialistName'),
+      headerName: t<string>('cruces.table.specialistName'),
       width: 200,
       renderCell: (
         params: GridRenderCellParams,
@@ -192,7 +209,7 @@ export function TableHome() {
                   color="primary"
                   onClick={() => actionAssign(params.row.id)}
                 >
-                  {t('cruces.table.assign')}
+                  {t<string>('cruces.table.assign')}
                 </Button>
               )}
               <Button
@@ -200,7 +217,7 @@ export function TableHome() {
                 color="primary"
                 onClick={() => handleAttend(params.row.id)}
               >
-                {t('cruces.table.attend')}
+                {t<string>('cruces.table.attend')}
               </Button>
             </Stack>
           );
@@ -217,19 +234,19 @@ export function TableHome() {
     },
     {
       field: 'openingDate',
-      headerName: t('cruces.table.openingDate'),
+      headerName: t<string>('cruces.table.openingDate'),
       width: 150,
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
       field: 'number',
-      headerName: t('cruces.crossingNumber'),
+      headerName: t<string>('cruces.crossingNumber'),
       width: 150,
     },
     {
       field: 'status',
-      headerName: t('cruces.crossingStatus'),
-      width: 200,
+      headerName: t<string>('cruces.crossingStatus'),
+      width: 300,
       valueGetter: (params: GridValueGetterParams) => {
         const { value } = params;
         return value?.name ?? 'N/A';
@@ -238,8 +255,22 @@ export function TableHome() {
         params: GridRenderCellParams,
       ) => {
         const { row } = params;
-        return <Chip sx={{ backgroundColor: row?.status?.color, color: 'white' }} label={row?.status?.name ?? 'N/A'} />;
+        return (
+          <>
+            <Avatar sx={{ width: 15, height: 15, bgcolor: row?.status?.color }}>
+              &nbsp;
+            </Avatar>
+            <Typography variant="body2" sx={{ ml: 1 }}>
+              {row?.status?.name}
+            </Typography>
+          </>
+        );
       },
+    },
+    {
+      field: 'trafficType',
+      headerName: 'Tipo de trafico',
+      width: 130,
     },
     {
       field: 'typeModulation',
@@ -259,7 +290,7 @@ export function TableHome() {
     },
     {
       field: 'client',
-      headerName: t('cruces.customer'),
+      headerName: t<string>('cruces.customer'),
       width: 200,
     },
     {
@@ -280,7 +311,7 @@ export function TableHome() {
     },
     {
       field: 'placas',
-      headerName: t('cruces.plates'),
+      headerName: t<string>('cruces.plates'),
       width: 130,
       renderCell: (
         params: GridRenderCellParams,
@@ -291,22 +322,22 @@ export function TableHome() {
     },
     {
       field: 'economicNumber',
-      headerName: t('cruces.economicNumber'),
+      headerName: t<string>('cruces.economicNumber'),
       width: 150,
     },
     {
       field: 'type',
-      headerName: t('cruces.crossingType'),
+      headerName: t<string>('cruces.crossingType'),
       width: 150,
     },
     {
       field: 'anden',
-      headerName: t('cruces.platform'),
+      headerName: t<string>('cruces.platform'),
       width: 150,
     },
     {
       field: 'checker',
-      headerName: t('cruces.verifier'),
+      headerName: t<string>('cruces.verifier'),
       width: 200,
       renderCell: (
         params: GridRenderCellParams,
@@ -322,7 +353,7 @@ export function TableHome() {
     },
     {
       field: 'comments',
-      headerName: t('cruces.comments'),
+      headerName: t<string>('cruces.comments'),
       width: 150,
     },
   ];
@@ -337,6 +368,8 @@ export function TableHome() {
         return setFilterBy(crossingByUser);
       case 'Operaciones del equipo':
         return setFilterBy(crossingByTeam);
+      case 'EXPORT':
+        return setOpenModal(true);
       default:
         return refetch();
     }
@@ -349,6 +382,7 @@ export function TableHome() {
 
   return (
     <>
+      <CustomExportModal open={openModal} onClose={handleOpen} />
       <DataGrid
         components={{
           Toolbar: CustomToolbar,
@@ -358,6 +392,7 @@ export function TableHome() {
         componentsProps={{
           toolbar: {
             actionFunction,
+            isCustomExport: true,
             color,
           },
         }}
@@ -369,14 +404,6 @@ export function TableHome() {
           },
           '&.MuiDataGrid-root': {
             border: 'none',
-          },
-          '.MuiDataGrid-row-red': {
-            backgroundColor: 'red !important',
-            opacity: 0.8,
-          },
-          '.MuiDataGrid-row-orange': {
-            backgroundColor: 'orange !important',
-            opacity: 0.8,
           },
           color,
           p: 1,
@@ -404,7 +431,6 @@ export function TableHome() {
         }}
         getRowId={({ id }: Rows) => id}
         loading={loading}
-        getRowClassName={getColorByTimeAgo}
         onPageSizeChange={(newSize: number) => setPageSize(newSize)}
         onPageChange={(newPage: number) => handlePageChange(newPage + 1)}
       />

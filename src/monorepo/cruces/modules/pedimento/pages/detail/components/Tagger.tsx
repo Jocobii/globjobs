@@ -30,7 +30,7 @@ function Tagger({
       errors,
     },
   } = useForm<FieldValues>({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
   });
 
   const changeTagFile = (name: string, tag: string) => {

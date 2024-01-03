@@ -18,9 +18,9 @@ const allUsersDocument = gql`
 
 export const getUsersQuery = async (variables: Record<string, unknown>) => {
   const pagination = { ...variables };
-  const teamId = pagination.teamId as string;
-  delete pagination.teamId;
-  return request<any>(
+  const teamId = pagination['teamId'] as string;
+  delete pagination['teamId'];
+  return request(
     '/gq/back-office',
     allUsersDocument,
     {

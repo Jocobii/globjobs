@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
@@ -29,6 +30,7 @@ import LayersClearIcon from '@mui/icons-material/LayersClear';
 import { useValidateFiles } from '@gsuite/shared/services/cruces';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useUpdateStatusCruce } from '@gsuite/shared/services/cruces/cruce-update';
 import { useUpdateCruceHistory } from '@gsuite/shared/services/cruces/update-history';
 import { uploadFiles } from '@gsuite/shared/lib/uploadFile';
 import {
@@ -39,6 +41,7 @@ import {
   READY_DOCUMENTS_STATUS,
   PAID_DOCUMENTS_STATUS,
 } from '@gsuite/shared/seeders/status';
+import { downloadZip } from '../services/downloadZip';
 import { useAssignUser } from '../services/assign-user';
 import { useSendCruce } from '../services/sendCrossing';
 import TreeList from './TreeList';
@@ -47,8 +50,8 @@ import { useCruceDetail } from '../services/cruce-detail';
 import { useSubCruceDetail } from '../services/crossing-detail-sub';
 import { useUpdateCruce } from '../services/cruce-update';
 import { useValidateTxT, ValidateTxT, useUpdateTxT } from '../services/update-txt.files';
-import { downloadZip } from '../services/downloadZip';
 import { NewData } from './DialogValidate';
+import { MaritimeBanner } from './MaritimeBanner';
 
 type Params = {
   id: string;
@@ -93,22 +96,31 @@ export default function CruceDetail() {
   } = useCruce();
   const [assignUser] = useAssignUser();
   const { updateCrossing } = useUpdateCruce();
-  const { successMessage, errorMessage, showSnackMessage } = useSnackNotification();
+  const {
+    successMessage, errorMessage, showSnackMessage, infoMessage,
+  } = useSnackNotification();
+  const { updateStatusCrossing } = useUpdateStatusCruce();
   const { sendCrossing, loading: loadingSend } = useSendCruce();
+  const [openHistory, setOpenHistory] = useState(false);
   const [checkCrossing] = useValidateTxT();
   const [updateTxT] = useUpdateTxT();
   const theme = useTheme();
   const { crossing, setCrossing } = useCrossing();
   useSubCruceDetail(id, setCrossing);
   const value = data?.getCrossing;
+  const [openBannerDrawer, setOpenBannerDrawer] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [optionsAnchorEl, setOptionsAnchorEl] = useState<null | HTMLElement>(null);
   const [openCancelCruceModal, setOpenCancelCruceModal] = useState(false);
   const open = !!anchorEl;
-
+  const handleOpenBannerDrawer = () => {
+    refetch();
+    setOpenBannerDrawer(!openBannerDrawer);
+  };
   const allIssues = tree.reduce((acc, node) => {
     if (!node.data?.issues) return acc;
     const { informations = 0, warnings = 0, errors = 0 } = node.data?.issues || {};
+    if (node.data.ext === 'pdf') return acc;
     return {
       information: acc.information + informations,
       warning: acc.warning + warnings,
@@ -140,32 +152,32 @@ export default function CruceDetail() {
   const handleOptionsMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     setOptionsAnchorEl(e.currentTarget);
   };
-  const { _id: currentStatusId } = value?.status ?? {};
+  const { _id: currentStatusId } = value?.status || {};
 
   useEffect(() => {
     if (value?.id) {
       setCrossing({ ...value });
       setExternalNode(value?.nodes.externalNode);
       setTree(value?.nodes.tree);
-      setDispatchNodes(value?.nodes.dispatchFileNode ?? []);
+      setDispatchNodes(value?.nodes.dispatchFileNode || []);
     }
   }, [value?.id]);
 
   useEffect(() => {
-    setExternalNode(value?.nodes.externalNode ?? []);
-    setTree(value?.nodes.tree ?? []);
-    setDispatchNodes(value?.nodes.dispatchFileNode ?? []);
+    setExternalNode(value?.nodes.externalNode || []);
+    setTree(value?.nodes.tree || []);
+    setDispatchNodes(value?.nodes.dispatchFileNode || []);
   }, [value?.nodes?.externalNode, value?.nodes?.tree, value?.nodes?.dispatchFileNode]);
 
   useEffect(() => {
-    setTree(crossing?.nodes?.tree ?? []);
-    setExternalNode(crossing?.nodes?.externalNode ?? []);
-    setDispatchNodes(dispatchNodes ?? []);
+    setTree(crossing?.nodes?.tree || []);
+    setExternalNode(crossing?.nodes?.externalNode || []);
+    setDispatchNodes(dispatchNodes || []);
   }, [crossing, setDispatchNodes, setExternalNode, setTree]);
 
   useEffect(() => {
-    setTree(crossing?.nodes?.tree ?? []);
-    setDispatchNodes(crossing?.nodes?.dispatchFileNode ?? []);
+    setTree(crossing?.nodes?.tree || []);
+    setDispatchNodes(crossing?.nodes?.dispatchFileNode || []);
   }, [crossing?.nodes?.tree, crossing?.nodes?.dispatchFileNode]);
 
   useEffect(() => {
@@ -187,6 +199,7 @@ export default function CruceDetail() {
   }, [externalNode.length, tree.length, dispatchNodes.length]);
 
   // toda la logica de subir, etiquetar y separar archivos se mandara al back.
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   useEffect(() => {
     const newNodes = async () => {
       const formValues = {
@@ -261,10 +274,9 @@ export default function CruceDetail() {
         }
       });
 
-      const { _id: idStatus } = crossing?.status ?? {};
+      const { _id: idStatus } = crossing?.status || {};
       const correctStatus = [DOCUMENTS_PROCESS_STATUS, PROFORMA_AUTHORIZATION_STATUS].includes(idStatus ?? '');
-      const canSetPedimentoPagado = correctStatus && [...newExternalNodes, ...newTree].some((e) => e?.data?.tags === 'Pedimento pagado');
-
+      const canSetPedimentoPagado = correctStatus && [...newExternalNodes, ...newTree].some((e) => e?.data?.tags?.toLowerCase() === 'pedimento pagado');
       setTree(issuesNodes);
       setExternalNode(newExternalNodes);
       setCrossing({
@@ -340,7 +352,7 @@ export default function CruceDetail() {
     if (dispatchFileNode.length > 0) {
       return !dispatchFileNode.some((node) => node.data?.tags === 'DODA / PITA');
     }
-    return true;
+    return !!(isDocumentDeliveredStatus());
   };
 
   const setUser = async () => {
@@ -411,7 +423,7 @@ export default function CruceDetail() {
         }).catch(() => {});
       }
       showSnackMessage(
-        response?.data?.sendCrossing?.message ?? '',
+        response?.data?.sendCrossing?.message || '',
         response?.data?.sendCrossing?.error ? 'error' : 'success',
         {
           vertical: 'top',
@@ -425,7 +437,7 @@ export default function CruceDetail() {
         },
       );
     } catch (error) {
-      errorMessage(t('cruces.an_error'));
+      errorMessage(t<string>('cruces.an_error'));
     }
   };
 
@@ -476,7 +488,7 @@ export default function CruceDetail() {
       }
       refetch();
     } catch (error) {
-      errorMessage(t('cruces.error_update_txt_file'));
+      errorMessage(t<string>('cruces.error_update_txt_file'));
     }
   };
 
@@ -500,14 +512,31 @@ export default function CruceDetail() {
         context: { clientName: 'globalization' },
       });
       refetch();
-      successMessage(t('cruces.crossing_has_updated'));
+      successMessage(t<string>('cruces.crossing_has_updated'));
     } catch (error) {
-      errorMessage(t('cruces.an_error_update'));
+      errorMessage(t<string>('cruces.an_error_update'));
+    }
+  };
+
+  const handleSendDocumentsMaritimeExpo = async (): Promise<void> => {
+    try {
+      await updateStatusCrossing({
+        variables: { id: value?.id, status: DOCUMENTS_DELIVERED_STATUS },
+        context: { clientName: 'globalization' },
+      })
+        .then(() => {
+          successMessage(t<string>('cruces.onSuccess.deliveredDocuments'));
+          refetch();
+        });
+    } catch (error) {
+      console.log(error);
+      errorMessage(t<string>('cruces.an_error'));
     }
   };
 
   const downloadFilesZip = async () => {
     setLoading(true);
+    infoMessage('Descargando archivos...');
     try {
       const filesResponse = await downloadZip(id);
       if (filesResponse && filesResponse.size > 0) {
@@ -518,36 +547,42 @@ export default function CruceDetail() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        return setLoading(false);
+        setLoading(false);
+        return successMessage(t<string>('cruces.download_success'));
       }
-      setLoading(false);
-      return successMessage(t('cruces.send_file_to_email'));
+      return successMessage(t<string>('cruces.send_file_to_email'));
     } catch (error) {
+      return errorMessage(t<string>('cruces.download_error'));
+    } finally {
       setLoading(false);
-      return errorMessage(t('cruces.download_error'));
     }
   };
 
   const options = [
     {
       icon: <CachedIcon />,
-      onClick: () => null,
+      onClick: () => refetch(),
+      label: 'Actualizar',
     },
     {
       icon: <FileDownloadIcon />,
-      onClick: () => null,
+      onClick: downloadFilesZip,
+      label: 'Descargar archivos',
     },
     {
       icon: <LabelIcon />,
       onClick: () => null,
+      label: '',
     },
     {
       icon: <LayersClearIcon />,
       onClick: () => null,
+      label: '',
     },
     {
       icon: <MoreHorizIcon />,
       onClick: handleOptionsMenu,
+      label: 'Mas opciones',
     },
   ];
 
@@ -567,201 +602,222 @@ export default function CruceDetail() {
         />
       )}
       <Paper elevation={20}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          spacing={2}
-          sx={{ p: '20px' }}
-        >
-          {value && (
-            <>
+        {value && (
+          <>
+            <Grid
+              container
+              direction="row"
+              padding={1}
+            >
+              <Stack spacing={5} sx={{ marginLeft: '1%' }} direction="row">
+                <Typography color="#3A8FE8" variant="h6" component="div" gutterBottom>
+                  {t<string>('cruces.operation')}
+                  {' '}
+                  {value?.number}
+                </Typography>
+                <Typography variant="h6" component="div" gutterBottom>
+                  {value?.type}
+                </Typography>
+                <Typography variant="h6" component="div" gutterBottom>
+                  {t<string>('cruces.trafficType')}
+                  {' '}
+                  {value?.trafficType}
+                </Typography>
+                <Typography variant="h6" component="div" gutterBottom>
+                  {t<string>('cruces.patent')}
+                  {' '}
+                  {value?.patente}
+                </Typography>
+                <Typography variant="h6" component="div" gutterBottom>
+                  {t<string>('cruces.customsOffice')}
+                  {' '}
+                  {value?.aduana}
+                </Typography>
+                {value?.client && value?.clientNumber && (
+                  <Typography variant="h5" component="div" gutterBottom>
+                    {`${value?.client} (${value?.clientNumber})`}
+                  </Typography>
+                )}
+                <Button variant="text" onClick={() => setOpenHistory(true)} disabled={loading} sx={{ m: 2 }}>
+                  <Typography variant="inherit">{t<string>('cruces.operation_monitor')}</Typography>
+                </Button>
+              </Stack>
+              {
+                crossing?.trafficType?.toLocaleLowerCase() === 'maritime' && (
+                  <MaritimeBanner
+                    crossing={crossing}
+                    open={openBannerDrawer}
+                    handleOpen={handleOpenBannerDrawer}
+                  />
+                )
+              }
+            </Grid>
+            <Grid>
+              <div style={{ height: '70vh', padding: '20px' }}>
+                <TreeList
+                  crossingId={value?.id}
+                  tree={tree}
+                  externalNode={externalNode}
+                  dispatchFileNode={dispatchNodes ?? []}
+                  handleDropTree={handleDropTree}
+                  refetch={refetch}
+                />
+              </div>
               <Grid
                 container
                 direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                padding={2}
+                spacing={1}
               >
-                <Stack spacing={6} sx={{ marginLeft: '1%' }} direction="row">
-                  <Typography color="#3A8FE8" variant="h5" component="div" gutterBottom>
-                    {t('cruces.operation')}
-                    {' '}
-                    {value?.number}
+                <Grid item xs={12}>
+                  <Typography>
+                    {
+                      `
+                        ${t<string>('cruces.files')}
+                        (
+                            ${allIssues.error} ${t<string>('cruces.mistakes')},
+                            ${allIssues.warning} ${t<string>('cruces.warning')},
+                            ${allIssues.information} ${t<string>('cruces.information')}
+                        )
+                      `
+                    }
                   </Typography>
-                  <Typography variant="h5" component="div" gutterBottom>
-                    {value?.type}
-                  </Typography>
-                  <Typography variant="h5" component="div" gutterBottom>
-                    {t('cruces.patent')}
-                    {' '}
-                    {value?.patente}
-                  </Typography>
-                  <Typography variant="h5" component="div" gutterBottom>
-                    {t('cruces.customsOffice')}
-                    {' '}
-                    {value?.aduana}
-                  </Typography>
-                  {value?.client && value?.clientNumber && (
-                    <Typography variant="h5" component="div" gutterBottom>
-                      {`${value?.client} (${value?.clientNumber})`}
-                    </Typography>
-                  )}
-                  <Button variant="outlined" onClick={downloadFilesZip} disabled={loading} sx={{ m: 2 }}>
-                    <Typography variant="inherit">{t('cruces.download_zip')}</Typography>
-                  </Button>
-                </Stack>
-              </Grid>
-              <Grid item xs={9}>
-                <Paper elevation={11} style={{ height: '70vh', padding: '20px' }}>
-                  <TreeList
-                    crossingId={value?.id}
-                    tree={tree}
-                    externalNode={externalNode}
-                    dispatchFileNode={dispatchNodes ?? []}
-                    handleDropTree={handleDropTree}
-                    refetch={refetch}
-                  />
-                </Paper>
+                </Grid>
                 <Grid
                   container
+                  item
+                  xs={12}
+                  md={4}
+                  spacing={2}
+                >
+                  <Grid item spacing={2}>
+                    {
+                      options.map((option) => (
+                        <IconButton
+                          style={{ margin: 3, color: '#2F82E0' }}
+                          onClick={option.onClick}
+                          key={option.label}
+                          aria-label={option.label}
+                        >
+                          {option.icon}
+                        </IconButton>
+                      ))
+                    }
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={optionsAnchorEl}
+                      keepMounted
+                      open={Boolean(optionsAnchorEl)}
+                      onClose={() => setOptionsAnchorEl(null)}
+                    >
+                      <MenuItem
+                        onClick={() => {
+                          setOptionsAnchorEl(null);
+                          setOpenCancelCruceModal(true);
+                        }}
+                        style={{ color: '#2F82E0' }}
+                        key="cancelOperation"
+                        value="Cancelar Operación"
+                        disabled={
+                          !availableCancelationStatus.includes(
+                            get(value, 'status._id', ''),
+                          )
+                        }
+                      >
+                        <HighlightOffIcon style={{ fontSize: 12, marginRight: 5 }} />
+                        Cancelar Operación
+                      </MenuItem>
+                    </Menu>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  md={8}
                   direction="row"
-                  justifyContent="space-between"
+                  justifyContent="flex-end"
                   alignItems="center"
                   spacing={1}
                 >
-                  <Grid item xs={12}>
-                    <Typography>
-                      {
-                        `
-                          ${t('cruces.files')}
-                          (
-                              ${allIssues.error} ${t('cruces.mistakes')},
-                              ${allIssues.warning} ${t('cruces.warning')},
-                              ${allIssues.information} ${t('cruces.information')}
-                          )
-                        `
-                      }
-                    </Typography>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      startIcon={<AddIcon />}
+                      onClick={handleFilesMenu}
+                      aria-controls={open ? 'demo-positioned-menu' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? 'true' : undefined}
+                      size="small"
+                      disabled={isDocumentDeliveredStatus()}
+                    >
+                      {t<string>('cruces.add_file')}
+                    </Button>
                   </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    md={4}
-                    spacing={2}
-                  >
-                    <Grid item spacing={2}>
-                      {
-                        options.map((option, index) => (
-                          <IconButton
-                            key={`${index + 1}`}
-                            style={{ margin: 3, color: '#2F82E0' }}
-                            onClick={option.onClick}
-                          >
-                            {option.icon}
-                          </IconButton>
-                        ))
-                      }
-                      <Menu
-                        id="simple-menu"
-                        anchorEl={optionsAnchorEl}
-                        keepMounted
-                        open={Boolean(optionsAnchorEl)}
-                        onClose={() => setOptionsAnchorEl(null)}
-                      >
-                        <MenuItem
-                          onClick={() => {
-                            setOptionsAnchorEl(null);
-                            setOpenCancelCruceModal(true);
-                          }}
-                          style={{ color: '#2F82E0' }}
-                          key="cancelOperation"
-                          value="Cancelar Operación"
-                          disabled={
-                            !availableCancelationStatus.includes(
-                              get(value, 'status._id', ''),
-                            )
+                  <Grid item>
+                    <Button
+                      variant="outlined"
+                      onClick={handleUpdateCrossing}
+                      size="small"
+                      disabled={isDocumentDeliveredStatus()}
+                    >
+                      <Typography variant="inherit">{t<string>('cruces.update_crossing')}</Typography>
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <ButtonLoading
+                      variant="outlined"
+                      onClick={handleSubmit}
+                      disabled={disabledSendDarwin() || isDocumentDeliveredStatus()}
+                      loading={loadingSend}
+                      size="small"
+                    >
+                      <Typography variant="inherit">{t<string>('cruces.send_to_darwin')}</Typography>
+                    </ButtonLoading>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        if (get(crossing, 'trafficType', '') === 'maritime') {
+                          if (get(crossing, 'type', '')?.toLowerCase() === 'exportacion') {
+                            handleSendDocumentsMaritimeExpo();
+                            return;
                           }
-                        >
-                          <HighlightOffIcon style={{ fontSize: 12, marginRight: 5 }} />
-                          Cancelar Operación
-                        </MenuItem>
-                      </Menu>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    md={8}
-                    direction="row"
-                    justifyContent="flex-end"
-                    alignItems="center"
-                    spacing={1}
-                    style={{ marginTop: '10px' }}
-                  >
-                    <Grid item>
-                      <Button
-                        variant="contained"
-                        startIcon={<AddIcon />}
-                        onClick={handleFilesMenu}
-                        aria-controls={open ? 'demo-positioned-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                        size="small"
-                        disabled={isDocumentDeliveredStatus()}
-                      >
-                        {t('cruces.add_file')}
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        variant="outlined"
-                        onClick={handleUpdateCrossing}
-                        size="small"
-                        disabled={isDocumentDeliveredStatus()}
-                      >
-                        <Typography variant="inherit">{t('cruces.update_crossing')}</Typography>
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <ButtonLoading
-                        variant="outlined"
-                        onClick={handleSubmit}
-                        disabled={disabledSendDarwin() || isDocumentDeliveredStatus()}
-                        loading={loadingSend}
-                        size="small"
-                      >
-                        <Typography variant="inherit">{t('cruces.send_to_darwin')}</Typography>
-                      </ButtonLoading>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        variant="outlined"
-                        onClick={handleSendDocumentsDrawerOpen}
-                        disabled={cantSendDocuments() || isDocumentDeliveredStatus()}
-                        size="small"
-                      >
-                        <Typography variant="inherit">Enviar documentos</Typography>
-                      </Button>
-                    </Grid>
+                          handleOpenBannerDrawer();
+                          return;
+                        }
+                        handleSendDocumentsDrawerOpen();
+                      }}
+                      disabled={cantSendDocuments()}
+                      size="small"
+                    >
+                      <Typography variant="inherit">Enviar documentos</Typography>
+                    </Button>
                   </Grid>
                 </Grid>
-                <Conditional
-                  loadable={openDialog}
-                  initialComponent={null}
-                >
-                  <OfficeConfirmation
-                    crossingId={crossing?.id ?? ''}
-                    open={openDialog}
-                    setOpen={setOpenDialog}
-                  />
-                </Conditional>
               </Grid>
-              <Panel
-                history={crossing?.history ?? []}
-              />
-            </>
-          )}
-        </Grid>
+              <Conditional
+                loadable={openDialog}
+                initialComponent={null}
+              >
+                <OfficeConfirmation
+                  crossingId={crossing?.id ?? ''}
+                  open={openDialog}
+                  setOpen={setOpenDialog}
+                />
+              </Conditional>
+            </Grid>
+            <Panel
+              nodes={crossing?.nodes}
+              history={crossing?.history || []}
+              openHistory={openHistory}
+              setOpenHistory={setOpenHistory}
+            />
+          </>
+        )}
         <FilesMenu
           refetch={refetch}
           setAnchorEl={setAnchorEl}
@@ -780,7 +836,7 @@ export default function CruceDetail() {
         <CancelCruceModal
           open={openCancelCruceModal}
           handleVisibility={setOpenCancelCruceModal}
-          title={`${t('cruces.operation')} ${value?.number}`}
+          title={`${t<string>('cruces.operation')} ${value?.number}`}
           crossingId={id}
           t={t}
         />

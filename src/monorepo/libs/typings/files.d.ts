@@ -1,4 +1,5 @@
 import { NodeModel } from '@minoru/react-dnd-treeview';
+import { RequiredActionsTypes } from '@gsuite/typings/crossing';
 
 type PedimentoRemesasValidatedOutput = {
   numero: string;
@@ -121,6 +122,7 @@ export type RequiredActions = {
   name: string;
   nameFile: string;
   resolved: boolean;
+  type: RequiredActionsTypes;
 };
 
 export type PreTaggedFile = Pick<SimpleNode, 'firstDigitized' | 'name' | 'tags'> & { authorizedCashAmount?: number };

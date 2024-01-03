@@ -73,13 +73,13 @@ export default function History({ history }: Props) {
           <TimelineItem key={status?.name}>
             <TimelineOppositeContent key={`${status?.name}-content `}>
               <Typography variant="subtitle2">{status?.name}</Typography>
-              <Typography variant="subtitle2">{`${t('broker.registrationDate')}: ${parseDate(date)}`}</Typography>
+              <Typography variant="subtitle2">{`${t<string>('broker.registrationDate')}: ${parseDate(date)}`}</Typography>
               {arrivalPlace && (
-              <Typography variant="subtitle2">{`${t('broker.arrivalPlaceLabel')}: ${arrivalPlace}`}</Typography>
+              <Typography variant="subtitle2">{`${t<string>('broker.arrivalPlaceLabel')}: ${arrivalPlace}`}</Typography>
               )}
               {origin && <Typography variant="subtitle2">{`Origen: ${origin}`}</Typography>}
               {quantity ? (
-                <Typography variant="subtitle2">{`${t('broker.totalPieces')}: ${quantity}`}</Typography>
+                <Typography variant="subtitle2">{`${t<string>('broker.totalPieces')}: ${quantity}`}</Typography>
               ) : null}
               {packingListFiles && (
               <IconButton
@@ -116,7 +116,7 @@ export default function History({ history }: Props) {
                   }}
                   disabled={logs.length === 0}
                 >
-                  {logs.length > 0 ? t('broker.viewLogs') : t('broker.withoutLogs')}
+                  { logs.length > 0 ? t<string>('broker.viewLogs') : t<string>('broker.withoutLogs')}
                 </Button>
               </Stack>
               <StepLogs

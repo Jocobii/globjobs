@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import {
   Drawer,
   Typography,
@@ -24,10 +23,8 @@ import { useTranslation } from 'react-i18next';
 import { useSnackNotification, useResponsive } from '@gsuite/shared/hooks';
 import { getIconImgeByExt } from '@gsuite/shared/utils/funcs';
 import { normalizeString } from '@gsuite/shared/utils/format';
-import { useUpdateCruceHistory } from '@gsuite/shared/services/cruces/update-history';
-import { useUpdateStatusCruce } from '@gsuite/shared/services/cruces/cruce-update';
-import { DOCUMENTS_DELIVERED_STATUS, READY_DOCUMENTS_STATUS } from '@gsuite/shared/seeders/status';
 import { useCruceDetail } from '../services/cruce-detail';
+import { useSendToTraffic } from '../services/send-to-traffic';
 import useCruce from '../hooks/useCruce';
 
 type Props = {
@@ -53,7 +50,10 @@ const allowedTags: string[] = [
   'in-bond',
   'hoja de ingreso',
   'bill of lading',
+  'documentos americanos',
 ];
+
+const CUSTOMER_OPTION = 1;
 
 export default function SendDocumentsDrawer({
   open,
@@ -64,12 +64,11 @@ export default function SendDocumentsDrawer({
   const [isLoading, setIsLoading] = useState(false);
   const [openList, setOpenList] = useState(false);
   const [sendOption, setSendOption] = useState(1);
+  const { sendCrossingToTraffic } = useSendToTraffic();
   const [sendConfirm, setSendConfirm] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
   const { successMessage, errorMessage } = useSnackNotification();
-  const { updateHistory } = useUpdateCruceHistory();
-  const { updateStatusCrossing } = useUpdateStatusCruce();
-  const { refetch, data } = useCruceDetail(crossingId);
+  const { data } = useCruceDetail(crossingId);
   const { flatTreeNodes } = useCruce();
 
   const dispatchFiles = flatTreeNodes({
@@ -93,29 +92,18 @@ export default function SendDocumentsDrawer({
   const handleSendDocuments = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      await updateStatusCrossing({
+      sendCrossingToTraffic({
         variables: {
-          id: crossingId,
-          status: sendOption === 1 ? DOCUMENTS_DELIVERED_STATUS : READY_DOCUMENTS_STATUS,
-        },
-        context: { clientName: 'globalization' },
-      })
-        .then(() => updateHistory({
-          variables: {
-            operation: {
-              id: crossingId,
-              action: sendOption === 1 ? 'documents_delivered' : 'document_send_traffic',
-              files: filesNames,
-            },
+          sendTraffic: {
+            id: data?.getCrossing.id,
+            sendToCustomer: sendOption === CUSTOMER_OPTION,
           },
-          context: { clientName: 'globalization' },
-        }))
-        .then(async () => {
-          successMessage(t('cruces.onSuccess.sendDocuments'));
-          await refetch();
-        });
+        },
+        onError: () => errorMessage('Ocurrió un error al enviar los documentos'),
+        onCompleted: () => successMessage('Se han enviado los documentos correctamente'),
+      });
     } catch (error) {
-      errorMessage(t('cruces.an_error'));
+      errorMessage(t<string>('cruces.an_error'));
     } finally {
       setIsLoading(false);
       onClose();
@@ -153,6 +141,13 @@ export default function SendDocumentsDrawer({
         }}
       >
         <Typography variant="h3">Envío de documentos de despacho</Typography>
+        {data?.getCrossing.isAAUSDocComplete && (
+          <Typography color="red" variant="body1">
+            {
+            `*La cantida de ${data.getCrossing.type === 'Importacion' ? 'documentos americanos' : 'entries'} no coinciden con las cantidades de facturas registradas en el cruce*`
+          }
+          </Typography>
+        )}
         <Typography variant="subtitle1">Elige a donde quieres enviar los documentos de despacho.</Typography>
         <Stack
           sx={{ minWidth: '100%' }}

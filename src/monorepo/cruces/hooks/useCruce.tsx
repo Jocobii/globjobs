@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable consistent-return */
 import {
   FileDropZone,
@@ -78,14 +79,14 @@ type NodeTXT = {
 
 const errorMessage = 'cruces.onSave.error';
 const successMessage = 'cruces.onSave.updated';
-const onlyNumbers = /^\d+$/;
+const onlyNumbers = /^[0-9]+$/;
 const dispatchFolder = 'dispatch-folder';
 const generalFolder = 'general-folder';
 
 const mappedNodes = (nodes: NodeModels[], parent = null) => nodes.map((e) => ({
   id: e.id,
   text: e.text,
-  parent: parent ?? e.parent.toString(),
+  parent: parent || e.parent.toString(),
   droppable: e.droppable,
   data: e.data,
 }));
@@ -120,6 +121,8 @@ const useCruce = () => {
     };
   };
 
+  const removeRepetitionFromFileName = (fileName: string): string => fileName?.replace(/\s*\([^)]*\)\s*(\.[^.]+)$/, '$1');
+
   const sortFiles = (filesSort: FileDropZone[]): FileDropZone[] => [...filesSort].sort((a, b) => {
     const { ext: aExt } = extension(a.name);
     const { ext: bExt } = extension(b.name);
@@ -152,7 +155,7 @@ const useCruce = () => {
 
     if (typeValue !== Number(type)) errors.push(`El tipo de operacion seleccionado no corresponde con el de TXT ${file.name}`);
 
-    if (formValues.clientNumber !== numeroCliente) errors.push(`El numero de cliente no corresponde con el de TXT ${file.name}`);
+    if (formValues['clientNumber'] !== numeroCliente) errors.push(`El numero de cliente no corresponde con el de TXT ${file.name}`);
 
     return errors;
   };
@@ -191,11 +194,11 @@ const useCruce = () => {
       const contentFile = reader.result as string;
       const splitSection = contentFile.split('\n');
       const section501 = splitSection.find((text) => text.includes('501'));
-      const pedimento = section501?.split('|')[TXT['501'].PEDIMENTO] ?? '';
-      const type = section501?.split('|')[TXT['501'].TIPO] ?? '';
-      const clavePedimento = section501?.split('|')[TXT['501'].CLAVE] ?? '';
-      const numeroCliente = section501?.split('|')[TXT['501'].CLIENTE_NUMBER] ?? '';
-      const typeValue = formValues.type === 'Importacion' ? 1 : 2;
+      const pedimento = section501?.split('|')[TXT['501'].PEDIMENTO] || '';
+      const type = section501?.split('|')[TXT['501'].TIPO] || '';
+      const clavePedimento = section501?.split('|')[TXT['501'].CLAVE] || '';
+      const numeroCliente = section501?.split('|')[TXT['501'].CLIENTE_NUMBER] || '';
+      const typeValue = formValues['type'] === 'Importacion' ? 1 : 2;
       const txtValues = {
         typeValue, numeroCliente, type,
       };
@@ -240,7 +243,7 @@ const useCruce = () => {
     formValues: FieldValues,
   ): Promise<NodeTXT | null> => {
     const data = await readTxtFile(file, formValues);
-    const { pedimento, clavePedimento, error } = data ?? {};
+    const { pedimento, clavePedimento, error } = data || {};
     if (!pedimento) return null;
     if (pedimento) {
       const folderText = `pedimento ${pedimento?.split(',')[0]} - ${clavePedimento ?? ''}`;
@@ -304,7 +307,7 @@ const useCruce = () => {
         patente,
         factura: invoice,
         clientNumber,
-        clavePedimento: v.data?.extraData ? v?.data?.extraData.clavePedimento : '',
+        clavePedimento: v.data?.extraData ? v?.data?.extraData['clavePedimento'] : '',
         type: type === 'Importacion' ? '1' : '2',
       };
     });
@@ -481,9 +484,9 @@ const useCruce = () => {
           delete: hasError,
         },
       };
-    });
+    }) as NodeModels[];
     const nodesValidate = currentNodes.filter((node) => Boolean(node));
-    if (parentsDeleteds.length > 0) displayWarningMessage(t('cruces.pedimentosOmmited'), { horizontal: 'center', vertical: 'top' });
+    if (parentsDeleteds.length > 0) displayWarningMessage(t<string>('cruces.pedimentosOmmited'), { horizontal: 'center', vertical: 'top' });
     const { nodes: newNodes } = removeNodesDeleted(nodesValidate);
     return { nodesValidate: newNodes, orphanedNodes };
   };
@@ -570,14 +573,14 @@ const useCruce = () => {
           ...newCrossing,
           nodes: {
             externalNode: mappedNodes(clenedTree),
-            dispatchFileNode: filteredDispatch ?? dispatchNodes,
-            tree: filteredTree ?? tree,
+            dispatchFileNode: filteredDispatch || dispatchNodes,
+            tree: filteredTree || tree,
           },
         },
       },
       context: { clientName: 'globalization' },
-      onCompleted: () => displaySuccessMessage(t(successMessage), { vertical: 'top', horizontal: 'center' }),
-    }).catch(() => displayErrorMessage(t(errorMessage), { vertical: 'top', horizontal: 'center' }));
+      onCompleted: () => displaySuccessMessage(t<string>(successMessage), { vertical: 'top', horizontal: 'center' }),
+    }).catch(() => displayErrorMessage(t<string>(errorMessage), { vertical: 'top', horizontal: 'center' }));
   };
 
   const updateDispatchFolder = (
@@ -594,15 +597,15 @@ const useCruce = () => {
         crossing: {
           ...newCrossing,
           nodes: {
-            externalNode: filteredExternal ?? externalNode,
+            externalNode: filteredExternal || externalNode,
             dispatchFileNode: mappedNodes(clenedTree),
-            tree: filteredTree ?? tree,
+            tree: filteredTree || tree,
           },
         },
       },
       context: { clientName: 'globalization' },
-      onCompleted: () => displaySuccessMessage(t(successMessage), { vertical: 'top', horizontal: 'center' }),
-    }).catch(() => displayErrorMessage(t(errorMessage), { vertical: 'top', horizontal: 'center' }));
+      onCompleted: () => displaySuccessMessage(t<string>(successMessage), { vertical: 'top', horizontal: 'center' }),
+    }).catch(() => displayErrorMessage(t<string>(errorMessage), { vertical: 'top', horizontal: 'center' }));
   };
 
   const updateTreeFolder = (
@@ -619,15 +622,15 @@ const useCruce = () => {
         crossing: {
           ...newCrossing,
           nodes: {
-            externalNode: filteredExternal ?? externalNode,
-            dispatchFileNode: filteredDispatch ?? dispatchNodes,
+            externalNode: filteredExternal || externalNode,
+            dispatchFileNode: filteredDispatch || dispatchNodes,
             tree: mappedNodes(clenedTree),
           },
         },
       },
       context: { clientName: 'globalization' },
-      onCompleted: () => displaySuccessMessage(t(successMessage), { vertical: 'top', horizontal: 'center' }),
-    }).catch(() => displayErrorMessage(t(errorMessage), { vertical: 'top', horizontal: 'center' }));
+      onCompleted: () => displaySuccessMessage(t<string>(successMessage), { vertical: 'top', horizontal: 'center' }),
+    }).catch(() => displayErrorMessage(t<string>(errorMessage), { vertical: 'top', horizontal: 'center' }));
   };
 
   const handleDropTree = (newTree: NodeModels[], options: DropOptions) => {
@@ -801,17 +804,50 @@ const useCruce = () => {
     isWithoutTxtFlow?: boolean,
   ) => {
     const {
-      type, client, clientNumber, patente, aduana, comments, customerUser,
+      type, client, clientNumber, patente, aduana, comments, customerUser, team,
+      trafficType,
     } = formValues;
 
     if (!Array.isArray(filesResponse)) return;
-    const { nodes, externalNodes } = addFilesS3(filesResponse);
+    const { nodes, externalNodes } = addFilesS3(filesResponse as FileData[]);
     nodes.forEach((node) => {
       const newNode = { ...node };
       if (newNode.data) delete newNode.data?.extraData;
     });
 
     const { _id: id } = customerUser;
+    if (['maritimo', 'maritime'].includes(trafficType.toLowerCase().trim())) {
+      const allNodes = [
+        ...nodes,
+        ...externalNode,
+      ].filter((node) => node.parent !== '0');
+
+      let mblFlag = false;
+      let facturaFlag = false;
+      let packingListFlag = false;
+      let booking = false;
+      allNodes.forEach((node) => {
+        if (node?.data?.tags?.toLocaleLowerCase().includes('mbl')) mblFlag = true;
+        if (node?.data?.tags?.toLocaleLowerCase().includes('factura')) facturaFlag = true;
+        if (node?.data?.tags?.toLocaleLowerCase().includes('packing list')) packingListFlag = true;
+        if (node?.data?.tags?.toLocaleLowerCase().includes('booking')) booking = true;
+      });
+      const facturaRequired = !facturaFlag ? 'Factura' : '';
+
+      if (crossing?.type?.toLowerCase() === 'importacion' && (!mblFlag || !facturaFlag || !packingListFlag)) {
+        const mblRequired = !mblFlag ? 'MBL' : '';
+        const packingListRequired = !packingListFlag ? 'Packing List' : '';
+        const message = `Los archivos ${mblRequired}, ${facturaRequired}, ${packingListRequired} son requeridos para el tipo de trafico maritimo importacion`;
+        return displayErrorMessage(message);
+      }
+
+      if (crossing?.type?.toLowerCase() === 'exportacion' && (!booking || !facturaFlag)) {
+        const bookingRequired = !booking ? 'Booking' : '';
+        const message = `Los archivos ${facturaRequired}, ${bookingRequired} son requeridos para el tipo de trafico maritimo exportacion`;
+        return displayErrorMessage(message);
+      }
+    }
+
     try {
       const createResponse = await createCrossing({
         variables: {
@@ -821,6 +857,8 @@ const useCruce = () => {
             clientNumber,
             patente,
             aduana,
+            trafficType: trafficType === 'maritimo' ? 'maritime' : 'land',
+            team,
             customerUser: {
               id: String(id),
               name: customerUser.name,
@@ -831,17 +869,19 @@ const useCruce = () => {
               tree: nodes,
               externalNode: externalNodes,
               ...(sendingCrossing && {
-                dispatchFileNode: dummyDispatchFileNode(),
+                dispatchFileNode: trafficType === 'maritimo' ? [] : dummyDispatchFileNode(),
               }),
             },
             isOnlyCreation,
             isWithoutTxtFlow,
           },
         },
+        onError: (e) => console.log('error', e),
         context: { clientName: 'globalization' },
       });
+
       if (!sendingCrossing) {
-        showSnackMessage(t('cruces.onSave.success'), 'success');
+        showSnackMessage(t<string>('cruces.onSave.success'), 'success');
       }
       return get(createResponse, 'data.createCrossing.id', '');
     } catch (error) {
@@ -859,12 +899,12 @@ const useCruce = () => {
       });
       return {
         type: 'success',
-        message: t('cruces.onSend.success'),
+        message: t<string>('cruces.onSend.success'),
       };
     } catch (error) {
       return {
         type: 'error',
-        message: t('cruces.onSend.error'),
+        message: t<string>('cruces.onSend.error'),
       };
     }
   };
@@ -900,7 +940,8 @@ const useCruce = () => {
     return displaySuccessMessage(responseMessage.message, { vertical: 'top', horizontal: 'center' });
   };
   const onSubmit = async ({
-    type, client, clientNumber, patente, aduana, comments, isWithoutTxtFlow, customerUser,
+    type, client, clientNumber, patente, aduana, comments, isWithoutTxtFlow, customerUser, team,
+    trafficType,
   }: FieldValues, {
     closeDialog,
     refetch,
@@ -908,9 +949,8 @@ const useCruce = () => {
     isOnlyCreation = true,
     updateHistoryCreate,
   }: SubmitProps) => {
-    console.log('customerUser', customerUser);
     const formValues = {
-      type, client, clientNumber, patente, aduana, comments, customerUser,
+      type, client, clientNumber, patente, aduana, comments, customerUser, team, trafficType,
     };
     const filesTree = tree.map((node) => node.data?.file);
     const filesExternal = externalNode.map((node) => node.data?.file);
@@ -925,7 +965,7 @@ const useCruce = () => {
     const filesResponse = await uploadFiles(filesUpload);
     const responseMessage: ResponseMessage = {
       type: 'error',
-      message: sendingCrossing ? t('cruces.onSend.error') : t('cruces.onSave.error'),
+      message: sendingCrossing ? t<string>('cruces.onSend.error') : t<string>('cruces.onSave.error'),
     };
 
     if (Array.isArray(filesResponse)) {
@@ -941,6 +981,10 @@ const useCruce = () => {
         sendingCrossing,
         isWithoutTxtFlow,
       );
+      if (!crossingId) {
+        setLoading(false);
+        return 'error';
+      }
       const data = {
         closeDialog,
         refetch,
@@ -1009,7 +1053,7 @@ const useCruce = () => {
         setUser();
       }
       await validations(data, get(dialogData, 'fileNames', []), get(dialogData, 'comments', ''), dialogId);
-      showSnackMessage(t('cruces.send_to_darwin_created'), 'success');
+      showSnackMessage(t<string>('cruces.send_to_darwin_created'), 'success');
     } catch (error) {
       console.log(error);
     }
@@ -1046,6 +1090,8 @@ const useCruce = () => {
     handleUpdateTxtFiles,
     addFilesS3,
     flatTreeNodes,
+    removeRepetitionFromFileName,
+    readTxtFile,
   };
 };
 

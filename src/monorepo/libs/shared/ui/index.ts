@@ -17,3 +17,4 @@ export { default as CircularLoader } from './CircularLoader';
 export { default as FileTagger } from './FileTagger';
 export { default as Conditional } from './Conditional';
 export * from './DialogProvider';
+export { default as Board } from './Board';
