@@ -1,4 +1,4 @@
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme } from '../types';
 import { CheckboxIcon, CheckboxCheckedIcon, CheckboxIndeterminateIcon } from './CustomIcons';
 
 export default function Checkbox(theme: CustomTheme) {

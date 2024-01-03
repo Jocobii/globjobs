@@ -28,7 +28,7 @@ export default function DrawerForm({ open, onClose, departmentId = undefined }: 
     >
       <Formeazy<Department>
         withHeader
-        title={isUpdate ? t('managements.departments.edit_department') : t('managements.departments.create_department')}
+        title={isUpdate ? t('managements.deparments.editDeparment') : t('managements.departments.create_department')}
         schema={departmentSchema}
         inputProps={{
           name: {

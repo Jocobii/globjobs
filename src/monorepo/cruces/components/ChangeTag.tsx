@@ -101,8 +101,8 @@ export default function ChangeTag({
           crossing: newCrossing,
         },
         context: { clientName: 'globalization' },
-        onCompleted: () => setSnackBar('success', t<string>('cruces.onSave.updated')),
-      }).catch(() => setSnackBar('success', t<string>('cruces.onSave.error')));
+        onCompleted: () => setSnackBar('success', t('cruces.onSave.updated')),
+      }).catch(() => setSnackBar('success', t('cruces.onSave.error')));
     }
     onClose();
   };
@@ -110,7 +110,7 @@ export default function ChangeTag({
   return (
     <DialogComponent
       open={open}
-      title={t<string>('cruces.changeTag')}
+      title={t('cruces.changeTag')}
       okButtonVisibility={false}
       cancelButtonVisibility={false}
       maxWidth="md"
@@ -127,7 +127,7 @@ export default function ChangeTag({
           variant="outlined"
           onClick={onClose}
         >
-          {t<string>('cancel')}
+          {t('cancel')}
         </Button>
         <LoadingButton
           onClick={onSubmit}
@@ -136,7 +136,7 @@ export default function ChangeTag({
           variant="contained"
           type="submit"
         >
-          {t<string>('save')}
+          {t('save')}
         </LoadingButton>
       </DialogActions>
     </DialogComponent>

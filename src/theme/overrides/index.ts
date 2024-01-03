@@ -1,4 +1,4 @@
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme } from '../types';
 
 import Fab from './Fab';
 import Card from './Card';
@@ -42,7 +42,6 @@ import Autocomplete from './Autocomplete';
 import ToggleButton from './ToggleButton';
 import ControlLabel from './ControlLabel';
 import LoadingButton from './LoadingButton';
-import TextField from './TextField';
 
 export default function ComponentsOverrides(theme: CustomTheme) {
   return Object.assign(
@@ -88,6 +87,5 @@ export default function ComponentsOverrides(theme: CustomTheme) {
     ControlLabel(theme),
     ToggleButton(theme),
     LoadingButton(),
-    TextField(theme),
   );
 }

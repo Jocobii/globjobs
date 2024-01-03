@@ -437,7 +437,7 @@ export default function CruceDetail() {
         },
       );
     } catch (error) {
-      errorMessage(t<string>('cruces.an_error'));
+      errorMessage(t('cruces.an_error'));
     }
   };
 
@@ -488,7 +488,7 @@ export default function CruceDetail() {
       }
       refetch();
     } catch (error) {
-      errorMessage(t<string>('cruces.error_update_txt_file'));
+      errorMessage(t('cruces.error_update_txt_file'));
     }
   };
 
@@ -512,9 +512,9 @@ export default function CruceDetail() {
         context: { clientName: 'globalization' },
       });
       refetch();
-      successMessage(t<string>('cruces.crossing_has_updated'));
+      successMessage(t('cruces.crossing_has_updated'));
     } catch (error) {
-      errorMessage(t<string>('cruces.an_error_update'));
+      errorMessage(t('cruces.an_error_update'));
     }
   };
 
@@ -525,12 +525,12 @@ export default function CruceDetail() {
         context: { clientName: 'globalization' },
       })
         .then(() => {
-          successMessage(t<string>('cruces.onSuccess.deliveredDocuments'));
+          successMessage(t('cruces.onSuccess.deliveredDocuments'));
           refetch();
         });
     } catch (error) {
       console.log(error);
-      errorMessage(t<string>('cruces.an_error'));
+      errorMessage(t('cruces.an_error'));
     }
   };
 
@@ -548,11 +548,11 @@ export default function CruceDetail() {
         link.click();
         document.body.removeChild(link);
         setLoading(false);
-        return successMessage(t<string>('cruces.download_success'));
+        return successMessage(t('cruces.download_success'));
       }
-      return successMessage(t<string>('cruces.send_file_to_email'));
+      return successMessage(t('cruces.send_file_to_email'));
     } catch (error) {
-      return errorMessage(t<string>('cruces.download_error'));
+      return errorMessage(t('cruces.download_error'));
     } finally {
       setLoading(false);
     }
@@ -611,7 +611,7 @@ export default function CruceDetail() {
             >
               <Stack spacing={5} sx={{ marginLeft: '1%' }} direction="row">
                 <Typography color="#3A8FE8" variant="h6" component="div" gutterBottom>
-                  {t<string>('cruces.operation')}
+                  {t('cruces.operation')}
                   {' '}
                   {value?.number}
                 </Typography>
@@ -619,17 +619,17 @@ export default function CruceDetail() {
                   {value?.type}
                 </Typography>
                 <Typography variant="h6" component="div" gutterBottom>
-                  {t<string>('cruces.trafficType')}
+                  {t('cruces.trafficType')}
                   {' '}
                   {value?.trafficType}
                 </Typography>
                 <Typography variant="h6" component="div" gutterBottom>
-                  {t<string>('cruces.patent')}
+                  {t('cruces.patent')}
                   {' '}
                   {value?.patente}
                 </Typography>
                 <Typography variant="h6" component="div" gutterBottom>
-                  {t<string>('cruces.customsOffice')}
+                  {t('cruces.customsOffice')}
                   {' '}
                   {value?.aduana}
                 </Typography>
@@ -639,7 +639,7 @@ export default function CruceDetail() {
                   </Typography>
                 )}
                 <Button variant="text" onClick={() => setOpenHistory(true)} disabled={loading} sx={{ m: 2 }}>
-                  <Typography variant="inherit">{t<string>('cruces.operation_monitor')}</Typography>
+                  <Typography variant="inherit">{t('cruces.operation_monitor')}</Typography>
                 </Button>
               </Stack>
               {
@@ -675,11 +675,11 @@ export default function CruceDetail() {
                   <Typography>
                     {
                       `
-                        ${t<string>('cruces.files')}
+                        ${t('cruces.files')}
                         (
-                            ${allIssues.error} ${t<string>('cruces.mistakes')},
-                            ${allIssues.warning} ${t<string>('cruces.warning')},
-                            ${allIssues.information} ${t<string>('cruces.information')}
+                            ${allIssues.error} ${t('cruces.mistakes')},
+                            ${allIssues.warning} ${t('cruces.warning')},
+                            ${allIssues.information} ${t('cruces.information')}
                         )
                       `
                     }
@@ -753,7 +753,7 @@ export default function CruceDetail() {
                       size="small"
                       disabled={isDocumentDeliveredStatus()}
                     >
-                      {t<string>('cruces.add_file')}
+                      {t('cruces.add_file')}
                     </Button>
                   </Grid>
                   <Grid item>
@@ -763,7 +763,7 @@ export default function CruceDetail() {
                       size="small"
                       disabled={isDocumentDeliveredStatus()}
                     >
-                      <Typography variant="inherit">{t<string>('cruces.update_crossing')}</Typography>
+                      <Typography variant="inherit">{t('cruces.update_crossing')}</Typography>
                     </Button>
                   </Grid>
                   <Grid item>
@@ -774,7 +774,7 @@ export default function CruceDetail() {
                       loading={loadingSend}
                       size="small"
                     >
-                      <Typography variant="inherit">{t<string>('cruces.send_to_darwin')}</Typography>
+                      <Typography variant="inherit">{t('cruces.send_to_darwin')}</Typography>
                     </ButtonLoading>
                   </Grid>
                   <Grid item>
@@ -836,7 +836,7 @@ export default function CruceDetail() {
         <CancelCruceModal
           open={openCancelCruceModal}
           handleVisibility={setOpenCancelCruceModal}
-          title={`${t<string>('cruces.operation')} ${value?.number}`}
+          title={`${t('cruces.operation')} ${value?.number}`}
           crossingId={id}
           t={t}
         />

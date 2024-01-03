@@ -34,7 +34,7 @@ export default function CustomizedTimeline({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} autoFocus>
-            {t<string>('accept')}
+            {t('accept')}
           </Button>
         </DialogActions>
       </DialogComponent>

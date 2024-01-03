@@ -382,9 +382,9 @@ export default function UploadFileToFolder({
           },
         });
       }
-      if (finalFiles.length > 0) setSnackBar('success', t<string>('cruces.file_added'));
+      if (finalFiles.length > 0) setSnackBar('success', t('cruces.file_added'));
     } catch (error) {
-      setSnackBar('error', t<string>('cruces.file_not_added'));
+      setSnackBar('error', t('cruces.file_not_added'));
     }
   };
 
@@ -440,7 +440,7 @@ export default function UploadFileToFolder({
   const handleSubmit = async () => {
     const { pedimento, comments } = getValues();
     if (taggersFile.length === 0 && !isOnlyTxt) {
-      setSnackBar('error', t<string>('cruces.file_not_selected'));
+      setSnackBar('error', t('cruces.file_not_selected'));
       return;
     }
 
@@ -448,7 +448,7 @@ export default function UploadFileToFolder({
     const proformaFile = taggersFile.find((e) => e.tags === 'Proforma');
     const dodaTargetFile = file.find((f) => f.name.includes(dodaFile?.name as string));
     if (dodaFile?.tags && dodaTargetFile?.type !== 'application/pdf') {
-      setSnackBar('error', t<string>('cruces.file_not_pdf'));
+      setSnackBar('error', t('cruces.file_not_pdf'));
       return;
     }
 
@@ -549,7 +549,7 @@ export default function UploadFileToFolder({
         integrationNumber = await getIntegrationNumber(uploadDodaPita.key, crossing?.id ?? '');
       } catch {
         setLoading(false);
-        setSnackBar('error', t<string>('cruces.integration_number_not_found'));
+        setSnackBar('error', t('cruces.integration_number_not_found'));
         return;
       }
     }
@@ -729,7 +729,7 @@ export default function UploadFileToFolder({
         }}
         okButtonVisibility={false}
         cancelButtonVisibility={false}
-        title={t<string>('cruces.addFile')}
+        title={t('cruces.addFile')}
       >
         {
           step === 0 ? (
@@ -738,7 +738,7 @@ export default function UploadFileToFolder({
                 <Box sx={{ width: '100%' }}>
                   <Stack spacing={2}>
                     <Dropzone
-                      label={t<string>('ui.file')}
+                      label={t('ui.file')}
                       files={file}
                       filesSetter={setFiles}
                     />
@@ -746,7 +746,7 @@ export default function UploadFileToFolder({
                       <ControlledAutocomplete
                         errors={errors}
                         name="pedimento"
-                        label={t<string>('cruces.pedimento_destination')}
+                        label={t('cruces.pedimento_destination')}
                         control={control}
                         defaultValue={() => {
                           setValue('pedimento', pedimentosFolders[0]?.id ?? '');
@@ -764,7 +764,7 @@ export default function UploadFileToFolder({
                           errors={errors}
                           name="folder"
                           disabled
-                          label={t<string>('cruces.destination_folder')}
+                          label={t('cruces.destination_folder')}
                           control={control}
                           options={FOLDER_OPTIONS}
                           key="folder-autocomplete"
@@ -775,7 +775,7 @@ export default function UploadFileToFolder({
                       )
                     }
                     <ControlledTextField
-                      label={t<string>('cruces.history.aditionalComments')}
+                      label={t('cruces.history.aditionalComments')}
                       register={register}
                       inputType="text"
                       errors={errors}
@@ -823,7 +823,7 @@ export default function UploadFileToFolder({
               handleClose(true);
             }}
           >
-            {t<string>('cancel')}
+            {t('cancel')}
           </Button>
           {
             step === 1 && (
@@ -836,7 +836,7 @@ export default function UploadFileToFolder({
                   setStep(step - 1);
                 }}
               >
-                {t<string>('prev')}
+                {t('prev')}
               </Button>
             )
           }

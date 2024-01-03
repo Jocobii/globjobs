@@ -1,11 +1,10 @@
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme } from '../types';
 
 export default function DataGrid(theme: CustomTheme) {
   return {
     MuiDataGrid: {
       styleOverrides: {
         root: {
-          backgroundColor: theme.palette.background.paper,
           borderRadius: 0,
           border: '1px solid transparent',
           '& .MuiTablePagination-root': {

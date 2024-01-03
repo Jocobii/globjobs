@@ -2,7 +2,7 @@ import {
   ErrorIcon, InfoIcon, SuccessIcon, WarningIcon,
 } from './CustomIcons';
 
-import { CustomTheme, Color } from '../../typings/theme';
+import { CustomTheme, Color } from '../types';
 
 export default function Alert(theme: CustomTheme) {
   const isLight = theme.palette.mode === 'light';

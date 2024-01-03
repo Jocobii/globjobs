@@ -28,6 +28,7 @@ export const useGetOneCompany = () => {
   const debouncedOneCompany = useMemo(() => _.debounce(findOneCompany, 600), []);
 
   return {
+    findOneCompany,
     loading,
     data,
     debouncedOneCompany,

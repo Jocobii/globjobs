@@ -138,6 +138,7 @@ export const managementsEn = {
   },
   deparments: {
     addNewDepartment: 'Add department',
+    editDeparment: 'Edit department',
   },
   headquarters: {
     addNewHeadquarters: 'Add headquarters',
@@ -311,6 +312,7 @@ export const managementsEs = {
   },
   deparments: {
     addNewDepartment: 'Agregar departamento',
+    editDeparment: 'Editar departamento',
   },
   headquarters: {
     addNewHeadquarters: 'Agregar sede',

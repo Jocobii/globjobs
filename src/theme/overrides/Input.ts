@@ -1,4 +1,4 @@
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme } from '../types';
 
 export default function Input(theme: CustomTheme) {
   return {
@@ -51,7 +51,7 @@ export default function Input(theme: CustomTheme) {
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.grey[5],
+            borderColor: theme.palette.grey[500_32],
           },
           '&.Mui-disabled': {
             '& .MuiOutlinedInput-notchedOutline': {

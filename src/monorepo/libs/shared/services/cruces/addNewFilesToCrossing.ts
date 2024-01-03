@@ -1,16 +1,16 @@
 import { FileDropZone, PreTaggedFile } from '@gsuite/typings/files';
-import Axios from 'axios';
+import Axios, { AxiosRequestConfig } from 'axios';
 
 const axios = Axios.create({
   baseURL: '/crossing',
   withCredentials: true,
 });
 
-axios.interceptors.request.use((request) => {
+axios.interceptors.request.use((request: AxiosRequestConfig) => {
   const { token } = JSON.parse(localStorage.getItem('wms.config') ?? '{}');
 
   if (token && request.headers) {
-    request.headers.Authorization = `Bearer ${token}`;
+    request.headers['Authorization'] = `Bearer ${token}`;
   }
 
   return request;

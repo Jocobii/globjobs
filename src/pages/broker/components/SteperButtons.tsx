@@ -29,7 +29,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t<string>('add')}
+        {t('add')}
       </Button>
     );
   }
@@ -40,7 +40,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t<string>('edit')}
+        {t('edit')}
       </Button>
     );
   }
@@ -51,7 +51,7 @@ function SteperButtons({
         sx={{ position: 'absolute', mt: -5 }}
         onClick={() => openFromStep(index)}
       >
-        {t<string>('view')}
+        {t('view')}
       </Button>
     );
   }

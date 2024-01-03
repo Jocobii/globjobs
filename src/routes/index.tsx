@@ -34,53 +34,53 @@ const RemotePedimentoDetail = loadable(() => import('@monorepo/cruces/modules/pe
 //   fallback: <LoadingScreen />,
 // });
 
-// const MenuModule = loadable(() => import('@monorepo/managments/modules/menu'), {
-//   fallback: <LoadingScreen />,
-// });
+const MenuModule = loadable(() => import('@monorepo/managments/modules/menu'), {
+  fallback: <LoadingScreen />,
+});
 
 const AdpHome = loadable(() => import('@/pages/adp'), {
   fallback: <LoadingScreen />,
 });
 
-// const CompanyModule = loadable(() => import('@monorepo/managments/modules/companies'), {
-//   fallback: <LoadingScreen />,
-// });
+const CompanyModule = loadable(() => import('@monorepo/managments/modules/companies'), {
+  fallback: <LoadingScreen />,
+});
 
-// const CompanyForm = loadable(() => import('@monorepo/managments/modules/companies/components/form/Form'), {
-//   fallback: <LoadingScreen />,
-// });
+const CompanyForm = loadable(() => import('@monorepo/managments/modules/companies/components/form/Form'), {
+  fallback: <LoadingScreen />,
+});
 
-// const Headquarters = loadable(() => import('@monorepo/managments/modules/headquarters/List'), {
-//   fallback: <LoadingScreen />,
-// });
+const Headquarters = loadable(() => import('@monorepo/managments/modules/headquarters/List'), {
+  fallback: <LoadingScreen />,
+});
 
-// const Teams = loadable(() => import('../pages/managments/teams'), {
-//   fallback: <LoadingScreen />,
-// });
+const Teams = loadable(() => import('../pages/managments/teams'), {
+  fallback: <LoadingScreen />,
+});
 
-// const Departments = loadable(() => import('../pages/managments/departments'), {
-//   fallback: <LoadingScreen />,
-// });
+const Departments = loadable(() => import('../pages/managments/departments'), {
+  fallback: <LoadingScreen />,
+});
 
-// const AreasHome = loadable(() => import('../pages/managments/areas'), {
-//   fallback: <LoadingScreen />,
-// });
+const AreasHome = loadable(() => import('../pages/managments/areas'), {
+  fallback: <LoadingScreen />,
+});
 
-// const Rules = loadable(() => import('@monorepo/managments/modules/rules'), {
-//   fallback: <LoadingScreen />,
-// });
+const Rules = loadable(() => import('@monorepo/managments/modules/rules'), {
+  fallback: <LoadingScreen />,
+});
 
-// const Modules = loadable(() => import('@monorepo/managments/modules/modules'), {
-//   fallback: <LoadingScreen />,
-// });
+const Modules = loadable(() => import('@monorepo/managments/modules/modules'), {
+  fallback: <LoadingScreen />,
+});
 
-// const Roles = loadable(() => import('@monorepo/managments/modules/roles'), {
-//   fallback: <LoadingScreen />,
-// });
+const Roles = loadable(() => import('@monorepo/managments/modules/roles'), {
+  fallback: <LoadingScreen />,
+});
 
-// const Users = loadable(() => import('../pages/managments/users'), {
-//   fallback: <LoadingScreen />,
-// });
+const Users = loadable(() => import('../pages/managments/users'), {
+  fallback: <LoadingScreen />,
+});
 
 const BrokerHome = loadable(() => import('@/pages/broker/app/page/GOPS'), {
   fallback: <LoadingScreen />,
@@ -171,55 +171,55 @@ export default function Router() {
         // },
       ],
     },
-    // {
-    //   path: 'm',
-    //   element: (<DashboardLayout />),
-    //   children: [
-    //     { element: <Navigate to="/m/company" replace />, index: true },
-    //     { path: 'company', element: <CompanyModule /> },
-    //     {
-    //       path: 'company/detail/:id',
-    //       element: <CompanyForm />,
-    //     },
-    //     {
-    //       path: 'company/update/:id',
-    //       element: <CompanyForm edit />,
-    //     },
-    //     { path: 'headquarters', element: <Headquarters /> },
-    //     {
-    //       path: 'teams',
-    //       element: <Teams />,
-    //     },
-    //     {
-    //       path: 'departments',
-    //       element: <Departments />,
-    //     },
-    //     {
-    //       path: 'users',
-    //       element: <Users />,
-    //     },
-    //     {
-    //       path: 'areas',
-    //       element: <AreasHome />,
-    //     },
-    //     {
-    //       path: 'rules',
-    //       element: <Rules />,
-    //     },
-    //     {
-    //       path: 'roles',
-    //       element: <Roles />,
-    //     },
-    //     {
-    //       path: 'modules',
-    //       element: <Modules />,
-    //     },
-    //     {
-    //       path: 'menu',
-    //       element: <MenuModule />,
-    //     },
-    //   ],
-    // },
+    {
+      path: 'm',
+      element: (<DashboardLayout />),
+      children: [
+        { element: <Navigate to="/m/company" replace />, index: true },
+        { path: 'company', element: <CompanyModule /> },
+        {
+          path: 'company/detail/:id',
+          element: <CompanyForm />,
+        },
+        {
+          path: 'company/update/:id',
+          element: <CompanyForm edit />,
+        },
+        { path: 'headquarters', element: <Headquarters /> },
+        {
+          path: 'teams',
+          element: <Teams />,
+        },
+        {
+          path: 'departments',
+          element: <Departments />,
+        },
+        {
+          path: 'users',
+          element: <Users />,
+        },
+        {
+          path: 'areas',
+          element: <AreasHome />,
+        },
+        {
+          path: 'rules',
+          element: <Rules />,
+        },
+        {
+          path: 'roles',
+          element: <Roles />,
+        },
+        {
+          path: 'modules',
+          element: <Modules />,
+        },
+        {
+          path: 'menu',
+          element: <MenuModule />,
+        },
+      ],
+    },
     {
       path: 'f',
       element: (<DashboardLayout />),

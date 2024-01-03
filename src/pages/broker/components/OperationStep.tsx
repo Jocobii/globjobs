@@ -274,7 +274,7 @@ export default function OperationStep({
                   isInvoiced={isInvoiced}
                 />
                 <StepLabel>
-                  <Typography variant="body2">{t<string>(`broker.steps.${stepName}`)}</Typography>
+                  <Typography variant="body2">{t(`broker.steps.${stepName}`)}</Typography>
                   <Typography color="GrayText" variant="body2">
                     {date}
                   </Typography>
@@ -295,7 +295,7 @@ export default function OperationStep({
               {timeElapsed ?? 'Not started'}
             </Typography>
             <Typography variant="subtitle2" align="center">
-              {t<string>('broker.timeTotal')}
+              {t('broker.timeTotal')}
             </Typography>
           </Stack>
         </Card>
@@ -342,22 +342,22 @@ export default function OperationStep({
                 <>
                   {step}
                   {' '}
-                  {t<string>('broker.stepOf')}
+                  {t('broker.stepOf')}
                   {' '}
                   {steps.length}
                   <br />
                 </>
               ) : (
-                <p>{t<string>('broker.finished')}</p>
+                <p>{t('broker.finished')}</p>
               )}
             </Typography>
           </Box>
           <Stack>
-            <Typography variant="subtitle1">{t<string>(`broker.steps.${steps[(step && step - 1) || 0].step}`)}</Typography>
+            <Typography variant="subtitle1">{t(`broker.steps.${steps[(step && step - 1) || 0].step}`)}</Typography>
             <Typography variant="caption">
-              {t<string>('broker.nextStep')}
+              {t('broker.nextStep')}
               :
-              {t<string>(`broker.steps.${steps[step]?.step}`) || 'No More steps available'}
+              {t(`broker.steps.${steps[step]?.step}`) || 'No More steps available'}
             </Typography>
           </Stack>
         </Stack>
@@ -387,7 +387,7 @@ export default function OperationStep({
               {timeElapsed ?? 'Not started'}
             </Typography>
             <Typography variant="subtitle2" align="center">
-              {t<string>('broker.timeTotal')}
+              {t('broker.timeTotal')}
             </Typography>
           </Stack>
         </Card>
@@ -405,7 +405,7 @@ export default function OperationStep({
             }}
             onClick={() => openFromStep(step)}
           >
-            {t<string>('add')}
+            {t('add')}
           </Button>
         )}
       </>

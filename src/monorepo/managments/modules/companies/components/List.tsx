@@ -28,7 +28,7 @@ import { useTranslation } from 'react-i18next';
 
 import { CLIENT_ROLE } from '@gsuite/shared/utils/constants';
 import { DataGrid } from '@gsuite/ui/DataGrid';
-import LoadingBackdrop from '@gsuite/ui/LoadingBackdrop';
+import LoadingBackdrop from '@gsuite/shared/ui/CircularLoader';
 import Conditional from '@gsuite/ui/Conditional';
 
 import { useGetUser } from '../../users/api/getUser';

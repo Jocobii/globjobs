@@ -1,5 +1,5 @@
 import { TreeViewCollapseIcon, TreeViewExpandIcon, TreeViewEndIcon } from './CustomIcons';
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme } from '../types';
 
 export default function TreeView(theme: CustomTheme) {
   return {

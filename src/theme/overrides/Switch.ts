@@ -1,4 +1,4 @@
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme } from '../types';
 
 export default function Switch(theme: CustomTheme) {
   const isLight = theme.palette.mode === 'light';

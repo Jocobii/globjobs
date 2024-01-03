@@ -43,7 +43,7 @@ export default function AssignSpecialist({
       okButtonVisibility={false}
       cancelButtonVisibility={false}
       maxWidth="md"
-      title={t<string>('cruces.assign_specialist')}
+      title={t('cruces.assign_specialist')}
     >
       <Grid
         container
@@ -61,7 +61,7 @@ export default function AssignSpecialist({
             <ControlledAutocomplete
               errors={errors}
               name="userId"
-              label={t<string>('cruces.name')}
+              label={t('cruces.name')}
               control={control}
               options={data?.getCoachTeams ?? []}
               key="userId-autocomplete"
@@ -87,14 +87,14 @@ export default function AssignSpecialist({
               onClick={handleClose}
               color="error"
             >
-              {t<string>('cruces.cancel')}
+              {t('cruces.cancel')}
             </Button>
             <Button
               variant="contained"
               type="submit"
               onClick={handleSubmit(handleAssignUser)}
             >
-              {t<string>('cruces.table.assign')}
+              {t('cruces.table.assign')}
             </Button>
           </Stack>
         </Grid>

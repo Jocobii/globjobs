@@ -26,6 +26,7 @@ export type Crossing = {
     lastName?: string;
   }
   type?: string;
+  trafficType?: string;
   status?: {
     _id?: string;
     name?: string;
@@ -37,6 +38,7 @@ export type Crossing = {
     externalNode?: NodeModels[];
     dispatchFileNode?: NodeModels[];
   };
+  maritimeFlow?: StepData[];
   sentDarwin?: boolean;
   history?: History[];
   createBy?: {
@@ -45,6 +47,33 @@ export type Crossing = {
   }
   isWithoutTxtFlow?: boolean;
   requiredActions?: RequiredActions[],
+};
+
+export type File = {
+  url: string;
+  key: string;
+};
+
+export type StepData = {
+  step: {
+    label: string;
+    key: string;
+  };
+  completed: boolean;
+  status?: string;
+  files?: File[];
+  issuedAt?: Date;
+  user?: string;
+  data?: {
+    emails?: string[];
+    appointmentDate?: Date;
+    eta?: Date
+    inspection: boolean;
+    containerNumber?: string;
+    sailingDate?: Date;
+    closingDate?: Date;
+  };
+  nextStatus?: string;
 };
 
 export type History = {
@@ -117,6 +146,7 @@ export const defaultState: Crossing = {
     name: '',
     color: '',
   },
+  trafficType: '',
   typeModulation: '',
   nodes: {
     tree: [],

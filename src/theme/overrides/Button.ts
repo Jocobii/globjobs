@@ -1,4 +1,4 @@
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme } from '../types';
 
 export default function Button(theme: CustomTheme) {
   return {
@@ -9,10 +9,6 @@ export default function Button(theme: CustomTheme) {
             boxShadow: 'none',
           },
           borderRadius: '40px',
-          '&.Mui-disabled': {
-            pointerEvents: 'auto',
-            cursor: 'not-allowed',
-          },
         },
         sizeLarge: {
           height: 48,
@@ -24,6 +20,9 @@ export default function Button(theme: CustomTheme) {
           '&:hover': {
             backgroundColor: theme.palette.grey[400],
           },
+        },
+        containedPrimary: {
+          boxShadow: theme.customShadows.primary,
         },
         containedSecondary: {
           boxShadow: theme.customShadows.secondary,
@@ -47,18 +46,11 @@ export default function Button(theme: CustomTheme) {
             backgroundColor: theme.palette.action.hover,
           },
         },
-        outlined: {
-          border: `1px solid ${theme.palette.grey[500_32]}`,
-          '&:hover': {
-            backgroundColor: theme.palette.action.hover,
-          },
-        },
         textInherit: {
           '&:hover': {
             backgroundColor: theme.palette.action.hover,
           },
         },
-
       },
     },
   };

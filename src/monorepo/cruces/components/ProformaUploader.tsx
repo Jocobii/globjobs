@@ -48,13 +48,13 @@ function Component({
   const MODAL_STYLES = {
     proforma: {
       exchangeRate: 'MXN',
-      title: t<string>('cruces.proform.addingValidationFile'),
-      subTitle: t<string>('cruces.proform.missingFields'),
+      title: t('cruces.proform.addingValidationFile'),
+      subTitle: t('cruces.proform.missingFields'),
     },
     entrySummary: {
       exchangeRate: 'USD',
-      title: t<string>('cruces.entrySummary.paymentAmount'),
-      subTitle: t<string>('cruces.entrySummary.missingFields'),
+      title: t('cruces.entrySummary.paymentAmount'),
+      subTitle: t('cruces.entrySummary.missingFields'),
     },
   };
 
@@ -65,7 +65,7 @@ function Component({
         .then(({ data }) => {
           if ('amount' in data) {
             if (data.amount === 0) {
-              setSnackBar('warning', t<string>('cruces.proform.validationFileWithoutPayment'));
+              setSnackBar('warning', t('cruces.proform.validationFileWithoutPayment'));
             }
             setDisabled(data.needsValidation);
             setFileAmount(data.amount);
@@ -99,8 +99,8 @@ function Component({
     setAmount(value);
   };
 
-  let errorText = t<string>('generic.requiredField');
-  if (amountMatchError) errorText = t<string>('cruces.proform.amountDiscrepancy');
+  let errorText = t('generic.requiredField');
+  if (amountMatchError) errorText = t('cruces.proform.amountDiscrepancy');
 
   return (
     <Grid container direction="column" spacing={2}>

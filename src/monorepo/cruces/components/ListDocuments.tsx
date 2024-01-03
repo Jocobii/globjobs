@@ -333,14 +333,14 @@ function DeleteFileModal({
     <DialogComponent
       open={isOpen}
       handleClose={() => setIsOpen(false)}
-      title={t<string>('cruces.confirm_delete_file')}
-      body={t<string>('cruces.confirm_delete_file_text')}
+      title={t('cruces.confirm_delete_file')}
+      body={t('cruces.confirm_delete_file_text')}
       doubleCheck
-      doubleCheckText={t<string>('cruces.confirm_want_to_delete')}
+      doubleCheckText={t('cruces.confirm_want_to_delete')}
       maxWidth="sm"
       handleConfirm={handleDelete}
-      okText={t<string>('cruces.delete_documents')}
-      cancelText={t<string>('cancel')}
+      okText={t('cruces.delete_documents')}
+      cancelText={t('cancel')}
     >
       <FilesToDelete filesToDelete={relatedFiles} />
     </DialogComponent>

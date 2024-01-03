@@ -114,7 +114,7 @@ export default function GOPSDetail() {
                     >
                       <Board
                         key="references"
-                        title={t<string>('broker.references')}
+                        title={t('broker.references')}
                       >
                         <Box
                           sx={{
@@ -126,21 +126,21 @@ export default function GOPSDetail() {
                           />
                         </Box>
                       </Board>
-                      <Board title={t<string>('broker.history')} key="history">
+                      <Board title={t('broker.history')} key="history">
                         <History history={data.operation.history} />
                       </Board>
-                      <Board title={t<string>('broker.documents')} key="documents">
+                      <Board title={t('broker.documents')} key="documents">
                         <Documents documents={data.operation.documents} />
                       </Board>
                       <Board
                         key="abstract"
-                        title={t<string>('broker.chargesLabel')}
+                        title={t('broker.chargesLabel')}
                         actions={(
                           <StyledButton
                             startIcon={<AddIcon />}
                             onClick={() => setOpenExtraCharge(true)}
                           >
-                            {t<string>('broker.addExtraCharge')}
+                            {t('broker.addExtraCharge')}
                           </StyledButton>
                       )}
                       >
@@ -150,7 +150,7 @@ export default function GOPSDetail() {
                   </Grid>
                   <DialogComponent
                     open={openExtraCharge}
-                    title={t<string>('broker.addExtraCharge')}
+                    title={t('broker.addExtraCharge')}
                     okButtonVisibility={false}
                     cancelButtonVisibility={false}
                     maxWidth="xl"

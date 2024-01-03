@@ -69,11 +69,11 @@ export default function ArrivalWarehouseMX({
   const [additionalDocs, setAdditionalDocs] = useState<FileDropZone[]>([]);
   const { data } = useWarehouses();
   const schema = yup.object({
-    trafficNumber: yup.string().required(t<string>('broker.trafficNumberSchema')),
-    economicNumber: yup.string().required(t<string>('broker.economicNumberSchema')),
-    driver: yup.string().required(t<string>('broker.driverSchema')),
-    vehicleType: yup.string().required(t<string>('broker.vehicleTypeSchema')),
-    warehouse: yup.object({}).required(t<string>('broker.warehouseSchema')),
+    trafficNumber: yup.string().required(t('broker.trafficNumberSchema')),
+    economicNumber: yup.string().required(t('broker.economicNumberSchema')),
+    driver: yup.string().required(t('broker.driverSchema')),
+    vehicleType: yup.string().required(t('broker.vehicleTypeSchema')),
+    warehouse: yup.object({}).required(t('broker.warehouseSchema')),
     notes: yup.string(),
   });
 
@@ -169,7 +169,7 @@ export default function ArrivalWarehouseMX({
           setSnackBar('error', e.message);
         },
         onCompleted: () => {
-          setSnackBar('success', t<string>('broker.updateStepSuccess'));
+          setSnackBar('success', t('broker.updateStepSuccess'));
           submitFrom();
         },
       });
@@ -266,12 +266,12 @@ export default function ArrivalWarehouseMX({
                   errors={errors}
                   inputType="text"
                   disabled
-                  label={`${t<string>('broker.trafficNumberLabel')} *`}
+                  label={`${t('broker.trafficNumberLabel')} *`}
                   register={register}
                   key="trafficNumber-field"
                 />
                 <ControlledTextField
-                  label={t<string>('broker.economicNumber')}
+                  label={t('broker.economicNumber')}
                   register={register}
                   inputType="text"
                   disabled
@@ -280,7 +280,7 @@ export default function ArrivalWarehouseMX({
                   key="economicNumber-field"
                 />
                 <ControlledTextField
-                  label={t<string>('broker.vehicleType')}
+                  label={t('broker.vehicleType')}
                   register={register}
                   inputType="text"
                   disabled
@@ -289,7 +289,7 @@ export default function ArrivalWarehouseMX({
                   key="vehicleType-field"
                 />
                 <ControlledTextField
-                  label={t<string>('broker.driver')}
+                  label={t('broker.driver')}
                   register={register}
                   inputType="text"
                   disabled
@@ -300,7 +300,7 @@ export default function ArrivalWarehouseMX({
                 <ControlledAutocomplete
                   errors={errors}
                   name="warehouse"
-                  label={`${t<string>('broker.warehouseLabel')} *`}
+                  label={`${t('broker.warehouseLabel')} *`}
                   control={control}
                   options={data?.findAllWarehouses ?? []}
                   key="warehouse-autocomplete"
@@ -316,7 +316,7 @@ export default function ArrivalWarehouseMX({
                   fieldName="notes"
                   errors={errors}
                   inputType="text"
-                  label={t<string>('broker.notesLabel')}
+                  label={t('broker.notesLabel')}
                   register={register}
                   key="notes-field"
                   disabled={isOnlyView}
@@ -324,7 +324,7 @@ export default function ArrivalWarehouseMX({
               </Stack>
             </Grid>
             <Grid item lg={12} md={12} sm={12} xs={12}>
-              <Dropzone label={t<string>('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} disabled={isOnlyView} />
+              <Dropzone label={t('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} disabled={isOnlyView} />
             </Grid>
           </Grid>
         </DialogContent>
@@ -343,15 +343,15 @@ export default function ArrivalWarehouseMX({
               onClick={handleSkipTransport}
               disabled={isOnlyView}
             >
-              {t<string>('broker.skipTransport')}
+              {t('broker.skipTransport')}
             </LoadingButton>
             <Stack
               direction="row"
               spacing={2}
             >
-              <Button onClick={onClose}>{t<string>('cancel')}</Button>
+              <Button onClick={onClose}>{t('cancel')}</Button>
               <LoadingButton variant="contained" type="submit" loading={loading} disabled={isOnlyView}>
-                {isEdit ? t<string>('update') : t<string>('register')}
+                {isEdit ? t('update') : t('register')}
               </LoadingButton>
             </Stack>
           </Stack>

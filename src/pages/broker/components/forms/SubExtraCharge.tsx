@@ -24,8 +24,8 @@ export default function SubExtraCharge({ handlerAddCharge }: Props) {
         sapid: yup.string().required('SAP ID is required'),
         charge: yup.string().required('Charge is required'),
       })
-      .required(t<string>('broker.chargesSchema')),
-    qty: yup.number().required(t<string>('broker.quantitySchema')).typeError(t<string>('broker.quantitySchema')),
+      .required(t('broker.chargesSchema')),
+    qty: yup.number().required(t('broker.quantitySchema')).typeError(t('broker.quantitySchema')),
   });
 
   const {
@@ -60,7 +60,7 @@ export default function SubExtraCharge({ handlerAddCharge }: Props) {
               <ControlledAutocomplete
                 errors={errors}
                 name="charge"
-                label={t<string>('broker.materialLabel')}
+                label={t('broker.materialLabel')}
                 control={control}
                 options={data?.getMaterial ?? []}
                 key="charge-autocomplete"
@@ -75,7 +75,7 @@ export default function SubExtraCharge({ handlerAddCharge }: Props) {
           <Grid item lg={6} md={6} sm={12} xs={12}>
             <Stack spacing={2} sx={{ pt: 1 }}>
               <ControlledTextField
-                label={t<string>('broker.quantityLabel')}
+                label={t('broker.quantityLabel')}
                 register={register}
                 inputType="number"
                 errors={errors}
@@ -83,7 +83,7 @@ export default function SubExtraCharge({ handlerAddCharge }: Props) {
                 key="qty-field"
               />
               <Button type="submit" variant="contained">
-                {t<string>('add')}
+                {t('add')}
               </Button>
             </Stack>
           </Grid>

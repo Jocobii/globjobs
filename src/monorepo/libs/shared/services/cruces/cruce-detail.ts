@@ -122,6 +122,8 @@ export const CRUSE_QUERY = gql`
           firstDigitized
           pedimentoNumber
           pendingAuthorization
+          pendingPaymentAuthorization
+          unauthorized
         }
       }
       dispatchFileNode {

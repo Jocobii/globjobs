@@ -173,7 +173,7 @@ export function TableHome() {
         userId,
       },
       onCompleted: () => {
-        successMessage(t<string>('cruces.specialist_assigned'));
+        successMessage(t('cruces.specialist_assigned'));
         setOpenAssign(false);
         refetch();
       },
@@ -195,7 +195,7 @@ export function TableHome() {
     },
     {
       field: 'user',
-      headerName: t<string>('cruces.table.specialistName'),
+      headerName: t('cruces.table.specialistName'),
       width: 200,
       renderCell: (
         params: GridRenderCellParams,
@@ -209,7 +209,7 @@ export function TableHome() {
                   color="primary"
                   onClick={() => actionAssign(params.row.id)}
                 >
-                  {t<string>('cruces.table.assign')}
+                  {t('cruces.table.assign')}
                 </Button>
               )}
               <Button
@@ -217,7 +217,7 @@ export function TableHome() {
                 color="primary"
                 onClick={() => handleAttend(params.row.id)}
               >
-                {t<string>('cruces.table.attend')}
+                {t('cruces.table.attend')}
               </Button>
             </Stack>
           );
@@ -234,18 +234,18 @@ export function TableHome() {
     },
     {
       field: 'openingDate',
-      headerName: t<string>('cruces.table.openingDate'),
+      headerName: t('cruces.table.openingDate'),
       width: 150,
       valueGetter: ({ value }: GridValueGetterParams<string>) => parseDate(value),
     },
     {
       field: 'number',
-      headerName: t<string>('cruces.crossingNumber'),
+      headerName: t('cruces.crossingNumber'),
       width: 150,
     },
     {
       field: 'status',
-      headerName: t<string>('cruces.crossingStatus'),
+      headerName: t('cruces.crossingStatus'),
       width: 300,
       valueGetter: (params: GridValueGetterParams) => {
         const { value } = params;
@@ -290,7 +290,7 @@ export function TableHome() {
     },
     {
       field: 'client',
-      headerName: t<string>('cruces.customer'),
+      headerName: t('cruces.customer'),
       width: 200,
     },
     {
@@ -311,7 +311,7 @@ export function TableHome() {
     },
     {
       field: 'placas',
-      headerName: t<string>('cruces.plates'),
+      headerName: t('cruces.plates'),
       width: 130,
       renderCell: (
         params: GridRenderCellParams,
@@ -322,22 +322,22 @@ export function TableHome() {
     },
     {
       field: 'economicNumber',
-      headerName: t<string>('cruces.economicNumber'),
+      headerName: t('cruces.economicNumber'),
       width: 150,
     },
     {
       field: 'type',
-      headerName: t<string>('cruces.crossingType'),
+      headerName: t('cruces.crossingType'),
       width: 150,
     },
     {
       field: 'anden',
-      headerName: t<string>('cruces.platform'),
+      headerName: t('cruces.platform'),
       width: 150,
     },
     {
       field: 'checker',
-      headerName: t<string>('cruces.verifier'),
+      headerName: t('cruces.verifier'),
       width: 200,
       renderCell: (
         params: GridRenderCellParams,
@@ -353,7 +353,7 @@ export function TableHome() {
     },
     {
       field: 'comments',
-      headerName: t<string>('cruces.comments'),
+      headerName: t('cruces.comments'),
       width: 150,
     },
   ];

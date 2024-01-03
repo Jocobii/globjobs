@@ -103,7 +103,7 @@ export default function SendDocumentsDrawer({
         onCompleted: () => successMessage('Se han enviado los documentos correctamente'),
       });
     } catch (error) {
-      errorMessage(t<string>('cruces.an_error'));
+      errorMessage(t('cruces.an_error'));
     } finally {
       setIsLoading(false);
       onClose();

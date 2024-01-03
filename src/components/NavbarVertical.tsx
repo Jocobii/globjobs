@@ -58,6 +58,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }: Props)
           display: 'flex',
           flexDirection: 'column',
         },
+        backgroundColor: 'secondary.main',
       }}
     >
       <Stack

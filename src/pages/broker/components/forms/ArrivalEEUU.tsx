@@ -52,7 +52,7 @@ export default function ArrivalEEUU({
   const [oldValue, setOldValue] = useState<ArrivalUsa>();
   const [additionalDocs, setAdditionalDocs] = useState<FileDropZone[]>([]);
   const schema = Yup.object({
-    pickupAppointment: Yup.date().typeError(t<string>('broker.pickupAppointmentSchema')).required(t<string>('broker.pickupAppointmentSchema')),
+    pickupAppointment: Yup.date().typeError(t('broker.pickupAppointmentSchema')).required(t('broker.pickupAppointmentSchema')),
     references: Yup.string(),
     notes: Yup.string(),
   });
@@ -154,7 +154,7 @@ export default function ArrivalEEUU({
           setSnackBar('error', e.message);
         },
         onCompleted: () => {
-          setSnackBar('success', t<string>('broker.updateStepSuccess'));
+          setSnackBar('success', t('broker.updateStepSuccess'));
           submitFrom();
         },
       });
@@ -202,7 +202,7 @@ export default function ArrivalEEUU({
                   errors={errors}
                   fieldName="pickupAppointment"
                   inputType="date"
-                  label={`${t<string>('broker.pickupAppointmentLabel')} *`}
+                  label={`${t('broker.pickupAppointmentLabel')} *`}
                   register={register}
                   key="pickupAppointment-field"
                   disabled={isOnlyView}
@@ -211,7 +211,7 @@ export default function ArrivalEEUU({
                   errors={errors}
                   fieldName="references"
                   inputType="text"
-                  label={t<string>('broker.referencesLabel')}
+                  label={t('broker.referencesLabel')}
                   register={register}
                   key="references-field"
                   disabled={isOnlyView}
@@ -224,7 +224,7 @@ export default function ArrivalEEUU({
                   errors={errors}
                   fieldName="notes"
                   inputType="text"
-                  label={t<string>('broker.notesLabel')}
+                  label={t('broker.notesLabel')}
                   register={register}
                   key="notes-field"
                   disabled={isOnlyView}
@@ -235,7 +235,7 @@ export default function ArrivalEEUU({
           <Grid container spacing={2}>
             <Grid item lg={12} md={12} sm={12} xs={12}>
               <Dropzone
-                label={t<string>('broker.additionalFiles')}
+                label={t('broker.additionalFiles')}
                 files={additionalDocs}
                 filesSetter={setAdditionalDocs}
                 key="additionalDocs-field"
@@ -245,9 +245,9 @@ export default function ArrivalEEUU({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>{t<string>('cancel')}</Button>
+          <Button onClick={onClose}>{t('cancel')}</Button>
           <LoadingButton variant="contained" type="submit" loading={loading} disabled={false}>
-            {isEdit ? t<string>('update') : t<string>('register')}
+            {isEdit ? t('update') : t('register')}
           </LoadingButton>
         </DialogActions>
       </form>

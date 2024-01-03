@@ -56,7 +56,7 @@ export function Tabs({
   }
 
   return (
-    <Container>
+    <Container maxWidth="xl">
       <TabContext value={tab}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChangeTab} aria-label="lab API tabs example">

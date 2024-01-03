@@ -63,7 +63,7 @@ function ErrorFixerComponent({
 
   let issue = fileIssues[currentIssue];
 
-  const translateType = (type: string) => t<string>(`cruces.issue.type.${type}`);
+  const translateType = (type: string) => t(`cruces.issue.type.${type}`);
 
   const nextIssue = () => {
     if (currentIssue + 1 < fileIssues.length) {

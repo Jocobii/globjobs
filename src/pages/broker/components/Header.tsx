@@ -146,7 +146,7 @@ export default function Header() {
     <Grid container sx={{ display: 'block !important' }}>
       <Stack direction="column">
         <Typography variant="h6" color="primary" sx={{ mb: 1 }}>
-          {t<string>('broker.summary')}
+          {t('broker.summary')}
         </Typography>
         <Box
           sx={{
@@ -173,7 +173,7 @@ export default function Header() {
           ))}
         </Box>
         <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
-          {t<string>('broker.detail')}
+          {t('broker.detail')}
         </Typography>
 
         <Box

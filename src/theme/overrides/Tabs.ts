@@ -1,4 +1,4 @@
-import { CustomTheme } from '../../typings';
+import { CustomTheme } from '../types';
 
 export default function Tabs(theme: CustomTheme) {
   return {

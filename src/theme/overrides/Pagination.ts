@@ -1,6 +1,6 @@
 import { alpha } from '@mui/material/styles';
 
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme } from '../types';
 
 export default function Pagination(theme: CustomTheme) {
   return {

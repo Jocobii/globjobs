@@ -46,15 +46,15 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
   const { data: companiesData } = useCompanies();
 
   const schema = Yup.object({
-    client: Yup.string().required(t<string>('broker.clientSchema')),
+    client: Yup.string().required(t('broker.clientSchema')),
     clientNumber: Yup.string().required('required'),
-    container: Yup.string().required(t<string>('broker.containerSchema')),
-    expectedArrivalDate: Yup.string().required(t<string>('broker.expectedArrivalDateSchema')),
-    packageType: Yup.string().required(t<string>('broker.packageTypeSchema')),
-    quantity: Yup.number().required(t<string>('broker.quantityOperationSchema')).typeError('You must specify a number'),
+    container: Yup.string().required(t('broker.containerSchema')),
+    expectedArrivalDate: Yup.string().required(t('broker.expectedArrivalDateSchema')),
+    packageType: Yup.string().required(t('broker.packageTypeSchema')),
+    quantity: Yup.number().required(t('broker.quantityOperationSchema')).typeError('You must specify a number'),
     reference: Yup.string().nullable().optional(),
     notes: Yup.string().nullable().optional(),
-    containerSize: Yup.string().required(t<string>('broker.containerSizeSchema')),
+    containerSize: Yup.string().required(t('broker.containerSizeSchema')),
   });
 
   const {
@@ -161,7 +161,7 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
                 <ControlledAutocomplete
                   errors={errors}
                   name="client"
-                  label={`${t<string>('broker.clientLabel')} *`}
+                  label={`${t('broker.clientLabel')} *`}
                   control={control}
                   options={companiesData?.findCompanies ?? []}
                   key="clients-autocomplete"
@@ -175,7 +175,7 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
                   fieldName="container"
                   errors={errors}
                   inputType="text"
-                  label={`${t<string>('broker.containerLabel')} *`}
+                  label={`${t('broker.containerLabel')} *`}
                   register={register}
                   key="container-field"
                 />
@@ -183,12 +183,12 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
                   fieldName="expectedArrivalDate"
                   errors={errors}
                   inputType="date"
-                  label={`${t<string>('broker.dateEstimatedLabel')} *`}
+                  label={`${t('broker.dateEstimatedLabel')} *`}
                   register={register}
                   key="expectedArrivalDate-field"
                 />
                 <ControlledSelect
-                  label={`${t<string>('broker.packageTypeLabel')} *`}
+                  label={`${t('broker.packageTypeLabel')} *`}
                   name="packageType"
                   key="packageType-select"
                   errors={errors}
@@ -206,7 +206,7 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <Stack spacing={2} sx={{ pt: 1 }}>
                 <ControlledTextField
-                  label={`${t<string>('broker.quantityLabel')} *`}
+                  label={`${t('broker.quantityLabel')} *`}
                   register={register}
                   inputType="number"
                   errors={errors}
@@ -215,7 +215,7 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
                   registerOptions={{ valueAsNumber: true }}
                 />
                 <ControlledTextField
-                  label={t<string>('broker.notesLabel')}
+                  label={t('broker.notesLabel')}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -223,7 +223,7 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
                   key="notes-field"
                 />
                 <ControlledTextField
-                  label={t<string>('broker.referencesLabel')}
+                  label={t('broker.referencesLabel')}
                   register={register}
                   inputType="text"
                   errors={errors}
@@ -231,7 +231,7 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
                   key="reference-field"
                 />
                 <ControlledSelect
-                  label={`${t<string>('broker.containerSizeLabel')} *`}
+                  label={`${t('broker.containerSizeLabel')} *`}
                   name="containerSize"
                   key="containerSize-select"
                   errors={errors}
@@ -250,20 +250,20 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
           <Grid container spacing={2}>
             <Grid item lg={6} md={6} sm={12} xs={12}>
               <Dropzone
-                label={`${t<string>('broker.packingListFiles')} *`}
+                label={`${t('broker.packingListFiles')} *`}
                 files={packingListFiles}
                 filesSetter={setPackingListFiles}
               />
             </Grid>
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Dropzone label={t<string>('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} />
+              <Dropzone label={t('broker.additionalFiles')} files={additionalDocs} filesSetter={setAdditionalDocs} />
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>{t<string>('cancel')}</Button>
+          <Button onClick={handleClose}>{t('cancel')}</Button>
           <LoadingButton variant="contained" type="submit" loading={loading}>
-            {t<string>('register')}
+            {t('register')}
           </LoadingButton>
         </DialogActions>
       </form>

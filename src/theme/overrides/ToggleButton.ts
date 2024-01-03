@@ -1,5 +1,5 @@
 import { alpha } from '@mui/material/styles';
-import { CustomTheme } from '../../typings/theme';
+import { CustomTheme, Color } from '../types';
 
 export default function ToggleButton(theme: CustomTheme) {
   const style = (color: Color) => ({
