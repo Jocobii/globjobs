@@ -1,6 +1,5 @@
 import { SnackbarProvider } from 'notistack';
 
-import ThemeProvider from '@gsuite/shared/theme';
 import ReactQuery from '@gsuite/shared/providers/ReactQuery';
 
 import loadable from '@loadable/component';
@@ -11,9 +10,7 @@ export default function UsersHome() {
   return (
     <SnackbarProvider maxSnack={3}>
       <ReactQuery>
-        <ThemeProvider>
-          <UsersList />
-        </ThemeProvider>
+        <UsersList />
       </ReactQuery>
     </SnackbarProvider>
   );

@@ -3,7 +3,7 @@ import { env } from '@/config/index';
 import { getTokenFromLS } from '@/utils/auth';
 
 const axios = Axios.create({
-  baseURL: env.VITE_ADP_API_URI,
+  baseURL: env.VITE_DARWIN_API_URI,
   withCredentials: false,
 });
 axios.interceptors.request.use((request) => {

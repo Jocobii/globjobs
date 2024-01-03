@@ -12,6 +12,8 @@ const envSchema = z.object({
   VITE_FIREBASE_STORAGE_BUCKET: z.string(),
   VITE_FIREBASE_MESSAGING_SENDER_ID: z.string(),
   VITE_GLOBALIZATION_GRAPHQL_SOCKET_URI: z.string().url(),
+  VITE_ADP_API_URI: z.string().url(),
+  VITE_DARWIN_API_URI: z.string().url(),
 });
 
 export const env = envSchema.parse(import.meta.env);

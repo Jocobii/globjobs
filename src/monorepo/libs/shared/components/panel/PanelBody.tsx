@@ -1,17 +1,121 @@
-import { History } from '@gsuite/shared/contexts';
-import { Grid, Stack, Typography } from '@mui/material';
+import { useState, useEffect } from 'react';
+import {
+  Grid,
+  Stack,
+  Typography,
+  Avatar,
+  List,
+  Link,
+  useTheme,
+} from '@mui/material';
+import AttachmentIcon from '@mui/icons-material/Attachment';
 import { useTranslation } from 'react-i18next';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
 import dayjs from 'dayjs';
+import uniq from 'lodash/uniq';
+import get from 'lodash/get';
+
+import { History } from '@gsuite/shared/contexts';
+import { NodeModels } from '@gsuite/typings/files';
+
 import { CommentInput } from './CommentInput';
+import useCruce from '../../hooks/useCruce';
 
 export interface ContextProps {
   history: History[];
+  nodes?: {
+    tree?: NodeModels[];
+    externalNode?: NodeModels[];
+    dispatchFileNode?: NodeModels[];
+  },
 }
 
-export default function PanelBody({ history }: ContextProps) {
+export default function PanelBody({ history, nodes = {} }: ContextProps) {
+  const [filesWithUrl, setFilesWithUrl] = useState<Record<string, string>>({});
   const { t } = useTranslation();
+  const { flatTreeNodes } = useCruce();
+  const { palette } = useTheme();
+
+  useEffect(() => {
+    if ((history && history?.length > 0) && (nodes && Object.keys(nodes)?.length > 0)) {
+      const flattenedNodes = flatTreeNodes(nodes);
+
+      if (flattenedNodes?.length > 1) {
+        const allHistoryFiles = history
+          .filter((h) => h?.files?.length > 0)
+          .map((h) => h?.files)
+          .flat(1) || [];
+        const uniqHistoryFiles = uniq(allHistoryFiles);
+
+        uniqHistoryFiles.forEach((f) => {
+          const targetNode = flattenedNodes.find((n) => {
+            const fileKey = get(n, 'data.file.key', '');
+            const fileName = get(n, 'data.file.name', '');
+            return (fileKey === f || fileName === f);
+          });
+
+          if (targetNode && Object.keys(targetNode).length > 0) {
+            setFilesWithUrl((prev) => ({
+              ...prev,
+              [f]: get(targetNode, 'data.file.url', ''),
+            }));
+          }
+        });
+      }
+    }
+  }, [history, nodes]);
+
+  const fileUrlsSort = (a: string, b: string) => {
+    if (filesWithUrl && Object.keys(filesWithUrl).length > 0) {
+      const urlA = filesWithUrl[a];
+      const urlB = filesWithUrl[b];
+
+      if ((urlA && urlB) || (!urlA && !urlB)) return 0;
+      if (urlA) return -1;
+      if (urlB) return 1;
+    }
+    return 0;
+  };
+
+  const historyFiles = (action: string, files: string[]) => {
+    const sortedFileNames = [...files].sort(fileUrlsSort);
+    return sortedFileNames.map((file: string) => {
+      const fileUrl = filesWithUrl[file];
+      const color = action === 'deleted_file' ? '#FF0000' : palette.primary.light;
+      if (fileUrl) {
+        return (
+          <Link
+            href={fileUrl}
+            underline="hover"
+            target="_blank"
+            color={color}
+            key={file}
+          >
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="center"
+            >
+              <AttachmentIcon sx={{ fontSize: '18px' }} />
+              <Typography variant="caption">{file}</Typography>
+            </Stack>
+          </Link>
+        );
+      }
+
+      return (
+        <Typography
+          alignContent="center"
+          sx={{
+            fontSize: '12px',
+            color,
+          }}
+        >
+          <p key={file}>{file}</p>
+        </Typography>
+      );
+    });
+  };
+
   return (
     <Grid
       container
@@ -22,6 +126,7 @@ export default function PanelBody({ history }: ContextProps) {
         margin: '5px',
         color: 'black',
         fontSize: '11px',
+        height: '100%',
       }}
     >
       <Grid container item xs={12}>
@@ -63,7 +168,7 @@ export default function PanelBody({ history }: ContextProps) {
                       sx={{
                         fontWeight: 'bold',
                         fontSize: '12px',
-                        color: '#528DE1',
+                        color: palette.primary.light,
                       }}
                     >
                       {`${i.user.name} ${i.user.lastName || ''}`}
@@ -81,18 +186,7 @@ export default function PanelBody({ history }: ContextProps) {
                 </Grid>
                 <Grid item xs={1} md={1} lg={1} />
                 <Grid item xs={11} md={11} lg={11}>
-                  <Typography
-                    alignContent="center"
-                    sx={{
-                      fontSize: '12px',
-                      color:
-                        i.action === 'deleted_file' ? '#FF0000' : '#528DE1',
-                    }}
-                  >
-                    {i.files?.map((file: string) => (
-                      <p key={file}>{file}</p>
-                    ))}
-                  </Typography>
+                  {historyFiles(i.action, i.files)}
                 </Grid>
                 <Grid item xs={1} md={1} lg={1} />
                 {
@@ -104,7 +198,7 @@ export default function PanelBody({ history }: ContextProps) {
                           sx={{
                             fontWeight: 'bold',
                             fontSize: '12px',
-                            color: '#528DE1',
+                            color: palette.primary.light,
                           }}
                         >
                           {t('cruces.history.aditionalComments')}

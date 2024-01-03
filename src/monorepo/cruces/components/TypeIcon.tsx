@@ -41,25 +41,25 @@ export default function TypeIcon({
 
   switch (ext) {
     case 'pdf':
-      body = <img src="assets/pdf.png" alt="pdf" height={40} width={40} draggable={false} />;
+      body = <img src="/src/assets/pdf.png" alt="pdf" height={40} width={40} draggable={false} />;
       break;
     case 'csv':
-      body = <img src="assets/csv.png" alt="csv" height={40} width={40} draggable={false} />;
+      body = <img src="/src/assets/csv.png" alt="csv" height={40} width={40} draggable={false} />;
       break;
     case 'xls':
-      body = <img src="assets/xls.png" alt="xls" height={40} width={40} draggable={false} />;
+      body = <img src="/src/assets/xls.png" alt="xls" height={40} width={40} draggable={false} />;
       break;
     case 'xml':
-      body = <img src="assets/xml.png" alt="xml" height={40} width={40} draggable={false} />;
+      body = <img src="/src/assets/xml.png" alt="xml" height={40} width={40} draggable={false} />;
       break;
     case 'txt':
-      body = <img src="assets/txt.png" alt="txt" height={40} width={40} draggable={false} />;
+      body = <img src="/src/assets/txt.png" alt="txt" height={40} width={40} draggable={false} />;
       break;
     case 'png':
-      body = <img src="assets/png.png" alt="png" height={40} width={40} draggable={false} />;
+      body = <img src="/src/assets/png.png" alt="png" height={40} width={40} draggable={false} />;
       break;
     default:
-      body = <img src="assets/file.png" alt="file" height={40} width={40} draggable={false} />;
+      body = <img src="/src/assets/file.png" alt="file" height={40} width={40} draggable={false} />;
       break;
   }
   return (

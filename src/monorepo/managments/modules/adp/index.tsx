@@ -1,5 +1,4 @@
 import { SnackbarProvider } from 'notistack';
-import ThemeProvider from '@/theme';
 import ReactQuery from '@/providers/ReactQuery';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import HomePage from './HomePage';
@@ -9,9 +8,7 @@ function Component() {
     <ErrorBoundary>
       <SnackbarProvider maxSnack={3}>
         <ReactQuery>
-          <ThemeProvider>
-            <HomePage />
-          </ThemeProvider>
+          <HomePage />
         </ReactQuery>
       </SnackbarProvider>
     </ErrorBoundary>

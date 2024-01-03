@@ -55,6 +55,12 @@ type RequestDraftOperation = {
   refetch?: any;
 };
 
+type Node = {
+  dispatchFileNode: NodeModels[];
+  externalNode: NodeModels[];
+  tree: NodeModels[];
+};
+
 const onlyNumbers = /^[0-9]+$/;
 const generalFolder = 'general-folder';
 const dispatchFolder = 'dispatch-folder';
@@ -97,6 +103,14 @@ const useCruce = () => {
       ext: split[1]?.toLocaleLowerCase(),
     };
   };
+
+  const flatTreeNodes = (nodes: unknown): NodeModels[] => Object.entries(nodes as Node)
+    .reduce<NodeModels[]>(
+    (prev, [, node = []]) => prev.concat(
+      node.filter((x) => x.parent !== '0' && x.id !== 'dispatch-folder-dummy').map((x) => x),
+    ),
+    [],
+  ) || [];
 
   const sortFiles = (filesSort: FileDropZone[]): FileDropZone[] => [...filesSort].sort((a, b) => {
     const { ext: aExt } = extension(a.name);
@@ -679,7 +693,7 @@ const useCruce = () => {
     sendingCrossing = false,
     showConfirmation,
     updateHistoryCreate,
-    onSaveSuccessMessage = t('cruces.onSave.success'),
+    onSaveSuccessMessage = t('cruces.onSave.success') as string,
   }: SubmitProps) => {
     const filesTree = tree.map((node) => getFile(node));
     const filesExternal = externalNode.map((node) => getFile(node));
@@ -824,6 +838,7 @@ const useCruce = () => {
     status,
     setVariables,
     variables,
+    flatTreeNodes,
   };
 };
 

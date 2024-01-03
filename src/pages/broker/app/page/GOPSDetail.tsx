@@ -63,105 +63,103 @@ export default function GOPSDetail() {
 
   return (
     <Suspense fallback={<LoadingBackdrop />}>
-      <DataProvider>
-          <NotificationsProvider>
-            <ReactQuery>
-              <PageContent>
-                <Container maxWidth={false}>
-                  <HeaderDetail
-                    isInvoiced={!!data.operation.isInvoiced}
-                    isAdmin={isAdmin}
-                    OperationNumber={data.operation.number}
-                    OperationStep={data.operation.step}
-                  />
-                  <Container sx={{ minWidth: '100%' }}>
-                    <OperationStep
-                      key="OperationStep"
-                      step={data.operation.step}
-                      timeElapsed={data.operation.timeElapsed}
-                      steps={data.operation.steps}
-                      operationId={id}
-                      number={data.operation.number}
-                      skipStepUsa={data.operation.skipStepUsa}
-                      clientNumber={data.operation.clientNumber}
-                      isInvoiced={data.operation.isInvoiced}
-                      isAdmin={isAdmin}
-                    />
-                  </Container>
-                  <Grid
-                    container
-                    spacing={2}
-                    sx={{
-                      mt: theme.spacing(4),
-                      padding: 0,
-                      marginX: 'auto',
-                      width: '100%',
-                      minWidth: '100%',
-                    }}
+      <NotificationsProvider>
+        <ReactQuery>
+          <PageContent>
+            <Container maxWidth={false}>
+              <HeaderDetail
+                isInvoiced={!!data.operation.isInvoiced}
+                isAdmin={isAdmin}
+                OperationNumber={data.operation.number}
+                OperationStep={data.operation.step}
+              />
+              <Container sx={{ minWidth: '100%' }}>
+                <OperationStep
+                  key="OperationStep"
+                  step={data.operation.step}
+                  timeElapsed={data.operation.timeElapsed}
+                  steps={data.operation.steps}
+                  operationId={id}
+                  number={data.operation.number}
+                  skipStepUsa={data.operation.skipStepUsa}
+                  clientNumber={data.operation.clientNumber}
+                  isInvoiced={data.operation.isInvoiced}
+                  isAdmin={isAdmin}
+                />
+              </Container>
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  mt: theme.spacing(4),
+                  padding: 0,
+                  marginX: 'auto',
+                  width: '100%',
+                  minWidth: '100%',
+                }}
+              >
+                <Box
+                  sx={{
+                    display: 'grid',
+                    gap: 4,
+                    margin: 0,
+                    gridTemplateColumns: {
+                      xs: 'repeat(1, 1fr)',
+                      sm: 'repeat(2, 1fr)',
+                      md: 'repeat(3, 1fr)',
+                      lg: 'repeat(3, 1fr)',
+                    },
+                  }}
+                >
+                  <Board
+                    key="references"
+                    title={t('broker.references')}
                   >
                     <Box
                       sx={{
-                        display: 'grid',
-                        gap: 4,
-                        margin: 0,
-                        gridTemplateColumns: {
-                          xs: 'repeat(1, 1fr)',
-                          sm: 'repeat(2, 1fr)',
-                          md: 'repeat(3, 1fr)',
-                          lg: 'repeat(3, 1fr)',
-                        },
+                        flexGrow: 1, bgcolor: 'background.paper', display: 'flex',
                       }}
                     >
-                      <Board
-                        key="references"
-                        title={t('broker.references')}
-                      >
-                        <Box
-                          sx={{
-                            flexGrow: 1, bgcolor: 'background.paper', display: 'flex',
-                          }}
-                        >
-                          <ReferencesTabsComponent
-                            referencesHistory={data.operation.referencesHistory || []}
-                          />
-                        </Box>
-                      </Board>
-                      <Board title={t('broker.history')} key="history">
-                        <History history={data.operation.history} />
-                      </Board>
-                      <Board title={t('broker.documents')} key="documents">
-                        <Documents documents={data.operation.documents} />
-                      </Board>
-                      <Board
-                        key="abstract"
-                        title={t('broker.chargesLabel')}
-                        actions={(
-                          <StyledButton
-                            startIcon={<AddIcon />}
-                            onClick={() => setOpenExtraCharge(true)}
-                          >
-                            {t('broker.addExtraCharge')}
-                          </StyledButton>
-                      )}
-                      >
-                        <ListExtraCharge resume={data.operation.resume} />
-                      </Board>
+                      <ReferencesTabsComponent
+                        referencesHistory={data.operation.referencesHistory || []}
+                      />
                     </Box>
-                  </Grid>
-                  <DialogComponent
-                    open={openExtraCharge}
-                    title={t('broker.addExtraCharge')}
-                    okButtonVisibility={false}
-                    cancelButtonVisibility={false}
-                    maxWidth="xl"
+                  </Board>
+                  <Board title={t('broker.history')} key="history">
+                    <History history={data.operation.history} />
+                  </Board>
+                  <Board title={t('broker.documents')} key="documents">
+                    <Documents documents={data.operation.documents} />
+                  </Board>
+                  <Board
+                    key="abstract"
+                    title={t('broker.chargesLabel')}
+                    actions={(
+                      <StyledButton
+                        startIcon={<AddIcon />}
+                        onClick={() => setOpenExtraCharge(true)}
+                      >
+                        {t('broker.addExtraCharge')}
+                      </StyledButton>
+                  )}
                   >
-                    <ExtraCharge onClose={() => setOpenExtraCharge(false)} id={id} />
-                  </DialogComponent>
-                </Container>
-              </PageContent>
-            </ReactQuery>
-          </NotificationsProvider>
-        </DataProvider>
+                    <ListExtraCharge resume={data.operation.resume} />
+                  </Board>
+                </Box>
+              </Grid>
+              <DialogComponent
+                open={openExtraCharge}
+                title={t('broker.addExtraCharge')}
+                okButtonVisibility={false}
+                cancelButtonVisibility={false}
+                maxWidth="xl"
+              >
+                <ExtraCharge onClose={() => setOpenExtraCharge(false)} id={id} />
+              </DialogComponent>
+            </Container>
+          </PageContent>
+        </ReactQuery>
+      </NotificationsProvider>
     </Suspense>
   );
 }

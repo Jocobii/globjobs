@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
 import {
-  Grid, Stack, Paper,
+  Stack, Paper, Drawer,
 } from '@mui/material';
 import { History } from '@gsuite/shared/contexts';
+import { NodeModels } from '@gsuite/typings/files';
+
 import PanelHeader from './PanelHeader';
 import PanelBody from './PanelBody';
 
@@ -10,8 +12,15 @@ export interface ContextProps {
   history: History[];
   isCostumer?: boolean;
   isTrafficFlow?: boolean;
-  requiredActionsMenuIsOpen?: boolean
+  requiredActionsMenuIsOpen?: boolean;
   setRequiredActionsMenuIsOpen?: Dispatch<SetStateAction<boolean>>;
+  openHistory?: boolean;
+  setOpenHistory?: Dispatch<SetStateAction<boolean>>;
+  nodes?: {
+    tree?: NodeModels[];
+    externalNode?: NodeModels[];
+    dispatchFileNode?: NodeModels[];
+  },
 }
 
 function Panel({
@@ -20,13 +29,23 @@ function Panel({
   isTrafficFlow = false,
   requiredActionsMenuIsOpen = false,
   setRequiredActionsMenuIsOpen = undefined,
+  openHistory = false,
+  setOpenHistory = () => 1,
+  nodes = {},
 }: ContextProps) {
   return (
-    <Grid item lg={3} md={3} sm={3} xs={3}>
+    <Drawer
+      open={openHistory}
+      onClose={() => setOpenHistory(false)}
+      PaperProps={{ sx: { pb: 5, width: 500 } }}
+      anchor="right"
+      ModalProps={{
+        keepMounted: false,
+      }}
+    >
       <Paper
         elevation={12}
-        sx={{ height: '70vh', borderRadius: 2 }}
-        style={{ backgroundColor: '#00000009' }}
+        sx={{ height: '100vh' }}
       >
         <Stack
           sx={{
@@ -46,9 +65,9 @@ function Panel({
             setRequiredActionsMenuIsOpen={setRequiredActionsMenuIsOpen}
           />
         </Stack>
-        <PanelBody history={history} />
+        <PanelBody history={history} nodes={nodes} />
       </Paper>
-    </Grid>
+    </Drawer>
   );
 }
 

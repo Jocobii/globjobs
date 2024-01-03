@@ -27,6 +27,20 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
       shape: { borderRadius: 8 },
       shadows: isLight ? shadows.light : shadows.dark,
       customShadows: isLight ? customShadows.light : customShadows.dark,
+      '@global': {
+        //scroll style
+        '*::-webkit-scrollbar': {
+          width: '0.4em',
+          height: '0.4em',
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(0,0,0,.1)',
+          borderRadius: '4px',
+        },
+        '*::-webkit-scrollbar-track': {
+          borderRadius: '4px',
+        },
+      }
     }),
     [isLight],
   );
