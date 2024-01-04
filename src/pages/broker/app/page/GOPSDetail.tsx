@@ -20,7 +20,7 @@ import ExtraCharge from '../../components/forms/ExtraCharge';
 import ReferencesTabsComponent from '../../components/Tabs';
 
 const OperationStep = lazy(() => import('../../components/OperationStep'));
-const History = lazy(() => import('../../components/history'));
+const History = lazy(() => import('../../components/history.tsx'));
 const HeaderDetail = lazy(() => import('../../components/HeaderDetail'));
 const Documents = lazy(() => import('../../components/Documents'));
 const ListExtraCharge = lazy(() => import('../../components/ListExtraCharge'));
