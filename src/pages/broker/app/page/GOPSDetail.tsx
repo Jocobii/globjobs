@@ -20,7 +20,7 @@ import ExtraCharge from '../../components/forms/ExtraCharge';
 import ReferencesTabsComponent from '../../components/Tabs';
 
 const OperationStep = lazy(() => import('../../components/OperationStep'));
-const History = lazy(() => import('../../components/history.tsx'));
+// const History = lazy(() => import('../../components/history.tsx'));
 const HeaderDetail = lazy(() => import('../../components/HeaderDetail'));
 const Documents = lazy(() => import('../../components/Documents'));
 const ListExtraCharge = lazy(() => import('../../components/ListExtraCharge'));
@@ -125,7 +125,8 @@ export default function GOPSDetail() {
                     </Box>
                   </Board>
                   <Board title={t('broker.history')} key="history">
-                    <History history={data.operation.history} />
+                    {/* <History history={data.operation.history} /> */}
+                    <p> </p>
                   </Board>
                   <Board title={t('broker.documents')} key="documents">
                     <Documents documents={data.operation.documents} />
