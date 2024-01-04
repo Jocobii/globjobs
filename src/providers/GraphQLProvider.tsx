@@ -9,7 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 
 import { env } from '../config';
 
-const { DEV } = import.meta.env;
+// const { DEV } = import.meta.env;
 
 const getToken = () => {
   const { accessToken } = JSON.parse(localStorage.getItem('@@g-globalization-auth') ?? '{}');
@@ -29,12 +29,12 @@ wsLink.client.on('closed', (e) => console.log(e));
 
 const gateway = new HttpLink({
   uri: `${env.VITE_GATEWAY_URI}`,
-  credentials: DEV ? undefined : 'include',
+  // credentials: DEV ? undefined : 'include',
 });
 
 const globalization = new HttpLink({
   uri: `${env.VITE_GLOBALIZATION_GRAPHQL_URI}`,
-  credentials: DEV ? undefined : 'include',
+  // credentials: DEV ? undefined : 'include',
 });
 
 const authLink = setContext((_, { headers }) => ({

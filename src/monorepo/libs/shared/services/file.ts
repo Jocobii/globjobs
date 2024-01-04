@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 const axios = Axios.create({
   baseURL: '/crossing',
-  withCredentials: true,
+  withCredentials: false,
 });
 
 axios.interceptors.request.use((request) => {
