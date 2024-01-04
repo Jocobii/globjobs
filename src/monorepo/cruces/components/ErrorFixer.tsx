@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NodeModels, Issues } from '@gsuite/typings/files';
 import {
   Dialog,

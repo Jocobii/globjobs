@@ -6,7 +6,7 @@ import { Grid, Stack } from '@mui/material';
 import * as yup from 'yup';
 import { useSnackNotification } from '@gsuite/shared/hooks';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useReasonDelayCrossing } from '@gsuite/shared/services/cruces/resolve-delay';
 import { StatusHistory } from '../../services/cruce-detail';
 
@@ -20,7 +20,7 @@ export default function CancelCruceModal({
   statusHistory,
   crossingId,
   refetch,
-}: Props) {
+}: Readonly<Props>) {
   const isDelay = (): boolean => {
     if (!Array.isArray(statusHistory) || statusHistory.length === 0) return false;
     const lastStatus = statusHistory[statusHistory.length - 1];
@@ -44,7 +44,7 @@ export default function CancelCruceModal({
     register,
     getValues,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });

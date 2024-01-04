@@ -62,7 +62,7 @@ export default function Fop({
     control,
     reset,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
   const skipStep = () => {

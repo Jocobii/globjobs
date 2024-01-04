@@ -75,11 +75,7 @@ export default function InboundEEUU({
   const [oldValue, setOldValue] = useState<ImpusaStep>();
   const schema = Yup.object({
     importType: Yup.string().required(t('broker.importTypeSchema')),
-    entryType: Yup.string().when('importType', {
-      is: (importType: string) => importType === 'Inbond',
-      then: Yup.string().required(t('broker.entryTypeSchema'))
-        .min(7, t('broker.entryTypeMin')),
-    }),
+    entryType: Yup.string(),
     releaseDate: Yup.string().required(t('broker.releaseDateSchema')),
     notes: Yup.string().nullable().optional(),
     references: Yup.string().nullable().optional(),
@@ -93,7 +89,7 @@ export default function InboundEEUU({
     watch,
     getValues,
     reset,
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -120,7 +116,7 @@ export default function InboundEEUU({
       };
 
       reset({
-        ...newImpusa,
+        ...newImpusa as any,
       });
 
       setOldValue({
@@ -206,7 +202,7 @@ export default function InboundEEUU({
     submitFrom();
   };
 
-  const inputAddornment = <InboundValidationIcon loadingEntryType={loadingEntryType} entryType={getValues('entryType')} hasError={hasError} />;
+  const inputAddornment = <InboundValidationIcon loadingEntryType={loadingEntryType} entryType={getValues('entryType') ?? ''} hasError={hasError} />;
   return (
     <Container>
       <form onSubmit={handleSubmit(submitHandler)}>

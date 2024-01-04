@@ -130,13 +130,9 @@ export const formExportFields = {
   startDate: yup.date().nullable().default(null).transform((curr, orig) => (orig === '' ? null : curr)),
   endDate: yup
     .date()
-    .when('startDate', {
-      is: (val: string) => !!val,
-      then: yup.date().min(yup.ref('startDate'), 'La fecha final debe ser mayor a la fecha inicial'),
-    })
     .nullable()
     .default(null)
-    .transform((curr, orig) => (orig === '' ? null : curr)),
+    .transform((curr: any, orig: any) => (orig === '' ? null : curr)),
 };
 
 export const filterSchema = yup.object().shape({
@@ -144,13 +140,9 @@ export const filterSchema = yup.object().shape({
   startDate: yup.date().nullable().default(null).transform((curr, orig) => (orig === '' ? null : curr)),
   endDate: yup
     .date()
-    .when('startDate', {
-      is: (val: string) => !!val,
-      then: yup.date().min(yup.ref('startDate'), 'La fecha final debe ser mayor a la fecha inicial'),
-    })
     .nullable()
     .default(null)
-    .transform((curr, orig) => (orig === '' ? null : curr)),
+    .transform((curr: any, orig: any) => (orig === '' ? null : curr)),
   pedimento: yup.array().of(yup.string()
     .matches(/^[0-9]+$/, ({ value }) => `${value} no es un pedimento valido`)
     .min(7, 'El pedimento debe ser de 7 digitos')

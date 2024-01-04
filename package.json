@@ -14,7 +14,7 @@
     "@apollo/client": "^3.7.17",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@hookform/resolvers": "^3.1.1",
+    "@hookform/resolvers": "3.3.3",
     "@loadable/component": "^5.15.3",
     "@minoru/react-dnd-treeview": "^3.4.4",
     "@mui/icons-material": "^5.14.1",

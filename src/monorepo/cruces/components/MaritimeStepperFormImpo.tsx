@@ -90,7 +90,7 @@ export function MaritimeStepperFormImpo({ crossing, open, handleClose }: Props) 
     formState: { errors },
     setValue,
     handleSubmit,
-  } = useForm<FieldValues>({
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
@@ -145,11 +145,11 @@ export function MaritimeStepperFormImpo({ crossing, open, handleClose }: Props) 
       if (getCompletedStepsValues?.length) {
         getCompletedStepsValues.forEach((step) => {
           if (step.step.key === 'etaDeclaration') {
-            setValue('eta', dayjs(step.data?.eta).format('YYYY-MM-DD').toString());
-            setValue('containerNumber', step.data?.containerNumber);
+            setValue('eta', dayjs(step.data?.eta).format('YYYY-MM-DD').toString() as unknown as Date);
+            setValue('containerNumber', step.data?.containerNumber ?? '');
           }
           if (step.step.key === 'awaitingAppointmentForInspection') {
-            setValue('appointmentDate', dayjs(step.data?.appointmentDate).format('YYYY-MM-DD').toString());
+            setValue('appointmentDate', dayjs(step.data?.appointmentDate).format('YYYY-MM-DD').toString() as unknown as Date);
           }
           if (step.step.key === 'arrivedAndWaitingForUnload') {
             setRadioValue(step.data?.inspection ? 'yes' : 'no');

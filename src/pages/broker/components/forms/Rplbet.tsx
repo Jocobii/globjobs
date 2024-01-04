@@ -64,7 +64,7 @@ export default function Rplbet({ handleClose, handleCreateOperation }: Props) {
     formState: { errors },
     control,
     reset,
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
 

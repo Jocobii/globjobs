@@ -31,14 +31,14 @@ function FileTagger({
   firstDigitized = false,
   setHasProforma = () => null,
   setDisabled = () => null,
-}: Props) {
+}: Readonly<Props>) {
   const { t } = useTranslation();
   const { data: catalogTags } = useGetCatalog('tagsORC');
   const filesToSimpleNode = (myFiles: FileDropZone[]) => myFiles.map((file) => ({
-    id: file?.id || '',
-    name: file?.name || '',
+    id: file?.id ?? '',
+    name: file?.name ?? '',
     tags: defaultTags,
-    type: file.type || '',
+    type: file.type ?? '',
     key: file.name.split('.')[0],
     firstDigitized,
   }));
@@ -94,7 +94,7 @@ function FileTagger({
     formState: {
       errors,
     },
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema) as any,
   });
 

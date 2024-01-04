@@ -112,7 +112,7 @@ export default function AddCruce({
     control,
     watch,
     resetField,
-  } = useForm<FieldValues>({
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
@@ -359,7 +359,7 @@ export default function AddCruce({
                 }}
                 onSelect={(value) => {
                   // clear customerUser field
-                  setValue('customerUser', '');
+                  setValue('customerUser', {_id: '', name: '', lastName: ''});
                   // clear team field
                   resetField('customerUser');
                   if (!value?.includes('-')) return;
@@ -386,7 +386,7 @@ export default function AddCruce({
                 }}
                 valueSerializer={(user: { name: string, lastName: string }) => {
                   if (user) {
-                    setValue('user', user);
+                    setValue('customerUser', user as any);
                     return user;
                   }
                   return null;

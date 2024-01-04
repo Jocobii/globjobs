@@ -34,7 +34,7 @@ export default function SubExtraCharge({ handlerAddCharge }: Props) {
     formState: { errors },
     control,
     reset,
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schemaExtra),
   });
   const onSubmitExtra = (formValues: FieldValues) => {

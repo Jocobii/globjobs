@@ -57,7 +57,7 @@ export default function ExtraCharge({ onClose, id }: Props) {
     setValue,
     formState: { errors },
     control,
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
   const getErrorCharges = () => {

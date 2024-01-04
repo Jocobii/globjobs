@@ -114,7 +114,7 @@ export default function ReceivedUsaWarehouse({
     control,
     reset,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
   const [additionalDocs, setAdditionalDocs] = useState<FileDropZone[]>([]);
@@ -173,16 +173,16 @@ export default function ReceivedUsaWarehouse({
   const AddReceived = () => {
     const { receiptNumbers } = getValues();
     if (!receiptNumbers) {
-      setValue('receiptNumbers', [receiptFound]);
+      setValue('receiptNumbers', [receiptFound as any]);
     } else {
-      const repeatedIndex = receiptNumbers.findIndex((receive: ReceivedType) => receive?.number
+      const repeatedIndex = receiptNumbers.findIndex((receive: any) => receive?.number
       === receiptFound?.number);
       if (repeatedIndex >= 0) {
         setSnackBar('error', t('broker.duplicatedReceive'), 3000);
         setValue('receiptNumber', '');
         return setReceiptFound(undefined);
       }
-      setValue('receiptNumbers', [receiptFound, ...getValues('receiptNumbers')]);
+      setValue('receiptNumbers', [receiptFound, ...getValues('receiptNumbers') as any]);
     }
 
     setValue('receiptNumber', '');
@@ -425,7 +425,7 @@ export default function ReceivedUsaWarehouse({
                     },
                   }}
                 >
-                  {getValues('receiptNumbers')?.map((received: ReceivedType, index: number) => (
+                  {getValues('receiptNumbers')?.map((received: any, index: number) => (
                     <ListItem key={`${received.number + index} - ${received.receivedDate}`}>
                       <ListItemText primary={received.number} secondary={received.receivedDate} />
                     </ListItem>

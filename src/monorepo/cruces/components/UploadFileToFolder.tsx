@@ -796,7 +796,6 @@ export default function UploadFileToFolder({
                 getTaggerFiles={setTaggersFile}
                 setHasProforma={setHasProforma}
                 setDisabled={setDisabled}
-                setHasEntrySummary={setHasEntrySummary}
               />
             </DialogContent>
           ) : <p> </p>

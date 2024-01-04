@@ -99,7 +99,7 @@ export default function CollectionTransport({
     setError,
     reset,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
   let inputAddornment = null;
@@ -171,7 +171,7 @@ export default function CollectionTransport({
           additionalFiles,
         };
 
-        reset(stepThreeInfo);
+        reset(stepThreeInfo as any);
 
         setOldValue({
           notes,

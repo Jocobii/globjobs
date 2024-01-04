@@ -32,7 +32,7 @@ export default function AssignSpecialist({
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FieldValues>({
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });

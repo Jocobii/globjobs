@@ -63,7 +63,7 @@ export default function ArrivalEEUU({
     getValues,
     reset,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -92,7 +92,7 @@ export default function ArrivalEEUU({
         } = data;
 
         reset({
-          pickupAppointment: dayjs(pickupAppointment).format('YYYY-MM-DD').toString(),
+          pickupAppointment: dayjs(pickupAppointment).format('YYYY-MM-DD').toString() as unknown as Date,
           references,
           notes,
         });

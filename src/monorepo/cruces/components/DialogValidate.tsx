@@ -1,7 +1,7 @@
 import { DialogComponent, ControlledAutocomplete } from '@gsuite/shared/ui';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack, Grid, Button } from '@mui/material';
 import { useEffect } from 'react';
@@ -44,7 +44,7 @@ export default function DialogValidate({
     formState: { errors },
     setValue,
     control,
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -126,7 +126,7 @@ export default function DialogValidate({
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => handleConfirm(getValues() as NewData)}
+                  onClick={() => handleConfirm(getValues() as unknown as NewData)}
                 >
                   {t('managements.update_txt_file')}
                 </Button>

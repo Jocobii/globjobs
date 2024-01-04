@@ -133,7 +133,7 @@ export function Filters({ open, onClose, handleSubmitForm }: Props) {
                   label="Pedimento"
                   control={control}
                   freeSolo
-                  customErrorHelperText={errors[formFields.pedimento]}
+                  // customErrorHelperText={errors[formFields.pedimento]}
                   key="actions-autocomplete"
                   optionLabel={(actionValue: any) => {
                     if (actionValue) {
@@ -196,7 +196,7 @@ export function Filters({ open, onClose, handleSubmitForm }: Props) {
                   options={clavesPedimentos}
                   label="Clave de pedimento"
                   control={control}
-                  customErrorHelperText={errors[formFields.clave]}
+                  // customErrorHelperText={errors[formFields.clave]}
                   freeSolo
                   key="actions-autocomplete"
                   optionLabel={(actionValue: any) => {
@@ -218,7 +218,7 @@ export function Filters({ open, onClose, handleSubmitForm }: Props) {
                   options={ADUANAS}
                   label="Aduana"
                   control={control}
-                  customErrorHelperText={errors[formFields.aduana]}
+                  // customErrorHelperText={errors[formFields.aduana]}
                   freeSolo
                   key="actions-autocomplete"
                   optionLabel={(actionValue: any) => {
@@ -240,7 +240,7 @@ export function Filters({ open, onClose, handleSubmitForm }: Props) {
                   options={PATENTES}
                   label="Patente"
                   control={control}
-                  customErrorHelperText={errors[formFields.patente]}
+                  // customErrorHelperText={errors[formFields.patente]}
                   freeSolo
                   key="actions-autocomplete"
                   optionLabel={(actionValue: any) => {

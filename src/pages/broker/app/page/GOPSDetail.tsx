@@ -14,7 +14,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { NotificationsProvider } from '@gsuite/shared/contexts/NotificationsContext';
 import ReactQuery from '@gsuite/shared/providers/ReactQuery';
 import { PageContent, Board, DialogComponent } from '@gsuite/shared/ui';
-import { DataProvider } from '@gsuite/shared/contexts/AppContext';
 import { getUserSession } from '@gsuite/shared/contexts/AuthContext';
 import { useOperation } from '../../services/operation-detail';
 import ExtraCharge from '../../components/forms/ExtraCharge';

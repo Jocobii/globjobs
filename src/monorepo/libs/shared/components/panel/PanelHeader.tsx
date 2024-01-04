@@ -76,7 +76,7 @@ export default function PanelHeader({
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
           <Grid item xs zeroMinWidth>
-            <Typography sx={{ fontSize: '10px', fontWeight: 'bold' }}>{t<string>('cruces.history.client')}</Typography>
+            <Typography sx={{ fontSize: '10px', fontWeight: 'bold' }}>{t('cruces.history.client')}</Typography>
           </Grid>
           <Grid container spacing={1} sx={{ mt: 1 }}>
             <Grid item>
@@ -89,7 +89,7 @@ export default function PanelHeader({
         </Grid>
         <Grid item xs={6}>
           <Grid item xs zeroMinWidth>
-            <Typography sx={{ fontSize: '10px', fontWeight: 'bold' }}>{t<string>('cruces.history.specialist')}</Typography>
+            <Typography sx={{ fontSize: '10px', fontWeight: 'bold' }}>{t('cruces.history.specialist')}</Typography>
           </Grid>
           <SpecialistAvatar
             specialist={

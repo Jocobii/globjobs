@@ -82,7 +82,7 @@ export function MaritimeStepperFormExpo({ crossing, open, handleClose }: Props) 
     formState: { errors },
     setValue,
     handleSubmit,
-  } = useForm<FieldValues>({
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
@@ -135,11 +135,11 @@ export function MaritimeStepperFormExpo({ crossing, open, handleClose }: Props) 
       if (getCompletedStepsValues?.length) {
         getCompletedStepsValues.forEach((step) => {
           if (step.step.key === 'applicationForPortEntry') {
-            setValue('closingDate', dayjs(step.data?.closingDate).format('YYYY-MM-DD HH:mm:ss').toString());
-            setValue('containerNumber', step.data?.containerNumber);
+            setValue('closingDate', dayjs(step.data?.closingDate).format('YYYY-MM-DD HH:mm:ss').toString() as unknown as Date);
+            setValue('containerNumber', step.data?.containerNumber ?? '');
           }
           if (step.step.key === 'ballotReleasedAndAwaitingDeparture') {
-            setValue('sailingDate', dayjs(step.data?.sailingDate).format('YYYY-MM-DD').toString());
+            setValue('sailingDate', dayjs(step.data?.sailingDate).format('YYYY-MM-DD').toString() as unknown as Date);
           }
         });
       }

@@ -47,7 +47,7 @@ function TabsComponent({ referencesHistory = [] }: { referencesHistory?: Detail[
         orientation="vertical"
         variant="scrollable"
         value={value}
-        onChange={(e, newValue) => setValue(newValue)}
+        onChange={(_e, newValue) => setValue(newValue)}
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
         {

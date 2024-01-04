@@ -1,6 +1,6 @@
 import { ControlledTextField } from '@gsuite/shared/ui';
 import * as yup from 'yup';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Stack } from '@mui/material';
 import { useSnackNotification } from '@gsuite/shared/hooks';
@@ -22,7 +22,7 @@ export function CommentInput() {
     getValues,
     resetField,
     formState: { errors, isValid },
-  } = useForm<FieldValues>({
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });

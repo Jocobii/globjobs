@@ -32,10 +32,6 @@ export default function CustomExportDrawer({ open, onClose }: Props) {
     startDate: yup.date().nullable().default(null).transform((curr, orig) => (orig === '' ? null : curr)),
     endDate: yup
       .date()
-      .when('startDate', {
-        is: (val: string) => !!val,
-        then: yup.date().min(yup.ref('startDate'), 'La fecha final debe ser mayor a la fecha inicial'),
-      })
       .nullable()
       .default(null)
       .transform((curr, orig) => (orig === '' ? null : curr)),
@@ -61,7 +57,7 @@ export default function CustomExportDrawer({ open, onClose }: Props) {
   const handleDownload = async () => {
     const { client, startDate, endDate } = getValues();
     try {
-      const fileResponse = await reportCrossing(client, startDate, endDate);
+      const fileResponse = await reportCrossing(client as string[], startDate as Date, endDate as Date);
       if (fileResponse && fileResponse.size > 0) {
         const link = document.createElement('a');
         const url = window.URL.createObjectURL(fileResponse);

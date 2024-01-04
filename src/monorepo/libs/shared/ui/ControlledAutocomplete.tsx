@@ -24,6 +24,19 @@ type Props = {
   sx?: SxProps;
   isOptionEqualToValue?: (option: any, value: any) => boolean;
   renderOptions?: ((props: object, option: any) => JSX.Element) | null;
+  customErrorHelperText?: any ;
+};
+
+const getErrorHelperText = (errors: any) => {
+  if (!errors) {
+    return null;
+  }
+  return errors.map((error: any) => {
+    if (error?.message) {
+      return error.message;
+    }
+    return null;
+  }).filter((e: any) => Boolean(e)).join(', ');
 };
 
 export default function ControlledAutocomplete({
@@ -45,10 +58,20 @@ export default function ControlledAutocomplete({
   multiple = false,
   isOptionEqualToValue = () => false,
   renderOptions = null,
+  customErrorHelperText = null,
 }: Props) {
   const theme = useTheme();
   const color = theme.palette.mode !== 'light' ? '#000' : '#fff';
   let errorHelperText = errors[name]?.message;
+
+  if (Array.isArray(errors[name])) {
+    errorHelperText = errors[name].map((error: any) => {
+      if (error?.message) {
+        return error.message;
+      }
+      return null;
+    }).filter((e: any) => Boolean(e)).join(', ');
+  }
 
   // If name is part of array of fields
   if (name.includes('[')) {
@@ -105,8 +128,8 @@ export default function ControlledAutocomplete({
                   customOnChange(e.target.value);
                 }
               }}
-              helperText={errorHelperText || infoText}
-              error={!!errorHelperText}
+              helperText={getErrorHelperText(customErrorHelperText) || errorHelperText || infoText}
+              error={!!errorHelperText || !!customErrorHelperText}
               label={label}
               placeholder={placeholder}
             />

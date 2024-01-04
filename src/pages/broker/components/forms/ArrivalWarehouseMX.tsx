@@ -85,7 +85,7 @@ export default function ArrivalWarehouseMX({
     setValue,
     getValues,
     reset,
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
 

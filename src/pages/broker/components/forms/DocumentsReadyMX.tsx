@@ -133,7 +133,7 @@ export default function DocumentsReadyMX({
     formState: { errors },
     control,
     reset,
-  } = useForm<Inputs>({
+  } = useForm({
     defaultValues: {
       arrayFields: [
         {
@@ -195,7 +195,7 @@ export default function DocumentsReadyMX({
     name: 'arrayFields',
   });
 
-  const inputAddornment = <ShipperValidationIcon loadingShipper={loadingShipper} shipper={getValues('shipper')} shipperError={shipperError} />;
+  const inputAddornment = <ShipperValidationIcon loadingShipper={loadingShipper} shipper={getValues('shipper') ?? ''} shipperError={shipperError} />;
 
   const removeArrayField = (index: number) => {
     const filesRemove = arrayOfTxtFiles[index];
@@ -443,7 +443,7 @@ export default function DocumentsReadyMX({
         setShippings(null);
         return setSnackBar('error', 'shipping already added');
       }
-      setValue('shippingOrders', [...shippingOrdersData, shippings]);
+      setValue('shippingOrders', [...shippingOrdersData as any, shippings]);
       setShippings(null);
     }
     return null;

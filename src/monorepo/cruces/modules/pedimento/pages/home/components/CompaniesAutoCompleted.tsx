@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { ControlledAutocomplete } from '@gsuite/shared/ui';
 import * as yup from 'yup';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useFindCompanies } from '@gsuite/shared/services/cruces';
 
@@ -19,7 +19,7 @@ export function CompaniesAutoCompleted({ setSapNumber }: Props) {
 
     formState: { errors },
     control,
-  } = useForm<FieldValues>({
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });

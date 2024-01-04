@@ -70,7 +70,7 @@ export default function Raet({ handleClose, handleCreateOperation }: Props) {
     formState: { errors },
     control,
     reset,
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
 

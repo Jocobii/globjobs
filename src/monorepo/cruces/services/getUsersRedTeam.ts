@@ -26,7 +26,7 @@ export const getUsersQuery = async (variables: Record<string, unknown>) => {
     {
       teamId,
     },
-  ).then((res) => res.usersByTeam);
+  ).then((res: any) => res.usersByTeam);
 };
 
 type QueryFnType = (params?: Record<string, unknown> | undefined) =>

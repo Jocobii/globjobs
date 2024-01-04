@@ -4,7 +4,6 @@ import {
 import { lazy } from 'react';
 import { NotificationsProvider } from '@gsuite/shared/contexts/NotificationsContext';
 import { PageContent } from '@gsuite/shared/ui';
-import { DataProvider } from '@gsuite/shared/contexts/AppContext';
 
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';

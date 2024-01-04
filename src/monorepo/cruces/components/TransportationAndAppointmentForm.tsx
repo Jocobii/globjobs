@@ -35,7 +35,7 @@ interface Props {
 export function TransportationAndAppointmentForm({
   crossingId, maritimeFlow, existsDodaFile,
   open, handleClose,
-}: Props) {
+}: Readonly<Props>) {
   const { successMessage, errorMessage } = useSnackNotification();
   const lastStepCompleted = () => {
     if (!maritimeFlow) {
@@ -76,7 +76,7 @@ export function TransportationAndAppointmentForm({
     setValue,
     handleSubmit,
     control,
-  } = useForm<FieldValues>({
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
