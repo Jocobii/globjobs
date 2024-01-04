@@ -22,6 +22,7 @@ export default function DrawerForm({
   const { mutateAsync: createModule } = useCreateModule();
   const isUpdate = moduleId && moduleId !== 'create';
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleSubmit = (data: Module) => {
     if (isUpdate) {
       updateModule({ data, moduleId });

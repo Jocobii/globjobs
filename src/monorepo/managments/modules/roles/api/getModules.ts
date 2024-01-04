@@ -29,11 +29,11 @@ export const restfulModules = async () => request<Responses>(
 
 type QueryFnType = () => Promise<Module[]>;
 
-type useGetModulesOptions = {
+type UseGetModulesOptions = {
   config?: QueryConfig<QueryFnType>;
 };
 
-export function useGetModules({ config }: useGetModulesOptions = {}) {
+export function useGetModules({ config }: UseGetModulesOptions = {}) {
   return useQuery<ExtractFnReturnType<QueryFnType>>({
     ...config,
     queryKey: ['modules'],

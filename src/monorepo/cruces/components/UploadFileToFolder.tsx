@@ -81,7 +81,7 @@ export default function UploadFileToFolder({
   const [isOnlyTxt, setIsOnlyTxt] = useState(false);
   const [amount, setAmount] = useState<number>(0);
   const [hasProforma, setHasProforma] = useState<boolean>(false);
-  const [hasEntrySummary, setHasEntrySummary] = useState<boolean>(false);
+  const [hasEntrySummary] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const { setSnackBar } = useContext(NotificationsContext);
   const { t } = useTranslation();

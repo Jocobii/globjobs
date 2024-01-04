@@ -59,6 +59,7 @@ export default function useFormHook({
   });
 
   watch(({
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     type, sectors, defaultPaymentMethod, merchandiseOption, uens,
   }) => {
     const uensOptions = UENS_OPTIONS.filter(({ key }) => {
@@ -101,6 +102,7 @@ export default function useFormHook({
     }
   }, [companySap, data, reset, edit]);
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const onSubmit = async (data: Companies) => {
     if (edit && !openConfirm) {
       setOpenConfirm(true);

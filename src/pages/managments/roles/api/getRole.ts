@@ -41,7 +41,8 @@ query GetRole(
 }
 `;
 
-export const role = async (id: string) => graphqlGatewayClient.request<Response>(roleDocument, { id }).then((res) => res.role);
+export const role = async (id: string) => graphqlGatewayClient
+  .request<Response>(roleDocument, { id }).then((res) => res.role);
 
 type QueryFnType = typeof role;
 

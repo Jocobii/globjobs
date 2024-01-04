@@ -60,7 +60,7 @@ query($page: Int, $pageSize: Int, $sort: String, $filter: [FilterInput!], $filte
 type FilterOption = {
   variables?: Record<string, unknown>;
 };
-type crossingList = {
+type CrossingList = {
   page: number;
   pageSize: number;
   rows: CreateCrossingType[] | [];
@@ -68,7 +68,7 @@ type crossingList = {
   totalPages: number;
 };
 
-const emptyResponse: crossingList = {
+const emptyResponse: CrossingList = {
   page: 1,
   pageSize: 1,
   rows: [],
@@ -77,7 +77,7 @@ const emptyResponse: crossingList = {
 };
 
 type CruceListResponse = {
-  crossingList: crossingList | undefined;
+  crossingList: CrossingList | undefined;
 };
 
 export const useCrucesList = ({ variables } : FilterOption) => {

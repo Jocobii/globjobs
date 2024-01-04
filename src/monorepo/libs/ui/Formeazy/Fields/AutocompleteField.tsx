@@ -72,6 +72,7 @@ function SelectField({
               value={value ?? ''}
               InputLabelProps={InputLabelProps}
               InputProps={InputProps}
+              // eslint-disable-next-line react/jsx-no-duplicate-props
               inputProps={inputProps}
             />
           )}

@@ -5,6 +5,7 @@ export function difference<T>(a: T, b: T) {
     const valueA = a[key];
     const valueB = b[key];
     if (valueA !== valueB) {
+      // eslint-disable-next-line no-param-reassign
       acc[key] = b[key];
     }
     return acc;

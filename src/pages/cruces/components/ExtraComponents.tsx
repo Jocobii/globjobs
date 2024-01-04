@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { Stack, Tab, Tabs } from '@mui/material';
 import { useState, SyntheticEvent } from 'react';
 import {

@@ -18,7 +18,6 @@ import { useForm as useForms } from '../hooks/useForm';
 type Props = {
   onSubmit: SubmitHandler<Menu>;
   rowId?: string,
-  initialValues?: Menu,
 };
 
 export default function Update({ rowId, onSubmit }: Props) {

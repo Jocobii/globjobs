@@ -56,7 +56,12 @@ export function FormProvider({ children }: Readonly<ContextProps>) {
       changeDisableShippingInvoice: (value) => setDisableShippingInvoice(value),
       changeDisableShippingSupplier: (value) => setDisableShippingSupplier(value),
     }),
-    [tab, typeSelect, disableEntryInvoice, disableEntrySupplier, disableShippingInvoice, disableShippingSupplier],
+    [
+      tab,
+      typeSelect,
+      disableEntryInvoice,
+      disableEntrySupplier, disableShippingInvoice, disableShippingSupplier,
+    ],
   );
 
   return (

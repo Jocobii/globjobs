@@ -13,6 +13,7 @@ export default function DrawerForm({ open, onClose, departmentId = undefined }: 
   const { data } = useGetDepartment({ departmentId });
 
   const isUpdate = departmentId && departmentId !== 'create';
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleSubmit = (data: Department) => {
     if (isUpdate) {
       updateDepartment({ data, departmentId });

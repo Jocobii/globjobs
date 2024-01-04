@@ -259,8 +259,8 @@ export default function CollectionTransport({
         isCreateOperation,
       },
       onError: (error) => {
-        if (error?.graphQLErrors[0]?.extensions['key']) {
-          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions['key']}`));
+        if (error?.graphQLErrors[0]?.extensions.key) {
+          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions.key}`));
         } else {
           setSnackBar('error', t('broker.transportCollectionError'));
         }

@@ -8,7 +8,7 @@ import { useDataGrid, useCustomNavigate } from '@/hooks';
 import { useCrucesList } from '../hooks/react-query-cruces-list';
 import { getUserName } from '../adapters';
 import DataGrid from '../../../components/datagrid/DataGrid';
-import ButtonToolbar from './ButtonToolbar';
+import ButtonToolbar2 from './ButtonToolbar';
 import { ExtraComponents } from './ExtraComponents';
 
 function Home() {
@@ -152,7 +152,7 @@ function Home() {
       rows={data?.rows ?? []}
       loading={isLoading || isFetching}
       actions={[
-        <ButtonToolbar key="ButtonAdd" action="crear-operacion" actionFunction={actionFunction} />,
+        <ButtonToolbar2 key="ButtonAdd" action="crear-operacion" actionFunction={actionFunction} />,
       ]}
       onRowDoubleClickUrl="/cruces"
       mode="server"

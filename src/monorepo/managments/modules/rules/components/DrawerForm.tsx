@@ -11,6 +11,7 @@ export default function DrawerForm({ open, onClose, ruleId = undefined }: Props)
   const { mutateAsync: updatedRule } = useUpdateRule();
   const { mutateAsync: createRule } = useCreateRule();
   const isUpdate = ruleId && ruleId !== 'create';
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleSubmit = (data: Rule) => {
     if (isUpdate) {
       updatedRule({ data, ruleId });

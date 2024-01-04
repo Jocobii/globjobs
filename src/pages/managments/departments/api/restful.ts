@@ -19,7 +19,8 @@ const restfulDepartmentsDocument = gql`
   }
 `;
 
-export const restfulDepartments = async () => graphqlGatewayClient.request<RestfulDepartmentsResponse>(restfulDepartmentsDocument);
+export const restfulDepartments = async () => graphqlGatewayClient
+  .request<RestfulDepartmentsResponse>(restfulDepartmentsDocument);
 
 type QueryFnType = () => Promise<RestfulDepartmentsResponse>;
 

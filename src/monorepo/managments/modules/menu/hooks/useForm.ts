@@ -21,7 +21,9 @@ export function useForm() {
     if (modulesData) {
       setModulesOptions(
         modulesData.modulesRestful
-          .filter((row: Partial<Module>) => row.environment && row.environment.id === environment.id),
+          .filter((
+            row: Partial<Module>,
+          ) => row.environment && row.environment.id === environment.id),
       );
     }
   };

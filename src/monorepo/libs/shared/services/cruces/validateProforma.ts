@@ -1,5 +1,5 @@
 import { FileDropZone } from '@gsuite/typings/files';
-import axios from '@/clients/axios-globalization'
+import axios from '@/clients/axios-globalization';
 
 type ParamsNodes = {
   files?: FileDropZone[],

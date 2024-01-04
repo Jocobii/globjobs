@@ -12,16 +12,16 @@ import {
   GoogleButton,
   Header,
   RootContainer,
-  Section,
+  // Section,
   ForgotButton,
 } from '../components';
 import SignInForm from '@/components/SignInForm';
 import useAuthentication from '@/hooks/useAuthentication';
-import { logo_gglobal, logoglobalization, logistics } from '@/assets';
+import { logo_gglobal, logoglobalization } from '@/assets';
 
 export default function SignInPage() {
   const smUp = useResponsive('up', 'sm');
-  const mdUp = useResponsive('up', 'md');
+  // const mdUp = useResponsive('up', 'md') ?? false;
   const { handleGoogleLogin, errorMessage, isLoading } = useAuthentication();
 
   return (
@@ -39,24 +39,22 @@ export default function SignInPage() {
           }}
         />
       </Header>
-      <>
-        {mdUp && (
-          <Section>
-            <img
-              src={logistics}
-              alt="Globalization"
-              loading="lazy"
-              style={{
-                width: '65%',
-                height: '65%',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                marginTop: '8%',
-              }}
-            />
-          </Section>
-        )}
-      </>
+      {/* {mdUp && (
+        <Section>
+          <img
+            src={logistics}
+            alt="Globalization"
+            loading="lazy"
+            style={{
+              width: '65%',
+              height: '65%',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              marginTop: '8%',
+            }}
+          />
+        </Section>
+      )} */}
       <Container maxWidth="md" sx={{ backgroundColor: '#fff' }}>
         <Content spacing={2}>
           <img

@@ -9,7 +9,7 @@ import SdCardIcon from '@mui/icons-material/SdCard';
 import LabelIcon from '@mui/icons-material/Label';
 import Checkbox from '@mui/material/Checkbox';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { ControlledAutocomplete, Conditional } from '@gsuite/shared/ui';
 import { FileDropZone, SimpleNode } from '@gsuite/typings/files';
 import { getTagsFiles } from '../services/cruces/crossingTags';

@@ -38,7 +38,8 @@ const restfulRolesDocument = gql`
 }
 `;
 
-export const restfulRoles = async (): Promise<RestfulRolesResponse> => graphqlGatewayClient.request<RestfulRolesResponse>(restfulRolesDocument);
+export const restfulRoles = async (): Promise<RestfulRolesResponse> => graphqlGatewayClient
+  .request<RestfulRolesResponse>(restfulRolesDocument);
 
 type QueryFnType = () => Promise<RestfulRolesResponse>;
 

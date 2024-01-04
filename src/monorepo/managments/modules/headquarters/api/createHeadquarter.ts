@@ -32,7 +32,9 @@ export const createHeadquarterMutationDocument = gql`
   }
 `;
 
-export const createHeadquarter = ({ data }: CreateHeadquarterDto): Promise<Headquarter> => request<any>(
+export const createHeadquarter = ({
+  data,
+}: CreateHeadquarterDto): Promise<Headquarter> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   createHeadquarterMutationDocument,
   {

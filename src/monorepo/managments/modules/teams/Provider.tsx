@@ -14,10 +14,10 @@ export default function Provider() {
       fallback={<DataGridSkeleton />}
     >
       <SnackbarProvider maxSnack={3}>
-          <ReactQuery>
-            <ListPage />
-          </ReactQuery>
-        </SnackbarProvider>
+        <ReactQuery>
+          <ListPage />
+        </ReactQuery>
+      </SnackbarProvider>
     </Suspense>
   );
 }

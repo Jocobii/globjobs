@@ -4,7 +4,7 @@ import {
 } from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { NodeModels } from '@gsuite/typings/files';
 import { isBoolean, isEqual } from 'lodash';
@@ -359,7 +359,9 @@ export default function AddCruce({
                 }}
                 onSelect={(value) => {
                   // clear customerUser field
-                  setValue('customerUser', {_id: '', name: '', lastName: ''});
+                  setValue('customerUser', {
+                    _id: '', name: '', lastName: '',
+                  });
                   // clear team field
                   resetField('customerUser');
                   if (!value?.includes('-')) return;

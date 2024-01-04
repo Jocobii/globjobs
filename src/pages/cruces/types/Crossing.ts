@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { z } from 'zod';
 import { userSchema, StatusSchema } from '@/typings';
 import { nodeSchema } from '@/typings/schemas/Node';

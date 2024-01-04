@@ -82,7 +82,8 @@ export default function useForm({ roleId }: Props) {
 
     setNotifications({
       ...notifications,
-      notifications: notifications.notifications.map((module) => updateModule(module, modulo, permission, checked)),
+      notifications: notifications.notifications
+        .map((module) => updateModule(module, modulo, permission, checked)),
     });
   };
 

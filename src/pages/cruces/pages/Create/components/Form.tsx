@@ -57,10 +57,10 @@ export function Form({ files, setFiles, setCrossingValues }: Props) {
                     errors={errors}
                   >
                     {crossingType.map((cruceType) => (
-                        <MenuItem key={cruceType} value={cruceType}>
-                          {cruceType}
-                        </MenuItem>
-                      ))}
+                      <MenuItem key={cruceType} value={cruceType}>
+                        {cruceType}
+                      </MenuItem>
+                    ))}
                   </ControlledSelect>
                 </Stack>
                 <ControlledAutocomplete

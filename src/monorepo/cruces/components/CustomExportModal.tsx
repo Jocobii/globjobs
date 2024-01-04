@@ -57,7 +57,11 @@ export default function CustomExportDrawer({ open, onClose }: Props) {
   const handleDownload = async () => {
     const { client, startDate, endDate } = getValues();
     try {
-      const fileResponse = await reportCrossing(client as string[], startDate as Date, endDate as Date);
+      const fileResponse = await reportCrossing(
+        client as string[],
+        startDate as Date,
+        endDate as Date,
+      );
       if (fileResponse && fileResponse.size > 0) {
         const link = document.createElement('a');
         const url = window.URL.createObjectURL(fileResponse);

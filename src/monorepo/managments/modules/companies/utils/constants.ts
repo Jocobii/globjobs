@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { Companies } from '../types';
 
 interface Sector {
@@ -309,12 +310,12 @@ export const UENS = [
   },
 ];
 
-type uensOptions = {
+type UensOptions = {
   label: string;
   key: keyof Companies['uens'];
 };
 
-export const UENS_OPTIONS: uensOptions[] = [
+export const UENS_OPTIONS: UensOptions[] = [
   {
     label: 'AA Mexicano',
     key: 'aamx',

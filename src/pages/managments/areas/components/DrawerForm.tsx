@@ -40,6 +40,7 @@ export function DrawerForm({ open, onClose, areaId = undefined }: CreateDrawerPr
   const { data: departmentsData } = useRestfulDepartments();
   const isUpdate = areaId && areaId !== 'create';
   console.log('isUpdate', isUpdate, areaId);
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const onSubmit = (data: Area) => {
     console.log('onSubmit', data);
     if (isUpdate) {

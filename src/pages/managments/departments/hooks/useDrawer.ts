@@ -7,6 +7,7 @@ export function useDrawer() {
 
   const handleDrawerOpen = () => setDepartmentId('create');
   const handleDrawerClose = () => setDepartmentId(undefined);
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleMenuClick = (type: string, departmentId: string) => {
     if (type === 'delete') {
       mutateAsync({ departmentId });

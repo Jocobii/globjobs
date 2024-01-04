@@ -13,11 +13,11 @@ export function App() {
     <Suspense
       fallback={<DataGridSkeleton />}
     >
-        <SnackbarProvider maxSnack={3}>
-          <ReactQuery>
-            <Home />
-          </ReactQuery>
-        </SnackbarProvider>
+      <SnackbarProvider maxSnack={3}>
+        <ReactQuery>
+          <Home />
+        </ReactQuery>
+      </SnackbarProvider>
     </Suspense>
   );
 }

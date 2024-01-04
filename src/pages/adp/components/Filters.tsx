@@ -58,7 +58,6 @@ export function Filters({ open, onClose, handleSubmitForm }: Props) {
     });
   };
 
-  console.log(errors['pedimento']);
   return (
     <Dialogeazy
       open={open}

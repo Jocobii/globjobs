@@ -9,7 +9,9 @@ import {
 export function useCreateOperation(id: string) {
   const navigate = useNavigate();
   const [nodes, setNodes] = useState<NodesSchema>({} as NodesSchema);
-  const [crossingValues, setCrossingValues] = useState<CreateCrossingType>({} as CreateCrossingType);
+  const [
+    crossingValues, setCrossingValues,
+  ] = useState<CreateCrossingType>({} as CreateCrossingType);
   const [files, setFiles] = useState<FileDropZone[]>([]);
   console.log('files', files);
   const onSubmit = useCallback(() => {
@@ -32,7 +34,7 @@ export function useCreateOperation(id: string) {
     data.append('clientNumber', clientNumber);
     data.append('client', client);
     data.append('comments', comments ?? '');
-    files.forEach((file) => data.append('files', file as Blob));
+    files.forEach((file) => data.append('files', file as unknown as Blob));
 
     const config = {
       method: 'post',
@@ -45,6 +47,7 @@ export function useCreateOperation(id: string) {
 
     axios.request(config)
       .then((response) => {
+        // eslint-disable-next-line @typescript-eslint/no-shadow
         const data = nodesSchema.parse(response.data);
         setNodes(data);
         setFiles([]);

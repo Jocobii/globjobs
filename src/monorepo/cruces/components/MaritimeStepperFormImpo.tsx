@@ -4,7 +4,7 @@ import axios from '@gsuite/shared/utils/crossingAxios';
 import dayjs from 'dayjs';
 import * as yup from 'yup';
 import { LoadingButton } from '@mui/lab';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackNotification } from '@gsuite/shared/hooks';
 import { FileDropZone } from '@gsuite/typings/files';

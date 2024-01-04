@@ -30,7 +30,9 @@ export const createDepartmentMutationDocument = gql`
   }
 `;
 
-export const createDepartment = ({ data }: CreateDepartmentDto): Promise<Department> => request<any>(
+export const createDepartment = ({
+  data,
+}: CreateDepartmentDto): Promise<Department> => request<any>(
   `${VITE_GATEWAY_URI}/gq/back-office`,
   createDepartmentMutationDocument,
   {

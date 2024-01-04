@@ -197,8 +197,8 @@ export default function USAMXCrossover({
     await addHistory({
       variables: stepData,
       onError: (error) => {
-        if (error?.graphQLErrors[0]?.extensions['key']) {
-          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions['key']}`));
+        if (error?.graphQLErrors[0]?.extensions.key) {
+          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions.key}`));
         } else {
           setSnackBar('error', t('broker.borderCrossingError'));
         }
@@ -230,8 +230,8 @@ export default function USAMXCrossover({
         isEdit,
       },
       onError: (error) => {
-        if (error?.graphQLErrors[0]?.extensions['key']) {
-          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions['key']}`));
+        if (error?.graphQLErrors[0]?.extensions.key) {
+          setSnackBar('error', t(`broker.${error.graphQLErrors[0].extensions.key}`));
         } else {
           setSnackBar('error', error.message);
         }

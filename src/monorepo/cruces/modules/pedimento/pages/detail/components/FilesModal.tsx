@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import * as yup from 'yup';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { usePedimento } from '../hooks/usePedimento';
 import Tagger from './Tagger';

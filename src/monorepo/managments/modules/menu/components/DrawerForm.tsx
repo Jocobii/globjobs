@@ -17,6 +17,7 @@ export default function DrawerForm({ open, onClose, rowId = undefined }: Props) 
   const { createMenu } = useCreateMenu();
   const isUpdate = rowId && rowId !== 'create';
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   const handleSubmit = (data: Menu) => {
     if (isUpdate) {
       updateMenu({ data, menuId: rowId });

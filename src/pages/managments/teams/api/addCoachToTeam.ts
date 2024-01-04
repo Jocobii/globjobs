@@ -43,7 +43,8 @@ export const AddCoachToTeamDocument = gql`
   }
 `;
 
-export const addCoachToTeam = ({ coachId, teamId }: AddCoachToTeamDto) => graphqlGatewayClient.request<Response>(
+export const addCoachToTeam = ({ coachId, teamId }: AddCoachToTeamDto) => graphqlGatewayClient
+  .request<Response>(
   AddCoachToTeamDocument,
   {
     coachId,

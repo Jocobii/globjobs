@@ -30,7 +30,8 @@ export const updateAddToTeamDocument = gql`
   }
 `;
 
-export const updateAddToTeams = ({ idSpecialist, teamId }: AddToTeamDto) => graphqlGatewayClient.request<Response>(
+export const updateAddToTeams = ({ idSpecialist, teamId }: AddToTeamDto) => graphqlGatewayClient
+  .request<Response>(
   updateAddToTeamDocument,
   {
     idSpecialist,

@@ -15,7 +15,9 @@ const restfulEnvironmentsDocument = gql`
 `;
 
 export const useRestfulEnvironments = (variables?: Record<string, unknown>) => {
-  const { data, refetch, loading } = useQuery<RestfulEnvironmentsResponse>(restfulEnvironmentsDocument, { variables });
+  const {
+    data, refetch, loading,
+  } = useQuery<RestfulEnvironmentsResponse>(restfulEnvironmentsDocument, { variables });
   return {
     data,
     loading,

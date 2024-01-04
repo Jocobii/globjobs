@@ -114,7 +114,7 @@ export function TransportationAndAppointmentForm({
       setLoading(true);
       const dataForm = {
         data: {
-          emails: data['emails'],
+          emails: data.emails,
         },
         needStatusUpdate: !completed[activeStep],
         step: activeStep,

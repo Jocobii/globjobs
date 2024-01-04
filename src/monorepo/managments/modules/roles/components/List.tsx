@@ -71,6 +71,7 @@ export default function List() {
             width: 100,
             renderCell: (row) => {
               const { row: { additional } } = row;
+              // eslint-disable-next-line @typescript-eslint/no-shadow
               const data = additional.find((i:Additional) => i.name === a.name);
               if (data.value) {
                 return <CircleIcon fontSize="small" color="success" />;
