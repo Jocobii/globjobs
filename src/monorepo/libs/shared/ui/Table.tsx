@@ -45,9 +45,9 @@ type Props = {
 export function CustomToolbar() {
   return (
     <GridToolbarContainer>
-      <GridToolbarColumnsButton />
-      <GridToolbarFilterButton />
-      <GridToolbarDensitySelector />
+      <GridToolbarColumnsButton placeholder="" />
+      <GridToolbarFilterButton placeholder="" />
+      <GridToolbarDensitySelector placeholder="" />
       <GridToolbarExport />
     </GridToolbarContainer>
   );

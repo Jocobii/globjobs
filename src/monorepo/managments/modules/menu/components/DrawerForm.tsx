@@ -1,5 +1,5 @@
 import { Dialogeazy } from '@gsuite/ui/Dialogeazy';
-import { useGetMenu } from '../api/getMenu';
+// import { useGetMenu } from '../api/getMenu';
 import { useUpdateMenu } from '../api/updateMenu';
 import { useCreateMenu } from '../api/createMenu';
 import Form from './form';
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function DrawerForm({ open, onClose, rowId = undefined }: Props) {
-  const { data } = useGetMenu({ id: rowId });
+  // const { data } = useGetMenu({ id: rowId });
   const { mutateAsync: updateMenu } = useUpdateMenu();
   const { createMenu } = useCreateMenu();
   const isUpdate = rowId && rowId !== 'create';
@@ -43,7 +43,6 @@ export default function DrawerForm({ open, onClose, rowId = undefined }: Props) 
     >
       <Form
         rowId={rowId}
-        initialValues={data}
         onSubmit={handleSubmit}
       />
     </Dialogeazy>

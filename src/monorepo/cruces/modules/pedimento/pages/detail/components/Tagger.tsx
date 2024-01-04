@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import * as yup from 'yup';
 import LabelIcon from '@mui/icons-material/Label';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { ControlledAutocomplete, Conditional } from '@gsuite/shared/ui';
 import { FileDropZone } from '@gsuite/typings/files';
 import { useGetCatalog } from '@gsuite/shared/services/catalogs';
@@ -29,7 +29,7 @@ function Tagger({
     formState: {
       errors,
     },
-  } = useForm<FieldValues>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
 

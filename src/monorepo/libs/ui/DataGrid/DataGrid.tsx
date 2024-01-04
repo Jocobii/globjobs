@@ -125,9 +125,9 @@ function CustomToolbar({
   return (
     <Box>
       <GridToolbarContainer>
-        <GridToolbarColumnsButton style={{ color }} />
-        <GridToolbarFilterButton style={{ color }} />
-        <GridToolbarDensitySelector style={{ color }} />
+        <GridToolbarColumnsButton style={{ color }} placeholder="" />
+        <GridToolbarFilterButton style={{ color }} placeholder="" />
+        <GridToolbarDensitySelector style={{ color }} placeholder="" />
         <GridToolbarExport style={{ color }} />
         {hasClearFn && (
         <ClearTableConfigBtn isLoading={loading} onClear={onClear} color={color} />
